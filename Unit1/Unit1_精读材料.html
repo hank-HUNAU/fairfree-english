@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 Geological Terminology — 篇章精读</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+    line-height: 1.7;
+    color: #1d1d1f;
+    background: #f5f5f7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    background: #ffffff;
+    color: #1d1d1f;
+    padding: 2.8rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid #e8e8ed;
+  }
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+    color: #1d1d1f;
+  }
+  .header .subtitle {
+    font-size: 1rem;
+    color: #86868b;
+    font-weight: 400;
+  }
+
+  /* ===== Main Layout ===== */
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  /* ===== Section Title ===== */
+  .section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin: 2.5rem 0 1.2rem;
+    letter-spacing: -0.01em;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* ===== Paragraph Card ===== */
+  .para-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: box-shadow 0.25s ease;
+  }
+  .para-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .para-card .en-text {
+    font-size: 0.98rem;
+    text-align: justify;
+    color: #1d1d1f;
+    margin-bottom: 1rem;
+    line-height: 1.85;
+  }
+
+  /* ===== Term Heading inside card ===== */
+  .term-heading {
+    font-weight: 600;
+    color: #0071e3;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ===== Button Row ===== */
+  .btn-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  /* ===== Translation Button ===== */
+  .trans-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.45rem 1.1rem;
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+    font-weight: 500;
+  }
+  .trans-btn:hover { background: #0077ed; }
+  .trans-btn:active { transform: scale(0.97); }
+  .trans-btn svg { width: 14px; height: 14px; }
+
+  /* ===== Modal Overlay ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    animation: fadeIn 0.2s ease;
+  }
+  .modal-overlay.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ===== Modal Content ===== */
+  .modal-content {
+    background: #ffffff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1200px;
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  /* Modal Header */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.8rem;
+    border-bottom: 1px solid #e8e8ed;
+    background: #fafafa;
+    flex-shrink: 0;
+  }
+  .modal-header h3 {
+    font-size: 1rem;
+    color: #1d1d1f;
+    font-weight: 600;
+  }
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #e8e8ed;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #86868b;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: #d2d2d7; }
+
+  /* Modal Body - bilingual split */
+  .modal-body {
+    display: flex;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  .modal-col {
+    flex: 1;
+    padding: 1.5rem 1.8rem;
+    overflow-y: auto;
+  }
+  .modal-col-en {
+    border-right: 1px solid #e8e8ed;
+  }
+  .modal-col-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+  }
+  .modal-col-en .modal-col-label { color: #1d1d1f; border-bottom: 1px solid #e8e8ed; }
+  .modal-col-zh .modal-col-label { color: #0071e3; border-bottom: 1px solid #e8e8ed; }
+  .modal-col p {
+    text-align: justify;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: #1d1d1f;
+  }
+
+  /* ===== Vocab Highlight ===== */
+  .vocab {
+    background: rgba(0,113,227,0.08);
+    border-bottom: 2px solid rgba(0,113,227,0.25);
+    cursor: help;
+    position: relative;
+    padding: 0 2px;
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+  .vocab:hover { background: rgba(0,113,227,0.15); }
+  .vocab .tip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1d1d1f;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    white-space: nowrap;
+    z-index: 100;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    pointer-events: none;
+  }
+  .vocab .tip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1d1d1f;
+  }
+  .vocab:hover .tip { display: block; }
+
+  /* ===== Vocabulary Section ===== */
+  .vocab-section {
+    margin-top: 2.5rem;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.8rem 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .vocab-section h2 {
+    font-size: 1.25rem;
+    color: #1d1d1f;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* ===== Vocab Audio Control Bar ===== */
+  .vocab-audio-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1.2rem;
+    background: #f5f5f7;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    border: 1px solid #e8e8ed;
+  }
+  .vocab-audio-bar .bar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.4rem 0.9rem;
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .vocab-audio-bar .bar-btn:hover { background: #0077ed; }
+  .vocab-audio-bar .bar-btn:active { transform: scale(0.97); }
+  .vocab-audio-bar .bar-btn.active {
+    background: #ff3b30;
+  }
+  .vocab-audio-bar .bar-btn svg { width: 14px; height: 14px; }
+  .vocab-audio-bar .bar-label {
+    font-size: 0.82rem;
+    color: #86868b;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .vocab-audio-bar .bar-label select {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #d2d2d7;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    color: #1d1d1f;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+  .vocab-audio-bar .bar-label select:focus {
+    border-color: #0071e3;
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
+  }
+  .vocab-audio-bar .loop-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: #86868b;
+    cursor: pointer;
+    user-select: none;
+  }
+  .vocab-audio-bar .loop-toggle input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #0071e3;
+    cursor: pointer;
+  }
+  .vocab-audio-bar .play-progress {
+    font-size: 0.78rem;
+    color: #86868b;
+    margin-left: auto;
+  }
+
+  /* ===== Vocabulary Table ===== */
+  .vocab-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.92rem;
+  }
+  .vocab-table thead th {
+    background: #f5f5f7;
+    color: #86868b;
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e8e8ed;
+  }
+  .vocab-table thead th:first-child { border-radius: 10px 0 0 0; }
+  .vocab-table thead th:last-child { border-radius: 0 10px 0 0; }
+  .vocab-table tbody td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #f0f0f5;
+    vertical-align: middle;
+  }
+  .vocab-table tbody tr {
+    transition: background 0.15s;
+  }
+  .vocab-table tbody tr:hover { background: #f5f5f7; }
+  .vocab-table tbody tr.highlight-row {
+    background: rgba(0,113,227,0.08);
+  }
+  .vocab-table .word-col { font-weight: 600; color: #1d1d1f; }
+  .vocab-table .phonetic-col { color: #86868b; font-family: "SF Mono", "Courier New", monospace; font-size: 0.85rem; }
+  .vocab-table .meaning-col { color: #1d1d1f; }
+
+  /* ===== Vocab Row Play Button ===== */
+  .vocab-row-play {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #0071e3;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+  .vocab-row-play:hover { background: #0077ed; }
+  .vocab-row-play:active { transform: scale(0.92); }
+  .vocab-row-play svg { width: 12px; height: 12px; }
+  .vocab-row-play.playing {
+    background: #ff3b30;
+    animation: vocabPulse 1.2s infinite;
+  }
+  @keyframes vocabPulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,59,48,0.3); }
+    70% { box-shadow: 0 0 0 6px rgba(255,59,48,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,59,48,0); }
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    color: #86868b;
+    font-size: 0.8rem;
+  }
+
+  /* ===== Audio Play Button ===== */
+  .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.45rem 1.1rem;
+    background: #1d1d1f;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+    font-weight: 500;
+  }
+  .play-btn:hover { background: #424245; }
+  .play-btn:active { transform: scale(0.97); }
+  .play-btn svg { width: 14px; height: 14px; }
+  .play-btn.playing {
+    background: #ff3b30;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,59,48,0.3); }
+    70% { box-shadow: 0 0 0 8px rgba(255,59,48,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,59,48,0); }
+  }
+
+  /* ===== Global Audio Control Bar ===== */
+  .audio-control-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    color: #1d1d1f;
+    padding: 0.65rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .audio-control-bar label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    color: #1d1d1f;
+  }
+  .audio-control-bar input[type="range"] {
+    width: 120px;
+    accent-color: #0071e3;
+    cursor: pointer;
+  }
+  .audio-control-bar .speed-value {
+    font-weight: 600;
+    min-width: 2.5em;
+    text-align: center;
+    color: #0071e3;
+  }
+  .audio-control-bar .play-status {
+    color: #86868b;
+    font-style: normal;
+    font-size: 0.82rem;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .modal-body { flex-direction: column; }
+    .modal-col-en { border-right: none; border-bottom: 1px solid #e8e8ed; }
+    .modal-content { max-height: 90vh; }
+    .para-card { padding: 1.2rem 1.3rem; }
+    .header h1 { font-size: 1.5rem; }
+    .header { padding: 2rem 1.5rem 1.5rem; }
+    .vocab-table { font-size: 0.82rem; }
+    .vocab-table thead th, .vocab-table tbody td { padding: 0.5rem 0.6rem; }
+    .vocab-audio-bar { gap: 0.6rem; padding: 0.6rem 0.8rem; }
+  }
+  @media (max-width: 600px) {
+    .container { padding: 1rem 0.6rem; }
+    .header { padding: 1.5rem 1rem 1.2rem; }
+    .header h1 { font-size: 1.25rem; }
+    .modal-content { border-radius: 16px; }
+    .modal-col { padding: 1rem; }
+    .vocab-section { padding: 1.2rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<div class="header">
+  <h1>Unit 1 Geological Terminology</h1>
+  <div class="subtitle">地质术语 — 篇章精读 Intensive Reading</div>
+</div>
+
+<!-- ===== Global Audio Control Bar ===== -->
+<div class="audio-control-bar">
+  <label>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08"/></svg>
+    语速：
+    <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.1" value="1.0">
+    <span class="speed-value" id="speedValue">1.0x</span>
+  </label>
+  <span class="play-status" id="playStatus">未在播放</span>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+
+<!-- ==================== 1. Introduction ==================== -->
+<div class="section-title">1. Introduction</div>
+
+<!-- Paragraph 1 -->
+<div class="para-card">
+  <div class="en-text">There are some general geological terms that should be understood for exploration and mining purposes. The simplest form of rock strata is that in which each stratum (layer) of rock is <span class="vocab">superimposed<span class="tip">/ˌsjuːpərɪmˈpəʊzd/ 叠置的</span></span> on another. These are <span class="vocab">conformable beds<span class="tip">整合层</span></span>. Movements of the earth's crust and subsequent weathering and rock displacement provide conditions for mineral formation and relocation into the site where it will be found.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_p1.mp3" data-id="p1" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('p1')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- Paragraph 2 -->
+<div class="para-card">
+  <div class="en-text">The original layers of rock were formed by <span class="vocab">sedimentary<span class="tip">/ˌsedɪˈmentri/ 沉淀物的</span></span> or chemical processes with material from higher land masses being <span class="vocab">redeposited<span class="tip">再沉积</span></span> in lower areas. The beds could then be distorted into <span class="vocab">fold<span class="tip">/fəʊld/ 褶皱</span></span>s to produce <span class="vocab">syncline<span class="tip">/ˈsɪŋklaɪn/ 向斜</span></span>s or <span class="vocab">anticline<span class="tip">背斜</span></span>s. The scale of those movements is such that a single <span class="vocab">fold<span class="tip">/fəʊld/ 褶皱</span></span> producing a synclinal basin may stretch for hundreds of kilometers or may be measured with a wavelength of a few meters.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_p2.mp3" data-id="p2" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('p2')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- Paragraph 3 -->
+<div class="para-card">
+  <div class="en-text">Where the folding is severe the rock is frequently heavily fractured, particularly where it is under tension on the <span class="vocab">crest<span class="tip">/krest/ 顶部</span></span> of an anticlinal stratum or at the base of a synclinal stratum. These weakened zones provide a path for <span class="vocab">igneous<span class="tip">/ˈɪɡniəs/ 火成的</span></span> intrusive rocks or mineral rich solutions to <span class="vocab">permeate<span class="tip">/ˈpɜːmieɪt/ 渗透</span></span> the host rock and produce ore bodies. It is for this reason that many ore bodies have a typical form, such as the <span class="vocab">saddle reef<span class="tip">鞍礁</span></span>s. In practice a <span class="vocab">fault<span class="tip">/fɔːlt/ 断层</span></span> of this magnitude would have many associated smaller <span class="vocab">fault<span class="tip">/fɔːlt/ 断层</span></span>s and fractures that can again give rise to an area favourable for subsequent mineralisation.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_p3.mp3" data-id="p3" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('p3')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- Paragraph 4 -->
+<div class="para-card">
+  <div class="en-text">An <span class="vocab">unconformity<span class="tip">/ˌʌnkənˈfɔːmɪti/ 地层不整合</span></span> is also shown in this case produced by an old shore line. These shore lines were often the location of the <span class="vocab">deposition<span class="tip">/ˌdepəˈzɪʃən/ 沉积</span></span> of coal <span class="vocab">seam<span class="tip">/siːm/ 层</span></span>s in the younger geological eras. It can be seen that it is important to distinguish where a coal <span class="vocab">seam<span class="tip">/siːm/ 层</span></span> has terminated at the edge of a basin or whether it has been interrupted by a <span class="vocab">fault<span class="tip">/fɔːlt/ 断层</span></span> or lost by erosion at an <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span>. <span class="vocab">Outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span>s occur when a series of beds are cut away by general erosion of the surface or <span class="vocab">dissect<span class="tip">/dɪˈsekt/ 切割</span></span>ed by rivers, so that the edges of beds are exposed.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_p4.mp3" data-id="p4" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('p4')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- Paragraph 5 -->
+<div class="para-card">
+  <div class="en-text">After strata have been deposited and mildly disturbed they may be broken up <span class="vocab">orogenic<span class="tip">/ˌɒrəʊˈdʒenɪk/ 造山运动的</span></span> movements. These are the large movements of the earth's crust that are associated with mountain building and sometimes cause eruption or intrusion of <span class="vocab">igneous<span class="tip">/ˈɪɡniəs/ 火成的</span></span> rock with subsequent mineralisation.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_p5.mp3" data-id="p5" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('p5')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- Paragraph 6 -->
+<div class="para-card">
+  <div class="en-text"><span class="vocab">Syngenetic<span class="tip">/ˌsɪndʒɪˈnetɪk/ 同生的</span></span> deposits are those mineral deposits formed contemporaneously with the parent rock and enclosed by it. They can be <span class="vocab">igneous<span class="tip">/ˈɪɡniəs/ 火成的</span></span> or <span class="vocab">sedimentary<span class="tip">/ˌsedɪˈmentri/ 沉淀物的</span></span>. <span class="vocab">Epigenetic<span class="tip">/ˌepɪdʒɪˈnetɪk/ 后生的</span></span> deposits are formed subsequently to the enclosing rock, often by a solution (the mother liquor) penetrating into rocks and depositing minerals. If the solution is a result of <span class="vocab">magmatic<span class="tip">/mæɡˈmætɪk/ 岩浆的</span></span> (<span class="vocab">igneous<span class="tip">/ˈɪɡniəs/ 火成的</span></span>) action it will probably be hot and under pressure and will deposit <span class="vocab">non-ferrous<span class="tip">/ˌnɒnˈferəs/ 有色金属</span></span> minerals. If the solution is a result of <span class="vocab">sedimentary<span class="tip">/ˌsedɪˈmentri/ 沉淀物的</span></span> action it will <span class="vocab">percolate<span class="tip">/ˈpɜːkəleɪt/ 渗透</span></span> downwards causing either chemical changes or direct <span class="vocab">deposition<span class="tip">/ˌdepəˈzɪʃən/ 沉积</span></span>. <span class="vocab">Lateritic<span class="tip">/ˌlætəˈrɪtɪk/ 红土的</span></span> deposits are formed by the leaching away of soluble minerals leaving behind in the laterite a valuable ore, such as nickel or bauxite (aluminium ore). Thus these are normally surface deposits. Although some, such as the iron ores, have been changed and buried so that they are no longer lateritic.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_p6.mp3" data-id="p6" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('p6')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- ==================== 2. Geological Terminology ==================== -->
+<div class="section-title">2. Geological Terminology</div>
+
+<!-- (1) Ore and Gangue -->
+<div class="para-card">
+  <div class="term-heading">(1) Ore and Gangue</div>
+  <div class="en-text">An orebody may contain both desirable metallic minerals and unwanted non-metallic minerals. The metallic minerals form the ore and the unwanted minerals are known as <span class="vocab">gangue<span class="tip">/ɡæŋ/ 脉石</span></span>.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_t1.mp3" data-id="t1" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('t1')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- (2) Mullock -->
+<div class="para-card">
+  <div class="term-heading">(2) Mullock</div>
+  <div class="en-text">An orebody should be known more accurately as mineralisation which comprises economic ore and sub-economic lower grade material. The lower grade material broken during mine development is called <span class="vocab">mullock<span class="tip">/ˈmʌlək/ 废石</span></span> or waste. These terms are sometimes extended to include host rock broken in development drives.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_t2.mp3" data-id="t2" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('t2')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- (3) Disseminated and Massive ores -->
+<div class="para-card">
+  <div class="term-heading">(3) Disseminated and Massive ores</div>
+  <div class="en-text">Where the ore occurs in relatively pure form for example as almost 100 percent lead <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span> (<span class="vocab">galena<span class="tip">/ɡəˈliːnə/ 方铅矿</span></span>) in even small amounts it is said to be <span class="vocab">massive<span class="tip">/ˈmæsɪv/ 块状的</span></span>. If however the ore is spread thinly through a body of rock so that individual <span class="vocab">speck<span class="tip">/spek/ 斑点</span></span>s of the ore are surrounded by a high percentage of rock then this is a <span class="vocab">disseminated<span class="tip">/dɪˈsemɪneɪtɪd/ 浸染状的</span></span> ore. Thus if an ore body is sampled over a narrow width of <span class="vocab">massive<span class="tip">/ˈmæsɪv/ 块状的</span></span> <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s it could show a value of lead in the ore sample of 50 to 60 percent (lead in pure <span class="vocab">galena<span class="tip">/ɡəˈliːnə/ 方铅矿</span></span> is in fact 86.6 percent). Over a greater width it might only show about 20 percent lead because the <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s had become <span class="vocab">disseminated<span class="tip">/dɪˈsemɪneɪtɪd/ 浸染状的</span></span> or dispersed. The <span class="vocab">disseminated<span class="tip">/dɪˈsemɪneɪtɪd/ 浸染状的</span></span> <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s, assayed separately (i.e. analysed for metal content), may only show as little as 0.2 to 0.5 percent lead.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_t3.mp3" data-id="t3" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('t3')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- (4) Cut-off-grade -->
+<div class="para-card">
+  <div class="term-heading">(4) Cut-off-grade</div>
+  <div class="en-text">A gradual <span class="vocab">transition<span class="tip">/trænˈzɪʃən/ 过渡</span></span> of high grade to low grade ore is common and it is not always easy to determine the physical limits of an ore body. Consequently it is necessary to determine the lowest value of metallic or non-metallic mineral content which can be mined economically and use this as the physical limit of the orebody. However this limit will obviously vary with the market value of the ore and the mining methods.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_t4.mp3" data-id="t4" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('t4')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- (5) Gossan -->
+<div class="para-card">
+  <div class="term-heading">(5) Gossan</div>
+  <div class="en-text">Where orebodies <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span> to the surface, particularly in geologically mature areas free of glacial <span class="vocab">deposition<span class="tip">/ˌdepəˈzɪʃən/ 沉积</span></span>, the portion near to the surface may be leached by impure <span class="vocab">percolate<span class="tip">/ˈpɜːkəleɪt/ 渗透</span></span>ing waters and subsequently oxidized. Many metallic ores contain a proportion of iron <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s and these do not leach away but change to iron oxides (<span class="vocab">haematite<span class="tip">/ˈhiːmətaɪt/ 赤铁矿</span></span>, <span class="vocab">goethite<span class="tip">/ˈɡɜːθaɪt/ 针铁矿</span></span> and <span class="vocab">jarosite<span class="tip">/ˈdʒærəsaɪt/ 黄钾铁矾</span></span>). The colour of the oxides varies slightly with the original mineral content, but general end result is a yellowish, brownish, or reddish <span class="vocab">ferruginous<span class="tip">/feˈruːdʒɪnəs/ 含铁的</span></span> capping known as a <span class="vocab">gossan<span class="tip">/ˈɡɒsn/ 铁帽</span></span>. This is generally situated directly over the ore body in arid area, such as in Australia, but in some cases it is transported from the <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span> and has to be traced back.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_t5.mp3" data-id="t5" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('t5')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- (6) Supergene Enrichment -->
+<div class="para-card">
+  <div class="term-heading">(6) Supergene Enrichment</div>
+  <div class="en-text">The minerals leached away from the <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span> often cause a zone of secondary enrichment (generally in the form of <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s) at a depth of 60 to 120m from the surface. This enrichment zone then lies on top of the unaltered primary orebody. Consequently if one in mining or prospecting from the surface for <span class="vocab">non-ferrous<span class="tip">/ˌnɒnˈferəs/ 有色金属</span></span> metallic orebodies, there is consequently a <span class="vocab">transition<span class="tip">/trænˈzɪʃən/ 过渡</span></span> from oxidized ores, which may need special extractive metallurgical processes, to the <span class="vocab">supergene<span class="tip">/ˈsjuːpədʒiːn/ 表生的</span></span> enrichment zone showing high metal contents, and then to the orebody proper which may have a lower metal content again. Thus prospecting with shallow drill holes can give very misleading results.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_t6.mp3" data-id="t6" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('t6')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- (7) Placer and Alluvial Deposits -->
+<div class="para-card">
+  <div class="term-heading">(7) Placer and Alluvial Deposits</div>
+  <div class="en-text">When the primary deposits are brought to the surface by geological methods and then mechanically eroded, they can suffer one of two fates. They may go into solution for subsequent chemical redeposition or they may break up into fairly stable particles which are transported varying distances. Heavy mineral particles, such as gold, settle close to their source. The original falling area, known sometimes as a rock <span class="vocab">scree<span class="tip">/skriː/ 碎石堆</span></span> when situated against a mountain slope, is the <span class="vocab">eluvial<span class="tip">/ɪˈljuːviəl/ 残积的</span></span> region. Further transportation produces the <span class="vocab">placer<span class="tip">/ˈpleɪsə/ 砂矿</span></span> deposits of such as gold and tin, although there appears to be no precise separation of this term from that of <span class="vocab">alluvial<span class="tip">/əˈluːviəl/ 冲积的</span></span> deposits. The <span class="vocab">alluvial<span class="tip">/əˈluːviəl/ 冲积的</span></span> deposits may be found in existing river beds or in old river beds covered with new deposits such as <span class="vocab">basalt<span class="tip">/ˈbæsɔːlt/ 玄武岩</span></span> flows. These buried deposits may be called deep leads as in the state of Victoria, Australia, where much of the gold of the 1850's rush was found.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_t7.mp3" data-id="t7" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('t7')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- (7) continued - beach deposits -->
+<div class="para-card">
+  <div class="en-text">Transportation to the sea followed by wave action produces beach deposits. Mineral sands is the term applied to the heavy sand deposits of <span class="vocab">rutile<span class="tip">/ˈruːtaɪl/ 金红石</span></span>, <span class="vocab">ilmenite<span class="tip">/ˈɪlmənaɪt/ 钛铁矿</span></span> and <span class="vocab">zircon<span class="tip">/ˈzɜːkɒn/ 锆石</span></span>, although they are sometimes colloquially called beach sands. These can be on either existing or old shore lines. Other minerals such as tin or diamonds also are found in beach deposits.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_t7b.mp3" data-id="t7b" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('t7b')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- (8) Bedded Deposits -->
+<div class="para-card">
+  <div class="term-heading">(8) Bedded Deposits</div>
+  <div class="en-text">Chemical and physical <span class="vocab">deposition<span class="tip">/ˌdepəˈzɪʃən/ 沉积</span></span> of consolidated minerals can produce <span class="vocab">bedded deposit<span class="tip">层状矿床</span></span>s which may extend over larger areas. These are minerals such as coal, iron ore, salt or <span class="vocab">potash<span class="tip">/ˈpɒtæʃ/ 钾碱</span></span> deposits, and <span class="vocab">phosphate<span class="tip">/ˈfɒsfeɪt/ 磷酸盐</span></span>s. Limestone required for cement or blast furnace is also a <span class="vocab">bedded deposit<span class="tip">层状矿床</span></span>. Although the dip (slopes) of these <span class="vocab">bedded deposit<span class="tip">层状矿床</span></span>s can be steep, and the beds are broken by <span class="vocab">fault<span class="tip">/fɔːlt/ 断层</span></span>s or other geological disturbances, their lateral extent is usually larger and more continuous than is that of the metallic <span class="vocab">non-ferrous<span class="tip">/ˌnɒnˈferəs/ 有色金属</span></span> deposits.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit1/reading_t8.mp3" data-id="t8" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('t8')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- ===== Vocabulary Table ===== -->
+<div class="vocab-section">
+<h2>Vocabulary Table / 生词表</h2>
+
+<!-- Vocab Audio Control Bar -->
+<div class="vocab-audio-bar">
+  <button class="bar-btn" id="vocabSeqPlayBtn" onclick="toggleVocabSeqPlay()">
+    <svg class="seq-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="seq-icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+    <span id="vocabSeqBtnText">连续播放</span>
+  </button>
+  <button class="bar-btn" id="vocabStopBtn" onclick="stopVocabSeqPlay()" style="background:#86868b;">
+    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+    停止
+  </button>
+  <div class="bar-label">
+    遍数：
+    <select id="vocabRepeatCount">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <label class="loop-toggle">
+    <input type="checkbox" id="vocabLoopToggle">
+    循环
+  </label>
+  <span class="play-progress" id="vocabPlayProgress"></span>
+</div>
+
+<table class="vocab-table">
+<thead>
+<tr><th style="width:5%"></th><th style="width:25%">Word / 词</th><th style="width:30%">Phonetic / 音标</th><th style="width:40%">Meaning / 释义</th></tr>
+</thead>
+<tbody id="vocabTableBody">
+<tr data-vocab-idx="1"><td><button class="vocab-row-play" onclick="playVocabAudio(1, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">superimposed</td><td class="phonetic-col">/ˌsjuːpərɪmˈpəʊzd/</td><td class="meaning-col">叠置的</td></tr>
+<tr data-vocab-idx="2"><td><button class="vocab-row-play" onclick="playVocabAudio(2, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">conformable beds</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">整合层</td></tr>
+<tr data-vocab-idx="3"><td><button class="vocab-row-play" onclick="playVocabAudio(3, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">sedimentary</td><td class="phonetic-col">/ˌsedɪˈmentri/</td><td class="meaning-col">沉淀物的</td></tr>
+<tr data-vocab-idx="4"><td><button class="vocab-row-play" onclick="playVocabAudio(4, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">redeposited</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">再沉积</td></tr>
+<tr data-vocab-idx="5"><td><button class="vocab-row-play" onclick="playVocabAudio(5, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">syncline</td><td class="phonetic-col">/ˈsɪŋklaɪn/</td><td class="meaning-col">向斜</td></tr>
+<tr data-vocab-idx="6"><td><button class="vocab-row-play" onclick="playVocabAudio(6, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">anticline</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">背斜</td></tr>
+<tr data-vocab-idx="7"><td><button class="vocab-row-play" onclick="playVocabAudio(7, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">fold</td><td class="phonetic-col">/fəʊld/</td><td class="meaning-col">褶皱</td></tr>
+<tr data-vocab-idx="8"><td><button class="vocab-row-play" onclick="playVocabAudio(8, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">crest</td><td class="phonetic-col">/krest/</td><td class="meaning-col">顶部</td></tr>
+<tr data-vocab-idx="9"><td><button class="vocab-row-play" onclick="playVocabAudio(9, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">igneous</td><td class="phonetic-col">/ˈɪɡniəs/</td><td class="meaning-col">火成的</td></tr>
+<tr data-vocab-idx="10"><td><button class="vocab-row-play" onclick="playVocabAudio(10, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">permeate</td><td class="phonetic-col">/ˈpɜːmieɪt/</td><td class="meaning-col">渗透</td></tr>
+<tr data-vocab-idx="11"><td><button class="vocab-row-play" onclick="playVocabAudio(11, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">saddle reef</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">鞍礁</td></tr>
+<tr data-vocab-idx="12"><td><button class="vocab-row-play" onclick="playVocabAudio(12, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">fault</td><td class="phonetic-col">/fɔːlt/</td><td class="meaning-col">断层</td></tr>
+<tr data-vocab-idx="13"><td><button class="vocab-row-play" onclick="playVocabAudio(13, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">unconformity</td><td class="phonetic-col">/ˌʌnkənˈfɔːmɪti/</td><td class="meaning-col">地层不整合</td></tr>
+<tr data-vocab-idx="14"><td><button class="vocab-row-play" onclick="playVocabAudio(14, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">deposition</td><td class="phonetic-col">/ˌdepəˈzɪʃən/</td><td class="meaning-col">沉积</td></tr>
+<tr data-vocab-idx="15"><td><button class="vocab-row-play" onclick="playVocabAudio(15, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">seam</td><td class="phonetic-col">/siːm/</td><td class="meaning-col">层</td></tr>
+<tr data-vocab-idx="16"><td><button class="vocab-row-play" onclick="playVocabAudio(16, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">outcrop</td><td class="phonetic-col">/ˈaʊtkrɒp/</td><td class="meaning-col">露头</td></tr>
+<tr data-vocab-idx="17"><td><button class="vocab-row-play" onclick="playVocabAudio(17, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">dissect</td><td class="phonetic-col">/dɪˈsekt/</td><td class="meaning-col">切割</td></tr>
+<tr data-vocab-idx="18"><td><button class="vocab-row-play" onclick="playVocabAudio(18, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">orogenic</td><td class="phonetic-col">/ˌɒrəʊˈdʒenɪk/</td><td class="meaning-col">造山运动的</td></tr>
+<tr data-vocab-idx="19"><td><button class="vocab-row-play" onclick="playVocabAudio(19, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">syngenetic</td><td class="phonetic-col">/ˌsɪndʒɪˈnetɪk/</td><td class="meaning-col">同生的</td></tr>
+<tr data-vocab-idx="20"><td><button class="vocab-row-play" onclick="playVocabAudio(20, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">epigenetic</td><td class="phonetic-col">/ˌepɪdʒɪˈnetɪk/</td><td class="meaning-col">后生的</td></tr>
+<tr data-vocab-idx="21"><td><button class="vocab-row-play" onclick="playVocabAudio(21, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">magmatic</td><td class="phonetic-col">/mæɡˈmætɪk/</td><td class="meaning-col">岩浆的</td></tr>
+<tr data-vocab-idx="22"><td><button class="vocab-row-play" onclick="playVocabAudio(22, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">non-ferrous</td><td class="phonetic-col">/ˌnɒnˈferəs/</td><td class="meaning-col">有色金属</td></tr>
+<tr data-vocab-idx="23"><td><button class="vocab-row-play" onclick="playVocabAudio(23, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">percolate</td><td class="phonetic-col">/ˈpɜːkəleɪt/</td><td class="meaning-col">渗透</td></tr>
+<tr data-vocab-idx="24"><td><button class="vocab-row-play" onclick="playVocabAudio(24, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">lateritic</td><td class="phonetic-col">/ˌlætəˈrɪtɪk/</td><td class="meaning-col">红土的</td></tr>
+<tr data-vocab-idx="25"><td><button class="vocab-row-play" onclick="playVocabAudio(25, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">gangue</td><td class="phonetic-col">/ɡæŋ/</td><td class="meaning-col">脉石</td></tr>
+<tr data-vocab-idx="26"><td><button class="vocab-row-play" onclick="playVocabAudio(26, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">mullock</td><td class="phonetic-col">/ˈmʌlək/</td><td class="meaning-col">废石</td></tr>
+<tr data-vocab-idx="27"><td><button class="vocab-row-play" onclick="playVocabAudio(27, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">galena</td><td class="phonetic-col">/ɡəˈliːnə/</td><td class="meaning-col">方铅矿</td></tr>
+<tr data-vocab-idx="28"><td><button class="vocab-row-play" onclick="playVocabAudio(28, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">sulphide</td><td class="phonetic-col">/ˈsʌlfaɪd/</td><td class="meaning-col">硫化物</td></tr>
+<tr data-vocab-idx="29"><td><button class="vocab-row-play" onclick="playVocabAudio(29, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">speck</td><td class="phonetic-col">/spek/</td><td class="meaning-col">斑点</td></tr>
+<tr data-vocab-idx="30"><td><button class="vocab-row-play" onclick="playVocabAudio(30, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">massive</td><td class="phonetic-col">/ˈmæsɪv/</td><td class="meaning-col">块状的</td></tr>
+<tr data-vocab-idx="31"><td><button class="vocab-row-play" onclick="playVocabAudio(31, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">disseminated</td><td class="phonetic-col">/dɪˈsemɪneɪtɪd/</td><td class="meaning-col">浸染状的</td></tr>
+<tr data-vocab-idx="32"><td><button class="vocab-row-play" onclick="playVocabAudio(32, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">gossan</td><td class="phonetic-col">/ˈɡɒsn/</td><td class="meaning-col">铁帽</td></tr>
+<tr data-vocab-idx="33"><td><button class="vocab-row-play" onclick="playVocabAudio(33, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">haematite</td><td class="phonetic-col">/ˈhiːmətaɪt/</td><td class="meaning-col">赤铁矿</td></tr>
+<tr data-vocab-idx="34"><td><button class="vocab-row-play" onclick="playVocabAudio(34, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">goethite</td><td class="phonetic-col">/ˈɡɜːθaɪt/</td><td class="meaning-col">针铁矿</td></tr>
+<tr data-vocab-idx="35"><td><button class="vocab-row-play" onclick="playVocabAudio(35, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">jarosite</td><td class="phonetic-col">/ˈdʒærəsaɪt/</td><td class="meaning-col">黄钾铁矾</td></tr>
+<tr data-vocab-idx="36"><td><button class="vocab-row-play" onclick="playVocabAudio(36, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">ferruginous</td><td class="phonetic-col">/feˈruːdʒɪnəs/</td><td class="meaning-col">含铁的</td></tr>
+<tr data-vocab-idx="37"><td><button class="vocab-row-play" onclick="playVocabAudio(37, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">supergene</td><td class="phonetic-col">/ˈsjuːpədʒiːn/</td><td class="meaning-col">表生的</td></tr>
+<tr data-vocab-idx="38"><td><button class="vocab-row-play" onclick="playVocabAudio(38, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">transition</td><td class="phonetic-col">/trænˈzɪʃən/</td><td class="meaning-col">过渡</td></tr>
+<tr data-vocab-idx="39"><td><button class="vocab-row-play" onclick="playVocabAudio(39, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">placer</td><td class="phonetic-col">/ˈpleɪsə/</td><td class="meaning-col">砂矿</td></tr>
+<tr data-vocab-idx="40"><td><button class="vocab-row-play" onclick="playVocabAudio(40, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">alluvial</td><td class="phonetic-col">/əˈluːviəl/</td><td class="meaning-col">冲积的</td></tr>
+<tr data-vocab-idx="41"><td><button class="vocab-row-play" onclick="playVocabAudio(41, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">scree</td><td class="phonetic-col">/skriː/</td><td class="meaning-col">碎石堆</td></tr>
+<tr data-vocab-idx="42"><td><button class="vocab-row-play" onclick="playVocabAudio(42, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">eluvial</td><td class="phonetic-col">/ɪˈljuːviəl/</td><td class="meaning-col">残积的</td></tr>
+<tr data-vocab-idx="43"><td><button class="vocab-row-play" onclick="playVocabAudio(43, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">basalt</td><td class="phonetic-col">/ˈbæsɔːlt/</td><td class="meaning-col">玄武岩</td></tr>
+<tr data-vocab-idx="44"><td><button class="vocab-row-play" onclick="playVocabAudio(44, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">rutile</td><td class="phonetic-col">/ˈruːtaɪl/</td><td class="meaning-col">金红石</td></tr>
+<tr data-vocab-idx="45"><td><button class="vocab-row-play" onclick="playVocabAudio(45, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">ilmenite</td><td class="phonetic-col">/ˈɪlmənaɪt/</td><td class="meaning-col">钛铁矿</td></tr>
+<tr data-vocab-idx="46"><td><button class="vocab-row-play" onclick="playVocabAudio(46, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">zircon</td><td class="phonetic-col">/ˈzɜːkɒn/</td><td class="meaning-col">锆石</td></tr>
+<tr data-vocab-idx="47"><td><button class="vocab-row-play" onclick="playVocabAudio(47, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">potash</td><td class="phonetic-col">/ˈpɒtæʃ/</td><td class="meaning-col">钾碱</td></tr>
+<tr data-vocab-idx="48"><td><button class="vocab-row-play" onclick="playVocabAudio(48, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">phosphate</td><td class="phonetic-col">/ˈfɒsfeɪt/</td><td class="meaning-col">磷酸盐</td></tr>
+<tr data-vocab-idx="49"><td><button class="vocab-row-play" onclick="playVocabAudio(49, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">bedded deposit</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">层状矿床</td></tr>
+</tbody>
+</table>
+</div>
+
+</div><!-- end container -->
+
+<!-- ===== Modal ===== -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">段落译文</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-col modal-col-en">
+        <div class="modal-col-label">English / 英文原文</div>
+        <p id="modalEn"></p>
+      </div>
+      <div class="modal-col modal-col-zh">
+        <div class="modal-col-label">中文 / 参考译文</div>
+        <p id="modalZh"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Unit 1 Geological Terminology &mdash; 篇章精读材料</div>
+
+<script>
+const data = {
+  p1: {
+    title: '1. Introduction — Paragraph 1',
+    en: 'There are some general geological terms that should be understood for exploration and mining purposes. The simplest form of rock strata is that in which each stratum (layer) of rock is superimposed on another. These are conformable beds. Movements of the earth\'s crust and subsequent weathering and rock displacement provide conditions for mineral formation and relocation into the site where it will be found.',
+    zh: '了解一些地质术语有利于学习地质勘探和采矿知识。地下岩层最简单的形式是一层岩石叠加在另一层岩石上。这些岩层属整合地层。矿物是随着地壳的运动以及随后的风化和岩石移动而形成的，矿物随后迁移并聚集到当前被发现的地点。'
+  },
+  p2: {
+    title: '1. Introduction — Paragraph 2',
+    en: 'The original layers of rock were formed by sedimentary or chemical processes with material from higher land masses being redeposited in lower areas. The beds could then be distorted into folds to produce synclines or anticlines. The scale of those movements is such that a single fold producing a synclinal basin may stretch for hundreds of kilometers or may be measured with a wavelength of a few meters.',
+    zh: '高处的岩体滚落到低处，通过沉积作用和化学作用最终形成了原始岩层。之后，这些沉积岩层可能会被扭曲成褶皱，从而产生向斜或背斜。这些岩层扭曲运动的规模有大有小，大的向斜盆地的单个褶皱可能延伸数百公里，而小的只有几米。'
+  },
+  p3: {
+    title: '1. Introduction — Paragraph 3',
+    en: 'Where the folding is severe the rock is frequently heavily fractured, particularly where it is under tension on the crest of an anticlinal stratum or at the base of a synclinal stratum. These weakened zones provide a path for igneous intrusive rocks or mineral rich solutions to permeate the host rock and produce ore bodies. It is for this reason that many ore bodies have a typical form, such as the saddle reefs. In practice a fault of this magnitude would have many associated smaller faults and fractures that can again give rise to an area favourable for subsequent mineralisation.',
+    zh: '在褶皱严重的地层，岩石经常出现严重的节理裂隙，特别是在背斜地层顶部或向斜地层底部受到拉伸的岩层其裂隙更加发育。这些节理裂隙发育的弱化带为火成岩或含矿熔岩侵入母岩体，并为成矿提供了通道。正是由于这个原因，许多矿体都有一个典型的形态，如鞍礁状形态。实际上，这种规模的断裂带都伴随有许多较小的断层和裂隙，之后，这些小的断层和裂缝又为成矿提供了条件。'
+  },
+  p4: {
+    title: '1. Introduction — Paragraph 4',
+    en: 'An unconformity is also shown in this case produced by an old shore line. These shore lines were often the location of the deposition of coal seams in the younger geological eras. It can be seen that it is important to distinguish where a coal seam has terminated at the edge of a basin or whether it has been interrupted by a fault or lost by erosion at an outcrop. Outcrops occur when a series of beds are cut away by general erosion of the surface or dissected by rivers, so that the edges of beds are exposed.',
+    zh: '图中还展示了一个由古海岸线形成的不整合面。这些海岸线往往是较新地质时代煤层沉积的位置。可以看出，区分煤层是在盆地边缘尖灭，还是被断层中断，或是在露头处因侵蚀而消失，是非常重要的。当一系列岩层被地表的普遍侵蚀切割掉或被河流切割时，岩层的边缘就会暴露出来，从而形成露头。'
+  },
+  p5: {
+    title: '1. Introduction — Paragraph 5',
+    en: 'After strata have been deposited and mildly disturbed they may be broken up orogenic movements. These are the large movements of the earth\'s crust that are associated with mountain building and sometimes cause eruption or intrusion of igneous rock with subsequent mineralisation.',
+    zh: '岩层沉积并受到轻微扰动后，可能会被造山运动所破坏。这些是与造山有关的地壳大规模运动，有时会引起火成岩的喷发或侵入，并随之发生矿化作用。'
+  },
+  p6: {
+    title: '1. Introduction — Paragraph 6',
+    en: 'Syngenetic deposits are those mineral deposits formed contemporaneously with the parent rock and enclosed by it. They can be igneous or sedimentary. Epigenetic deposits are formed subsequently to the enclosing rock, often by a solution (the mother liquor) penetrating into rocks and depositing minerals. If the solution is a result of magmatic (igneous) action it will probably be hot and under pressure and will deposit non-ferrous minerals. If the solution is a result of sedimentary action it will percolate downwards causing either chemical changes or direct deposition. Lateritic deposits are formed by the leaching away of soluble minerals leaving behind in the laterite a valuable ore, such as nickel or bauxite (aluminium ore). Thus these are normally surface deposits. Although some, such as the iron ores, have been changed and buried so that they are no longer lateritic.',
+    zh: '同生矿床是指与母岩同时形成并被母岩包围的矿床。它们可以是火成的或沉积的。后生矿床是在围岩形成之后形成的，通常是由溶液（母液）渗入岩石并沉积矿物而成。如果溶液是岩浆（火成）作用的结果，它可能是高温高压的，将沉积有色金属矿物。如果溶液是沉积作用的结果，它将向下渗透，引起化学变化或直接沉积。红土矿床是由可溶性矿物被淋滤后残留在红土中的有价值的矿石形成的，如镍矿或铝土矿（铝矿石）。因此这些通常是地表矿床。虽然有些矿床，如铁矿石，已经发生变化并被掩埋，因此不再是红土型的。'
+  },
+  t1: {
+    title: '(1) Ore and Gangue / 矿石与脉石',
+    en: 'An orebody may contain both desirable metallic minerals and unwanted non-metallic minerals. The metallic minerals form the ore and the unwanted minerals are known as gangue.',
+    zh: '矿体可能既含有有价值的金属矿物，也含有不需要的非金属矿物。金属矿物构成矿石，不需要的矿物称为脉石。'
+  },
+  t2: {
+    title: '(2) Mullock / 废石',
+    en: 'An orebody should be known more accurately as mineralisation which comprises economic ore and sub-economic lower grade material. The lower grade material broken during mine development is called mullock or waste. These terms are sometimes extended to include host rock broken in development drives.',
+    zh: '矿体更准确地说就是矿化体，它包括了经济矿石和低品位次经济矿石。矿山开采过程中产生的低品位次经济矿石也称为含矿废石或废石。在采矿过程中，在围岩里掘进时产生的岩石也叫废石。'
+  },
+  t3: {
+    title: '(3) Disseminated and Massive ores / 浸染状矿石与块状矿石',
+    en: 'Where the ore occurs in relatively pure form for example as almost 100 percent lead sulphide (galena) in even small amounts it is said to be massive. If however the ore is spread thinly through a body of rock so that individual specks of the ore are surrounded by a high percentage of rock then this is a disseminated ore. Thus if an ore body is sampled over a narrow width of massive sulphides it could show a value of lead in the ore sample of 50 to 60 percent (lead in pure galena is in fact 86.6 percent). Over a greater width it might only show about 20 percent lead because the sulphides had become disseminated or dispersed. The disseminated sulphides, assayed separately (i.e. analysed for metal content), may only show as little as 0.2 to 0.5 percent lead.',
+    zh: '如果矿石以相对纯的形式出现，即使是少量的近乎100%的方铅矿，也称为块矿。当矿石稀疏地散布在一块岩石上，其中的矿石斑点被大量岩石包围，这就是一种浸染状矿石。因此，如果在块状硫化物矿石的局部进行取样，矿石样品中的铅含量可达50%~60%（实际上纯方铅矿中的铅含量为86.6%）。而在更宽的范围内取样化验，则矿体的铅含量可能只有20%，这是因为硫化物矿石已经扩散或分散在岩石中去了。而在浸染状矿体里取样化验（即按金属含量分析），其含铅量可能只有0.2%~0.5%。'
+  },
+  t4: {
+    title: '(4) Cut-off-grade / 边界品位',
+    en: 'A gradual transition of high grade to low grade ore is common and it is not always easy to determine the physical limits of an ore body. Consequently it is necessary to determine the lowest value of metallic or non-metallic mineral content which can be mined economically and use this as the physical limit of the orebody. However this limit will obviously vary with the market value of the ore and the mining methods.',
+    zh: '通常在矿体中，矿石品位从高到低逐渐过渡，确定矿体的界限就比较困难。因此，有必要确定经济上合理的最低的矿石品位，并以此作为矿岩的区分界线。当然，这一界线会随矿石的市场价值和采矿方法而发生改变。'
+  },
+  t5: {
+    title: '(5) Gossan / 铁帽',
+    en: 'Where orebodies outcrop to the surface, particularly in geologically mature areas free of glacial deposition, the portion near to the surface may be leached by impure percolating waters and subsequently oxidized. Many metallic ores contain a proportion of iron sulphides and these do not leach away but change to iron oxides (haematite, goethite and jarosite). The colour of the oxides varies slightly with the original mineral content, but general end result is a yellowish, brownish, or reddish ferruginous capping known as a gossan. This is generally situated directly over the ore body in arid area, such as in Australia, but in some cases it is transported from the outcrop and has to be traced back.',
+    zh: '当矿体出露地表时，特别是在没有冰川沉积的地质成熟地区，靠近地表的部分可能会被不纯净的渗透水淋滤并随后氧化。许多金属矿石含有一定比例的铁硫化物，这些硫化物不会被淋滤掉，而是变成铁氧化物（赤铁矿、针铁矿和黄钾铁矾）。氧化物的颜色随原始矿物成分略有不同，但最终结果通常是黄色、棕色或红色的含铁覆盖层，称为铁帽。在干旱地区（如澳大利亚），铁帽通常直接位于矿体上方，但在某些情况下，它从露头处被搬运走，需要追溯回去才能找到。'
+  },
+  t6: {
+    title: '(6) Supergene Enrichment / 表生富集',
+    en: 'The minerals leached away from the outcrop often cause a zone of secondary enrichment (generally in the form of sulphides) at a depth of 60 to 120m from the surface. This enrichment zone then lies on top of the unaltered primary orebody. Consequently if one in mining or prospecting from the surface for non-ferrous metallic orebodies, there is consequently a transition from oxidized ores, which may need special extractive metallurgical processes, to the supergene enrichment zone showing high metal contents, and then to the orebody proper which may have a lower metal content again. Thus prospecting with shallow drill holes can give very misleading results.',
+    zh: '从露头处淋滤掉的矿物往往在距地表60~120m深度处形成一个次生富集带（通常以硫化物的形式）。这个富集带位于未改变的原生矿体之上。因此，如果从地表进行采矿或勘探有色金属矿体，就会经历一个从氧化矿石（可能需要特殊的冶金提取工艺）到表生富集带（金属含量高），再到矿体本身（金属含量可能再次降低）的过渡。因此，用浅钻孔进行勘探可能会得出非常有误导性的结果。'
+  },
+  t7: {
+    title: '(7) Placer and Alluvial Deposits / 砂矿与冲积矿床',
+    en: 'When the primary deposits are brought to the surface by geological methods and then mechanically eroded, they can suffer one of two fates. They may go into solution for subsequent chemical redeposition or they may break up into fairly stable particles which are transported varying distances. Heavy mineral particles, such as gold, settle close to their source. The original falling area, known sometimes as a rock scree when situated against a mountain slope, is the eluvial region. Further transportation produces the placer deposits of such as gold and tin, although there appears to be no precise separation of this term from that of alluvial deposits. The alluvial deposits may be found in existing river beds or in old river beds covered with new deposits such as basalt flows. These buried deposits may be called deep leads as in the state of Victoria, Australia, where much of the gold of the 1850\'s rush was found.',
+    zh: '当原生矿床通过地质作用被带到地表并受到机械侵蚀后，它们可能面临两种命运：进入溶液中进行后续的化学再沉积，或者分解为相对稳定的颗粒并被搬运到不同距离。重矿物颗粒（如金）通常沉降在离源区较近的地方。原始堆积区（位于山坡上时有时称为岩石碎石堆）即为残积区。进一步的搬运形成了金和锡等砂矿，尽管砂矿和冲积矿床这两个术语之间似乎没有精确的区分。冲积矿床可以在现有河床中找到，也可以在被新沉积物（如玄武岩流）覆盖的老河床中找到。这些被掩埋的矿床可称为深部矿脉，如澳大利亚维多利亚州，1850年代淘金热中发现的大部分金矿就位于此类矿床中。'
+  },
+  t7b: {
+    title: '(7) Beach Deposits / 海滩矿床',
+    en: 'Transportation to the sea followed by wave action produces beach deposits. Mineral sands is the term applied to the heavy sand deposits of rutile, ilmenite and zircon, although they are sometimes colloquially called beach sands. These can be on either existing or old shore lines. Other minerals such as tin or diamonds also are found in beach deposits.',
+    zh: '被搬运到海洋后经波浪作用形成海滩矿床。矿物砂是指金红石、钛铁矿和锆石等重砂矿床的术语，虽然有时俗称为海滩砂。它们可以分布在现有或古老的海岸线上。锡或金刚石等其他矿物也存在于海滩矿床中。'
+  },
+  t8: {
+    title: '(8) Bedded Deposits / 层状矿床',
+    en: 'Chemical and physical deposition of consolidated minerals can produce bedded deposits which may extend over larger areas. These are minerals such as coal, iron ore, salt or potash deposits, and phosphates. Limestone required for cement or blast furnace is also a bedded mineral deposit. Although the dip (slopes) of these bedded deposits can be steep, and the beds are broken by faults or other geological disturbances, their lateral extent is usually larger and more continuous than is that of the metallic non-ferrous deposits.',
+    zh: '固结矿物的化学和物理沉积可以形成延伸范围较大的层状矿床。这些矿物包括煤、铁矿石、钾碱矿床和磷酸盐等。水泥或高炉所需的石灰石也是一种层状矿床。虽然这些层状矿床的倾角（坡度）可以很陡，且岩层被断层或其他地质扰动所破坏，但其横向延伸范围通常比有色金属矿床更大、更连续。'
+  }
+};
+
+function openModal(id) {
+  const item = data[id];
+  if (!item) return;
+  document.getElementById('modalTitle').textContent = item.title;
+  document.getElementById('modalEn').textContent = item.en;
+  document.getElementById('modalZh').textContent = item.zh;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ===== Paragraph Audio Player Logic ===== */
+(function() {
+  let currentAudio = null;
+  let currentBtn = null;
+  let currentId = null;
+
+  const speedSlider = document.getElementById('speedSlider');
+  const speedValue = document.getElementById('speedValue');
+  const playStatus = document.getElementById('playStatus');
+
+  speedSlider.addEventListener('input', function() {
+    const rate = parseFloat(this.value);
+    speedValue.textContent = rate.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = rate;
+    }
+  });
+
+  const titleMap = {
+    p1: 'Introduction - P1', p2: 'Introduction - P2', p3: 'Introduction - P3',
+    p4: 'Introduction - P4', p5: 'Introduction - P5', p6: 'Introduction - P6',
+    t1: 'Ore and Gangue', t2: 'Mullock', t3: 'Disseminated & Massive ores',
+    t4: 'Cut-off-grade', t5: 'Gossan', t6: 'Supergene Enrichment',
+    t7: 'Placer & Alluvial', t7b: 'Beach Deposits', t8: 'Bedded Deposits'
+  };
+
+  window.togglePlay = function(btn) {
+    const audioSrc = btn.getAttribute('data-audio');
+    const audioId = btn.getAttribute('data-id');
+
+    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+      currentAudio.pause();
+      setButtonState(btn, false);
+      playStatus.textContent = '已暂停 - ' + (titleMap[audioId] || audioId);
+      return;
+    }
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+      if (currentBtn && currentBtn !== btn) {
+        setButtonState(currentBtn, false);
+      }
+    }
+
+    currentAudio = new Audio(audioSrc);
+    currentAudio.playbackRate = parseFloat(speedSlider.value);
+    currentBtn = btn;
+    currentId = audioId;
+
+    currentAudio.play().then(function() {
+      setButtonState(btn, true);
+      playStatus.textContent = '正在播放 - ' + (titleMap[audioId] || audioId);
+    }).catch(function(err) {
+      console.warn('Audio play failed:', err);
+      playStatus.textContent = '播放失败';
+    });
+
+    currentAudio.addEventListener('ended', function() {
+      setButtonState(btn, false);
+      playStatus.textContent = '未在播放';
+      currentAudio = null;
+      currentBtn = null;
+      currentId = null;
+    });
+  };
+
+  function setButtonState(btn, isPlaying) {
+    const iconPlay = btn.querySelector('.icon-play');
+    const iconPause = btn.querySelector('.icon-pause');
+    if (isPlaying) {
+      btn.classList.add('playing');
+      iconPlay.style.display = 'none';
+      iconPause.style.display = '';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' 暂停';
+    } else {
+      btn.classList.remove('playing');
+      iconPlay.style.display = '';
+      iconPause.style.display = 'none';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
+    }
+  }
+})();
+
+/* ===== Vocabulary Audio Player Logic ===== */
+(function() {
+  const TOTAL_VOCAB = 49;
+  const VOCAB_AUDIO_BASE = '../audio/unit1/vocab_reading/vocab_r_';
+
+  let vocabAudio = null;
+  let seqPlaying = false;
+  let seqPaused = false;
+  let currentVocabIdx = 0;
+  let currentRepeatRound = 0;
+  let currentRepeatTotal = 3;
+  let loopEnabled = false;
+  let currentPlayingBtn = null;
+
+  const seqPlayBtn = document.getElementById('vocabSeqPlayBtn');
+  const seqBtnText = document.getElementById('vocabSeqBtnText');
+  const vocabStopBtn = document.getElementById('vocabStopBtn');
+  const repeatSelect = document.getElementById('vocabRepeatCount');
+  const loopToggle = document.getElementById('vocabLoopToggle');
+  const progressEl = document.getElementById('vocabPlayProgress');
+
+  function getVocabAudioSrc(idx) {
+    return VOCAB_AUDIO_BASE + String(idx).padStart(2, '0') + '.mp3';
+  }
+
+  function highlightRow(idx) {
+    // Remove all highlights
+    const rows = document.querySelectorAll('#vocabTableBody tr');
+    rows.forEach(function(r) { r.classList.remove('highlight-row'); });
+    // Remove playing state from all buttons
+    const btns = document.querySelectorAll('.vocab-row-play');
+    btns.forEach(function(b) { b.classList.remove('playing'); });
+    // Highlight current
+    if (idx > 0 && idx <= TOTAL_VOCAB) {
+      const row = document.querySelector('tr[data-vocab-idx="' + idx + '"]');
+      if (row) {
+        row.classList.add('highlight-row');
+        const btn = row.querySelector('.vocab-row-play');
+        if (btn) {
+          btn.classList.add('playing');
+          // Scroll into view
+          row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+  }
+
+  function clearAllHighlights() {
+    const rows = document.querySelectorAll('#vocabTableBody tr');
+    rows.forEach(function(r) { r.classList.remove('highlight-row'); });
+    const btns = document.querySelectorAll('.vocab-row-play');
+    btns.forEach(function(b) { b.classList.remove('playing'); });
+  }
+
+  function updateProgress() {
+    if (!seqPlaying && !seqPaused) {
+      progressEl.textContent = '';
+      return;
+    }
+    progressEl.textContent = currentVocabIdx + ' / ' + TOTAL_VOCAB + (currentRepeatTotal > 1 ? ' (第' + currentRepeatRound + '遍)' : '');
+  }
+
+  function playVocabItem(idx, callback) {
+    if (vocabAudio) {
+      vocabAudio.pause();
+      vocabAudio = null;
+    }
+    highlightRow(idx);
+    updateProgress();
+
+    vocabAudio = new Audio(getVocabAudioSrc(idx));
+    vocabAudio.playbackRate = parseFloat(document.getElementById('speedSlider').value);
+
+    vocabAudio.play().catch(function(err) {
+      console.warn('Vocab audio play failed:', err);
+      if (callback) callback();
+    });
+
+    vocabAudio.addEventListener('ended', function() {
+      if (callback) callback();
+    });
+  }
+
+  function playSequence() {
+    if (!seqPlaying) return;
+
+    if (currentVocabIdx > TOTAL_VOCAB) {
+      currentRepeatRound++;
+      if (loopEnabled || currentRepeatRound < currentRepeatTotal) {
+        if (loopEnabled && currentRepeatRound >= currentRepeatTotal) {
+          currentRepeatRound = 0; // reset for infinite loop
+        }
+        currentVocabIdx = 1;
+      } else {
+        stopSequence();
+        return;
+      }
+    }
+
+    playVocabItem(currentVocabIdx, function() {
+      if (!seqPlaying) return;
+      currentVocabIdx++;
+      playSequence();
+    });
+  }
+
+  function stopSequence() {
+    seqPlaying = false;
+    seqPaused = false;
+    if (vocabAudio) {
+      vocabAudio.pause();
+      vocabAudio = null;
+    }
+    clearAllHighlights();
+    seqPlayBtn.classList.remove('active');
+    seqPlayBtn.querySelector('.seq-icon-play').style.display = '';
+    seqPlayBtn.querySelector('.seq-icon-pause').style.display = 'none';
+    seqBtnText.textContent = '连续播放';
+    progressEl.textContent = '';
+  }
+
+  window.toggleVocabSeqPlay = function() {
+    if (seqPlaying && !seqPaused) {
+      // Pause
+      seqPaused = true;
+      seqPlaying = false;
+      if (vocabAudio) vocabAudio.pause();
+      seqPlayBtn.querySelector('.seq-icon-play').style.display = '';
+      seqPlayBtn.querySelector('.seq-icon-pause').style.display = 'none';
+      seqBtnText.textContent = '继续播放';
+      seqPlayBtn.classList.remove('active');
+      return;
+    }
+
+    if (seqPaused) {
+      // Resume
+      seqPaused = false;
+      seqPlaying = true;
+      seqPlayBtn.classList.add('active');
+      seqPlayBtn.querySelector('.seq-icon-play').style.display = 'none';
+      seqPlayBtn.querySelector('.seq-icon-pause').style.display = '';
+      seqBtnText.textContent = '暂停';
+      // Continue from where we left off
+      playSequence();
+      return;
+    }
+
+    // Start fresh
+    currentVocabIdx = 1;
+    currentRepeatRound = 1;
+    currentRepeatTotal = parseInt(repeatSelect.value);
+    loopEnabled = loopToggle.checked;
+    seqPlaying = true;
+    seqPaused = false;
+    seqPlayBtn.classList.add('active');
+    seqPlayBtn.querySelector('.seq-icon-play').style.display = 'none';
+    seqPlayBtn.querySelector('.seq-icon-pause').style.display = '';
+    seqBtnText.textContent = '暂停';
+    playSequence();
+  };
+
+  window.stopVocabSeqPlay = function() {
+    stopSequence();
+  };
+
+  window.playVocabAudio = function(idx, btn) {
+    // If sequential play is active, stop it first
+    if (seqPlaying || seqPaused) {
+      stopSequence();
+    }
+
+    if (currentPlayingBtn === btn && vocabAudio && !vocabAudio.paused) {
+      vocabAudio.pause();
+      btn.classList.remove('playing');
+      currentPlayingBtn = null;
+      return;
+    }
+
+    if (vocabAudio) {
+      vocabAudio.pause();
+    }
+    if (currentPlayingBtn && currentPlayingBtn !== btn) {
+      currentPlayingBtn.classList.remove('playing');
+    }
+
+    clearAllHighlights();
+    const row = btn.closest('tr');
+    if (row) row.classList.add('highlight-row');
+    btn.classList.add('playing');
+    currentPlayingBtn = btn;
+
+    vocabAudio = new Audio(getVocabAudioSrc(idx));
+    vocabAudio.playbackRate = parseFloat(document.getElementById('speedSlider').value);
+    vocabAudio.play().catch(function(err) {
+      console.warn('Vocab audio play failed:', err);
+    });
+    vocabAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      row.classList.remove('highlight-row');
+      currentPlayingBtn = null;
+      vocabAudio = null;
+    });
+  };
+
+  // Update repeat count when changed
+  repeatSelect.addEventListener('change', function() {
+    currentRepeatTotal = parseInt(this.value);
+  });
+  loopToggle.addEventListener('change', function() {
+    loopEnabled = this.checked;
+  });
+})();
+</script>
+
+</body>
+</html>

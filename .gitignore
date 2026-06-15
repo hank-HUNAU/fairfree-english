@@ -1,0 +1,14 @@
+*.json
+*.md
+*.xlsx
+*.pdf
+images/
+*.jpg
+Voice角色库.html
+origin_file.html
+block_list.json
+layout.json
+采矿专业英语_主题分类词汇手册.html
+采矿专业英语_词汇汇总表.xlsx
+vocab_check_report.md
+audio/unit1/test_*.mp3

@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 情境会话 — Geological Terminology</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-light: rgba(0,0,0,0.04);
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-bubble: 18px;
+    --radius-btn: 10px;
+    --radius-chip: 20px;
+    --bubble-left-bg: #e8f5e9;
+    --bubble-left-border: #4caf50;
+    --bubble-right-bg: #e3f2fd;
+    --bubble-right-border: #2196f3;
+    --avatar-green: #4caf50;
+    --avatar-blue: #2196f3;
+    --tooltip-bg: #1d1d1f;
+    --tooltip-fg: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 48px 20px 36px;
+  }
+
+  .header-unit {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  header h1 {
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  header h1 span {
+    color: var(--fg-muted);
+    font-weight: 300;
+  }
+
+  .header-sub {
+    font-size: 0.95rem;
+    color: var(--fg-muted);
+    margin-top: 8px;
+    font-weight: 400;
+  }
+
+  /* Global Speed Control */
+  .speed-control-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .speed-control-bar label {
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+
+  .speed-control-bar .speed-value {
+    color: var(--accent);
+    font-weight: 600;
+    min-width: 36px;
+    text-align: center;
+  }
+
+  .speed-control-bar input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 140px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .speed-control-bar input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+  }
+
+  .speed-control-bar input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+  }
+
+  /* Scene Card */
+  .scene-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-card);
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .scene-card:nth-child(1) { animation-delay: 0.05s; }
+  .scene-card:nth-child(2) { animation-delay: 0.1s; }
+  .scene-card:nth-child(3) { animation-delay: 0.15s; }
+  .scene-card:nth-child(4) { animation-delay: 0.2s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scene-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  .scene-header {
+    padding: 24px 28px 18px;
+  }
+
+  .scene-number {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .scene-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .scene-desc {
+    font-size: 0.88rem;
+    color: var(--fg-muted);
+    line-height: 1.6;
+  }
+
+  .scene-characters {
+    display: flex;
+    gap: 20px;
+    padding: 12px 28px;
+    border-top: 1px solid var(--border-light);
+    flex-wrap: wrap;
+  }
+
+  .character-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .char-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .char-avatar.a { background: var(--avatar-green); }
+  .char-avatar.b { background: var(--avatar-blue); }
+
+  /* Dialogue Area */
+  .dialogue-area {
+    padding: 24px 28px;
+  }
+
+  .bubble-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .bubble-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .bubble-row.right {
+    flex-direction: row-reverse;
+  }
+
+  .bubble-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .bubble-avatar.a { background: var(--avatar-green); }
+  .bubble-avatar.b { background: var(--avatar-blue); }
+
+  /* Bubble */
+  .bubble {
+    max-width: 75%;
+    padding: 12px 38px 12px 16px;
+    border-radius: var(--radius-bubble);
+    font-size: 0.93rem;
+    line-height: 1.65;
+    position: relative;
+  }
+
+  .bubble-row:not(.right) .bubble {
+    background: var(--bubble-left-bg);
+    border-left: 3px solid var(--bubble-left-border);
+    border-top-left-radius: 4px;
+  }
+
+  .bubble-row.right .bubble {
+    background: var(--bubble-right-bg);
+    border-right: 3px solid var(--bubble-right-border);
+    border-top-right-radius: 4px;
+  }
+
+  .bubble .speaker-name {
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .bubble-row:not(.right) .bubble .speaker-name {
+    color: var(--bubble-left-border);
+  }
+
+  .bubble-row.right .bubble .speaker-name {
+    text-align: right;
+    color: var(--bubble-right-border);
+  }
+
+  /* Play button on bubbles */
+  .bubble-play-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.06);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s, transform 0.15s;
+    z-index: 5;
+  }
+
+  .bubble-play-btn:hover {
+    background: rgba(0,0,0,0.12);
+    transform: scale(1.1);
+  }
+
+  .bubble-play-btn svg {
+    width: 10px;
+    height: 10px;
+    fill: var(--fg-muted);
+  }
+
+  .bubble-play-btn.playing {
+    background: var(--accent);
+  }
+
+  .bubble-play-btn.playing svg {
+    fill: #fff;
+  }
+
+  .bubble-play-btn.playing {
+    animation: pulse-soft 1.2s ease-out infinite;
+  }
+
+  @keyframes pulse-soft {
+    0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.3); }
+    70% { box-shadow: 0 0 0 5px rgba(0,113,227,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); }
+  }
+
+  /* Vocabulary highlight in dialogue */
+  .vocab {
+    color: var(--accent);
+    border-bottom: 1.5px solid rgba(0,113,227,0.3);
+    cursor: help;
+    position: relative;
+    font-weight: 500;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .vocab:hover {
+    color: var(--accent-hover);
+    border-color: var(--accent);
+  }
+
+  .vocab .tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--tooltip-bg);
+    color: var(--tooltip-fg);
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 400;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
+
+  .vocab .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--tooltip-bg);
+  }
+
+  .vocab:hover .tooltip {
+    opacity: 1;
+  }
+
+  /* Translation section */
+  .translation-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: rgba(0,0,0,0.02);
+    border-top: 1px solid var(--border-light);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+    font-size: 0.84rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .translation-toggle:hover {
+    background: rgba(0,0,0,0.04);
+    color: var(--fg);
+  }
+
+  .translation-toggle .arrow {
+    display: inline-block;
+    transition: transform 0.3s;
+    font-size: 0.6rem;
+  }
+
+  .translation-toggle.open .arrow {
+    transform: rotate(90deg);
+  }
+
+  .translation-content {
+    display: none;
+    padding: 20px 28px;
+    border-top: 1px solid var(--border-light);
+    background: rgba(0,0,0,0.015);
+  }
+
+  .translation-content.show {
+    display: block;
+  }
+
+  .translation-content .trans-line {
+    margin-bottom: 12px;
+    font-size: 0.88rem;
+    color: var(--fg-muted);
+    line-height: 1.7;
+    padding-left: 14px;
+    border-left: 2px solid var(--accent-border);
+  }
+
+  .translation-content .trans-line:last-child {
+    margin-bottom: 0;
+  }
+
+  .translation-content .trans-line .trans-speaker {
+    font-weight: 600;
+    color: var(--fg);
+    margin-right: 4px;
+  }
+
+  /* Vocab List */
+  .vocab-list {
+    padding: 20px 28px 24px;
+    border-top: 1px solid var(--border-light);
+    background: rgba(0,0,0,0.01);
+  }
+
+  .vocab-list-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  /* Vocab Audio Control Bar */
+  .vocab-audio-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--accent-light);
+    border-radius: var(--radius-btn);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .vocab-audio-bar .vab-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .vocab-audio-bar .vab-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .vocab-audio-bar .vab-btn.active {
+    background: #1d1d1f;
+  }
+
+  .vocab-audio-bar .vab-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .vocab-audio-bar .vab-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .vocab-audio-bar .vab-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .vocab-audio-bar .vab-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .vocab-audio-bar .vab-repeat-select {
+    padding: 5px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .vocab-audio-bar .vab-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .vocab-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .vocab-chip {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    padding: 5px 14px;
+    border-radius: var(--radius-chip);
+    font-size: 0.82rem;
+    color: var(--accent);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .vocab-chip:hover {
+    background: rgba(0,113,227,0.14);
+    border-color: var(--accent);
+  }
+
+  .vocab-chip.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: var(--fg-muted);
+    font-size: 0.8rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .container { padding: 20px 12px 60px; }
+    .scene-header { padding: 18px 18px 14px; }
+    .scene-characters { padding: 10px 18px; }
+    .dialogue-area { padding: 18px; }
+    .translation-toggle { padding: 10px 18px; }
+    .translation-content { padding: 16px 18px; }
+    .vocab-list { padding: 16px 18px 20px; }
+    .bubble { max-width: 85%; padding: 10px 34px 10px 14px; }
+    header { padding: 32px 16px 24px; }
+    .bubble-avatar { width: 28px; height: 28px; font-size: 0.6rem; }
+    .speed-control-bar { padding: 10px 12px; gap: 8px; }
+    .speed-control-bar input[type="range"] { width: 100px; }
+    .vocab-audio-bar { gap: 6px; padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="header-unit">Unit 1</div>
+    <h1>情境会话 <span>— Geological Terminology</span></h1>
+    <div class="header-sub">基于课文改编的采矿场景英语对话</div>
+  </header>
+
+  <div class="speed-control-bar">
+    <label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" id="speedSlider1" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="speed-value" id="speedValue1">1.0x</span>
+    </label>
+  </div>
+
+  <!-- ==================== Scene 1 ==================== -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">Scene 01</div>
+      <div class="scene-title">野外地质勘查 — Field Geological Survey</div>
+      <div class="scene-desc">两位工程师在矿区野外考察，观察岩层结构，讨论褶皱、向斜、背斜及整合层等地质构造。</div>
+    </div>
+    <div class="scene-characters">
+      <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
+      <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
+    </div>
+    <div class="dialogue-area">
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Mr. Li, take a look at this <span class="vocab">rock strata<span class="tooltip">岩层</span></span> section. The simplest form is where each <span class="vocab">stratum<span class="tooltip">地层</span></span> is <span class="vocab">superimposed<span class="tooltip">叠加</span></span> on another. These are <span class="vocab">conformable beds<span class="tooltip">整合层</span></span>.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          I see. So the layers have been deposited in a regular sequence without any significant break. But what about those curved formations over there?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Good observation. Those are <span class="vocab">folds<span class="tooltip">褶皱</span></span>. The beds have been distorted by <span class="vocab">movements of the earth's crust<span class="tooltip">地壳运动</span></span>. This downward curve here is a <span class="vocab">syncline<span class="tooltip">向斜</span></span>, and the upward arch is an <span class="vocab">anticline<span class="tooltip">背斜</span></span>.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          The scale is impressive. How large can a single fold be?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          A single fold producing a <span class="vocab">synclinal basin<span class="tooltip">向斜盆地</span></span> may stretch for hundreds of kilometers. Or it may be measured with a wavelength of just a few meters. The scale varies enormously.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          I notice the rock here is heavily <span class="vocab">fractured<span class="tooltip">断裂的</span></span>, especially near the crest of that anticline.
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Exactly. Where the folding is severe, the rock is frequently heavily fractured, particularly where it is under <span class="vocab">tension<span class="tooltip">张力</span></span> on the crest of an anticlinal stratum or at the base of a synclinal stratum.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          So these <span class="vocab">weakened zones<span class="tooltip">弱化带</span></span> could provide a path for mineral-rich solutions to permeate the host rock?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_09.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Precisely. These weakened zones provide a path for <span class="vocab">igneous intrusive rocks<span class="tooltip">火成侵入岩</span></span> or mineral-rich solutions to permeate the <span class="vocab">host rock<span class="tooltip">围岩</span></span> and produce <span class="vocab">ore bodies<span class="tooltip">矿体</span></span>. That is why many ore bodies have a typical form, such as <span class="vocab">saddle reefs<span class="tooltip">鞍状矿脉</span></span>.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_10.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          That makes sense. What about the <span class="vocab">faults<span class="tooltip">断层</span></span> in this area? I can see several fracture lines running through the formation.
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_11.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          In practice, a fault of this magnitude would have many associated smaller faults and fractures that can again give rise to an area favourable for subsequent <span class="vocab">mineralisation<span class="tooltip">矿化</span></span>. These are the areas we should focus on for exploration.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="translation-toggle" onclick="toggleTranslation(this)">
+      <span class="arrow">&#9654;</span> 查看中文参考译文
+    </div>
+    <div class="translation-content">
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>李先生，看看这个岩层剖面。最简单的形式是每一层岩石叠加在另一层之上。这些就是整合层。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>我明白了。也就是说这些岩层是按规则顺序沉积的，没有明显的间断。但那边那些弯曲的构造是什么？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>观察得很好。那些是褶皱。岩层被地壳运动扭曲了。这个向下弯曲的是向斜，向上拱起的是背斜。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>规模真令人印象深刻。一个褶皱能有多大？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>产生向斜盆地的单个褶皱可能延伸数百公里。或者其波长可能只有几米。规模差异很大。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>我注意到这里的岩石严重断裂，特别是在那个背斜的顶部附近。</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>没错。当褶皱剧烈时，岩石经常严重断裂，特别是在背斜岩层顶部受张力处或向斜岩层底部。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>所以这些弱化带可能为富含矿物的溶液渗透围岩提供了通道？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>完全正确。这些弱化带为火成侵入岩或富含矿物的溶液渗透围岩并形成矿体提供了通道。这就是为什么许多矿体具有典型形态，如鞍状矿脉。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>有道理。那这个区域的断层呢？我看到好几条断裂线穿过这个构造。</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>实际上，这种规模的断层通常伴有许多较小的断层和裂隙，它们同样可能形成有利于后续矿化的区域。这些正是我们勘探应关注的区域。</div>
+    </div>
+
+    <div class="vocab-list">
+      <div class="vocab-list-title">Key Vocabulary</div>
+      <div class="vocab-audio-bar" data-scene="1" data-count="17">
+        <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
+          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
+        </button>
+        <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
+          <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
+        </button>
+        <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          循环
+        </button>
+        <span class="vab-label">遍数</span>
+        <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="vocab-items">
+        <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">rock strata 岩层</span>
+        <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">stratum 地层</span>
+        <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">superimposed 叠加的</span>
+        <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">conformable beds 整合层</span>
+        <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">folds 褶皱</span>
+        <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">syncline 向斜</span>
+        <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">anticline 背斜</span>
+        <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">synclinal basin 向斜盆地</span>
+        <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">fractured 断裂的</span>
+        <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">tension 张力</span>
+        <span class="vocab-chip" data-idx="11" onclick="vocabPlayChip(this, 11)">weakened zones 弱化带</span>
+        <span class="vocab-chip" data-idx="12" onclick="vocabPlayChip(this, 12)">igneous intrusive rocks 火成侵入岩</span>
+        <span class="vocab-chip" data-idx="13" onclick="vocabPlayChip(this, 13)">host rock 围岩</span>
+        <span class="vocab-chip" data-idx="14" onclick="vocabPlayChip(this, 14)">ore bodies 矿体</span>
+        <span class="vocab-chip" data-idx="15" onclick="vocabPlayChip(this, 15)">saddle reefs 鞍状矿脉</span>
+        <span class="vocab-chip" data-idx="16" onclick="vocabPlayChip(this, 16)">faults 断层</span>
+        <span class="vocab-chip" data-idx="17" onclick="vocabPlayChip(this, 17)">mineralisation 矿化</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== Scene 2 ==================== -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">Scene 02</div>
+      <div class="scene-title">矿体分析讨论 — Orebody Analysis</div>
+      <div class="scene-desc">两位工程师在实验室讨论矿石类型、脉石、品位界限及矿石分类等专业知识。</div>
+    </div>
+    <div class="scene-characters">
+      <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
+      <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
+    </div>
+    <div class="dialogue-area">
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Let's discuss the classification of this <span class="vocab">orebody<span class="tooltip">矿体</span></span>. An orebody may contain both desirable metallic minerals and unwanted non-metallic minerals. The metallic minerals form the <span class="vocab">ore<span class="tooltip">矿石</span></span>, and the unwanted minerals are known as <span class="vocab">gangue<span class="tooltip">脉石</span></span>.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          I understand. So we need to separate the ore from the gangue during processing. But how do we define the boundary of an orebody?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          That is where the concept of <span class="vocab">cut-off grade<span class="tooltip">边界品位</span></span> comes in. A gradual transition of high grade to low grade ore is common, and it is not always easy to determine the physical limits of an ore body.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          So the cut-off grade is the grade below which the material is no longer economically worth mining?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Exactly. An orebody should be known more accurately as <span class="vocab">mineralisation<span class="tooltip">矿化</span></span> which comprises economic ore and <span class="vocab">sub-economic<span class="tooltip">次经济的</span></span> lower grade material. The lower grade material broken during mine development is called <span class="vocab">mullock<span class="tooltip">废石</span></span> or waste.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          What about the physical form of the ore? I have heard the terms <span class="vocab">massive ore<span class="tooltip">块状矿</span></span> and <span class="vocab">disseminated ore<span class="tooltip">浸染矿</span></span>.
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Where the ore occurs in relatively pure form — for example, as almost 100 percent <span class="vocab">lead sulphide<span class="tooltip">硫化铅</span></span> (<span class="vocab">galena<span class="tooltip">方铅矿</span></span>) — even in small amounts, it is said to be massive.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          And disseminated ore is the opposite — the ore is spread thinly through the body of rock?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_09.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Correct. If the ore is spread thinly through a body of rock so that individual <span class="vocab">specks<span class="tooltip">颗粒</span></span> of the ore are surrounded by a high percentage of rock, then this is a disseminated ore. Massive ore is generally easier to process, but disseminated ore can still be economic if the deposit is large enough.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_10.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          That is very helpful. Now I have a clearer picture of how we classify and evaluate an orebody.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="translation-toggle" onclick="toggleTranslation(this)">
+      <span class="arrow">&#9654;</span> 查看中文参考译文
+    </div>
+    <div class="translation-content">
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>我们来讨论一下这个矿体的分类。矿体可能含有有价值的金属矿物和不需要的非金属矿物。金属矿物构成矿石，不需要的矿物被称为脉石。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>我明白了。所以我们在加工过程中需要将矿石与脉石分离。但我们如何确定矿体的边界呢？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>这就是边界品位的概念。高品位到低品位矿石的逐渐过渡很常见，确定矿体的物理界限并不总是容易的。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>所以边界品位就是低于该品位后，材料在经济上不再值得开采的那个品位？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>完全正确。矿体更准确地应被称为矿化，它包括经济矿石和次经济的低品位材料。矿山开发过程中破碎的低品位材料称为废石或废料。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>那矿石的物理形态呢？我听说过块状矿和浸染矿这两个术语。</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>当矿石以相对纯净的形式出现时——例如，几乎是100%的硫化铅（方铅矿）——即使在少量中，也被称为块状矿。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>而浸染矿则相反——矿石稀疏地分布在岩体中？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>正确。如果矿石稀疏地分布在岩体中，使得单个矿石颗粒被高比例的岩石所包围，这就是浸染矿。块状矿通常更容易加工，但如果矿床足够大，浸染矿仍然具有经济价值。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>非常有帮助。现在我对如何分类和评价矿体有了更清晰的认识。</div>
+    </div>
+
+    <div class="vocab-list">
+      <div class="vocab-list-title">Key Vocabulary</div>
+      <div class="vocab-audio-bar" data-scene="2" data-count="12">
+        <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
+          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
+        </button>
+        <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
+          <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
+        </button>
+        <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          循环
+        </button>
+        <span class="vab-label">遍数</span>
+        <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="vocab-items">
+        <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">orebody 矿体</span>
+        <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">ore 矿石</span>
+        <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">gangue 脉石</span>
+        <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">cut-off grade 边界品位</span>
+        <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">mineralisation 矿化</span>
+        <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">sub-economic 次经济的</span>
+        <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">mullock 废石</span>
+        <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">massive ore 块状矿</span>
+        <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">disseminated ore 浸染矿</span>
+        <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">lead sulphide 硫化铅</span>
+        <span class="vocab-chip" data-idx="11" onclick="vocabPlayChip(this, 11)">galena 方铅矿</span>
+        <span class="vocab-chip" data-idx="12" onclick="vocabPlayChip(this, 12)">specks 颗粒</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== Scene 3 ==================== -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">Scene 03</div>
+      <div class="scene-title">铁帽与表生富集 — Gossan and Supergene Enrichment</div>
+      <div class="scene-desc">工程师们在矿区地表观察铁帽特征，讨论表生富集带与深部原生矿体的关系。</div>
+    </div>
+    <div class="scene-characters">
+      <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
+      <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
+    </div>
+    <div class="dialogue-area">
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Look at this <span class="vocab">outcrop<span class="tooltip">露头</span></span> here, Mr. Li. Notice the yellowish-brown, reddish <span class="vocab">capping<span class="tooltip">覆盖层</span></span> on top? This is what we call a <span class="vocab">gossan<span class="tooltip">铁帽</span></span>.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          It is quite distinctive. How does a gossan form?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Where orebodies <span class="vocab">outcrop to the surface<span class="tooltip">出露地表</span></span>, particularly in geologically mature areas free of <span class="vocab">glacial deposition<span class="tooltip">冰川沉积</span></span>, the portion near the surface may be <span class="vocab">leached<span class="tooltip">淋滤</span></span> by impure <span class="vocab">percolating waters<span class="tooltip">渗流水</span></span> and subsequently <span class="vocab">oxidized<span class="tooltip">氧化</span></span>.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          So the valuable minerals are dissolved and carried away, leaving the iron behind?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          That is right. Many metallic ores contain a proportion of <span class="vocab">iron sulphides<span class="tooltip">硫化铁</span></span>, and these do not leach away but change to <span class="vocab">iron oxides<span class="tooltip">铁氧化物</span></span> — <span class="vocab">haematite<span class="tooltip">赤铁矿</span></span>, <span class="vocab">goethite<span class="tooltip">针铁矿</span></span> and <span class="vocab">jarosite<span class="tooltip">黄钾铁矾</span></span>. The colour varies slightly with the original mineral content, but the general result is a yellowish, brownish, or reddish <span class="vocab">ferruginous capping<span class="tooltip">铁质覆盖层</span></span> known as a gossan.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          So a gossan is essentially an indicator of potential mineralisation beneath the surface. But what happens to the minerals that were leached away?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Excellent question. The minerals leached away from the outcrop often cause a zone of <span class="vocab">secondary enrichment<span class="tooltip">次生富集</span></span>, generally in the form of sulphides, at a depth of 60 to 120 metres from the surface. This is known as <span class="vocab">supergene enrichment<span class="tooltip">表生富集</span></span>.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          So the enrichment zone lies between the leached gossan on top and the unaltered <span class="vocab">primary orebody<span class="tooltip">原生矿体</span></span> below?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_09.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Exactly. This enrichment zone then lies on top of the unaltered primary orebody. The supergene zone is often richer than the primary ore, which makes it a priority target for mining. It is important to understand this zonation when planning exploration drilling.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_10.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          That is fascinating. So finding a gossan at the surface is essentially a clue that there may be a richer orebody at depth. This knowledge will be very useful for our exploration programme.
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_11.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Precisely. Gossans have historically been one of the most important <span class="vocab">prospecting<span class="tooltip">找矿</span></span> indicators. In fact, many major deposits around the world were first discovered through the observation of iron-capped outcrops.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="translation-toggle" onclick="toggleTranslation(this)">
+      <span class="arrow">&#9654;</span> 查看中文参考译文
+    </div>
+    <div class="translation-content">
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>李先生，看看这里的露头。注意到顶部那个黄褐色、微红色的覆盖层了吗？这就是我们所说的铁帽。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>确实很特别。铁帽是怎么形成的？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>当矿体出露地表时，特别是在没有冰川沉积的地质成熟地区，靠近地表的部分可能被不纯的渗流水淋滤，随后被氧化。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>所以有价值的矿物被溶解并带走，留下了铁？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>对的。许多金属矿石含有一定比例的硫化铁，这些不会淋滤掉，而是变成铁氧化物——赤铁矿、针铁矿和黄钾铁矾。颜色随原始矿物成分略有变化，但总体结果是形成黄褐色、棕色或红色的铁质覆盖层，即铁帽。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>所以铁帽本质上是地表以下潜在矿化的指示标志。那被淋滤走的矿物去了哪里？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>问得好。从露头淋滤走的矿物通常在距地表60到120米深处造成一个次生富集带，一般以硫化物的形式存在。这就是表生富集。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>所以富集带位于顶部淋滤铁帽和底部未变化的原生矿体之间？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>完全正确。这个富集带位于未变化的原生矿体之上。表生带通常比原生矿石更富，因此是采矿的优先目标。在规划勘探钻孔时理解这种分带很重要。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>太有意思了。所以在地表发现铁帽基本上就是深部可能有更富矿体的线索。这对我们的勘探计划非常有用。</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>完全正确。铁帽历来是最重要的找矿标志之一。事实上，世界上许多大型矿床最初就是通过观察铁帽露头发现的。</div>
+    </div>
+
+    <div class="vocab-list">
+      <div class="vocab-list-title">Key Vocabulary</div>
+      <div class="vocab-audio-bar" data-scene="3" data-count="18">
+        <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
+          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
+        </button>
+        <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
+          <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
+        </button>
+        <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          循环
+        </button>
+        <span class="vab-label">遍数</span>
+        <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="vocab-items">
+        <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">outcrop 露头</span>
+        <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">capping 覆盖层</span>
+        <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">gossan 铁帽</span>
+        <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">outcrop to surface 出露地表</span>
+        <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">glacial deposition 冰川沉积</span>
+        <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">leached 淋滤的</span>
+        <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">percolating waters 渗流水</span>
+        <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">oxidized 氧化的</span>
+        <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">iron sulphides 硫化铁</span>
+        <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">iron oxides 铁氧化物</span>
+        <span class="vocab-chip" data-idx="11" onclick="vocabPlayChip(this, 11)">haematite 赤铁矿</span>
+        <span class="vocab-chip" data-idx="12" onclick="vocabPlayChip(this, 12)">goethite 针铁矿</span>
+        <span class="vocab-chip" data-idx="13" onclick="vocabPlayChip(this, 13)">jarosite 黄钾铁矾</span>
+        <span class="vocab-chip" data-idx="14" onclick="vocabPlayChip(this, 14)">ferruginous capping 铁质覆盖层</span>
+        <span class="vocab-chip" data-idx="15" onclick="vocabPlayChip(this, 15)">secondary enrichment 次生富集</span>
+        <span class="vocab-chip" data-idx="16" onclick="vocabPlayChip(this, 16)">supergene enrichment 表生富集</span>
+        <span class="vocab-chip" data-idx="17" onclick="vocabPlayChip(this, 17)">primary orebody 原生矿体</span>
+        <span class="vocab-chip" data-idx="18" onclick="vocabPlayChip(this, 18)">prospecting 找矿</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== Scene 4 ==================== -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">Scene 04</div>
+      <div class="scene-title">砂矿勘探 — Placer Exploration</div>
+      <div class="scene-desc">工程师们在河谷地带进行砂矿勘探，讨论冲积矿床和砂矿的成因及分布特征。</div>
+    </div>
+    <div class="scene-characters">
+      <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
+      <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
+    </div>
+    <div class="dialogue-area">
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          We are now entering an area where <span class="vocab">placer deposits<span class="tooltip">砂矿</span></span> and <span class="vocab">alluvial deposits<span class="tooltip">冲积矿床</span></span> are likely to be found. This river valley is a promising location.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          How do placer deposits form, Dr. Zhang? Are they related to the primary deposits we discussed earlier?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Yes, they are directly related. When the <span class="vocab">primary deposits<span class="tooltip">原生矿床</span></span> are brought to the surface by geological methods and then <span class="vocab">mechanically eroded<span class="tooltip">机械侵蚀</span></span>, they can suffer one of two fates.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          What are the two possible fates?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          They may go into solution for subsequent <span class="vocab">chemical redeposition<span class="tooltip">化学再沉积</span></span>, or they may break up into fairly <span class="vocab">stable particles<span class="tooltip">稳定颗粒</span></span> which are transported varying distances.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          And the placer deposits are formed by the second process — the mechanical breakdown and transport of particles?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Exactly. <span class="vocab">Heavy mineral particles<span class="tooltip">重矿物颗粒</span></span>, such as gold, settle close to their source. Lighter particles are carried further downstream. This is why placer gold is often found in river beds and <span class="vocab">alluvial plains<span class="tooltip">冲积平原</span></span> near the original source.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          So the distribution of placer minerals depends on the specific gravity of the particles?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_09.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          That is one important factor. The energy of the transporting medium — water in this case — also plays a role. In areas of high water energy, even heavy particles can be moved, but they tend to settle in <span class="vocab">traps<span class="tooltip">陷阱（地质）</span></span> such as behind boulders, in bedrock <span class="vocab">crevices<span class="tooltip">裂隙</span></span>, or at bends in the river.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_10.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          How do placer deposits compare to <span class="vocab">bedded deposits<span class="tooltip">层状矿床</span></span> in terms of formation?
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_11.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          They are quite different. Chemical and physical deposition of consolidated minerals can produce bedded deposits which may extend over larger areas. These are minerals such as coal, iron ore, salt or <span class="vocab">potash deposits<span class="tooltip">钾盐矿床</span></span>, and <span class="vocab">phosphates<span class="tooltip">磷酸盐</span></span>. Placer deposits, on the other hand, are the result of mechanical erosion and gravity separation.
+        </div>
+      </div>
+
+      <div class="bubble-row right">
+        <div class="bubble-avatar b">L</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_12.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Mr. Li</div>
+          I see. So for our exploration here, we should focus on sampling the river bed sediments, especially behind those large boulders and in the crevices of the bedrock.
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="bubble-avatar a">Z</div>
+        <div class="bubble">
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_13.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <div class="speaker-name">Dr. Zhang</div>
+          Precisely. Those are the natural trap sites where heavy minerals would accumulate. We should also consider that <span class="vocab">outcrops<span class="tooltip">露头</span></span> occur when a series of beds are cut away by general erosion of the surface or dissected by rivers, so that the edges of beds are exposed. This could also indicate nearby primary mineralisation.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="translation-toggle" onclick="toggleTranslation(this)">
+      <span class="arrow">&#9654;</span> 查看中文参考译文
+    </div>
+    <div class="translation-content">
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>我们现在进入了一个可能找到砂矿和冲积矿床的区域。这个河谷是一个很有希望的位置。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>砂矿是怎么形成的，张博士？它们和我们之前讨论的原生矿床有关系吗？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>是的，它们直接相关。当原生矿床通过地质作用被带到地表，然后被机械侵蚀后，它们可能面临两种命运。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>哪两种命运？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>它们可能进入溶液中进行随后的化学再沉积，或者可能分解成相当稳定的颗粒，被搬运不同的距离。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>砂矿是由第二种过程形成的——颗粒的机械分解和搬运？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>完全正确。重矿物颗粒，如金，沉降在靠近其来源的地方。较轻的颗粒被搬运到更远的下游。这就是为什么砂金通常在靠近原始来源的河床和冲积平原中被发现。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>所以砂矿的分布取决于颗粒的比重？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>这是一个重要因素。搬运介质的能量——在这里是水——也起着作用。在高水能区域，即使是重颗粒也能被移动，但它们倾向于沉降在陷阱中，如巨石后面、基岩裂隙中或河流弯曲处。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>砂矿和层状矿床在形成方面有什么区别？</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>它们有很大不同。固结矿物的化学和物理沉积可以产生层状矿床，可能延伸到大面积区域。这些矿物包括煤、铁矿石、钾盐矿床和磷酸盐。而砂矿则是机械侵蚀和重力分离的结果。</div>
+      <div class="trans-line"><span class="trans-speaker">李先生：</span>我明白了。所以在这里的勘探中，我们应该集中采样河床沉积物，特别是那些大巨石后面和基岩裂隙中。</div>
+      <div class="trans-line"><span class="trans-speaker">张博士：</span>完全正确。那些是重矿物会聚集的天然陷阱位置。我们还应考虑到，当一系列岩层被地表一般侵蚀切割或被河流切割时，就会出现露头，使岩层边缘暴露出来。这也可能表明附近有原生矿化。</div>
+    </div>
+
+    <div class="vocab-list">
+      <div class="vocab-list-title">Key Vocabulary</div>
+      <div class="vocab-audio-bar" data-scene="4" data-count="14">
+        <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
+          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
+        </button>
+        <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
+          <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
+        </button>
+        <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          循环
+        </button>
+        <span class="vab-label">遍数</span>
+        <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="vocab-items">
+        <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">placer deposits 砂矿</span>
+        <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">alluvial deposits 冲积矿床</span>
+        <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">primary deposits 原生矿床</span>
+        <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">mechanically eroded 机械侵蚀</span>
+        <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">chemical redeposition 化学再沉积</span>
+        <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">stable particles 稳定颗粒</span>
+        <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">heavy mineral particles 重矿物颗粒</span>
+        <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">alluvial plains 冲积平原</span>
+        <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">traps 陷阱</span>
+        <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">crevices 裂隙</span>
+        <span class="vocab-chip" data-idx="11" onclick="vocabPlayChip(this, 11)">bedded deposits 层状矿床</span>
+        <span class="vocab-chip" data-idx="12" onclick="vocabPlayChip(this, 12)">potash deposits 钾盐矿床</span>
+        <span class="vocab-chip" data-idx="13" onclick="vocabPlayChip(this, 13)">phosphates 磷酸盐</span>
+        <span class="vocab-chip" data-idx="14" onclick="vocabPlayChip(this, 14)">outcrops 露头</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Unit 1 Geological Terminology — 采矿专业英语情境会话
+  </footer>
+
+</div>
+
+<script>
+/* Translation toggle */
+function toggleTranslation(el) {
+  var content = el.nextElementSibling;
+  var isOpen = el.classList.toggle('open');
+  content.classList.toggle('show', isOpen);
+}
+
+/* Bubble audio */
+(function() {
+  var currentAudio = null;
+  var currentBtn = null;
+
+  window.toggleBubbleAudio = function(btn) {
+    var src = btn.getAttribute('data-src');
+
+    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+      currentAudio.pause();
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      return;
+    }
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    if (currentBtn) {
+      currentBtn.classList.remove('playing');
+      currentBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+    }
+
+    var audio = new Audio(src);
+    var speedSlider = document.getElementById('speedSlider1');
+    if (speedSlider) {
+      audio.playbackRate = parseFloat(speedSlider.value);
+    }
+
+    btn.classList.add('playing');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
+
+    currentAudio = audio;
+    currentBtn = btn;
+
+    audio.play().catch(function() {});
+
+    audio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      currentAudio = null;
+      currentBtn = null;
+    });
+  };
+
+  var slider = document.getElementById('speedSlider1');
+  var speedVal = document.getElementById('speedValue1');
+  if (slider && speedVal) {
+    slider.addEventListener('input', function() {
+      var rate = parseFloat(this.value).toFixed(1);
+      speedVal.textContent = rate + 'x';
+      if (currentAudio) {
+        currentAudio.playbackRate = parseFloat(rate);
+      }
+    });
+  }
+})();
+
+/* Vocabulary audio system */
+(function() {
+  // State for each scene
+  var sceneStates = {};
+
+  function getSceneState(sceneNum) {
+    if (!sceneStates[sceneNum]) {
+      sceneStates[sceneNum] = {
+        isPlaying: false,
+        currentIndex: 0,
+        loop: false,
+        repeatCount: 1,
+        currentRepeat: 0,
+        audio: null
+      };
+    }
+    return sceneStates[sceneNum];
+  }
+
+  function getBarForScene(sceneNum) {
+    var bars = document.querySelectorAll('.vocab-audio-bar');
+    for (var i = 0; i < bars.length; i++) {
+      if (parseInt(bars[i].getAttribute('data-scene')) === sceneNum) {
+        return bars[i];
+      }
+    }
+    return null;
+  }
+
+  function getChipsForScene(sceneNum) {
+    var bar = getBarForScene(sceneNum);
+    if (!bar) return [];
+    return bar.parentElement.querySelectorAll('.vocab-chip');
+  }
+
+  function highlightChip(sceneNum, idx) {
+    var chips = getChipsForScene(sceneNum);
+    for (var i = 0; i < chips.length; i++) {
+      chips[i].classList.remove('active');
+    }
+    if (idx >= 1 && idx <= chips.length) {
+      chips[idx - 1].classList.add('active');
+    }
+  }
+
+  function clearHighlight(sceneNum) {
+    var chips = getChipsForScene(sceneNum);
+    for (var i = 0; i < chips.length; i++) {
+      chips[i].classList.remove('active');
+    }
+  }
+
+  function getAudioPath(sceneNum, idx) {
+    var num = idx < 10 ? '0' + idx : '' + idx;
+    return '../audio/unit1/vocab_dialog/vocab_d_s' + sceneNum + '_' + num + '.mp3';
+  }
+
+  function playVocabAudio(sceneNum, idx, onEnded) {
+    var state = getSceneState(sceneNum);
+    var src = getAudioPath(sceneNum, idx);
+    var audio = new Audio(src);
+    var speedSlider = document.getElementById('speedSlider1');
+    if (speedSlider) {
+      audio.playbackRate = parseFloat(speedSlider.value);
+    }
+    state.audio = audio;
+    highlightChip(sceneNum, idx);
+    audio.play().catch(function() {});
+    audio.addEventListener('ended', function() {
+      if (onEnded) onEnded();
+    });
+  }
+
+  function playNextInSequence(sceneNum) {
+    var state = getSceneState(sceneNum);
+    var bar = getBarForScene(sceneNum);
+    var total = parseInt(bar.getAttribute('data-count'));
+
+    state.currentIndex++;
+
+    if (state.currentIndex > total) {
+      state.currentRepeat++;
+      if (state.loop || state.currentRepeat < state.repeatCount) {
+        state.currentIndex = 1;
+      } else {
+        stopSequence(sceneNum);
+        return;
+      }
+    }
+
+    playVocabAudio(sceneNum, state.currentIndex, function() {
+      if (state.isPlaying) {
+        playNextInSequence(sceneNum);
+      }
+    });
+  }
+
+  function stopSequence(sceneNum) {
+    var state = getSceneState(sceneNum);
+    state.isPlaying = false;
+    if (state.audio) {
+      state.audio.pause();
+      state.audio = null;
+    }
+    clearHighlight(sceneNum);
+    var bar = getBarForScene(sceneNum);
+    if (bar) {
+      bar.querySelector('.vab-play-all').style.display = '';
+      bar.querySelector('.vab-stop').style.display = 'none';
+    }
+  }
+
+  window.vocabPlayAll = function(btn) {
+    var bar = btn.closest('.vocab-audio-bar');
+    var sceneNum = parseInt(bar.getAttribute('data-scene'));
+    var state = getSceneState(sceneNum);
+
+    // Stop any existing playback
+    if (state.isPlaying) {
+      stopSequence(sceneNum);
+    }
+
+    state.isPlaying = true;
+    state.currentIndex = 0;
+    state.currentRepeat = 0;
+
+    btn.style.display = 'none';
+    bar.querySelector('.vab-stop').style.display = '';
+
+    playNextInSequence(sceneNum);
+  };
+
+  window.vocabStopAll = function(btn) {
+    var bar = btn.closest('.vocab-audio-bar');
+    var sceneNum = parseInt(bar.getAttribute('data-scene'));
+    stopSequence(sceneNum);
+  };
+
+  window.vocabToggleLoop = function(btn) {
+    btn.classList.toggle('on');
+    var bar = btn.closest('.vocab-audio-bar');
+    var sceneNum = parseInt(bar.getAttribute('data-scene'));
+    var state = getSceneState(sceneNum);
+    state.loop = btn.classList.contains('on');
+  };
+
+  window.vocabSetRepeat = function(sel) {
+    var bar = sel.closest('.vocab-audio-bar');
+    var sceneNum = parseInt(bar.getAttribute('data-scene'));
+    var state = getSceneState(sceneNum);
+    state.repeatCount = parseInt(sel.value);
+  };
+
+  window.vocabPlayChip = function(chip, idx) {
+    var bar = chip.closest('.vocab-list').querySelector('.vocab-audio-bar');
+    var sceneNum = parseInt(bar.getAttribute('data-scene'));
+    var state = getSceneState(sceneNum);
+
+    // Stop sequential playback if running
+    if (state.isPlaying) {
+      stopSequence(sceneNum);
+    }
+
+    // Stop any single vocab audio
+    if (state.audio) {
+      state.audio.pause();
+      state.audio = null;
+    }
+
+    playVocabAudio(sceneNum, idx, function() {
+      clearHighlight(sceneNum);
+      state.audio = null;
+    });
+  };
+})();
+</script>
+</body>
+</html>

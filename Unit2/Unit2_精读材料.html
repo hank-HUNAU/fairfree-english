@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2 Mining Terminology — 精读材料 Intensive Reading</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+    line-height: 1.7;
+    color: #1d1d1f;
+    background: #f5f5f7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    background: #ffffff;
+    color: #1d1d1f;
+    padding: 2.8rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid #e8e8ed;
+  }
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+    color: #1d1d1f;
+  }
+  .header .subtitle {
+    font-size: 1rem;
+    color: #86868b;
+    font-weight: 400;
+  }
+
+  /* ===== Main Layout ===== */
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  /* ===== Section Title ===== */
+  .section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin: 2.5rem 0 1.2rem;
+    letter-spacing: -0.01em;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* ===== Paragraph Card ===== */
+  .para-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: box-shadow 0.25s ease;
+  }
+  .para-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .para-card .en-text {
+    font-size: 0.98rem;
+    text-align: justify;
+    color: #1d1d1f;
+    margin-bottom: 1rem;
+    line-height: 1.85;
+  }
+
+  /* ===== Term Heading inside card ===== */
+  .term-heading {
+    font-weight: 600;
+    color: #0071e3;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ===== Button Row ===== */
+  .btn-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  /* ===== Translation Button ===== */
+  .trans-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.45rem 1.1rem;
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+    font-weight: 500;
+  }
+  .trans-btn:hover { background: #0077ed; }
+  .trans-btn:active { transform: scale(0.97); }
+  .trans-btn svg { width: 14px; height: 14px; }
+
+  /* ===== Modal Overlay ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    animation: fadeIn 0.2s ease;
+  }
+  .modal-overlay.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ===== Modal Content ===== */
+  .modal-content {
+    background: #ffffff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1200px;
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  /* Modal Header */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.8rem;
+    border-bottom: 1px solid #e8e8ed;
+    background: #fafafa;
+    flex-shrink: 0;
+  }
+  .modal-header h3 {
+    font-size: 1rem;
+    color: #1d1d1f;
+    font-weight: 600;
+  }
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #e8e8ed;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #86868b;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: #d2d2d7; }
+
+  /* Modal Body - bilingual split */
+  .modal-body {
+    display: flex;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  .modal-col {
+    flex: 1;
+    padding: 1.5rem 1.8rem;
+    overflow-y: auto;
+  }
+  .modal-col-en {
+    border-right: 1px solid #e8e8ed;
+  }
+  .modal-col-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+  }
+  .modal-col-en .modal-col-label { color: #1d1d1f; border-bottom: 1px solid #e8e8ed; }
+  .modal-col-zh .modal-col-label { color: #0071e3; border-bottom: 1px solid #e8e8ed; }
+  .modal-col p {
+    text-align: justify;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: #1d1d1f;
+  }
+
+  /* ===== Vocab Highlight ===== */
+  .vocab {
+    background: rgba(0,113,227,0.08);
+    border-bottom: 2px solid rgba(0,113,227,0.25);
+    cursor: help;
+    position: relative;
+    padding: 0 2px;
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+  .vocab:hover { background: rgba(0,113,227,0.15); }
+  .vocab .tip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1d1d1f;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    white-space: nowrap;
+    z-index: 100;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    pointer-events: none;
+  }
+  .vocab .tip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1d1d1f;
+  }
+  .vocab:hover .tip { display: block; }
+
+  /* ===== Vocabulary Section ===== */
+  .vocab-section {
+    margin-top: 2.5rem;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.8rem 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .vocab-section h2 {
+    font-size: 1.25rem;
+    color: #1d1d1f;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* ===== Vocab Audio Control Bar ===== */
+  .vocab-audio-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1.2rem;
+    background: #f5f5f7;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    border: 1px solid #e8e8ed;
+  }
+  .vocab-audio-bar .bar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.4rem 0.9rem;
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .vocab-audio-bar .bar-btn:hover { background: #0077ed; }
+  .vocab-audio-bar .bar-btn:active { transform: scale(0.97); }
+  .vocab-audio-bar .bar-btn.active {
+    background: #ff3b30;
+  }
+  .vocab-audio-bar .bar-btn svg { width: 14px; height: 14px; }
+  .vocab-audio-bar .bar-label {
+    font-size: 0.82rem;
+    color: #86868b;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .vocab-audio-bar .bar-label select {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #d2d2d7;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    color: #1d1d1f;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+  .vocab-audio-bar .bar-label select:focus {
+    border-color: #0071e3;
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
+  }
+  .vocab-audio-bar .loop-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: #86868b;
+    cursor: pointer;
+    user-select: none;
+  }
+  .vocab-audio-bar .loop-toggle input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #0071e3;
+    cursor: pointer;
+  }
+  .vocab-audio-bar .play-progress {
+    font-size: 0.78rem;
+    color: #86868b;
+    margin-left: auto;
+  }
+
+  /* ===== Vocabulary Table ===== */
+  .vocab-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.92rem;
+  }
+  .vocab-table thead th {
+    background: #f5f5f7;
+    color: #86868b;
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e8e8ed;
+  }
+  .vocab-table thead th:first-child { border-radius: 10px 0 0 0; }
+  .vocab-table thead th:last-child { border-radius: 0 10px 0 0; }
+  .vocab-table tbody td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #f0f0f5;
+    vertical-align: middle;
+  }
+  .vocab-table tbody tr {
+    transition: background 0.15s;
+  }
+  .vocab-table tbody tr:hover { background: #f5f5f7; }
+  .vocab-table tbody tr.highlight-row {
+    background: rgba(0,113,227,0.08);
+  }
+  .vocab-table .word-col { font-weight: 600; color: #1d1d1f; }
+  .vocab-table .phonetic-col { color: #86868b; font-family: "SF Mono", "Courier New", monospace; font-size: 0.85rem; }
+  .vocab-table .meaning-col { color: #1d1d1f; }
+
+  /* ===== Vocab Row Play Button ===== */
+  .vocab-row-play {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #0071e3;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+  .vocab-row-play:hover { background: #0077ed; }
+  .vocab-row-play:active { transform: scale(0.92); }
+  .vocab-row-play svg { width: 12px; height: 12px; }
+  .vocab-row-play.playing {
+    background: #ff3b30;
+    animation: vocabPulse 1.2s infinite;
+  }
+  @keyframes vocabPulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,59,48,0.3); }
+    70% { box-shadow: 0 0 0 6px rgba(255,59,48,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,59,48,0); }
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    color: #86868b;
+    font-size: 0.8rem;
+  }
+
+  /* ===== Audio Play Button ===== */
+  .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.45rem 1.1rem;
+    background: #1d1d1f;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+    font-weight: 500;
+  }
+  .play-btn:hover { background: #424245; }
+  .play-btn:active { transform: scale(0.97); }
+  .play-btn svg { width: 14px; height: 14px; }
+  .play-btn.playing {
+    background: #ff3b30;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,59,48,0.3); }
+    70% { box-shadow: 0 0 0 8px rgba(255,59,48,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,59,48,0); }
+  }
+
+  /* ===== Global Audio Control Bar ===== */
+  .audio-control-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    color: #1d1d1f;
+    padding: 0.65rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .audio-control-bar label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    color: #1d1d1f;
+  }
+  .audio-control-bar input[type="range"] {
+    width: 120px;
+    accent-color: #0071e3;
+    cursor: pointer;
+  }
+  .audio-control-bar .speed-value {
+    font-weight: 600;
+    min-width: 2.5em;
+    text-align: center;
+    color: #0071e3;
+  }
+  .audio-control-bar .play-status {
+    color: #86868b;
+    font-style: normal;
+    font-size: 0.82rem;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .modal-body { flex-direction: column; }
+    .modal-col-en { border-right: none; border-bottom: 1px solid #e8e8ed; }
+    .modal-content { max-height: 90vh; }
+    .para-card { padding: 1.2rem 1.3rem; }
+    .header h1 { font-size: 1.5rem; }
+    .header { padding: 2rem 1.5rem 1.5rem; }
+    .vocab-table { font-size: 0.82rem; }
+    .vocab-table thead th, .vocab-table tbody td { padding: 0.5rem 0.6rem; }
+    .vocab-audio-bar { gap: 0.6rem; padding: 0.6rem 0.8rem; }
+  }
+  @media (max-width: 600px) {
+    .container { padding: 1rem 0.6rem; }
+    .header { padding: 1.5rem 1rem 1.2rem; }
+    .header h1 { font-size: 1.25rem; }
+    .modal-content { border-radius: 16px; }
+    .modal-col { padding: 1rem; }
+    .vocab-section { padding: 1.2rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<div class="header">
+  <h1>Unit 2 Mining Terminology</h1>
+  <div class="subtitle">采矿术语 — 精读材料 Intensive Reading</div>
+</div>
+
+<!-- ===== Global Audio Control Bar ===== -->
+<div class="audio-control-bar">
+  <label>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08"/></svg>
+    语速：
+    <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.1" value="1.0">
+    <span class="speed-value" id="speedValue">1.0x</span>
+  </label>
+  <span class="play-status" id="playStatus">未在播放</span>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+
+<!-- ==================== 1. Large Deep Orebodies ==================== -->
+<div class="section-title">1. Large Deep Orebodies</div>
+
+<!-- NOTE 1 -->
+<div class="para-card">
+  <div class="en-text">Large ore-bodies are often known as massive, but the term massive should not be confused with <span class="vocab">massive ore<span class="tip">块状矿石</span></span> and <span class="vocab">disseminated ores<span class="tip">浸染状矿石</span></span> in a geological sense. In fact a massive ore-body is likely to contain <span class="vocab">disseminated ores<span class="tip">浸染状矿石</span></span> minerals. A <span class="vocab">vein<span class="tip">/veɪn/ 矿脉</span></span>-type ore-body will probably contain bands of <span class="vocab">massive ore<span class="tip">块状矿石</span></span> minerals.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit2/reading_n1.mp3" data-id="n1" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('n1')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- NOTE 2 -->
+<div class="para-card">
+  <div class="en-text">A <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> is <span class="vocab">sink<span class="tip">/sɪŋk/ 掘进</span></span> alongside or through the ore-body for access. In practice, there must be two openings to allow air to be forced through the mine workings. It must be noted that if the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> is <span class="vocab">sink<span class="tip">/sɪŋk/ 掘进</span></span> through the ore-body then some of the ore is <span class="vocab">sterilize<span class="tip">/ˈsterɪlaɪz/ 保安矿柱</span></span>d. A cone of ore surrounding the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> and widening with depth must be left until the rest of the ore is <span class="vocab">extraction<span class="tip">/ɪkˈstrækʃən/ 开采</span></span>ed. Otherwise the movement of rock caused by ore <span class="vocab">extraction<span class="tip">/ɪkˈstrækʃən/ 开采</span></span> will damage the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> and necessitate expensive repairs, and lost production.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit2/reading_n2.mp3" data-id="n2" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('n2')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- NOTE 3 -->
+<div class="para-card">
+  <div class="en-text">Waste rock, ore, men and materials have to be raised and lowered in the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span>s. There are two types of conveyance, <span class="vocab">cage<span class="tip">/keɪdʒ/ 罐笼</span></span>s and <span class="vocab">skip<span class="tip">/skɪp/ 箕斗</span></span>s. <span class="vocab">Cage<span class="tip">/keɪdʒ/ 罐笼</span></span>s are used for man-riding and to wind mine cars containing ore, waste rock or materials.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit2/reading_n3.mp3" data-id="n3" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('n3')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- NOTE 4 -->
+<div class="para-card">
+  <div class="en-text">A large <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> may be equipped with a pair of <span class="vocab">skip<span class="tip">/skɪp/ 箕斗</span></span>s for ore and rock hoisting and a single <span class="vocab">cage<span class="tip">/keɪdʒ/ 罐笼</span></span> for man riding. The area around the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> at ground <span class="vocab">level<span class="tip">/ˈlevəl/ 中段</span></span> is known as the <span class="vocab">brace<span class="tip">/breɪs/ 井架</span></span> in <span class="vocab">metalliferous<span class="tip">/ˌmetəˈlɪfərəs/ 金属的</span></span> mining.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit2/reading_n4.mp3" data-id="n4" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('n4')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- ==================== 2. Vein-type Ore-body ==================== -->
+<div class="section-title">2. Vein-type Ore-body</div>
+
+<!-- NOTE 5 -->
+<div class="para-card">
+  <div class="en-text">A large ore-body may in fact consist of <span class="vocab">cluster<span class="tip">/ˈklʌstə/ 群</span></span>s of smaller ore-bodies of a <span class="vocab">vein<span class="tip">/veɪn/ 矿脉</span></span>-type, and development may be on a regular grid. <span class="vocab">Alternatively<span class="tip">/ɔːlˈtɜːnətɪvli/ 或者</span></span> the ore-body may be one <span class="vocab">predominant<span class="tip">/prɪˈdɒmɪnənt/ 主要的</span></span> <span class="vocab">vein<span class="tip">/veɪn/ 矿脉</span></span> which is long and narrow on its <span class="vocab">strike<span class="tip">/straɪk/ 走向</span></span> (horizontal) direction and which extends to the dip for a considerable depth. Technically the <span class="vocab">strike<span class="tip">/straɪk/ 走向</span></span> is at right angles to the full dip, but within an orebody the <span class="vocab">strike<span class="tip">/straɪk/ 走向</span></span> may follow a <span class="vocab">sinuous<span class="tip">/ˈsɪnjuəs/ 弯曲的</span></span> line and the dip frequently varies so that general trends have to be taken.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit2/reading_n5.mp3" data-id="n5" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('n5')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- NOTE 6 -->
+<div class="para-card">
+  <div class="en-text">It can be <span class="vocab">appreciate<span class="tip">/əˈpriːʃieɪt/ 理解</span></span>d that a vertical <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> rapidly loses contact with an inclined orebody and increasingly long <span class="vocab">level<span class="tip">/ˈlevəl/ 中段</span></span>s have to be driven. It can also be <span class="vocab">appreciate<span class="tip">/əˈpriːʃieɪt/ 理解</span></span>d that mining operations would weaken the <span class="vocab">hanging wall<span class="tip">上盘</span></span> i. e. the rock lying above the ore body, and cause it to collapse. As a result the major developments are normally made in the <span class="vocab">footwall<span class="tip">/ˈfʊtwɔːl/ 下盘</span></span>, below the orebody, where the rock is more stable.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit2/reading_n6.mp3" data-id="n6" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('n6')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- ==================== 3. Large Shallow Orebodies ==================== -->
+<div class="section-title">3. Large Shallow Orebodies</div>
+
+<!-- NOTE 7a (first half) -->
+<div class="para-card">
+  <div class="en-text">In the early stages of working the shallowest ore an <span class="vocab">inclined shaft<span class="tip">斜井</span></span> may be driven down from the surface and <span class="vocab">progressively<span class="tip">/prəˈɡresɪvli/ 逐渐地</span></span> deepened to follow ore <span class="vocab">extraction<span class="tip">/ɪkˈstrækʃən/ 开采</span></span>. However haulage speeds are generally lower and maintenance costs are higher in <span class="vocab">inclined shaft<span class="tip">斜井</span></span>s, so that with increased depth a change will be made to vertical <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> <span class="vocab">winding gear<span class="tip">提升设备</span></span>.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit2/reading_n7.mp3" data-id="n7" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('n7a')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- NOTE 7b (second half) -->
+<div class="para-card">
+  <div class="en-text">An <span class="vocab">ore pass<span class="tip">溜井</span></span> system will probably be developed to drop ore and rock to widely spaced main haulage <span class="vocab">level<span class="tip">/ˈlevəl/ 中段</span></span>s.</div>
+  <div class="btn-row">
+    <button class="play-btn" data-audio="../audio/unit2/reading_n7.mp3" data-id="n7b" onclick="togglePlay(this)">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+      播放
+    </button>
+    <button class="trans-btn" onclick="openModal('n7b')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      译文查看
+    </button>
+  </div>
+</div>
+
+<!-- ===== Vocabulary Table ===== -->
+<div class="vocab-section">
+<h2>Vocabulary Table / 生词表</h2>
+
+<!-- Vocab Audio Control Bar -->
+<div class="vocab-audio-bar">
+  <button class="bar-btn" id="vocabSeqPlayBtn" onclick="toggleVocabSeqPlay()">
+    <svg class="seq-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="seq-icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+    <span id="vocabSeqBtnText">连续播放</span>
+  </button>
+  <button class="bar-btn" id="vocabStopBtn" onclick="stopVocabSeqPlay()" style="background:#86868b;">
+    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+    停止
+  </button>
+  <div class="bar-label">
+    遍数：
+    <select id="vocabRepeatCount">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <label class="loop-toggle">
+    <input type="checkbox" id="vocabLoopToggle">
+    循环
+  </label>
+  <span class="play-progress" id="vocabPlayProgress"></span>
+</div>
+
+<table class="vocab-table">
+<thead>
+<tr><th style="width:5%"></th><th style="width:25%">Word / 词</th><th style="width:30%">Phonetic / 音标</th><th style="width:40%">Meaning / 释义</th></tr>
+</thead>
+<tbody id="vocabTableBody">
+<tr data-vocab-idx="1"><td><button class="vocab-row-play" onclick="playVocabAudio(1, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">vein</td><td class="phonetic-col">/veɪn/</td><td class="meaning-col">矿脉</td></tr>
+<tr data-vocab-idx="2"><td><button class="vocab-row-play" onclick="playVocabAudio(2, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">shaft</td><td class="phonetic-col">/ʃɑːft/</td><td class="meaning-col">竖井</td></tr>
+<tr data-vocab-idx="3"><td><button class="vocab-row-play" onclick="playVocabAudio(3, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">sink</td><td class="phonetic-col">/sɪŋk/</td><td class="meaning-col">掘进</td></tr>
+<tr data-vocab-idx="4"><td><button class="vocab-row-play" onclick="playVocabAudio(4, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">partition</td><td class="phonetic-col">/pɑːˈtɪʃən/</td><td class="meaning-col">分隔</td></tr>
+<tr data-vocab-idx="5"><td><button class="vocab-row-play" onclick="playVocabAudio(5, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">sterilize</td><td class="phonetic-col">/ˈsterɪlaɪz/</td><td class="meaning-col">保安矿柱</td></tr>
+<tr data-vocab-idx="6"><td><button class="vocab-row-play" onclick="playVocabAudio(6, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">cage</td><td class="phonetic-col">/keɪdʒ/</td><td class="meaning-col">罐笼</td></tr>
+<tr data-vocab-idx="7"><td><button class="vocab-row-play" onclick="playVocabAudio(7, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">skip</td><td class="phonetic-col">/skɪp/</td><td class="meaning-col">箕斗</td></tr>
+<tr data-vocab-idx="8"><td><button class="vocab-row-play" onclick="playVocabAudio(8, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">brace</td><td class="phonetic-col">/breɪs/</td><td class="meaning-col">井架</td></tr>
+<tr data-vocab-idx="9"><td><button class="vocab-row-play" onclick="playVocabAudio(9, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">bank</td><td class="phonetic-col">/bæŋk/</td><td class="meaning-col">井口</td></tr>
+<tr data-vocab-idx="10"><td><button class="vocab-row-play" onclick="playVocabAudio(10, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">level</td><td class="phonetic-col">/ˈlevəl/</td><td class="meaning-col">中段</td></tr>
+<tr data-vocab-idx="11"><td><button class="vocab-row-play" onclick="playVocabAudio(11, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">plat</td><td class="phonetic-col">/plæt/</td><td class="meaning-col">平台</td></tr>
+<tr data-vocab-idx="12"><td><button class="vocab-row-play" onclick="playVocabAudio(12, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">inset</td><td class="phonetic-col">/ˈɪnset/</td><td class="meaning-col">盲竖井</td></tr>
+<tr data-vocab-idx="13"><td><button class="vocab-row-play" onclick="playVocabAudio(13, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">sublevel</td><td class="phonetic-col">/ˈsʌblevəl/</td><td class="meaning-col">分段</td></tr>
+<tr data-vocab-idx="14"><td><button class="vocab-row-play" onclick="playVocabAudio(14, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">winzing</td><td class="phonetic-col">/ˈwɪnzɪŋ/</td><td class="meaning-col">暗井掘进</td></tr>
+<tr data-vocab-idx="15"><td><button class="vocab-row-play" onclick="playVocabAudio(15, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">crosscut</td><td class="phonetic-col">/ˈkrɒskʌt/</td><td class="meaning-col">石门</td></tr>
+<tr data-vocab-idx="16"><td><button class="vocab-row-play" onclick="playVocabAudio(16, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">stope</td><td class="phonetic-col">/stəʊp/</td><td class="meaning-col">采场</td></tr>
+<tr data-vocab-idx="17"><td><button class="vocab-row-play" onclick="playVocabAudio(17, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">cluster</td><td class="phonetic-col">/ˈklʌstə/</td><td class="meaning-col">群</td></tr>
+<tr data-vocab-idx="18"><td><button class="vocab-row-play" onclick="playVocabAudio(18, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">alternatively</td><td class="phonetic-col">/ɔːlˈtɜːnətɪvli/</td><td class="meaning-col">或者</td></tr>
+<tr data-vocab-idx="19"><td><button class="vocab-row-play" onclick="playVocabAudio(19, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">predominant</td><td class="phonetic-col">/prɪˈdɒmɪnənt/</td><td class="meaning-col">主要的</td></tr>
+<tr data-vocab-idx="20"><td><button class="vocab-row-play" onclick="playVocabAudio(20, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">strike</td><td class="phonetic-col">/straɪk/</td><td class="meaning-col">走向</td></tr>
+<tr data-vocab-idx="21"><td><button class="vocab-row-play" onclick="playVocabAudio(21, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">sinuous</td><td class="phonetic-col">/ˈsɪnjuəs/</td><td class="meaning-col">弯曲的</td></tr>
+<tr data-vocab-idx="22"><td><button class="vocab-row-play" onclick="playVocabAudio(22, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">appreciate</td><td class="phonetic-col">/əˈpriːʃieɪt/</td><td class="meaning-col">理解</td></tr>
+<tr data-vocab-idx="23"><td><button class="vocab-row-play" onclick="playVocabAudio(23, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">footwall</td><td class="phonetic-col">/ˈfʊtwɔːl/</td><td class="meaning-col">下盘</td></tr>
+<tr data-vocab-idx="24"><td><button class="vocab-row-play" onclick="playVocabAudio(24, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">extraction</td><td class="phonetic-col">/ɪkˈstrækʃən/</td><td class="meaning-col">开采</td></tr>
+<tr data-vocab-idx="25"><td><button class="vocab-row-play" onclick="playVocabAudio(25, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">progressively</td><td class="phonetic-col">/prəˈɡresɪvli/</td><td class="meaning-col">逐渐地</td></tr>
+<tr data-vocab-idx="26"><td><button class="vocab-row-play" onclick="playVocabAudio(26, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">metalliferous</td><td class="phonetic-col">/ˌmetəˈlɪfərəs/</td><td class="meaning-col">金属的</td></tr>
+<tr data-vocab-idx="27"><td><button class="vocab-row-play" onclick="playVocabAudio(27, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">bench</td><td class="phonetic-col">/bentʃ/</td><td class="meaning-col">台阶</td></tr>
+<tr data-vocab-idx="28"><td><button class="vocab-row-play" onclick="playVocabAudio(28, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">overburden</td><td class="phonetic-col">/ˌəʊvəˈbɜːdən/</td><td class="meaning-col">表土</td></tr>
+<tr data-vocab-idx="29"><td><button class="vocab-row-play" onclick="playVocabAudio(29, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">barren rock</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">废石</td></tr>
+<tr data-vocab-idx="30"><td><button class="vocab-row-play" onclick="playVocabAudio(30, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">hanging wall</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">上盘</td></tr>
+<tr data-vocab-idx="31"><td><button class="vocab-row-play" onclick="playVocabAudio(31, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">inclined shaft</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">斜井</td></tr>
+<tr data-vocab-idx="32"><td><button class="vocab-row-play" onclick="playVocabAudio(32, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">ore pass</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">溜井</td></tr>
+<tr data-vocab-idx="33"><td><button class="vocab-row-play" onclick="playVocabAudio(33, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">winding gear</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">提升设备</td></tr>
+<tr data-vocab-idx="34"><td><button class="vocab-row-play" onclick="playVocabAudio(34, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">disseminated ores</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">浸染状矿石</td></tr>
+<tr data-vocab-idx="35"><td><button class="vocab-row-play" onclick="playVocabAudio(35, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">massive ore</td><td class="phonetic-col">&mdash;</td><td class="meaning-col">块状矿石</td></tr>
+<tr data-vocab-idx="36"><td><button class="vocab-row-play" onclick="playVocabAudio(36, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">winze</td><td class="phonetic-col">/wɪnz/</td><td class="meaning-col">暗井</td></tr>
+<tr data-vocab-idx="37"><td><button class="vocab-row-play" onclick="playVocabAudio(37, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">drive</td><td class="phonetic-col">/draɪv/</td><td class="meaning-col">平巷掘进</td></tr>
+<tr data-vocab-idx="38"><td><button class="vocab-row-play" onclick="playVocabAudio(38, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">hoist</td><td class="phonetic-col">/hɔɪst/</td><td class="meaning-col">提升机</td></tr>
+<tr data-vocab-idx="39"><td><button class="vocab-row-play" onclick="playVocabAudio(39, this)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></td><td class="word-col">haulage</td><td class="phonetic-col">/ˈhɔːlɪdʒ/</td><td class="meaning-col">运输</td></tr>
+</tbody>
+</table>
+</div>
+
+</div><!-- end container -->
+
+<!-- ===== Modal ===== -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">段落译文</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-col modal-col-en">
+        <div class="modal-col-label">English / 英文原文</div>
+        <p id="modalEn"></p>
+      </div>
+      <div class="modal-col modal-col-zh">
+        <div class="modal-col-label">中文 / 参考译文</div>
+        <p id="modalZh"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Unit 2 Mining Terminology &mdash; 精读材料</div>
+
+<script>
+const data = {
+  n1: {
+    title: '1. Large Deep Orebodies — NOTE 1',
+    en: 'Large ore-bodies are often known as massive, but the term massive should not be confused with massive ore and disseminated ores in a geological sense. In fact a massive ore-body is likely to contain disseminated ore minerals. A vein-type ore-body will probably contain bands of massive ore minerals.',
+    zh: '大型矿体通常为块状矿体，但是这里的块状矿体与地质学中的块状矿石与浸染状矿石不是一个概念。实际上，块状矿床通常包含浸染状的矿石。脉状矿体可能包含若干条带状的浸染状矿石。'
+  },
+  n2: {
+    title: '1. Large Deep Orebodies — NOTE 2',
+    en: 'A shaft is sunk alongside or through the ore-body for access. In practice, there must be two openings to allow air to be forced through the mine workings. It must be noted that if the shaft is sunk through the ore-body then some of the ore is sterilized. A cone of ore surrounding the shaft and widening with depth must be left until the rest of the ore is extracted. Otherwise the movement of rock caused by ore extraction will damage the shaft and necessitate expensive repairs, and lost production.',
+    zh: '要进入矿体开采，首先要在矿体周边掘进竖井或在矿体中掘进竖井作为出入口。实际生产过程中，矿山必须具备两个出入口，以便让空气通过井下工作面。需要注意的是，当竖井穿过矿体时，则需要保留部分矿体作为保安矿柱。在矿体其他部分开采完之前，竖井周边这一下大上小的锥形保安矿柱必须保留。否则，矿石开采引起的岩石移动将破坏竖井，需要进行的维修费昂贵，并且影响产量。'
+  },
+  n3: {
+    title: '1. Large Deep Orebodies — NOTE 3',
+    en: 'Waste rock, ore, men and materials have to be raised and lowered in the shafts. There are two types of conveyance, cages and skips. Cages are used for man-riding and to wind mine cars containing ore, waste rock or materials.',
+    zh: '废石、矿石、人员和材料都必须经过竖井提升。竖井提升有两种方式：罐笼提升和箕斗提升。罐笼提升人员、矿石车和废石车以及材料。'
+  },
+  n4: {
+    title: '1. Large Deep Orebodies — NOTE 4',
+    en: 'A large shaft may be equipped with a pair of skips for ore and rock hoisting and a single cage for man riding. The area around the shaft at ground level is known as the brace in metal mining.',
+    zh: '大竖井可以安装一对箕斗用以提升矿石和岩石，还可以安装一个罐笼提升人员。在金属矿山，井筒地面部分称井架。'
+  },
+  n5: {
+    title: '2. Vein-type Ore-body — NOTE 5',
+    en: 'A large ore-body may in fact consist of clusters of smaller ore-bodies of a vein-type, and development may be on a regular grid. Alternatively the ore-body may be one predominant vein which is long and narrow on its strike (horizontal) direction and which extends to the dip for a considerable depth. Technically the strike is at right angles to the full dip, but within an orebody the strike may follow a sinuous line and the dip frequently varies so that general trends have to be taken.',
+    zh: '通常，一个大矿体可以是许多小的矿脉组成，因此，矿山开拓需要全盘考虑。矿体也可能是一个走向长，宽度窄，向下延伸深的主矿脉。技术上说，矿体走向与倾向垂直。但是矿体的走向往往不是一条直线，而是弯曲向前，倾向也常常发生改变，因此，在设计中常用采用矿体的大致走向和倾向来说明矿体的赋存情况。'
+  },
+  n6: {
+    title: '2. Vein-type Ore-body — NOTE 6',
+    en: 'It can be seen that a vertical shaft rapidly loses contact with an inclined orebody and increasingly long levels have to be driven. It can also be appreciated that mining operations would weaken the hanging wall i. e. the rock lying above the ore body, and cause it to collapse. As a result the major developments are normally made in the footwall, below the orebody, where the rock is more stable.',
+    zh: '通常，竖井越深，它与矿体的距离就越远，从竖井开掘石门至矿体的长度就越长。同样，矿床开采将削弱上盘围岩（即矿体上部的岩层），导致上盘围岩发生破坏。因此，主要的开拓工程往往布置在矿体下盘，因为下盘围岩更加稳定。'
+  },
+  n7a: {
+    title: '3. Large Shallow Orebodies — NOTE 7 (Part 1)',
+    en: 'In the early stages of working the shallowest ore an inclined shaft may be driven down from the surface and progressively deepened to follow ore extraction. However haulage speeds are generally lower and maintenance costs are higher in inclined shafts, so that with increased depth a change will be made to vertical shaft winding.',
+    zh: '在早期开采阶段，埋深最浅的矿体可以从地面掘井斜井。随着矿石的开采，逐渐延伸斜井。但是，斜井开拓时的提升速度比较低，维修成本高，因此，随着开采深度的增加，提升方式就需要进行调整，由斜井提升变为竖井提升。'
+  },
+  n7b: {
+    title: '3. Large Shallow Orebodies — NOTE 7 (Part 2)',
+    en: 'An ore pass system will probably be developed to drop ore and rock to widely spaced main haulage levels.',
+    zh: '如果开拓系统中增设溜井出矿系统用以出矿和出岩，那么中段高度可以提高。'
+  }
+};
+
+function openModal(id) {
+  const item = data[id];
+  if (!item) return;
+  document.getElementById('modalTitle').textContent = item.title;
+  document.getElementById('modalEn').textContent = item.en;
+  document.getElementById('modalZh').textContent = item.zh;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ===== Paragraph Audio Player Logic ===== */
+(function() {
+  let currentAudio = null;
+  let currentBtn = null;
+  let currentId = null;
+
+  const speedSlider = document.getElementById('speedSlider');
+  const speedValue = document.getElementById('speedValue');
+  const playStatus = document.getElementById('playStatus');
+
+  speedSlider.addEventListener('input', function() {
+    const rate = parseFloat(this.value);
+    speedValue.textContent = rate.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = rate;
+    }
+  });
+
+  const titleMap = {
+    n1: 'Large Deep Orebodies - NOTE 1',
+    n2: 'Large Deep Orebodies - NOTE 2',
+    n3: 'Large Deep Orebodies - NOTE 3',
+    n4: 'Large Deep Orebodies - NOTE 4',
+    n5: 'Vein-type Ore-body - NOTE 5',
+    n6: 'Vein-type Ore-body - NOTE 6',
+    n7: 'Large Shallow Orebodies - NOTE 7',
+    n7b: 'Large Shallow Orebodies - NOTE 7 (Part 2)'
+  };
+
+  window.togglePlay = function(btn) {
+    const audioSrc = btn.getAttribute('data-audio');
+    const audioId = btn.getAttribute('data-id');
+
+    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+      currentAudio.pause();
+      setButtonState(btn, false);
+      playStatus.textContent = '已暂停 - ' + (titleMap[audioId] || audioId);
+      return;
+    }
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+      if (currentBtn && currentBtn !== btn) {
+        setButtonState(currentBtn, false);
+      }
+    }
+
+    currentAudio = new Audio(audioSrc);
+    currentAudio.playbackRate = parseFloat(speedSlider.value);
+    currentBtn = btn;
+    currentId = audioId;
+
+    currentAudio.play().then(function() {
+      setButtonState(btn, true);
+      playStatus.textContent = '正在播放 - ' + (titleMap[audioId] || audioId);
+    }).catch(function(err) {
+      console.warn('Audio play failed:', err);
+      playStatus.textContent = '播放失败';
+    });
+
+    currentAudio.addEventListener('ended', function() {
+      setButtonState(btn, false);
+      playStatus.textContent = '未在播放';
+      currentAudio = null;
+      currentBtn = null;
+      currentId = null;
+    });
+  };
+
+  function setButtonState(btn, isPlaying) {
+    const iconPlay = btn.querySelector('.icon-play');
+    const iconPause = btn.querySelector('.icon-pause');
+    if (isPlaying) {
+      btn.classList.add('playing');
+      iconPlay.style.display = 'none';
+      iconPause.style.display = '';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' 暂停';
+    } else {
+      btn.classList.remove('playing');
+      iconPlay.style.display = '';
+      iconPause.style.display = 'none';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
+    }
+  }
+})();
+
+/* ===== Vocabulary Audio Player Logic ===== */
+(function() {
+  const TOTAL_VOCAB = 39;
+  const VOCAB_AUDIO_BASE = '../audio/unit2/vocab_reading/vocab_r_';
+
+  let vocabAudio = null;
+  let seqPlaying = false;
+  let seqPaused = false;
+  let currentVocabIdx = 0;
+  let currentRepeatRound = 0;
+  let currentRepeatTotal = 3;
+  let loopEnabled = false;
+  let currentPlayingBtn = null;
+
+  const seqPlayBtn = document.getElementById('vocabSeqPlayBtn');
+  const seqBtnText = document.getElementById('vocabSeqBtnText');
+  const vocabStopBtn = document.getElementById('vocabStopBtn');
+  const repeatSelect = document.getElementById('vocabRepeatCount');
+  const loopToggle = document.getElementById('vocabLoopToggle');
+  const progressEl = document.getElementById('vocabPlayProgress');
+
+  function getVocabAudioSrc(idx) {
+    return VOCAB_AUDIO_BASE + String(idx).padStart(2, '0') + '.mp3';
+  }
+
+  function highlightRow(idx) {
+    const rows = document.querySelectorAll('#vocabTableBody tr');
+    rows.forEach(function(r) { r.classList.remove('highlight-row'); });
+    const btns = document.querySelectorAll('.vocab-row-play');
+    btns.forEach(function(b) { b.classList.remove('playing'); });
+    if (idx > 0 && idx <= TOTAL_VOCAB) {
+      const row = document.querySelector('tr[data-vocab-idx="' + idx + '"]');
+      if (row) {
+        row.classList.add('highlight-row');
+        const btn = row.querySelector('.vocab-row-play');
+        if (btn) {
+          btn.classList.add('playing');
+          row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+  }
+
+  function clearAllHighlights() {
+    const rows = document.querySelectorAll('#vocabTableBody tr');
+    rows.forEach(function(r) { r.classList.remove('highlight-row'); });
+    const btns = document.querySelectorAll('.vocab-row-play');
+    btns.forEach(function(b) { b.classList.remove('playing'); });
+  }
+
+  function updateProgress() {
+    if (!seqPlaying && !seqPaused) {
+      progressEl.textContent = '';
+      return;
+    }
+    progressEl.textContent = currentVocabIdx + ' / ' + TOTAL_VOCAB + (currentRepeatTotal > 1 ? ' (第' + currentRepeatRound + '遍)' : '');
+  }
+
+  function playVocabItem(idx, callback) {
+    if (vocabAudio) {
+      vocabAudio.pause();
+      vocabAudio = null;
+    }
+    highlightRow(idx);
+    updateProgress();
+
+    vocabAudio = new Audio(getVocabAudioSrc(idx));
+    vocabAudio.playbackRate = parseFloat(document.getElementById('speedSlider').value);
+
+    vocabAudio.play().catch(function(err) {
+      console.warn('Vocab audio play failed:', err);
+      if (callback) callback();
+    });
+
+    vocabAudio.addEventListener('ended', function() {
+      if (callback) callback();
+    });
+  }
+
+  function playSequence() {
+    if (!seqPlaying) return;
+
+    if (currentVocabIdx > TOTAL_VOCAB) {
+      currentRepeatRound++;
+      if (loopEnabled || currentRepeatRound < currentRepeatTotal) {
+        if (loopEnabled && currentRepeatRound >= currentRepeatTotal) {
+          currentRepeatRound = 0;
+        }
+        currentVocabIdx = 1;
+      } else {
+        stopSequence();
+        return;
+      }
+    }
+
+    playVocabItem(currentVocabIdx, function() {
+      if (!seqPlaying) return;
+      currentVocabIdx++;
+      playSequence();
+    });
+  }
+
+  function stopSequence() {
+    seqPlaying = false;
+    seqPaused = false;
+    if (vocabAudio) {
+      vocabAudio.pause();
+      vocabAudio = null;
+    }
+    clearAllHighlights();
+    seqPlayBtn.classList.remove('active');
+    seqPlayBtn.querySelector('.seq-icon-play').style.display = '';
+    seqPlayBtn.querySelector('.seq-icon-pause').style.display = 'none';
+    seqBtnText.textContent = '连续播放';
+    progressEl.textContent = '';
+  }
+
+  window.toggleVocabSeqPlay = function() {
+    if (seqPlaying && !seqPaused) {
+      seqPaused = true;
+      seqPlaying = false;
+      if (vocabAudio) vocabAudio.pause();
+      seqPlayBtn.querySelector('.seq-icon-play').style.display = '';
+      seqPlayBtn.querySelector('.seq-icon-pause').style.display = 'none';
+      seqBtnText.textContent = '继续播放';
+      seqPlayBtn.classList.remove('active');
+      return;
+    }
+
+    if (seqPaused) {
+      seqPaused = false;
+      seqPlaying = true;
+      seqPlayBtn.classList.add('active');
+      seqPlayBtn.querySelector('.seq-icon-play').style.display = 'none';
+      seqPlayBtn.querySelector('.seq-icon-pause').style.display = '';
+      seqBtnText.textContent = '暂停';
+      playSequence();
+      return;
+    }
+
+    currentVocabIdx = 1;
+    currentRepeatRound = 1;
+    currentRepeatTotal = parseInt(repeatSelect.value);
+    loopEnabled = loopToggle.checked;
+    seqPlaying = true;
+    seqPaused = false;
+    seqPlayBtn.classList.add('active');
+    seqPlayBtn.querySelector('.seq-icon-play').style.display = 'none';
+    seqPlayBtn.querySelector('.seq-icon-pause').style.display = '';
+    seqBtnText.textContent = '暂停';
+    playSequence();
+  };
+
+  window.stopVocabSeqPlay = function() {
+    stopSequence();
+  };
+
+  window.playVocabAudio = function(idx, btn) {
+    if (seqPlaying || seqPaused) {
+      stopSequence();
+    }
+
+    if (currentPlayingBtn === btn && vocabAudio && !vocabAudio.paused) {
+      vocabAudio.pause();
+      btn.classList.remove('playing');
+      currentPlayingBtn = null;
+      return;
+    }
+
+    if (vocabAudio) {
+      vocabAudio.pause();
+    }
+    if (currentPlayingBtn && currentPlayingBtn !== btn) {
+      currentPlayingBtn.classList.remove('playing');
+    }
+
+    clearAllHighlights();
+    const row = btn.closest('tr');
+    if (row) row.classList.add('highlight-row');
+    btn.classList.add('playing');
+    currentPlayingBtn = btn;
+
+    vocabAudio = new Audio(getVocabAudioSrc(idx));
+    vocabAudio.playbackRate = parseFloat(document.getElementById('speedSlider').value);
+    vocabAudio.play().catch(function(err) {
+      console.warn('Vocab audio play failed:', err);
+    });
+    vocabAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      row.classList.remove('highlight-row');
+      currentPlayingBtn = null;
+      vocabAudio = null;
+    });
+  };
+
+  repeatSelect.addEventListener('change', function() {
+    currentRepeatTotal = parseInt(this.value);
+  });
+  loopToggle.addEventListener('change', function() {
+    loopEnabled = this.checked;
+  });
+})();
+</script>
+
+</body>
+</html>
