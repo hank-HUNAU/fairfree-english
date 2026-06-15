@@ -438,13 +438,25 @@
     color: var(--fg-muted);
     font-size: 0.85rem;
     font-style: italic;
+    white-space: nowrap;
+    min-width: 100px;
   }
 
   /* Meaning cell */
   .meaning-cell {
     color: var(--fg);
     font-size: 0.88rem;
-    line-height: 1.6;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
+  }
+
+  .meaning-cell:hover {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 
   /* Voice indicator dot */
