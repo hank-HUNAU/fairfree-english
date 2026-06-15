@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学习打卡 - 采矿专业英语</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #1c1c1e;
+  --bg-secondary: #2c2c2e;
+  --bg-tertiary: #3a3a3c;
+  --card-bg: #2c2c2e;
+  --text: #f5f5f7;
+  --text-secondary: #8e8e93;
+  --accent: #0a84ff;
+  --accent-hover: #409cff;
+  --green: #30d158;
+  --green-bg: rgba(48, 209, 88, 0.15);
+  --orange: #ff9f0a;
+  --orange-bg: rgba(255, 159, 10, 0.15);
+  --red: #ff453a;
+  --red-bg: rgba(255, 69, 58, 0.15);
+  --purple: #bf5af2;
+  --purple-bg: rgba(191, 90, 242, 0.15);
+  --border: rgba(255,255,255,0.1);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ===== Header ===== */
+.header {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.header-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--bg-tertiary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.header-back:hover { background: var(--accent); color: var(--text); }
+
+/* ===== Main ===== */
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ===== User Info Card ===== */
+.user-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.user-avatar {
+  width: 56px;
+  height: 56px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.user-info h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.user-info p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.user-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-item {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ===== Today Card ===== */
+.today-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+
+.today-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.today-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.today-date {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.today-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.timer-display {
+  flex: 1;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+
+.timer-time {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--green);
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.checkin-btn {
+  padding: 16px 32px;
+  background: var(--green);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.checkin-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
+.checkin-btn:disabled { background: var(--bg-tertiary); color: var(--text-secondary); cursor: default; transform: none; }
+
+.checkin-done {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: var(--green-bg);
+  border-radius: var(--radius-sm);
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ===== Calendar Heatmap ===== */
+.calendar-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+
+.calendar-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.calendar-day.has-data { background: var(--green-bg); color: var(--green); }
+.calendar-day.has-data.level-1 { background: rgba(48, 209, 88, 0.2); }
+.calendar-day.has-data.level-2 { background: rgba(48, 209, 88, 0.4); }
+.calendar-day.has-data.level-3 { background: rgba(48, 209, 88, 0.6); }
+.calendar-day.has-data.level-4 { background: var(--green); color: var(--text); }
+
+.calendar-day.today::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+}
+
+.calendar-labels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ===== Unit Progress ===== */
+.progress-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+
+.progress-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.progress-list {
+  display: grid;
+  gap: 8px;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.progress-num {
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.progress-info {
+  flex: 1;
+}
+
+.progress-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--bg);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
+.progress-count {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ===== Reminder Banner ===== */
+.reminder-banner {
+  background: var(--orange-bg);
+  border: 1px solid var(--orange);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reminder-icon {
+  font-size: 24px;
+}
+
+.reminder-text {
+  font-size: 14px;
+  color: var(--orange);
+}
+
+.reminder-close {
+  background: none;
+  border: none;
+  color: var(--orange);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* ===== Settings ===== */
+.settings-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+.settings-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-item:last-child { border-bottom: none; }
+
+.settings-label {
+  font-size: 14px;
+}
+
+.settings-btn {
+  padding: 8px 16px;
+  background: var(--bg-tertiary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.settings-btn:hover { background: var(--accent); color: var(--text); }
+
+/* ===== Modal ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.modal-overlay.open { opacity: 1; visibility: visible; }
+
+.modal {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 24px;
+  width: 90%;
+  max-width: 400px;
+  border: 1px solid var(--border);
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.modal-input:focus { outline: none; border-color: var(--accent); }
+
+.modal-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.modal-btn:hover { background: var(--accent-hover); }
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .user-stats { grid-template-columns: repeat(2, 1fr); }
+  .today-content { flex-direction: column; }
+  .header { padding: 12px 16px; }
+  .main { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <button class="header-back" onclick="goBack()">← 返回课程</button>
+  <span class="header-title">学习打卡</span>
+</header>
+
+<main class="main">
+  <!-- Reminder Banner (hidden by default) -->
+  <div class="reminder-banner" id="reminderBanner" style="display:none;">
+    <span class="reminder-icon">⏰</span>
+    <span class="reminder-text" id="reminderText">您已连续3天未学习，快来打卡吧！</span>
+    <button class="reminder-close" onclick="closeReminder()">×</button>
+  </div>
+
+  <!-- User Info Card -->
+  <div class="user-card">
+    <div class="user-header">
+      <div class="user-avatar" id="userAvatar">?</div>
+      <div class="user-info">
+        <h2 id="userName">未设置</h2>
+        <p id="userDept">请设置您的信息</p>
+      </div>
+    </div>
+    <div class="user-stats">
+      <div class="stat-item">
+        <div class="stat-value" id="totalDays">0</div>
+        <div class="stat-label">累计打卡天数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="totalMinutes">0</div>
+        <div class="stat-label">累计学习分钟</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="completedUnits">0</div>
+        <div class="stat-label">已完成单元</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Card -->
+  <div class="today-card">
+    <div class="today-header">
+      <span class="today-title">今日学习</span>
+      <span class="today-date" id="todayDate"></span>
+    </div>
+    <div class="today-content">
+      <div class="timer-display">
+        <div class="timer-time" id="timerDisplay">00:00:00</div>
+        <div class="timer-label">今日学习时长</div>
+      </div>
+      <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">打卡确认</button>
+      <div class="checkin-done" id="checkinDone" style="display:none;">
+        <span>✓</span> 今日已打卡
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar Heatmap -->
+  <div class="calendar-card">
+    <div class="calendar-title">学习日历（近30天）</div>
+    <div class="calendar-labels">
+      <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+    </div>
+    <div class="calendar-grid" id="calendarGrid"></div>
+  </div>
+
+  <!-- Unit Progress -->
+  <div class="progress-card">
+    <div class="progress-title">单元学习进度</div>
+    <div class="progress-list" id="progressList"></div>
+  </div>
+
+  <!-- Settings -->
+  <div class="settings-card">
+    <div class="settings-title">设置</div>
+    <div class="settings-item">
+      <span class="settings-label">修改个人信息</span>
+      <button class="settings-btn" onclick="showUserModal()">编辑</button>
+    </div>
+    <div class="settings-item">
+      <span class="settings-label">导出学习数据</span>
+      <button class="settings-btn" onclick="exportData()">导出JSON</button>
+    </div>
+    <div class="settings-item">
+      <span class="settings-label">导入学习数据</span>
+      <button class="settings-btn" onclick="importData()">导入</button>
+    </div>
+    <div class="settings-item">
+      <span class="settings-label">开启浏览器通知</span>
+      <button class="settings-btn" id="notifyBtn" onclick="requestNotify()">开启</button>
+    </div>
+  </div>
+</main>
+
+<!-- User Info Modal -->
+<div class="modal-overlay" id="userModal">
+  <div class="modal">
+    <div class="modal-title">设置个人信息</div>
+    <input type="text" class="modal-input" id="inputName" placeholder="请输入姓名">
+    <input type="text" class="modal-input" id="inputDept" placeholder="请输入部门">
+    <button class="modal-btn" onclick="saveUserInfo()">确认保存</button>
+  </div>
+</div>
+
+<!-- Import Modal -->
+<div class="modal-overlay" id="importModal" style="display:none;">
+  <div class="modal">
+    <div class="modal-title">导入学习数据</div>
+    <input type="file" class="modal-input" id="importFile" accept=".json" style="padding:8px;">
+    <button class="modal-btn" onclick="doImport()">确认导入</button>
+  </div>
+</div>
+
+<script>
+// ===== Data Structure =====
+const STORAGE_KEY = 'miningEnglishCheckin';
+
+let userData = {
+  name: '',
+  dept: '',
+  startDate: null,
+  totalDays: 0,
+  totalMinutes: 0,
+  dailyLog: [],
+  unitProgress: {}
+};
+
+let todayTimer = 0;
+let timerInterval = null;
+let todayCheckedIn = false;
+
+// ===== Init =====
+function init() {
+  loadData();
+  updateUI();
+  startTimer();
+  checkReminder();
+  renderCalendar();
+  renderProgress();
+  
+  if (!userData.name) {
+    showUserModal();
+  }
+}
+
+function loadData() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    userData = JSON.parse(saved);
+  }
+  
+  // Check if today already checked in
+  const today = getTodayStr();
+  const todayLog = userData.dailyLog.find(d => d.date === today);
+  if (todayLog) {
+    todayCheckedIn = true;
+    todayTimer = todayLog.minutes * 60;
+  }
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+}
+
+function getTodayStr() {
+  return new Date().toISOString().split('T')[0];
+}
+
+// ===== Timer =====
+function startTimer() {
+  if (todayCheckedIn) return;
+  
+  timerInterval = setInterval(() => {
+    todayTimer++;
+    updateTimerDisplay();
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const h = Math.floor(todayTimer / 3600);
+  const m = Math.floor((todayTimer % 3600) / 60);
+  const s = todayTimer % 60;
+  document.getElementById('timerDisplay').textContent = 
+    `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+// ===== Checkin =====
+function doCheckin() {
+  if (todayCheckedIn) return;
+  
+  const today = getTodayStr();
+  const minutes = Math.floor(todayTimer / 60);
+  
+  // Update daily log
+  const existing = userData.dailyLog.find(d => d.date === today);
+  if (existing) {
+    existing.minutes = minutes;
+  } else {
+    userData.dailyLog.push({ date: today, minutes });
+    userData.totalDays++;
+  }
+  
+  userData.totalMinutes += minutes;
+  
+  saveData();
+  todayCheckedIn = true;
+  
+  clearInterval(timerInterval);
+  
+  // Update UI
+  document.getElementById('checkinBtn').style.display = 'none';
+  document.getElementById('checkinDone').style.display = 'flex';
+  updateStats();
+  renderCalendar();
+  
+  // Show success notification
+  if (Notification.permission === 'granted') {
+    new Notification('打卡成功！', { body: `今日学习 ${minutes} 分钟，累计 ${userData.totalDays} 天` });
+  }
+}
+
+// ===== UI Update =====
+function updateUI() {
+  updateStats();
+  updateUserInfo();
+  updateTodayDate();
+  updateCheckinState();
+}
+
+function updateStats() {
+  document.getElementById('totalDays').textContent = userData.totalDays;
+  document.getElementById('totalMinutes').textContent = userData.totalMinutes;
+  
+  // Count completed units (4 modules done)
+  let completed = 0;
+  for (let u in userData.unitProgress) {
+    const p = userData.unitProgress[u];
+    if (p.vocab && p.reading && p.dialogue && p.sentences) completed++;
+  }
+  document.getElementById('completedUnits').textContent = completed;
+}
+
+function updateUserInfo() {
+  document.getElementById('userName').textContent = userData.name || '未设置';
+  document.getElementById('userDept').textContent = userData.dept || '请设置您的信息';
+  document.getElementById('userAvatar').textContent = userData.name ? userData.name.charAt(0).toUpperCase() : '?';
+}
+
+function updateTodayDate() {
+  const today = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+  document.getElementById('todayDate').textContent = today.toLocaleDateString('zh-CN', options);
+}
+
+function updateCheckinState() {
+  if (todayCheckedIn) {
+    document.getElementById('checkinBtn').style.display = 'none';
+    document.getElementById('checkinDone').style.display = 'flex';
+    updateTimerDisplay();
+  }
+}
+
+// ===== Calendar =====
+function renderCalendar() {
+  const grid = document.getElementById('calendarGrid');
+  grid.innerHTML = '';
+  
+  const today = new Date();
+  const todayStr = getTodayStr();
+  
+  // Generate 30 days
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().split('T')[0];
+    const dayNum = d.getDate();
+    
+    const log = userData.dailyLog.find(l => l.date === dateStr);
+    
+    const cell = document.createElement('div');
+    cell.className = 'calendar-day';
+    cell.textContent = dayNum;
+    
+    if (log) {
+      cell.classList.add('has-data');
+      // Level based on minutes
+      const level = Math.min(4, Math.ceil(log.minutes / 30));
+      cell.classList.add(`level-${level}`);
+    }
+    
+    if (dateStr === todayStr) {
+      cell.classList.add('today');
+    }
+    
+    grid.appendChild(cell);
+  }
+}
+
+// ===== Progress =====
+function renderProgress() {
+  const list = document.getElementById('progressList');
+  list.innerHTML = '';
+  
+  const units = [
+    { num: 1, name: 'Geological Terminology' },
+    { num: 2, name: 'Mining Terminology' },
+    { num: 3, name: 'Underground Mine Development' },
+    { num: 4, name: 'Factors Which Require A Shaft' },
+    { num: 5, name: 'Location of Access Relative to Orebodies' },
+    { num: 6, name: 'Mine Development of Large Metalliferous Orebodies' },
+    { num: 7, name: 'Underground Metalliferous Mining' },
+    { num: 8, name: 'Room and Pillar Mining' },
+    { num: 9, name: 'Stope and Pillar Mining' },
+    { num: 10, name: 'Shrinkage Stopping' },
+    { num: 11, name: 'Sublevel Stopping' },
+    { num: 12, name: 'Supported Methods' },
+    { num: 13, name: 'Caving Methods' },
+    { num: 14, name: 'Mine Ventilation' },
+    { num: 15, name: 'The History of Surface Mining' },
+    { num: 16, name: 'Planning and Design of Surface Mines' },
+    { num: 17, name: 'Ultimate Pit Definition' },
+    { num: 18, name: 'Open Pit Optimization' },
+    { num: 19, name: 'Materials Handling and Waste Disposal' },
+    { num: 20, name: 'Drilling' },
+    { num: 21, name: 'Blasting' }
+  ];
+  
+  units.forEach(u => {
+    const p = userData.unitProgress[u.num] || { vocab: false, reading: false, dialogue: false, sentences: false };
+    const done = [p.vocab, p.reading, p.dialogue, p.sentences].filter(Boolean).length;
+    
+    const item = document.createElement('div');
+    item.className = 'progress-item';
+    item.innerHTML = `
+      <div class="progress-num">${String(u.num).padStart(2,'0')}</div>
+      <div class="progress-info">
+        <div class="progress-name">${u.name}</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${done*25}%"></div></div>
+      </div>
+      <div class="progress-count">${done}/4</div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+// ===== Reminder =====
+function checkReminder() {
+  const today = getTodayStr();
+  const lastStudy = userData.dailyLog.length > 0 ? userData.dailyLog[userData.dailyLog.length - 1].date : null;
+  
+  if (!lastStudy) {
+    showReminder('欢迎使用！开始您的学习之旅吧！');
+    return;
+  }
+  
+  const daysSince = Math.floor((new Date(today) - new Date(lastStudy)) / 86400000);
+  
+  if (daysSince >= 3) {
+    showReminder(`您已连续 ${daysSince} 天未学习，快来打卡吧！`);
+  }
+}
+
+function showReminder(text) {
+  document.getElementById('reminderText').textContent = text;
+  document.getElementById('reminderBanner').style.display = 'flex';
+  
+  if (Notification.permission === 'granted') {
+    new Notification('学习提醒', { body: text });
+  }
+}
+
+function closeReminder() {
+  document.getElementById('reminderBanner').style.display = 'none';
+}
+
+function requestNotify() {
+  if ('Notification' in window) {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        document.getElementById('notifyBtn').textContent = '已开启';
+        new Notification('通知已开启', { body: '将按时提醒您学习' });
+      }
+    });
+  }
+}
+
+// ===== User Modal =====
+function showUserModal() {
+  document.getElementById('userModal').classList.add('open');
+  document.getElementById('inputName').value = userData.name;
+  document.getElementById('inputDept').value = userData.dept;
+}
+
+function saveUserInfo() {
+  const name = document.getElementById('inputName').value.trim();
+  const dept = document.getElementById('inputDept').value.trim();
+  
+  if (!name) {
+    alert('请输入姓名');
+    return;
+  }
+  
+  userData.name = name;
+  userData.dept = dept;
+  if (!userData.startDate) userData.startDate = getTodayStr();
+  
+  saveData();
+  updateUserInfo();
+  document.getElementById('userModal').classList.remove('open');
+}
+
+// ===== Export/Import =====
+function exportData() {
+  const dataStr = JSON.stringify(userData, null, 2);
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `mining_english_checkin_${getTodayStr()}.json`;
+  a.click();
+  
+  URL.revokeObjectURL(url);
+}
+
+function importData() {
+  document.getElementById('importModal').style.display = 'flex';
+  document.getElementById('importModal').classList.add('open');
+}
+
+function doImport() {
+  const file = document.getElementById('importFile').files[0];
+  if (!file) {
+    alert('请选择文件');
+    return;
+  }
+  
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      userData = imported;
+      saveData();
+      updateUI();
+      renderCalendar();
+      renderProgress();
+      document.getElementById('importModal').classList.remove('open');
+      alert('导入成功！');
+    } catch (err) {
+      alert('导入失败：文件格式错误');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ===== Navigation =====
+function goBack() {
+  window.location.href = 'index.html';
+}
+
+// ===== Start =====
+init();
+</script>
+</body>
+</html>
