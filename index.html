@@ -5,11 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>采矿专业英语 - Mining English</title>
 <style>
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --bg: #f5f5f7;
@@ -21,15 +17,14 @@
   --green: #34c759;
   --green-bg: rgba(52, 199, 89, 0.1);
   --blue: #0071e3;
-  --blue-bg: rgba(0, 113, 227, 0.1);
+  --blue-bg: rgba(0, 113, 227, 0.08);
   --orange: #ff9500;
   --orange-bg: rgba(255, 149, 0, 0.1);
   --gray: #86868b;
-  --gray-bg: rgba(134, 134, 139, 0.1);
-  --radius: 16px;
-  --radius-btn: 10px;
-  --shadow: 0 2px 12px rgba(0,0,0,0.06);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  --gray-bg: rgba(134, 134, 139, 0.08);
+  --radius: 12px;
+  --radius-btn: 8px;
+  --shadow: 0 1px 6px rgba(0,0,0,0.05);
   --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
 }
 
@@ -41,221 +36,201 @@ body {
   color: var(--text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===== Hero ===== */
 .hero {
-  max-width: 1120px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 80px 24px 48px;
+  padding: 60px 24px 40px;
   text-align: center;
 }
 
 .hero-title {
-  font-size: clamp(36px, 6vw, 56px);
+  font-size: clamp(32px, 5vw, 48px);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .hero-subtitle {
-  font-size: clamp(16px, 2.5vw, 21px);
+  font-size: clamp(14px, 2vw, 18px);
   font-weight: 400;
   color: var(--text-secondary);
-  margin-bottom: 16px;
-  letter-spacing: 0.01em;
-}
-
-.hero-desc {
-  font-size: 17px;
-  color: var(--text-secondary);
-  max-width: 520px;
-  margin: 0 auto 32px;
+  margin-bottom: 12px;
 }
 
 .hero-stats {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .hero-stats .stat {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+  gap: 5px;
+  padding: 6px 14px;
   background: var(--card-bg);
   border-radius: 100px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-secondary);
   box-shadow: var(--shadow);
 }
 
-.hero-stats .stat strong {
-  color: var(--text);
-  font-weight: 600;
-}
-
-.hero-stats .stat .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
+.hero-stats .stat strong { color: var(--text); font-weight: 600; }
+.hero-stats .stat .dot { width: 6px; height: 6px; border-radius: 50%; }
 .dot-blue { background: var(--blue); }
 .dot-green { background: var(--green); }
 .dot-orange { background: var(--orange); }
 
-/* ===== Grid ===== */
-.grid-section {
-  max-width: 1120px;
+/* ===== Table Section ===== */
+.table-section {
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 0 24px 80px;
+  padding: 0 24px 60px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.unit-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.unit-table th {
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: left;
+  background: transparent;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.unit-table th:nth-child(2) { text-align: center; }
+
+.unit-table td {
+  padding: 16px;
+  background: var(--card-bg);
+  vertical-align: middle;
+}
+
+.unit-table td:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.unit-table td:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+
+.unit-table tr:hover td { background: #fafafa; }
+
+/* ===== Unit Name Column ===== */
+.unit-name {
+  display: flex;
+  align-items: center;
   gap: 16px;
 }
 
-@media (max-width: 1024px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 560px) {
-  .grid { grid-template-columns: 1fr; }
-  .hero { padding: 56px 20px 32px; }
-  .grid-section { padding: 0 20px 56px; }
-}
-
-/* ===== Card ===== */
-.card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 24px;
-  box-shadow: var(--shadow);
-  cursor: default;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-.card-number {
-  font-size: 32px;
+.unit-num {
+  font-size: 28px;
   font-weight: 700;
   color: var(--accent);
+  opacity: 0.3;
   line-height: 1;
-  margin-bottom: 12px;
-  opacity: 0.35;
+  min-width: 36px;
 }
 
-.card-title-en {
+.unit-info { flex: 1; }
+
+.unit-title-en {
   font-size: 15px;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 4px;
-  line-height: 1.35;
+  margin-bottom: 2px;
+  line-height: 1.3;
 }
 
-.card-title-cn {
+.unit-title-cn {
   font-size: 13px;
   color: var(--text-secondary);
-  margin-bottom: 16px;
-  line-height: 1.35;
+  line-height: 1.3;
 }
 
-.card-footer {
-  margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.card-module {
+.unit-module {
+  display: inline-block;
   font-size: 11px;
   font-weight: 500;
-  padding: 3px 10px;
+  padding: 2px 8px;
   border-radius: 100px;
+  margin-top: 6px;
 }
 
 .module-geo { background: var(--blue-bg); color: var(--blue); }
 .module-underground { background: var(--green-bg); color: #248a3d; }
 .module-surface { background: var(--orange-bg); color: #c77600; }
 
-.card-status {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 10px;
-  border-radius: 100px;
-}
-
-.status-done { background: var(--green-bg); color: var(--green); }
-.status-pending { background: var(--gray-bg); color: var(--gray); }
-
-/* ===== Card Learning Buttons ===== */
-.card-links {
-  margin-top: 16px;
+/* ===== Links Column ===== */
+.unit-links {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
-  gap: 6px;
 }
 
-.card-link {
+.link-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 6px 12px;
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 8px;
+  gap: 4px;
+  padding: 8px 14px;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: var(--radius-btn);
   font-family: var(--font);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--accent);
   background: var(--blue-bg);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   text-decoration: none;
-  line-height: 1.2;
+  white-space: nowrap;
 }
 
-.card-link:hover {
+.link-btn:hover {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
-  transform: translateY(-1px);
 }
 
-.card-link:active {
-  transform: scale(0.97);
-}
+.link-btn:active { transform: scale(0.97); }
 
-.card-link .link-icon {
-  font-size: 14px;
-  line-height: 1;
-  flex-shrink: 0;
-}
+.link-btn .icon { font-size: 16px; line-height: 1; }
 
-.card-link.disabled {
+.link-btn.disabled {
   color: var(--gray);
   background: var(--gray-bg);
   border-color: transparent;
   cursor: default;
   pointer-events: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .unit-table th { display: none; }
+  .unit-table, .unit-table tbody, .unit-table tr, .unit-table td { display: block; width: 100%; }
+  .unit-table tr { margin-bottom: 12px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .unit-table td { padding: 14px 16px; border-radius: 0 !important; }
+  .unit-table td:first-child { border-radius: var(--radius) var(--radius) 0 0 !important; }
+  .unit-table td:last-child { border-radius: 0 0 var(--radius) var(--radius) !important; border-top: 1px solid rgba(0,0,0,0.04); }
+  .unit-name { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .unit-num { font-size: 22px; }
+  .unit-links { justify-content: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 40px 16px 24px; }
+  .table-section { padding: 0 16px 40px; }
+  .link-btn { padding: 6px 10px; font-size: 12px; gap: 3px; }
+  .link-btn .icon { font-size: 14px; }
 }
 
 /* ===== Modal ===== */
@@ -265,16 +240,12 @@ body {
   z-index: 1000;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.modal-overlay.open {
-  opacity: 1;
-  visibility: visible;
-}
+.modal-overlay.open { opacity: 1; visibility: visible; }
 
 .modal-container {
   position: fixed;
@@ -289,11 +260,7 @@ body {
   transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.modal-container.open {
-  transform: translateY(0);
-  opacity: 1;
-  visibility: visible;
-}
+.modal-container.open { transform: translateY(0); opacity: 1; visibility: visible; }
 
 .modal-toolbar {
   display: flex;
@@ -346,60 +313,20 @@ body {
   cursor: pointer;
   color: var(--text-secondary);
   background: transparent;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease;
 }
 
-.modal-close:hover {
-  background: rgba(0,0,0,0.06);
-  color: var(--text);
-}
+.modal-close:hover { background: rgba(0,0,0,0.06); }
 
-.modal-iframe {
-  flex: 1;
-  border: none;
-  width: 100%;
-  background: #fff;
-}
-
-/* ===== Toast ===== */
-.toast {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--text);
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 100px;
-  font-size: 14px;
-  font-weight: 500;
-  z-index: 2000;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+.modal-iframe { flex: 1; border: none; width: 100%; background: #fff; }
 
 /* ===== Footer ===== */
 .footer {
   text-align: center;
-  padding: 32px 24px 48px;
+  padding: 24px;
   color: var(--text-secondary);
-  font-size: 13px;
-  line-height: 1.8;
+  font-size: 12px;
 }
-
-.footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -407,8 +334,7 @@ body {
 <!-- Hero -->
 <section class="hero">
   <h1 class="hero-title">采矿专业英语</h1>
-  <p class="hero-subtitle">Mining English &mdash; A Comprehensive Course</p>
-  <p class="hero-desc">21个单元系统学习采矿专业英语词汇、阅读与会话</p>
+  <p class="hero-subtitle">Mining English — A Comprehensive Course</p>
   <div class="hero-stats">
     <span class="stat"><strong>21</strong> Units</span>
     <span class="stat"><span class="dot dot-blue"></span> 地质基础</span>
@@ -417,30 +343,32 @@ body {
   </div>
 </section>
 
-<!-- Grid -->
-<section class="grid-section">
-  <div class="grid" id="unitGrid"></div>
+<!-- Table -->
+<section class="table-section">
+  <table class="unit-table">
+    <thead>
+      <tr>
+        <th>单元名称</th>
+        <th>学习内容</th>
+      </tr>
+    </thead>
+    <tbody id="unitBody"></tbody>
+  </table>
 </section>
 
 <!-- Footer -->
-<footer class="footer">
-  Mining English Course &middot; 采矿专业英语<br>
-  Built with edge-tts &middot; Azure Neural TTS
-</footer>
+<footer class="footer">Mining English Course · 采矿专业英语 · Built with edge-tts</footer>
 
 <!-- Modal -->
 <div class="modal-overlay" id="modalOverlay"></div>
 <div class="modal-container" id="modalContainer">
   <div class="modal-toolbar">
-    <button class="modal-back" onclick="closeModal()">&#8592; 返回</button>
+    <button class="modal-back" onclick="closeModal()">← 返回</button>
     <span class="modal-title" id="modalTitle"></span>
-    <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    <button class="modal-close" onclick="closeModal()">✕</button>
   </div>
   <iframe class="modal-iframe" id="modalIframe" allow="autoplay"></iframe>
 </div>
-
-<!-- Toast -->
-<div class="toast" id="toast"></div>
 
 <script>
 const units = [
@@ -473,101 +401,80 @@ const moduleLabels = {
   surface:     { text: "露天开采", cls: "module-surface" }
 };
 
-// Unit content definitions — add links here as units are completed
-const unitContent = {
-  1: [
-    { icon: "📖", label: "词汇表",       file: "Unit1/Unit1_词汇表.html",     title: "词汇表 Vocabulary" },
-    { icon: "📝", label: "精读材料",     file: "Unit1/Unit1_精读材料.html",   title: "精读材料 Intensive Reading" },
-    { icon: "💬", label: "情境会话",     file: "Unit1/Unit1_情境会话.html",   title: "情境会话 Situational Dialogue" },
-    { icon: "📋", label: "句型汇总",     file: "Unit1/Unit1_句型汇总.html",   title: "句型汇总 Sentence Patterns" }
-  ],
-  2: [
-    { icon: "📖", label: "词汇表",       file: "Unit2/Unit2_词汇表.html",     title: "词汇表 Vocabulary" },
-    { icon: "📝", label: "精读材料",     file: "Unit2/Unit2_精读材料.html",   title: "精读材料 Intensive Reading" },
-    { icon: "💬", label: "情境会话",     file: "Unit2/Unit2_情境会话.html",   title: "情境会话 Situational Dialogue" },
-    { icon: "📋", label: "句型汇总",     file: "Unit2/Unit2_句型汇总.html",   title: "句型汇总 Sentence Patterns" }
-  ]
-};
+// 学习内容定义
+const links = [
+  { icon: "📖", label: "词汇学习", file: "词汇表.html",     title: "词汇学习 Vocabulary" },
+  { icon: "📋", label: "句型学习", file: "句型汇总.html",   title: "句型学习 Sentence Patterns" },
+  { icon: "💬", label: "情境会话", file: "情境会话.html",   title: "情境会话 Situational Dialogue" },
+  { icon: "📝", label: "专题阅读", file: "精读材料.html",   title: "专题阅读 Intensive Reading" }
+];
 
-const grid = document.getElementById("unitGrid");
+// 已完成的单元
+const completedUnits = [1, 2];
+
+const tbody = document.getElementById("unitBody");
 
 units.forEach(u => {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.dataset.unit = u.num;
-
+  const tr = document.createElement("tr");
   const numStr = String(u.num).padStart(2, "0");
   const ml = moduleLabels[u.module];
-  const isDone = unitContent[u.num] != null;
-  const links = unitContent[u.num] || [];
+  const isDone = completedUnits.includes(u.num);
 
-  let linksHTML = "";
-  if (isDone) {
-    linksHTML = '<div class="card-links">' +
-      links.map(l =>
-        `<a class="card-link" onclick="openModal('${l.file}', '${l.title}')">` +
-        `<span class="link-icon">${l.icon}</span>${l.label}</a>`
-      ).join("") +
-      "</div>";
-  }
-
-  card.innerHTML = `
-    <div class="card-number">${numStr}</div>
-    <div class="card-title-en">${u.en}</div>
-    <div class="card-title-cn">${u.cn}</div>
-    ${linksHTML}
-    <div class="card-footer">
-      <span class="card-module ${ml.cls}">${ml.text}</span>
-      <span class="card-status ${isDone ? 'status-done' : 'status-pending'}">${isDone ? '已完成' : '待开发'}</span>
+  // 单元名称列
+  const td1 = document.createElement("td");
+  td1.innerHTML = `
+    <div class="unit-name">
+      <span class="unit-num">${numStr}</span>
+      <div class="unit-info">
+        <div class="unit-title-en">${u.en}</div>
+        <div class="unit-title-cn">${u.cn}</div>
+        <span class="unit-module ${ml.cls}">${ml.text}</span>
+      </div>
     </div>
   `;
 
-  if (!isDone) {
-    card.style.cursor = "pointer";
-    card.addEventListener("click", () => showToast("Unit " + u.num + " 正在开发中，敬请期待"));
-  }
+  // 学习内容列
+  const td2 = document.createElement("td");
+  const linksDiv = document.createElement("div");
+  linksDiv.className = "unit-links";
 
-  grid.appendChild(card);
+  links.forEach(l => {
+    const btn = document.createElement("a");
+    btn.className = "link-btn" + (isDone ? "" : " disabled");
+    btn.innerHTML = `<span class="icon">${l.icon}</span>${l.label}`;
+    if (isDone) {
+      const file = `Unit${u.num}/Unit${u.num}_${l.file}`;
+      btn.onclick = (e) => { e.preventDefault(); openModal(file, l.title); };
+    }
+    linksDiv.appendChild(btn);
+  });
+
+  td2.appendChild(linksDiv);
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  tbody.appendChild(tr);
 });
 
 function openModal(src, title) {
-  event.stopPropagation();
   const overlay = document.getElementById("modalOverlay");
   const container = document.getElementById("modalContainer");
   const iframe = document.getElementById("modalIframe");
-  const titleEl = document.getElementById("modalTitle");
-
-  titleEl.textContent = title;
+  document.getElementById("modalTitle").textContent = title;
   iframe.src = src;
-
   overlay.classList.add("open");
   container.classList.add("open");
   document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
-  const overlay = document.getElementById("modalOverlay");
-  const container = document.getElementById("modalContainer");
-  const iframe = document.getElementById("modalIframe");
-
-  container.classList.remove("open");
-  overlay.classList.remove("open");
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.getElementById("modalContainer").classList.remove("open");
   document.body.style.overflow = "";
-
-  setTimeout(() => { iframe.src = "about:blank"; }, 350);
+  setTimeout(() => { document.getElementById("modalIframe").src = "about:blank"; }, 350);
 }
 
 document.getElementById("modalOverlay").addEventListener("click", closeModal);
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-
-let toastTimer = null;
-function showToast(msg) {
-  const toast = document.getElementById("toast");
-  toast.textContent = msg;
-  toast.classList.add("show");
-  if (toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { toast.classList.remove("show"); }, 2200);
-}
 </script>
 </body>
 </html>
