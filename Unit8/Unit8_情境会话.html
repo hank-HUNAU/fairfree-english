@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 8 Room and Pillar Mining — 情境会话</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --vocab-color: #0071e3;
+    --vocab-bg: rgba(0,113,227,0.08);
+    --vocab-border: rgba(0,113,227,0.2);
+    --left-bg: rgba(0,113,227,0.06);
+    --right-bg: rgba(255,149,0,0.06);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; min-height: 100vh; }
+  .container { max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; }
+  header { text-align: center; margin-bottom: 48px; padding: 48px 20px 36px; }
+  .header-unit { font-size: 0.82rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  header h1 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); font-weight: 700; color: var(--fg); margin-bottom: 8px; }
+  header h1 span { color: var(--accent); }
+  .header-sub { font-size: 1rem; color: var(--fg-muted); margin-top: 6px; }
+  .voice-legend { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin: 28px 0 48px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: var(--radius-card); box-shadow: var(--shadow); }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--fg-muted); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .legend-dot.william { background: var(--accent); }
+  .legend-dot.ryan { background: #ff9500; }
+  .speed-control-bar { position: sticky; top: 0; z-index: 100; background: rgba(245,245,247,0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 24px; }
+  .speed-control-bar label { font-size: 0.85rem; color: var(--fg-muted); display: flex; align-items: center; gap: 8px; font-weight: 500; }
+  .speed-control-bar .speed-value { color: var(--accent); font-weight: 700; min-width: 36px; text-align: center; }
+  .speed-control-bar input[type="range"] { -webkit-appearance: none; width: 140px; height: 4px; background: rgba(0,0,0,0.08); border-radius: 2px; outline: none; cursor: pointer; }
+  .speed-control-bar input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .scene-card { background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: var(--radius-card); box-shadow: var(--shadow); margin-bottom: 32px; overflow: hidden; }
+  .scene-header { background: var(--accent-light); border-bottom: 1px solid var(--accent-border); padding: 16px 20px; display: flex; align-items: center; gap: 14px; }
+  .scene-num { background: var(--accent); color: #fff; width: 32px; height: 32px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; }
+  .scene-title { font-size: 1.1rem; font-weight: 700; color: var(--fg); }
+  .scene-desc { font-size: 0.85rem; color: var(--fg-muted); margin-top: 4px; }
+  .dialog-container { padding: 20px; }
+  .dialog-item { display: flex; gap: 12px; margin-bottom: 16px; }
+  .dialog-item:last-child { margin-bottom: 0; }
+  .dialog-item.left { justify-content: flex-start; }
+  .dialog-item.right { justify-content: flex-end; }
+  .speaker-avatar { width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .speaker-avatar.dr-zhang { background: var(--accent); }
+  .speaker-avatar.mr-li { background: #ff9500; }
+  .dialog-bubble { max-width: 75%; padding: 14px 18px; border-radius: 16px; }
+  .dialog-item.left .dialog-bubble { background: var(--left-bg); border: 1px solid var(--accent-border); }
+  .dialog-item.right .dialog-bubble { background: var(--right-bg); border: 1px solid rgba(255,149,0,0.18); }
+  .dialog-en { font-size: 0.95rem; line-height: 1.7; color: var(--fg); margin-bottom: 8px; }
+  .dialog-cn { font-size: 0.85rem; line-height: 1.6; color: var(--fg-muted); }
+  .vocab { color: var(--vocab-color); background: var(--vocab-bg); padding: 2px 6px; border-radius: 4px; border-bottom: 2px solid var(--vocab-border); cursor: pointer; position: relative; font-weight: 500; }
+  .vocab .tip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: 8px; padding: 8px 12px; font-size: 0.8rem; color: var(--fg); white-space: nowrap; box-shadow: var(--shadow); z-index: 10; margin-bottom: 4px; }
+  .vocab:hover .tip { display: block; }
+  .dialog-btn-row { margin-top: 10px; }
+  .dialog-play-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 6px 12px; border: none; border-radius: 8px; font-size: 0.78rem; font-weight: 500; cursor: pointer; font-family: inherit; background: var(--accent); color: #fff; transition: background 0.2s, transform 0.15s; }
+  .dialog-play-btn:hover { background: var(--accent-hover); transform: scale(1.02); }
+  .dialog-play-btn svg { width: 12px; height: 12px; fill: currentColor; }
+  .vocab-section { background: rgba(0,0,0,0.02); border-top: 1px solid var(--border-solid); padding: 16px 20px; }
+  .vocab-section-title { font-size: 0.85rem; font-weight: 600; color: var(--fg-muted); margin-bottom: 12px; }
+  .vocab-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .vocab-item { background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; }
+  .vocab-item .word { font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+  .vocab-item .meaning { font-size: 0.78rem; color: var(--fg-muted); }
+  .vocab-play-btn { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; padding: 0; }
+  .vocab-play-btn svg { width: 10px; height: 10px; fill: #fff; }
+  footer { text-align: center; padding: 36px 20px; color: var(--fg-muted); font-size: 0.78rem; border-top: 1px solid var(--border-solid); margin-top: 24px; }
+  @media (max-width: 768px) { .container { padding: 20px 12px 60px; } .dialog-bubble { max-width: 85%; padding: 12px 14px; } .dialog-en { font-size: 0.88rem; } .dialog-cn { font-size: 0.8rem; } .speaker-avatar { width: 36px; height: 36px; font-size: 0.7rem; } .speed-control-bar { padding: 10px 12px; gap: 10px; } .speed-control-bar input[type="range"] { width: 100px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="voice-legend">
+    <div class="legend-item"><span class="legend-dot william"></span> William (Dr.Zhang)</div>
+    <div class="legend-item"><span class="legend-dot ryan"></span> Ryan (Mr.Li)</div>
+  </div>
+  <div class="speed-control-bar">
+    <label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="scene-card" id="scene1">
+    <div class="scene-header">
+      <span class="scene-num">1</span>
+      <div>
+        <div class="scene-title">Room and Pillar Layout</div>
+        <div class="scene-desc">房柱法布置讨论</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What is the basic layout principle of room and pillar mining?</div>
+          <div class="dialog-cn">房柱法的基本布置原则是什么？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s1_01.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">Openings are driven <span class="vocab">orthogonally<span class="tip">正交布置</span></span> and at regular intervals, forming rectangular or square <span class="vocab">pillars<span class="tip">矿柱</span></span> for natural support.</div>
+          <div class="dialog-cn">采场进路采用正交布置，间距相等，形成长方形或正方形矿柱支撑地压。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s1_02.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What are the advantages of driving several openings at one time?</div>
+          <div class="dialog-cn">同时掘进多条进路有什么优点？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s1_03.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">It increases production and efficiency, and improves <span class="vocab">ventilation<span class="tip">通风</span></span> and transportation.</div>
+          <div class="dialog-cn">提供多个作业工作面，增加生产能力和效率，同时改善通风和运输条件。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s1_04.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+    </div>
+    <div class="vocab-section">
+      <div class="vocab-section-title">Key Vocabulary</div>
+      <div class="vocab-grid">
+          <div class="vocab-item">
+            <span class="word">orthogonally</span>
+            <span class="meaning">正交布置</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s1_01.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">pillars</span>
+            <span class="meaning">矿柱</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s1_02.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">ventilation</span>
+            <span class="meaning">通风</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s1_03.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="scene-card" id="scene2">
+    <div class="scene-header">
+      <span class="scene-num">2</span>
+      <div>
+        <div class="scene-title">Conventional vs Continuous Mining</div>
+        <div class="scene-desc">传统开采与连续开采</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What is the <span class="vocab">production cycle<span class="tip">生产循环</span></span> in conventional room and pillar mining?</div>
+          <div class="dialog-cn">传统房柱法的生产循环是什么？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s2_01.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">The <span class="vocab">production cycle<span class="tip">生产循环</span></span> is: cut + drill + blast + load + haul. It requires at least 5 working places.</div>
+          <div class="dialog-cn">生产循环是：切割 + 钻孔 + 爆破 + 装载 + 运输。需要至少5个工作面。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s2_02.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">How is the cycle simplified in <span class="vocab">continuous mining<span class="tip">连续开采</span></span>?</div>
+          <div class="dialog-cn">连续开采的循环如何简化？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s2_03.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">In <span class="vocab">continuous mining<span class="tip">连续开采</span></span>, the cycle is simplified to: mine + haul. A <span class="vocab">continuous miner<span class="tip">连续采煤机</span></span> breaks and loads simultaneously.</div>
+          <div class="dialog-cn">连续开采的循环简化为：开采 + 运输。连续采煤机同时破碎和装载。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s2_04.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+    </div>
+    <div class="vocab-section">
+      <div class="vocab-section-title">Key Vocabulary</div>
+      <div class="vocab-grid">
+          <div class="vocab-item">
+            <span class="word">conventional mining</span>
+            <span class="meaning">传统开采</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s2_01.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">continuous mining</span>
+            <span class="meaning">连续开采</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s2_02.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">production cycle</span>
+            <span class="meaning">生产循环</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s2_03.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">continuous miner</span>
+            <span class="meaning">连续采煤机</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s2_04.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="scene-card" id="scene3">
+    <div class="scene-header">
+      <span class="scene-num">3</span>
+      <div>
+        <div class="scene-title">Pillar Design</div>
+        <div class="scene-desc">矿柱设计讨论</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">How should we determine the <span class="vocab">pillar width<span class="tip">矿柱宽度</span></span> to avoid <span class="vocab">stress super-positioning<span class="tip">应力集中</span></span>?</div>
+          <div class="dialog-cn">如何确定矿柱宽度以避免应力集中？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s3_01.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">A <span class="vocab">pillar width<span class="tip">矿柱宽度</span></span> equal to at least three times the opening width is required, especially for long-life entries.</div>
+          <div class="dialog-cn">矿柱宽度至少要等于三倍矿房宽度，特别是对于永久巷道。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s3_02.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What happens when an opening is created?</div>
+          <div class="dialog-cn">当采场形成时会发生什么？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s3_03.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">The unit weight of <span class="vocab">overburden<span class="tip">覆盖层</span></span> is transferred by an <span class="vocab">arching action<span class="tip">拱形作用</span></span> to the sides of the opening or adjacent pillars.</div>
+          <div class="dialog-cn">上覆岩层的重力以拱形方式转移到采场周围的矿柱和侧墙。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit8/dialog_s3_04.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+    </div>
+    <div class="vocab-section">
+      <div class="vocab-section-title">Key Vocabulary</div>
+      <div class="vocab-grid">
+          <div class="vocab-item">
+            <span class="word">stress super-positioning</span>
+            <span class="meaning">应力集中</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s3_01.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">pillar width</span>
+            <span class="meaning">矿柱宽度</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s3_02.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">arching action</span>
+            <span class="meaning">拱形作用</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s3_03.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">overburden</span>
+            <span class="meaning">覆盖层</span>
+            <button class="vocab-play-btn" data-src="../audio/unit8/vocab_dialog/vocab_d_s3_04.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Unit 8 Room and Pillar Mining &mdash; Dialogues &copy; 采矿专业英语</footer>
+</div>
+<script>
+(function() {
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+  var currentAudio = null;
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) currentAudio.playbackRate = currentSpeed;
+  });
+  window.playDialog = function(btn) {
+    var src = btn.getAttribute('data-src');
+    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+    var audio = new Audio(src);
+    audio.playbackRate = currentSpeed;
+    currentAudio = audio;
+    audio.play().catch(function() {});
+    audio.addEventListener('ended', function() { currentAudio = null; });
+  };
+  window.playVocab = function(btn) {
+    var src = btn.getAttribute('data-src');
+    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+    var audio = new Audio(src);
+    audio.playbackRate = currentSpeed;
+    currentAudio = audio;
+    audio.play().catch(function() {});
+    audio.addEventListener('ended', function() { currentAudio = null; });
+  };
+
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('dialogue', 'unit8');
+    }
+    alert('情境会话学习已完成！');
+  };
+})();
+</script>
+<script src="../studyTracker.js"></script>
+</body>
+</html>

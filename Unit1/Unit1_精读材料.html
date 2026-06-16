@@ -5,15 +5,317 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit 1 Geological Terminology — 篇章精读</title>
 <style>
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-light: rgba(0,0,0,0.04);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --header-height: 60px;
+    --footer-height: 56px;
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { font-size: 16px; scroll-behavior: smooth; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
     line-height: 1.7;
-    color: #1d1d1f;
-    background: #f5f5f7;
+    color: var(--fg);
+    background: var(--bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
+  }
+
+  /* ===== Fixed Top Navigation Bar ===== */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-title span { color: var(--accent); }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-speed-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .nav-speed-label svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-speed-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    transition: transform 0.15s ease;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .nav-speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .complete-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* ===== Fixed Bottom Player Bar ===== */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .player-section-label {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    border-radius: 6px;
+    border: 1px solid var(--accent-border);
+  }
+
+  .player-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .player-btn.active {
+    background: #1d1d1f;
+  }
+
+  .player-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .player-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .player-repeat-select {
+    padding: 6px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .player-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .player-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .player-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .player-progress {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .player-progress .current-num {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Progress bar styles */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    white-space: nowrap;
   }
 
   /* ===== Header ===== */
@@ -502,21 +804,26 @@
 </head>
 <body>
 
-<!-- ===== Header ===== -->
-<div class="header">
-  <h1>Unit 1 Geological Terminology</h1>
-  <div class="subtitle">地质术语 — 篇章精读 Intensive Reading</div>
-</div>
-
-<!-- ===== Global Audio Control Bar ===== -->
-<div class="audio-control-bar">
-  <label>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08"/></svg>
-    语速：
-    <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.1" value="1.0">
-    <span class="speed-value" id="speedValue">1.0x</span>
-  </label>
-  <span class="play-status" id="playStatus">未在播放</span>
+<!-- ===== Fixed Top Navigation Bar ===== -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 1</span>
+    <span class="nav-title">精读材料</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
 </div>
 
 <!-- ===== Main Content ===== -->
@@ -526,7 +833,7 @@
 <div class="section-title">1. Introduction</div>
 
 <!-- Paragraph 1 -->
-<div class="para-card">
+<div class="para-card" data-idx="1" data-src="../audio/unit1/reading_p1.mp3">
   <div class="en-text">There are some general geological terms that should be understood for exploration and mining purposes. The simplest form of rock strata is that in which each stratum (layer) of rock is <span class="vocab">superimposed<span class="tip">/ˌsjuːpərɪmˈpəʊzd/ 叠置的</span></span> on another. These are <span class="vocab">conformable beds<span class="tip">整合层</span></span>. Movements of the earth's crust and subsequent weathering and rock displacement provide conditions for mineral formation and relocation into the site where it will be found.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit1/reading_p1.mp3" data-id="p1" onclick="togglePlay(this)">
@@ -542,7 +849,7 @@
 </div>
 
 <!-- Paragraph 2 -->
-<div class="para-card">
+<div class="para-card" data-idx="2" data-src="../audio/unit1/reading_p2.mp3">
   <div class="en-text">The original layers of rock were formed by <span class="vocab">sedimentary<span class="tip">/ˌsedɪˈmentri/ 沉淀物的</span></span> or chemical processes with material from higher land masses being <span class="vocab">redeposited<span class="tip">再沉积</span></span> in lower areas. The beds could then be distorted into <span class="vocab">fold<span class="tip">/fəʊld/ 褶皱</span></span>s to produce <span class="vocab">syncline<span class="tip">/ˈsɪŋklaɪn/ 向斜</span></span>s or <span class="vocab">anticline<span class="tip">背斜</span></span>s. The scale of those movements is such that a single <span class="vocab">fold<span class="tip">/fəʊld/ 褶皱</span></span> producing a synclinal basin may stretch for hundreds of kilometers or may be measured with a wavelength of a few meters.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit1/reading_p2.mp3" data-id="p2" onclick="togglePlay(this)">
@@ -558,7 +865,7 @@
 </div>
 
 <!-- Paragraph 3 -->
-<div class="para-card">
+<div class="para-card" data-idx="3" data-src="../audio/unit1/reading_p3.mp3">
   <div class="en-text">Where the folding is severe the rock is frequently heavily fractured, particularly where it is under tension on the <span class="vocab">crest<span class="tip">/krest/ 顶部</span></span> of an anticlinal stratum or at the base of a synclinal stratum. These weakened zones provide a path for <span class="vocab">igneous<span class="tip">/ˈɪɡniəs/ 火成的</span></span> intrusive rocks or mineral rich solutions to <span class="vocab">permeate<span class="tip">/ˈpɜːmieɪt/ 渗透</span></span> the host rock and produce ore bodies. It is for this reason that many ore bodies have a typical form, such as the <span class="vocab">saddle reef<span class="tip">鞍礁</span></span>s. In practice a <span class="vocab">fault<span class="tip">/fɔːlt/ 断层</span></span> of this magnitude would have many associated smaller <span class="vocab">fault<span class="tip">/fɔːlt/ 断层</span></span>s and fractures that can again give rise to an area favourable for subsequent mineralisation.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit1/reading_p3.mp3" data-id="p3" onclick="togglePlay(this)">
@@ -574,7 +881,7 @@
 </div>
 
 <!-- Paragraph 4 -->
-<div class="para-card">
+<div class="para-card" data-idx="4" data-src="../audio/unit1/reading_p4.mp3">
   <div class="en-text">An <span class="vocab">unconformity<span class="tip">/ˌʌnkənˈfɔːmɪti/ 地层不整合</span></span> is also shown in this case produced by an old shore line. These shore lines were often the location of the <span class="vocab">deposition<span class="tip">/ˌdepəˈzɪʃən/ 沉积</span></span> of coal <span class="vocab">seam<span class="tip">/siːm/ 层</span></span>s in the younger geological eras. It can be seen that it is important to distinguish where a coal <span class="vocab">seam<span class="tip">/siːm/ 层</span></span> has terminated at the edge of a basin or whether it has been interrupted by a <span class="vocab">fault<span class="tip">/fɔːlt/ 断层</span></span> or lost by erosion at an <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span>. <span class="vocab">Outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span>s occur when a series of beds are cut away by general erosion of the surface or <span class="vocab">dissect<span class="tip">/dɪˈsekt/ 切割</span></span>ed by rivers, so that the edges of beds are exposed.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit1/reading_p4.mp3" data-id="p4" onclick="togglePlay(this)">
@@ -590,7 +897,7 @@
 </div>
 
 <!-- Paragraph 5 -->
-<div class="para-card">
+<div class="para-card" data-idx="5" data-src="../audio/unit1/reading_p5.mp3">
   <div class="en-text">After strata have been deposited and mildly disturbed they may be broken up <span class="vocab">orogenic<span class="tip">/ˌɒrəʊˈdʒenɪk/ 造山运动的</span></span> movements. These are the large movements of the earth's crust that are associated with mountain building and sometimes cause eruption or intrusion of <span class="vocab">igneous<span class="tip">/ˈɪɡniəs/ 火成的</span></span> rock with subsequent mineralisation.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit1/reading_p5.mp3" data-id="p5" onclick="togglePlay(this)">
@@ -606,7 +913,7 @@
 </div>
 
 <!-- Paragraph 6 -->
-<div class="para-card">
+<div class="para-card" data-idx="6" data-src="../audio/unit1/reading_p6.mp3">
   <div class="en-text"><span class="vocab">Syngenetic<span class="tip">/ˌsɪndʒɪˈnetɪk/ 同生的</span></span> deposits are those mineral deposits formed contemporaneously with the parent rock and enclosed by it. They can be <span class="vocab">igneous<span class="tip">/ˈɪɡniəs/ 火成的</span></span> or <span class="vocab">sedimentary<span class="tip">/ˌsedɪˈmentri/ 沉淀物的</span></span>. <span class="vocab">Epigenetic<span class="tip">/ˌepɪdʒɪˈnetɪk/ 后生的</span></span> deposits are formed subsequently to the enclosing rock, often by a solution (the mother liquor) penetrating into rocks and depositing minerals. If the solution is a result of <span class="vocab">magmatic<span class="tip">/mæɡˈmætɪk/ 岩浆的</span></span> (<span class="vocab">igneous<span class="tip">/ˈɪɡniəs/ 火成的</span></span>) action it will probably be hot and under pressure and will deposit <span class="vocab">non-ferrous<span class="tip">/ˌnɒnˈferəs/ 有色金属</span></span> minerals. If the solution is a result of <span class="vocab">sedimentary<span class="tip">/ˌsedɪˈmentri/ 沉淀物的</span></span> action it will <span class="vocab">percolate<span class="tip">/ˈpɜːkəleɪt/ 渗透</span></span> downwards causing either chemical changes or direct <span class="vocab">deposition<span class="tip">/ˌdepəˈzɪʃən/ 沉积</span></span>. <span class="vocab">Lateritic<span class="tip">/ˌlætəˈrɪtɪk/ 红土的</span></span> deposits are formed by the leaching away of soluble minerals leaving behind in the laterite a valuable ore, such as nickel or bauxite (aluminium ore). Thus these are normally surface deposits. Although some, such as the iron ores, have been changed and buried so that they are no longer lateritic.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit1/reading_p6.mp3" data-id="p6" onclick="togglePlay(this)">
@@ -625,7 +932,7 @@
 <div class="section-title">2. Geological Terminology</div>
 
 <!-- (1) Ore and Gangue -->
-<div class="para-card">
+<div class="para-card" data-idx="7" data-src="../audio/unit1/reading_t1.mp3">
   <div class="term-heading">(1) Ore and Gangue</div>
   <div class="en-text">An orebody may contain both desirable metallic minerals and unwanted non-metallic minerals. The metallic minerals form the ore and the unwanted minerals are known as <span class="vocab">gangue<span class="tip">/ɡæŋ/ 脉石</span></span>.</div>
   <div class="btn-row">
@@ -642,7 +949,7 @@
 </div>
 
 <!-- (2) Mullock -->
-<div class="para-card">
+<div class="para-card" data-idx="8" data-src="../audio/unit1/reading_t2.mp3">
   <div class="term-heading">(2) Mullock</div>
   <div class="en-text">An orebody should be known more accurately as mineralisation which comprises economic ore and sub-economic lower grade material. The lower grade material broken during mine development is called <span class="vocab">mullock<span class="tip">/ˈmʌlək/ 废石</span></span> or waste. These terms are sometimes extended to include host rock broken in development drives.</div>
   <div class="btn-row">
@@ -659,7 +966,7 @@
 </div>
 
 <!-- (3) Disseminated and Massive ores -->
-<div class="para-card">
+<div class="para-card" data-idx="9" data-src="../audio/unit1/reading_t3.mp3">
   <div class="term-heading">(3) Disseminated and Massive ores</div>
   <div class="en-text">Where the ore occurs in relatively pure form for example as almost 100 percent lead <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span> (<span class="vocab">galena<span class="tip">/ɡəˈliːnə/ 方铅矿</span></span>) in even small amounts it is said to be <span class="vocab">massive<span class="tip">/ˈmæsɪv/ 块状的</span></span>. If however the ore is spread thinly through a body of rock so that individual <span class="vocab">speck<span class="tip">/spek/ 斑点</span></span>s of the ore are surrounded by a high percentage of rock then this is a <span class="vocab">disseminated<span class="tip">/dɪˈsemɪneɪtɪd/ 浸染状的</span></span> ore. Thus if an ore body is sampled over a narrow width of <span class="vocab">massive<span class="tip">/ˈmæsɪv/ 块状的</span></span> <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s it could show a value of lead in the ore sample of 50 to 60 percent (lead in pure <span class="vocab">galena<span class="tip">/ɡəˈliːnə/ 方铅矿</span></span> is in fact 86.6 percent). Over a greater width it might only show about 20 percent lead because the <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s had become <span class="vocab">disseminated<span class="tip">/dɪˈsemɪneɪtɪd/ 浸染状的</span></span> or dispersed. The <span class="vocab">disseminated<span class="tip">/dɪˈsemɪneɪtɪd/ 浸染状的</span></span> <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s, assayed separately (i.e. analysed for metal content), may only show as little as 0.2 to 0.5 percent lead.</div>
   <div class="btn-row">
@@ -676,7 +983,7 @@
 </div>
 
 <!-- (4) Cut-off-grade -->
-<div class="para-card">
+<div class="para-card" data-idx="10" data-src="../audio/unit1/reading_t4.mp3">
   <div class="term-heading">(4) Cut-off-grade</div>
   <div class="en-text">A gradual <span class="vocab">transition<span class="tip">/trænˈzɪʃən/ 过渡</span></span> of high grade to low grade ore is common and it is not always easy to determine the physical limits of an ore body. Consequently it is necessary to determine the lowest value of metallic or non-metallic mineral content which can be mined economically and use this as the physical limit of the orebody. However this limit will obviously vary with the market value of the ore and the mining methods.</div>
   <div class="btn-row">
@@ -693,9 +1000,9 @@
 </div>
 
 <!-- (5) Gossan -->
-<div class="para-card">
+<div class="para-card" data-idx="11" data-src="../audio/unit1/reading_t5.mp3">
   <div class="term-heading">(5) Gossan</div>
-  <div class="en-text">Where orebodies <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span> to the surface, particularly in geologically mature areas free of glacial <span class="vocab">deposition<span class="tip">/ˌdepəˈzɪʃən/ 沉积</span></span>, the portion near to the surface may be leached by impure <span class="vocab">percolate<span class="tip">/ˈpɜːkəleɪt/ 渗透</span></span>ing waters and subsequently oxidized. Many metallic ores contain a proportion of iron <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s and these do not leach away but change to iron oxides (<span class="vocab">haematite<span class="tip">/ˈhiːmətaɪt/ 赤铁矿</span></span>, <span class="vocab">goethite<span class="tip">/ˈɡɜːθaɪt/ 针铁矿</span></span> and <span class="vocab">jarosite<span class="tip">/ˈdʒærəsaɪt/ 黄钾铁矾</span></span>). The colour of the oxides varies slightly with the original mineral content, but general end result is a yellowish, brownish, or reddish <span class="vocab">ferruginous<span class="tip">/feˈruːdʒɪnəs/ 含铁的</span></span> capping known as a <span class="vocab">gossan<span class="tip">/ˈɡɒsn/ 铁帽</span></span>. This is generally situated directly over the ore body in arid area, such as in Australia, but in some cases it is transported from the <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span> and has to be traced back.</div>
+  <div class="en-text">Where orebodies <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span> to the surface, particularly in geologically mature areas free of glacial <span class="vocab">deposition<span class="tip">/ˌdepəˈzɪʃən/ 沉积</span></span>, the portion near to the surface may be leached by impure <span class="vocab">percolate<span class="tip">/ˈpɜːkəleɪt/ 渗透</span></span>ing waters and subsequently oxidized. Many metallic ores contain a proportion of iron <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s and these do not leach away but change to iron oxides (<span class="vocab">haematite<span class="tip">/ˈhiːmətaɪt/ 铁矿</span></span>, <span class="vocab">goethite<span class="tip">/ˈɡɜːθaɪt/ 针铁矿</span></span> and <span class="vocab">jarosite<span class="tip">/ˈdʒærəsaɪt/ 黄钾铁矾</span></span>). The colour of the oxides varies slightly with the original mineral content, but general end result is a yellowish, brownish, or reddish <span class="vocab">ferruginous<span class="tip">/feˈruːdʒɪnəs/ 含铁的</span></span> capping known as a <span class="vocab">gossan<span class="tip">/ˈɡɒsn/ 铁帽</span></span>. This is generally situated directly over the ore body in arid area, such as in Australia, but in some cases it is transported from the <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span> and has to be traced back.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit1/reading_t5.mp3" data-id="t5" onclick="togglePlay(this)">
       <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -710,7 +1017,7 @@
 </div>
 
 <!-- (6) Supergene Enrichment -->
-<div class="para-card">
+<div class="para-card" data-idx="12" data-src="../audio/unit1/reading_t6.mp3">
   <div class="term-heading">(6) Supergene Enrichment</div>
   <div class="en-text">The minerals leached away from the <span class="vocab">outcrop<span class="tip">/ˈaʊtkrɒp/ 露头</span></span> often cause a zone of secondary enrichment (generally in the form of <span class="vocab">sulphide<span class="tip">/ˈsʌlfaɪd/ 硫化物</span></span>s) at a depth of 60 to 120m from the surface. This enrichment zone then lies on top of the unaltered primary orebody. Consequently if one in mining or prospecting from the surface for <span class="vocab">non-ferrous<span class="tip">/ˌnɒnˈferəs/ 有色金属</span></span> metallic orebodies, there is consequently a <span class="vocab">transition<span class="tip">/trænˈzɪʃən/ 过渡</span></span> from oxidized ores, which may need special extractive metallurgical processes, to the <span class="vocab">supergene<span class="tip">/ˈsjuːpədʒiːn/ 表生的</span></span> enrichment zone showing high metal contents, and then to the orebody proper which may have a lower metal content again. Thus prospecting with shallow drill holes can give very misleading results.</div>
   <div class="btn-row">
@@ -727,7 +1034,7 @@
 </div>
 
 <!-- (7) Placer and Alluvial Deposits -->
-<div class="para-card">
+<div class="para-card" data-idx="13" data-src="../audio/unit1/reading_t7.mp3">
   <div class="term-heading">(7) Placer and Alluvial Deposits</div>
   <div class="en-text">When the primary deposits are brought to the surface by geological methods and then mechanically eroded, they can suffer one of two fates. They may go into solution for subsequent chemical redeposition or they may break up into fairly stable particles which are transported varying distances. Heavy mineral particles, such as gold, settle close to their source. The original falling area, known sometimes as a rock <span class="vocab">scree<span class="tip">/skriː/ 碎石堆</span></span> when situated against a mountain slope, is the <span class="vocab">eluvial<span class="tip">/ɪˈljuːviəl/ 残积的</span></span> region. Further transportation produces the <span class="vocab">placer<span class="tip">/ˈpleɪsə/ 砂矿</span></span> deposits of such as gold and tin, although there appears to be no precise separation of this term from that of <span class="vocab">alluvial<span class="tip">/əˈluːviəl/ 冲积的</span></span> deposits. The <span class="vocab">alluvial<span class="tip">/əˈluːviəl/ 冲积的</span></span> deposits may be found in existing river beds or in old river beds covered with new deposits such as <span class="vocab">basalt<span class="tip">/ˈbæsɔːlt/ 玄武岩</span></span> flows. These buried deposits may be called deep leads as in the state of Victoria, Australia, where much of the gold of the 1850's rush was found.</div>
   <div class="btn-row">
@@ -744,7 +1051,7 @@
 </div>
 
 <!-- (7) continued - beach deposits -->
-<div class="para-card">
+<div class="para-card" data-idx="14" data-src="../audio/unit1/reading_t7b.mp3">
   <div class="en-text">Transportation to the sea followed by wave action produces beach deposits. Mineral sands is the term applied to the heavy sand deposits of <span class="vocab">rutile<span class="tip">/ˈruːtaɪl/ 金红石</span></span>, <span class="vocab">ilmenite<span class="tip">/ˈɪlmənaɪt/ 钛铁矿</span></span> and <span class="vocab">zircon<span class="tip">/ˈzɜːkɒn/ 锆石</span></span>, although they are sometimes colloquially called beach sands. These can be on either existing or old shore lines. Other minerals such as tin or diamonds also are found in beach deposits.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit1/reading_t7b.mp3" data-id="t7b" onclick="togglePlay(this)">
@@ -760,7 +1067,7 @@
 </div>
 
 <!-- (8) Bedded Deposits -->
-<div class="para-card">
+<div class="para-card" data-idx="15" data-src="../audio/unit1/reading_t8.mp3">
   <div class="term-heading">(8) Bedded Deposits</div>
   <div class="en-text">Chemical and physical <span class="vocab">deposition<span class="tip">/ˌdepəˈzɪʃən/ 沉积</span></span> of consolidated minerals can produce <span class="vocab">bedded deposit<span class="tip">层状矿床</span></span>s which may extend over larger areas. These are minerals such as coal, iron ore, salt or <span class="vocab">potash<span class="tip">/ˈpɒtæʃ/ 钾碱</span></span> deposits, and <span class="vocab">phosphate<span class="tip">/ˈfɒsfeɪt/ 磷酸盐</span></span>s. Limestone required for cement or blast furnace is also a <span class="vocab">bedded deposit<span class="tip">层状矿床</span></span>. Although the dip (slopes) of these <span class="vocab">bedded deposit<span class="tip">层状矿床</span></span>s can be steep, and the beds are broken by <span class="vocab">fault<span class="tip">/fɔːlt/ 断层</span></span>s or other geological disturbances, their lateral extent is usually larger and more continuous than is that of the metallic <span class="vocab">non-ferrous<span class="tip">/ˌnɒnˈferəs/ 有色金属</span></span> deposits.</div>
   <div class="btn-row">
@@ -890,6 +1197,37 @@
 
 <div class="footer">Unit 1 Geological Terminology &mdash; 篇章精读材料</div>
 
+<!-- ===== Fixed Bottom Player Bar ===== -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSectionLabel">段落区</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3" selected>3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <span class="progress-text" id="progressBarText">0 / 0</span>
+  </div>
+</div>
+
 <script>
 const data = {
   p1: {
@@ -994,299 +1332,303 @@ document.addEventListener('keydown', function(e) {
 
 /* ===== Paragraph Audio Player Logic ===== */
 (function() {
-  let currentAudio = null;
-  let currentBtn = null;
-  let currentId = null;
+  // ===== Global Speed Control =====
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
 
-  const speedSlider = document.getElementById('speedSlider');
-  const speedValue = document.getElementById('speedValue');
-  const playStatus = document.getElementById('playStatus');
-
-  speedSlider.addEventListener('input', function() {
-    const rate = parseFloat(this.value);
-    speedValue.textContent = rate.toFixed(1) + 'x';
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
     if (currentAudio) {
-      currentAudio.playbackRate = rate;
+      currentAudio.playbackRate = currentSpeed;
     }
   });
 
-  const titleMap = {
-    p1: 'Introduction - P1', p2: 'Introduction - P2', p3: 'Introduction - P3',
-    p4: 'Introduction - P4', p5: 'Introduction - P5', p6: 'Introduction - P6',
-    t1: 'Ore and Gangue', t2: 'Mullock', t3: 'Disseminated & Massive ores',
-    t4: 'Cut-off-grade', t5: 'Gossan', t6: 'Supergene Enrichment',
-    t7: 'Placer & Alluvial', t7b: 'Beach Deposits', t8: 'Bedded Deposits'
+  // ===== Audio State =====
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingCard = null;
+
+  // Unified continuous play state
+  var playState = {
+    playing: false,
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 3,
+    currentRepeat: 1
   };
 
-  window.togglePlay = function(btn) {
-    const audioSrc = btn.getAttribute('data-audio');
-    const audioId = btn.getAttribute('data-id');
+  // ===== Get all paragraph cards =====
+  function getAllCards() {
+    return document.querySelectorAll('.para-card[data-idx]');
+  }
 
-    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
-      currentAudio.pause();
-      setButtonState(btn, false);
-      playStatus.textContent = '已暂停 - ' + (titleMap[audioId] || audioId);
-      return;
+  // ===== Play a single card =====
+  window.togglePlay = function(btn) {
+    var card = btn.closest('.para-card');
+    var src = btn.getAttribute('data-audio');
+
+    // Stop continuous play if active
+    if (playState.playing) {
+      stopContinuousPlay();
     }
 
+    // Stop any currently playing audio
     if (currentAudio) {
       currentAudio.pause();
-      currentAudio = null;
-      if (currentBtn && currentBtn !== btn) {
-        setButtonState(currentBtn, false);
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var iconPlay = currentPlayingBtn.querySelector('.icon-play');
+        var iconPause = currentPlayingBtn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = '';
+        if (iconPause) iconPause.style.display = 'none';
+        currentPlayingBtn.childNodes[currentPlayingBtn.childNodes.length - 1].textContent = ' 播放';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
       }
     }
 
-    currentAudio = new Audio(audioSrc);
-    currentAudio.playbackRate = parseFloat(speedSlider.value);
-    currentBtn = btn;
-    currentId = audioId;
+    // Create and play new audio
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
 
-    currentAudio.play().then(function() {
-      setButtonState(btn, true);
-      playStatus.textContent = '正在播放 - ' + (titleMap[audioId] || audioId);
-    }).catch(function(err) {
-      console.warn('Audio play failed:', err);
-      playStatus.textContent = '播放失败';
-    });
+    btn.classList.add('playing');
+    var iconPlay = btn.querySelector('.icon-play');
+    var iconPause = btn.querySelector('.icon-pause');
+    if (iconPlay) iconPlay.style.display = 'none';
+    if (iconPause) iconPause.style.display = '';
+    btn.childNodes[btn.childNodes.length - 1].textContent = ' 暂停';
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
 
     currentAudio.addEventListener('ended', function() {
-      setButtonState(btn, false);
-      playStatus.textContent = '未在播放';
+      btn.classList.remove('playing');
+      if (iconPlay) iconPlay.style.display = '';
+      if (iconPause) iconPause.style.display = 'none';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
       currentAudio = null;
-      currentBtn = null;
-      currentId = null;
     });
   };
 
-  function setButtonState(btn, isPlaying) {
-    const iconPlay = btn.querySelector('.icon-play');
-    const iconPause = btn.querySelector('.icon-pause');
-    if (isPlaying) {
-      btn.classList.add('playing');
-      iconPlay.style.display = 'none';
-      iconPause.style.display = '';
-      btn.childNodes[btn.childNodes.length - 1].textContent = ' 暂停';
-    } else {
-      btn.classList.remove('playing');
-      iconPlay.style.display = '';
-      iconPause.style.display = 'none';
-      btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
-    }
-  }
-})();
-
-/* ===== Vocabulary Audio Player Logic ===== */
-(function() {
-  const TOTAL_VOCAB = 49;
-  const VOCAB_AUDIO_BASE = '../audio/unit1/vocab_reading/vocab_r_';
-
-  let vocabAudio = null;
-  let seqPlaying = false;
-  let seqPaused = false;
-  let currentVocabIdx = 0;
-  let currentRepeatRound = 0;
-  let currentRepeatTotal = 3;
-  let loopEnabled = false;
-  let currentPlayingBtn = null;
-
-  const seqPlayBtn = document.getElementById('vocabSeqPlayBtn');
-  const seqBtnText = document.getElementById('vocabSeqBtnText');
-  const vocabStopBtn = document.getElementById('vocabStopBtn');
-  const repeatSelect = document.getElementById('vocabRepeatCount');
-  const loopToggle = document.getElementById('vocabLoopToggle');
-  const progressEl = document.getElementById('vocabPlayProgress');
-
-  function getVocabAudioSrc(idx) {
-    return VOCAB_AUDIO_BASE + String(idx).padStart(2, '0') + '.mp3';
-  }
-
-  function highlightRow(idx) {
-    // Remove all highlights
-    const rows = document.querySelectorAll('#vocabTableBody tr');
-    rows.forEach(function(r) { r.classList.remove('highlight-row'); });
-    // Remove playing state from all buttons
-    const btns = document.querySelectorAll('.vocab-row-play');
-    btns.forEach(function(b) { b.classList.remove('playing'); });
-    // Highlight current
-    if (idx > 0 && idx <= TOTAL_VOCAB) {
-      const row = document.querySelector('tr[data-vocab-idx="' + idx + '"]');
-      if (row) {
-        row.classList.add('highlight-row');
-        const btn = row.querySelector('.vocab-row-play');
-        if (btn) {
-          btn.classList.add('playing');
-          // Scroll into view
-          row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }
-    }
-  }
-
-  function clearAllHighlights() {
-    const rows = document.querySelectorAll('#vocabTableBody tr');
-    rows.forEach(function(r) { r.classList.remove('highlight-row'); });
-    const btns = document.querySelectorAll('.vocab-row-play');
-    btns.forEach(function(b) { b.classList.remove('playing'); });
-  }
-
-  function updateProgress() {
-    if (!seqPlaying && !seqPaused) {
-      progressEl.textContent = '';
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
       return;
     }
-    progressEl.textContent = currentVocabIdx + ' / ' + TOTAL_VOCAB + (currentRepeatTotal > 1 ? ' (第' + currentRepeatRound + '遍)' : '');
-  }
 
-  function playVocabItem(idx, callback) {
-    if (vocabAudio) {
-      vocabAudio.pause();
-      vocabAudio = null;
+    // Start continuous play
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+    playState.repeatCount = parseInt(document.getElementById('repeatCount').value);
+    playState.loop = document.getElementById('loopBtn').classList.contains('on');
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    // Stop current audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var iconPlay = currentPlayingBtn.querySelector('.icon-play');
+        var iconPause = currentPlayingBtn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = '';
+        if (iconPause) iconPause.style.display = 'none';
+        currentPlayingBtn.childNodes[currentPlayingBtn.childNodes.length - 1].textContent = ' 播放';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
     }
-    highlightRow(idx);
-    updateProgress();
 
-    vocabAudio = new Audio(getVocabAudioSrc(idx));
-    vocabAudio.playbackRate = parseFloat(document.getElementById('speedSlider').value);
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
 
-    vocabAudio.play().catch(function(err) {
-      console.warn('Vocab audio play failed:', err);
-      if (callback) callback();
-    });
+    // Reset progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / 0';
+    }
+  };
 
-    vocabAudio.addEventListener('ended', function() {
-      if (callback) callback();
-    });
-  }
+  // ===== Play Next in Sequence =====
+  function playNextInSequence() {
+    var cards = getAllCards();
 
-  function playSequence() {
-    if (!seqPlaying) return;
-
-    if (currentVocabIdx > TOTAL_VOCAB) {
-      currentRepeatRound++;
-      if (loopEnabled || currentRepeatRound < currentRepeatTotal) {
-        if (loopEnabled && currentRepeatRound >= currentRepeatTotal) {
-          currentRepeatRound = 0; // reset for infinite loop
-        }
-        currentVocabIdx = 1;
+    if (playState.currentIndex >= cards.length) {
+      // One round complete
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
       } else {
-        stopSequence();
+        // Done with all
+        stopContinuousPlay();
         return;
       }
     }
 
-    playVocabItem(currentVocabIdx, function() {
-      if (!seqPlaying) return;
-      currentVocabIdx++;
-      playSequence();
-    });
-  }
-
-  function stopSequence() {
-    seqPlaying = false;
-    seqPaused = false;
-    if (vocabAudio) {
-      vocabAudio.pause();
-      vocabAudio = null;
-    }
-    clearAllHighlights();
-    seqPlayBtn.classList.remove('active');
-    seqPlayBtn.querySelector('.seq-icon-play').style.display = '';
-    seqPlayBtn.querySelector('.seq-icon-pause').style.display = 'none';
-    seqBtnText.textContent = '连续播放';
-    progressEl.textContent = '';
-  }
-
-  window.toggleVocabSeqPlay = function() {
-    if (seqPlaying && !seqPaused) {
-      // Pause
-      seqPaused = true;
-      seqPlaying = false;
-      if (vocabAudio) vocabAudio.pause();
-      seqPlayBtn.querySelector('.seq-icon-play').style.display = '';
-      seqPlayBtn.querySelector('.seq-icon-pause').style.display = 'none';
-      seqBtnText.textContent = '继续播放';
-      seqPlayBtn.classList.remove('active');
+    if (playState.currentIndex >= cards.length) {
+      stopContinuousPlay();
       return;
     }
 
-    if (seqPaused) {
-      // Resume
-      seqPaused = false;
-      seqPlaying = true;
-      seqPlayBtn.classList.add('active');
-      seqPlayBtn.querySelector('.seq-icon-play').style.display = 'none';
-      seqPlayBtn.querySelector('.seq-icon-pause').style.display = '';
-      seqBtnText.textContent = '暂停';
-      // Continue from where we left off
-      playSequence();
-      return;
+    var card = cards[playState.currentIndex];
+    var btn = card.querySelector('.play-btn');
+    var src = card.getAttribute('data-src');
+
+    // Update progress
+    updateProgress(cards.length);
+
+    // Stop any currently playing
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var prevIconPlay = currentPlayingBtn.querySelector('.icon-play');
+        var prevIconPause = currentPlayingBtn.querySelector('.icon-pause');
+        if (prevIconPlay) prevIconPlay.style.display = '';
+        if (prevIconPause) prevIconPause.style.display = 'none';
+        currentPlayingBtn.childNodes[currentPlayingBtn.childNodes.length - 1].textContent = ' 播放';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
     }
 
-    // Start fresh
-    currentVocabIdx = 1;
-    currentRepeatRound = 1;
-    currentRepeatTotal = parseInt(repeatSelect.value);
-    loopEnabled = loopToggle.checked;
-    seqPlaying = true;
-    seqPaused = false;
-    seqPlayBtn.classList.add('active');
-    seqPlayBtn.querySelector('.seq-icon-play').style.display = 'none';
-    seqPlayBtn.querySelector('.seq-icon-pause').style.display = '';
-    seqBtnText.textContent = '暂停';
-    playSequence();
-  };
+    // Play
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
 
-  window.stopVocabSeqPlay = function() {
-    stopSequence();
-  };
-
-  window.playVocabAudio = function(idx, btn) {
-    // If sequential play is active, stop it first
-    if (seqPlaying || seqPaused) {
-      stopSequence();
+    if (btn) {
+      btn.classList.add('playing');
+      var iconPlay = btn.querySelector('.icon-play');
+      var iconPause = btn.querySelector('.icon-pause');
+      if (iconPlay) iconPlay.style.display = 'none';
+      if (iconPause) iconPause.style.display = '';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' 暂停';
     }
+    card.classList.add('highlight');
 
-    if (currentPlayingBtn === btn && vocabAudio && !vocabAudio.paused) {
-      vocabAudio.pause();
-      btn.classList.remove('playing');
-      currentPlayingBtn = null;
-      return;
-    }
-
-    if (vocabAudio) {
-      vocabAudio.pause();
-    }
-    if (currentPlayingBtn && currentPlayingBtn !== btn) {
-      currentPlayingBtn.classList.remove('playing');
-    }
-
-    clearAllHighlights();
-    const row = btn.closest('tr');
-    if (row) row.classList.add('highlight-row');
-    btn.classList.add('playing');
     currentPlayingBtn = btn;
+    currentPlayingCard = card;
 
-    vocabAudio = new Audio(getVocabAudioSrc(idx));
-    vocabAudio.playbackRate = parseFloat(document.getElementById('speedSlider').value);
-    vocabAudio.play().catch(function(err) {
-      console.warn('Vocab audio play failed:', err);
-    });
-    vocabAudio.addEventListener('ended', function() {
-      btn.classList.remove('playing');
-      row.classList.remove('highlight-row');
+    // Scroll into view
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      if (btn) {
+        btn.classList.remove('playing');
+        var iconPlay = btn.querySelector('.icon-play');
+        var iconPause = btn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = '';
+        if (iconPause) iconPause.style.display = 'none';
+        btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
+      }
+      card.classList.remove('highlight');
       currentPlayingBtn = null;
-      vocabAudio = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
+      }
     });
+  }
+
+  // ===== Update Progress =====
+  function updateProgress(total) {
+    var currentIdx = playState.currentIndex + 1;
+    var repeatInfo = '';
+    if (playState.repeatCount > 1 || playState.loop) {
+      repeatInfo = ' (第' + playState.currentRepeat + '遍)';
+    }
+
+    // Update progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
+
+    // Update section label
+    var sectionLabel = document.getElementById('currentSectionLabel');
+    if (sectionLabel) {
+      if (playState.currentIndex < 6) {
+        sectionLabel.textContent = 'Introduction';
+      } else {
+        sectionLabel.textContent = 'Terminology';
+      }
+    }
+  }
+
+  // ===== Toggle Loop =====
+  window.toggleLoop = function() {
+    var btn = document.getElementById('loopBtn');
+    playState.loop = !playState.loop;
+    if (playState.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
   };
 
-  // Update repeat count when changed
-  repeatSelect.addEventListener('change', function() {
-    currentRepeatTotal = parseInt(this.value);
-  });
-  loopToggle.addEventListener('change', function() {
-    loopEnabled = this.checked;
-  });
+  // ===== Update Repeat Count =====
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  // ===== Mark Complete =====
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('reading', 'unit1');
+    }
+    alert('精读材料学习已完成！');
+  };
+
+  // ===== Add highlight style for cards =====
+  var style = document.createElement('style');
+  style.textContent = '.para-card.highlight { background: rgba(0,113,227,0.08); border-color: rgba(0,113,227,0.15); }';
+  document.head.appendChild(style);
 })();
 </script>
 

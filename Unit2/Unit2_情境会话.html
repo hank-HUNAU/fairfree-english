@@ -5,1303 +5,2118 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit 2 情境会话 — Mining Terminology</title>
 <style>
-  :root {
-    --bg: #f5f5f7;
-    --card-bg: #ffffff;
-    --fg: #1d1d1f;
-    --fg-muted: #86868b;
-    --accent: #0071e3;
-    --accent-hover: #0077ed;
-    --accent-light: rgba(0,113,227,0.08);
-    --accent-border: rgba(0,113,227,0.15);
-    --border: rgba(0,0,0,0.06);
-    --border-light: rgba(0,0,0,0.04);
-    --shadow: 0 2px 12px rgba(0,0,0,0.06);
-    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
-    --radius-card: 16px;
-    --radius-bubble: 18px;
-    --radius-btn: 10px;
-    --radius-chip: 20px;
-    --bubble-left-bg: #e8f5e9;
-    --bubble-left-border: #4caf50;
-    --bubble-right-bg: #e3f2fd;
-    --bubble-right-border: #2196f3;
-    --avatar-green: #4caf50;
-    --avatar-blue: #2196f3;
-    --tooltip-bg: #1d1d1f;
-    --tooltip-fg: #ffffff;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
-    background: var(--bg);
-    color: var(--fg);
-    line-height: 1.7;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .container {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 40px 20px 80px;
-  }
-
-  /* Header */
-  header {
-    text-align: center;
-    margin-bottom: 48px;
-    padding: 48px 20px 36px;
-  }
-
-  .header-unit {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
-  }
-
-  header h1 {
-    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
-    font-weight: 700;
-    color: var(--fg);
-    margin-bottom: 8px;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-  }
-
-  header h1 span {
-    color: var(--fg-muted);
-    font-weight: 300;
-  }
-
-  .header-sub {
-    font-size: 0.95rem;
-    color: var(--fg-muted);
-    margin-top: 8px;
-    font-weight: 400;
-  }
-
-  /* Global Speed Control */
-  .speed-control-bar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(245,245,247,0.8);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin-bottom: 24px;
-  }
-
-  .speed-control-bar label {
-    font-size: 0.85rem;
-    color: var(--fg-muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-  }
-
-  .speed-control-bar .speed-value {
-    color: var(--accent);
-    font-weight: 600;
-    min-width: 36px;
-    text-align: center;
-  }
-
-  .speed-control-bar input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 140px;
-    height: 4px;
-    background: rgba(0,0,0,0.08);
-    border-radius: 2px;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .speed-control-bar input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
-  }
-
-  .speed-control-bar input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    border: none;
-  }
-
-  /* Scene Card */
-  .scene-card {
-    background: var(--card-bg);
-    border-radius: var(--radius-card);
-    margin-bottom: 36px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
-    animation: fadeUp 0.5s ease both;
-  }
-
-  .scene-card:nth-child(1) { animation-delay: 0.05s; }
-  .scene-card:nth-child(2) { animation-delay: 0.1s; }
-  .scene-card:nth-child(3) { animation-delay: 0.15s; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .scene-card:hover {
-    box-shadow: var(--shadow-hover);
-  }
-
-  .scene-header {
-    padding: 24px 28px 18px;
-  }
-
-  .scene-number {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .scene-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--fg);
-    margin-bottom: 4px;
-    letter-spacing: -0.01em;
-  }
-
-  .scene-desc {
-    font-size: 0.88rem;
-    color: var(--fg-muted);
-    line-height: 1.6;
-  }
-
-  .scene-characters {
-    display: flex;
-    gap: 20px;
-    padding: 12px 28px;
-    border-top: 1px solid var(--border-light);
-    flex-wrap: wrap;
-  }
-
-  .character-tag {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.82rem;
-    color: var(--fg-muted);
-    font-weight: 500;
-  }
-
-  .char-avatar {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: #fff;
-    flex-shrink: 0;
-  }
-
-  .char-avatar.a { background: var(--avatar-green); }
-  .char-avatar.b { background: var(--avatar-blue); }
-
-  /* Dialogue Area */
-  .dialogue-area {
-    padding: 24px 28px;
-  }
-
-  .bubble-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 16px;
-    align-items: flex-start;
-  }
-
-  .bubble-row:last-child {
-    margin-bottom: 0;
-  }
-
-  .bubble-row.right {
-    flex-direction: row-reverse;
-  }
-
-  .bubble-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #fff;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .bubble-avatar.a { background: var(--avatar-green); }
-  .bubble-avatar.b { background: var(--avatar-blue); }
-
-  /* Bubble */
-  .bubble {
-    max-width: 75%;
-    padding: 12px 38px 12px 16px;
-    border-radius: var(--radius-bubble);
-    font-size: 0.93rem;
-    line-height: 1.65;
-    position: relative;
-  }
-
-  .bubble-row:not(.right) .bubble {
-    background: var(--bubble-left-bg);
-    border-left: 3px solid var(--bubble-left-border);
-    border-top-left-radius: 4px;
-  }
-
-  .bubble-row.right .bubble {
-    background: var(--bubble-right-bg);
-    border-right: 3px solid var(--bubble-right-border);
-    border-top-right-radius: 4px;
-  }
-
-  .bubble .speaker-name {
-    font-size: 0.72rem;
-    font-weight: 600;
-    margin-bottom: 3px;
-  }
-
-  .bubble-row:not(.right) .bubble .speaker-name {
-    color: var(--bubble-left-border);
-  }
-
-  .bubble-row.right .bubble .speaker-name {
-    text-align: right;
-    color: var(--bubble-right-border);
-  }
-
-  /* Play button on bubbles */
-  .bubble-play-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.06);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    transition: background 0.2s, transform 0.15s;
-    z-index: 5;
-  }
-
-  .bubble-play-btn:hover {
-    background: rgba(0,0,0,0.12);
-    transform: scale(1.1);
-  }
-
-  .bubble-play-btn svg {
-    width: 10px;
-    height: 10px;
-    fill: var(--fg-muted);
-  }
-
-  .bubble-play-btn.playing {
-    background: var(--accent);
-  }
-
-  .bubble-play-btn.playing svg {
-    fill: #fff;
-  }
-
-  .bubble-play-btn.playing {
-    animation: pulse-soft 1.2s ease-out infinite;
-  }
-
-  @keyframes pulse-soft {
-    0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.3); }
-    70% { box-shadow: 0 0 0 5px rgba(0,113,227,0); }
-    100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); }
-  }
-
-  /* Vocabulary highlight in dialogue */
-  .vocab {
-    color: var(--accent);
-    border-bottom: 1.5px solid rgba(0,113,227,0.3);
-    cursor: help;
-    position: relative;
-    font-weight: 500;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .vocab:hover {
-    color: var(--accent-hover);
-    border-color: var(--accent);
-  }
-
-  .vocab .tooltip {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--tooltip-bg);
-    color: var(--tooltip-fg);
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: 0.78rem;
-    font-weight: 400;
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    z-index: 10;
-  }
-
-  .vocab .tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 5px solid transparent;
-    border-top-color: var(--tooltip-bg);
-  }
-
-  .vocab:hover .tooltip {
-    opacity: 1;
-  }
-
-  /* Translation section */
-  .translation-toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 28px;
-    background: rgba(0,0,0,0.02);
-    border-top: 1px solid var(--border-light);
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.2s;
-    font-size: 0.84rem;
-    color: var(--fg-muted);
-    font-weight: 500;
-  }
-
-  .translation-toggle:hover {
-    background: rgba(0,0,0,0.04);
-    color: var(--fg);
-  }
-
-  .translation-toggle .arrow {
-    display: inline-block;
-    transition: transform 0.3s;
-    font-size: 0.6rem;
-  }
-
-  .translation-toggle.open .arrow {
-    transform: rotate(90deg);
-  }
-
-  .translation-content {
-    display: none;
-    padding: 20px 28px;
-    border-top: 1px solid var(--border-light);
-    background: rgba(0,0,0,0.015);
-  }
-
-  .translation-content.show {
-    display: block;
-  }
-
-  .translation-content .trans-line {
-    margin-bottom: 12px;
-    font-size: 0.88rem;
-    color: var(--fg-muted);
-    line-height: 1.7;
-    padding-left: 14px;
-    border-left: 2px solid var(--accent-border);
-  }
-
-  .translation-content .trans-line:last-child {
-    margin-bottom: 0;
-  }
-
-  .translation-content .trans-line .trans-speaker {
-    font-weight: 600;
-    color: var(--fg);
-    margin-right: 4px;
-  }
-
-  /* Vocab List */
-  .vocab-list {
-    padding: 20px 28px 24px;
-    border-top: 1px solid var(--border-light);
-    background: rgba(0,0,0,0.01);
-  }
-
-  .vocab-list-title {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-
-  /* Vocab Audio Control Bar */
-  .vocab-audio-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    background: var(--accent-light);
-    border-radius: var(--radius-btn);
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-  }
-
-  .vocab-audio-bar .vab-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 5px 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.78rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    font-family: inherit;
-    background: var(--accent);
-    color: #fff;
-  }
-
-  .vocab-audio-bar .vab-btn:hover {
-    background: var(--accent-hover);
-    transform: scale(1.02);
-  }
-
-  .vocab-audio-bar .vab-btn.active {
-    background: #1d1d1f;
-  }
-
-  .vocab-audio-bar .vab-btn svg {
-    width: 12px;
-    height: 12px;
-    fill: currentColor;
-  }
-
-  .vocab-audio-bar .vab-label {
-    font-size: 0.78rem;
-    color: var(--fg-muted);
-    font-weight: 500;
-  }
-
-  .vocab-audio-bar .vab-loop-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 5px 10px;
-    border: 1px solid var(--accent-border);
-    border-radius: 8px;
-    background: #fff;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--fg-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-  }
-
-  .vocab-audio-bar .vab-loop-toggle.on {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-
-  .vocab-audio-bar .vab-repeat-select {
-    padding: 5px 8px;
-    border: 1px solid var(--accent-border);
-    border-radius: 8px;
-    background: #fff;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--fg);
-    cursor: pointer;
-    font-family: inherit;
-    outline: none;
-  }
-
-  .vocab-audio-bar .vab-repeat-select:focus {
-    border-color: var(--accent);
-  }
-
-  .vocab-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .vocab-chip {
-    background: var(--accent-light);
-    border: 1px solid var(--accent-border);
-    padding: 5px 14px;
-    border-radius: var(--radius-chip);
-    font-size: 0.82rem;
-    color: var(--accent);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    user-select: none;
-  }
-
-  .vocab-chip:hover {
-    background: rgba(0,113,227,0.14);
-    border-color: var(--accent);
-  }
-
-  .vocab-chip.active {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 36px 20px;
-    color: var(--fg-muted);
-    font-size: 0.8rem;
-  }
-
-  /* Responsive */
-  @media (max-width: 640px) {
-    .container { padding: 20px 12px 60px; }
-    .scene-header { padding: 18px 18px 14px; }
-    .scene-characters { padding: 10px 18px; }
-    .dialogue-area { padding: 18px; }
-    .translation-toggle { padding: 10px 18px; }
-    .translation-content { padding: 16px 18px; }
-    .vocab-list { padding: 16px 18px 20px; }
-    .bubble { max-width: 85%; padding: 10px 34px 10px 14px; }
-    header { padding: 32px 16px 24px; }
-    .bubble-avatar { width: 28px; height: 28px; font-size: 0.6rem; }
-    .speed-control-bar { padding: 10px 12px; gap: 8px; }
-    .speed-control-bar input[type="range"] { width: 100px; }
-    .vocab-audio-bar { gap: 6px; padding: 8px 10px; }
-  }
+ :root {
+ --bg: #f5f5f7;
+ --card-bg: #ffffff;
+ --fg: #1d1d1f;
+ --fg-muted: #86868b;
+ --accent: #0071e3;
+ --accent-hover: #0077ed;
+ --accent-light: rgba(0,113,227,0.08);
+ --accent-border: rgba(0,113,227,0.15);
+ --border: rgba(0,0,0,0.06);
+ --border-light: rgba(0,0,0,0.04);
+ --shadow: 0 2px 12px rgba(0,0,0,0.06);
+ --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+ --radius-card: 16px;
+ --radius-bubble: 18px;
+ --radius-btn: 10px;
+ --radius-chip: 20px;
+ --bubble-left-bg: #e8f5e9;
+ --bubble-left-border: #4caf50;
+ --bubble-right-bg: #e3f2fd;
+ --bubble-right-border: #2196f3;
+ --avatar-green: #4caf50;
+ --avatar-blue: #2196f3;
+ --tooltip-bg: #1d1d1f;
+ --tooltip-fg: #ffffff;
+ --header-height: 60px;
+ --footer-height: 56px;
+ }
+
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+
+ body {
+ font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+ background: var(--bg);
+ color: var(--fg);
+ line-height: 1.7;
+ min-height: 100vh;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+ }
+
+ .container {
+ max-width: 860px;
+ margin: 0 auto;
+ padding: calc(var(--header-height) + 20px) 20px calc(var(--footer-height) + 24px);
+ position: relative;
+ z-index: 1;
+ }
+
+ /* Header */
+ header {
+ text-align: center;
+ margin-bottom: 48px;
+ padding: 48px 20px 36px;
+ }
+
+ .header-unit {
+ font-size: 0.8rem;
+ font-weight: 600;
+ letter-spacing: 3px;
+ text-transform: uppercase;
+ color: var(--accent);
+ margin-bottom: 12px;
+ }
+
+ header h1 {
+ font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+ font-weight: 700;
+ color: var(--fg);
+ margin-bottom: 8px;
+ line-height: 1.25;
+ letter-spacing: -0.02em;
+ }
+
+ header h1 span {
+ color: var(--fg-muted);
+ font-weight: 300;
+ }
+
+ .header-sub {
+ font-size: 0.95rem;
+ color: var(--fg-muted);
+ margin-top: 8px;
+ font-weight: 400;
+ }
+
+ /* Global Speed Control */
+ .speed-control-bar {
+ position: sticky;
+ top: 0;
+ z-index: 100;
+ background: rgba(245,245,247,0.8);
+ backdrop-filter: saturate(180%) blur(20px);
+ -webkit-backdrop-filter: saturate(180%) blur(20px);
+ border-bottom: 1px solid var(--border);
+ padding: 12px 20px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 14px;
+ margin-bottom: 24px;
+ }
+
+ .speed-control-bar label {
+ font-size: 0.85rem;
+ color: var(--fg-muted);
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ font-weight: 500;
+ }
+
+ .speed-control-bar .speed-value {
+ color: var(--accent);
+ font-weight: 600;
+ min-width: 36px;
+ text-align: center;
+ }
+
+ .speed-control-bar input[type="range"] {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 140px;
+ height: 4px;
+ background: rgba(0,0,0,0.08);
+ border-radius: 2px;
+ outline: none;
+ cursor: pointer;
+ }
+
+ .speed-control-bar input[type="range"]::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 18px;
+ height: 18px;
+ border-radius: 50%;
+ background: var(--accent);
+ cursor: pointer;
+ box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+ }
+
+ .speed-control-bar input[type="range"]::-moz-range-thumb {
+ width: 18px;
+ height: 18px;
+ border-radius: 50%;
+ background: var(--accent);
+ cursor: pointer;
+ border: none;
+ }
+
+ /* Scene Card */
+ .scene-card {
+ background: var(--card-bg);
+ border-radius: var(--radius-card);
+ margin-bottom: 36px;
+ box-shadow: var(--shadow);
+ overflow: hidden;
+ transition: box-shadow 0.3s ease;
+ animation: fadeUp 0.5s ease both;
+ }
+
+ .scene-card:nth-child(1) { animation-delay: 0.05s; }
+ .scene-card:nth-child(2) { animation-delay: 0.1s; }
+ .scene-card:nth-child(3) { animation-delay: 0.15s; }
+
+ @keyframes fadeUp {
+ from { opacity: 0; transform: translateY(16px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+
+ .scene-card:hover {
+ box-shadow: var(--shadow-hover);
+ }
+
+ .scene-header {
+ padding: 24px 28px 18px;
+ }
+
+ .scene-number {
+ font-size: 0.75rem;
+ font-weight: 600;
+ color: var(--accent);
+ letter-spacing: 1.5px;
+ text-transform: uppercase;
+ margin-bottom: 4px;
+ }
+
+ .scene-title {
+ font-size: 1.2rem;
+ font-weight: 600;
+ color: var(--fg);
+ margin-bottom: 4px;
+ letter-spacing: -0.01em;
+ }
+
+ .scene-desc {
+ font-size: 0.88rem;
+ color: var(--fg-muted);
+ line-height: 1.6;
+ }
+
+ .scene-characters {
+ display: flex;
+ gap: 20px;
+ padding: 12px 28px;
+ border-top: 1px solid var(--border-light);
+ flex-wrap: wrap;
+ }
+
+ .character-tag {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ font-size: 0.82rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ }
+
+ .char-avatar {
+ width: 26px;
+ height: 26px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 0.65rem;
+ font-weight: 700;
+ color: #fff;
+ flex-shrink: 0;
+ }
+
+ .char-avatar.a { background: var(--avatar-green); }
+ .char-avatar.b { background: var(--avatar-blue); }
+
+ /* Dialogue Area */
+ .dialogue-area {
+ padding: 24px 28px;
+ }
+
+ .bubble-row {
+ display: flex;
+ gap: 10px;
+ margin-bottom: 16px;
+ align-items: flex-start;
+ }
+
+ .bubble-row:last-child {
+ margin-bottom: 0;
+ }
+
+ .bubble-row.right {
+ flex-direction: row-reverse;
+ }
+
+ .bubble-avatar {
+ width: 34px;
+ height: 34px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 0.7rem;
+ font-weight: 700;
+ color: #fff;
+ flex-shrink: 0;
+ margin-top: 2px;
+ }
+
+ .bubble-avatar.a { background: var(--avatar-green); }
+ .bubble-avatar.b { background: var(--avatar-blue); }
+
+ /* Bubble */
+ .bubble {
+ max-width: 75%;
+ padding: 12px 38px 12px 16px;
+ border-radius: var(--radius-bubble);
+ font-size: 0.93rem;
+ line-height: 1.65;
+ position: relative;
+ }
+
+ .bubble-row:not(.right) .bubble {
+ background: var(--bubble-left-bg);
+ border-left: 3px solid var(--bubble-left-border);
+ border-top-left-radius: 4px;
+ }
+
+ .bubble-row.right .bubble {
+ background: var(--bubble-right-bg);
+ border-right: 3px solid var(--bubble-right-border);
+ border-top-right-radius: 4px;
+ }
+
+ .bubble .speaker-name {
+ font-size: 0.72rem;
+ font-weight: 600;
+ margin-bottom: 3px;
+ }
+
+ .bubble-row:not(.right) .bubble .speaker-name {
+ color: var(--bubble-left-border);
+ }
+
+ .bubble-row.right .bubble .speaker-name {
+ text-align: right;
+ color: var(--bubble-right-border);
+ }
+
+ /* Play button on bubbles */
+ .bubble-play-btn {
+ position: absolute;
+ top: 8px;
+ right: 8px;
+ width: 20px;
+ height: 20px;
+ border-radius: 50%;
+ background: rgba(0,0,0,0.06);
+ border: none;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 0;
+ transition: background 0.2s, transform 0.15s;
+ z-index: 5;
+ }
+
+ .bubble-play-btn:hover {
+ background: rgba(0,0,0,0.12);
+ transform: scale(1.1);
+ }
+
+ .bubble-play-btn svg {
+ width: 10px;
+ height: 10px;
+ fill: var(--fg-muted);
+ }
+
+ .bubble-play-btn.playing {
+ background: var(--accent);
+ }
+
+ .bubble-play-btn.playing svg {
+ fill: #fff;
+ }
+
+ .bubble-play-btn.playing {
+ animation: pulse-soft 1.2s ease-out infinite;
+ }
+
+ @keyframes pulse-soft {
+ 0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.3); }
+ 70% { box-shadow: 0 0 0 5px rgba(0,113,227,0); }
+ 100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); }
+ }
+
+ /* Vocabulary highlight in dialogue */
+ .vocab {
+ color: var(--accent);
+ border-bottom: 1.5px solid rgba(0,113,227,0.3);
+ cursor: help;
+ position: relative;
+ font-weight: 500;
+ transition: color 0.2s, border-color 0.2s;
+ }
+
+ .vocab:hover {
+ color: var(--accent-hover);
+ border-color: var(--accent);
+ }
+
+ .vocab .tooltip {
+ position: absolute;
+ bottom: calc(100% + 8px);
+ left: 50%;
+ transform: translateX(-50%);
+ background: var(--tooltip-bg);
+ color: var(--tooltip-fg);
+ padding: 5px 10px;
+ border-radius: 8px;
+ font-size: 0.78rem;
+ font-weight: 400;
+ white-space: nowrap;
+ pointer-events: none;
+ opacity: 0;
+ transition: opacity 0.2s;
+ box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+ z-index: 10;
+ }
+
+ .vocab .tooltip::after {
+ content: '';
+ position: absolute;
+ top: 100%;
+ left: 50%;
+ transform: translateX(-50%);
+ border: 5px solid transparent;
+ border-top-color: var(--tooltip-bg);
+ }
+
+ .vocab:hover .tooltip {
+ opacity: 1;
+ }
+
+ /* Translation section */
+ .translation-toggle {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ padding: 12px 28px;
+ background: rgba(0,0,0,0.02);
+ border-top: 1px solid var(--border-light);
+ cursor: pointer;
+ user-select: none;
+ transition: background 0.2s;
+ font-size: 0.84rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ }
+
+ .translation-toggle:hover {
+ background: rgba(0,0,0,0.04);
+ color: var(--fg);
+ }
+
+ .translation-toggle .arrow {
+ display: inline-block;
+ transition: transform 0.3s;
+ font-size: 0.6rem;
+ }
+
+ .translation-toggle.open .arrow {
+ transform: rotate(90deg);
+ }
+
+ .translation-content {
+ display: none;
+ padding: 20px 28px;
+ border-top: 1px solid var(--border-light);
+ background: rgba(0,0,0,0.015);
+ }
+
+ .translation-content.show {
+ display: block;
+ }
+
+ .translation-content .trans-line {
+ margin-bottom: 12px;
+ font-size: 0.88rem;
+ color: var(--fg-muted);
+ line-height: 1.7;
+ padding-left: 14px;
+ border-left: 2px solid var(--accent-border);
+ }
+
+ .translation-content .trans-line:last-child {
+ margin-bottom: 0;
+ }
+
+ .translation-content .trans-line .trans-speaker {
+ font-weight: 600;
+ color: var(--fg);
+ margin-right: 4px;
+ }
+
+ /* Vocab List */
+ .vocab-list {
+ padding: 20px 28px 24px;
+ border-top: 1px solid var(--border-light);
+ background: rgba(0,0,0,0.01);
+ }
+
+ .vocab-list-title {
+ font-size: 0.78rem;
+ font-weight: 600;
+ color: var(--accent);
+ letter-spacing: 0.5px;
+ text-transform: uppercase;
+ margin-bottom: 14px;
+ }
+
+ /* Vocab Audio Control Bar */
+ .vocab-audio-bar {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ padding: 10px 14px;
+ background: var(--accent-light);
+ border-radius: var(--radius-btn);
+ margin-bottom: 14px;
+ flex-wrap: wrap;
+ }
+
+ .vocab-audio-bar .vab-btn {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 4px;
+ padding: 5px 12px;
+ border: none;
+ border-radius: 8px;
+ font-size: 0.78rem;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s, transform 0.15s;
+ font-family: inherit;
+ background: var(--accent);
+ color: #fff;
+ }
+
+ .vocab-audio-bar .vab-btn:hover {
+ background: var(--accent-hover);
+ transform: scale(1.02);
+ }
+
+ .vocab-audio-bar .vab-btn.active {
+ background: #1d1d1f;
+ }
+
+ .vocab-audio-bar .vab-btn svg {
+ width: 12px;
+ height: 12px;
+ fill: currentColor;
+ }
+
+ .vocab-audio-bar .vab-label {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ }
+
+ .vocab-audio-bar .vab-loop-toggle {
+ display: inline-flex;
+ align-items: center;
+ gap: 4px;
+ padding: 5px 10px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg-muted);
+ cursor: pointer;
+ transition: all 0.2s;
+ font-family: inherit;
+ }
+
+ .vocab-audio-bar .vab-loop-toggle.on {
+ background: var(--accent);
+ color: #fff;
+ border-color: var(--accent);
+ }
+
+ .vocab-audio-bar .vab-repeat-select {
+ padding: 5px 8px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg);
+ cursor: pointer;
+ font-family: inherit;
+ outline: none;
+ }
+
+ .vocab-audio-bar .vab-repeat-select:focus {
+ border-color: var(--accent);
+ }
+
+ .vocab-items {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ }
+
+ .vocab-chip {
+ background: var(--accent-light);
+ border: 1px solid var(--accent-border);
+ padding: 5px 14px;
+ border-radius: var(--radius-chip);
+ font-size: 0.82rem;
+ color: var(--accent);
+ font-weight: 500;
+ cursor: pointer;
+ transition: all 0.2s;
+ user-select: none;
+ }
+
+ .vocab-chip:hover {
+ background: rgba(0,113,227,0.14);
+ border-color: var(--accent);
+ }
+
+ .vocab-chip.active {
+ background: var(--accent);
+ color: #fff;
+ border-color: var(--accent);
+ }
+
+ /* Footer */
+ footer {
+ text-align: center;
+ padding: 36px 20px;
+ color: var(--fg-muted);
+ font-size: 0.8rem;
+ }
+
+ /* Responsive */
+ @media (max-width: 640px) {
+ .container { padding: 20px 12px 60px; }
+ .scene-header { padding: 18px 18px 14px; }
+ .scene-characters { padding: 10px 18px; }
+ .dialogue-area { padding: 18px; }
+ .translation-toggle { padding: 10px 18px; }
+ .translation-content { padding: 16px 18px; }
+ .vocab-list { padding: 16px 18px 20px; }
+ .bubble { max-width: 85%; padding: 10px 34px 10px 14px; }
+ header { padding: 32px 16px 24px; }
+ .bubble-avatar { width: 28px; height: 28px; font-size: 0.6rem; }
+ .speed-control-bar { padding: 10px 12px; gap: 8px; }
+ .speed-control-bar input[type="range"] { width: 100px; }
+ .vocab-audio-bar { gap: 6px; padding: 8px 10px; }
+ }
+
+ 
+
+ /* ===== Fixed Top Navigation Bar ===== */
+ .top-nav {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ height: var(--header-height);
+ background: rgba(245,245,247,0.8);
+ backdrop-filter: saturate(180%) blur(20px);
+ -webkit-backdrop-filter: saturate(180%) blur(20px);
+ border-bottom: 1px solid var(--border);
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 24px;
+ }
+
+ .nav-left {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ }
+
+ .nav-unit {
+ font-size: 0.75rem;
+ font-weight: 600;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--accent);
+ }
+
+ .nav-title {
+ font-size: 1.1rem;
+ font-weight: 700;
+ color: var(--fg);
+ letter-spacing: -0.02em;
+ }
+
+ .nav-title span { color: var(--accent); }
+
+ .nav-center {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ }
+
+ .nav-speed-label {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ display: flex;
+ align-items: center;
+ gap: 6px;
+ font-weight: 500;
+ }
+
+ .nav-speed-label svg {
+ width: 14px;
+ height: 14px;
+ }
+
+ .nav-speed-slider {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 100px;
+ height: 4px;
+ background: rgba(0,0,0,0.08);
+ border-radius: 2px;
+ outline: none;
+ cursor: pointer;
+ }
+
+ .nav-speed-slider::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 16px;
+ height: 16px;
+ border-radius: 50%;
+ background: var(--accent);
+ cursor: pointer;
+ border: none;
+ box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+ transition: transform 0.15s ease;
+ }
+
+ .nav-speed-slider::-webkit-slider-thumb:hover {
+ transform: scale(1.15);
+ }
+
+ .nav-speed-value {
+ color: var(--accent);
+ font-weight: 700;
+ font-size: 0.85rem;
+ min-width: 32px;
+ text-align: center;
+ }
+
+ .nav-right {
+ display: flex;
+ align-items: center;
+ }
+
+ .complete-btn {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ padding: 8px 16px;
+ border: none;
+ border-radius: 8px;
+ font-size: 0.85rem;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s, transform 0.15s;
+ font-family: inherit;
+ background: var(--accent);
+ color: #fff;
+ }
+
+ .complete-btn:hover {
+ background: var(--accent-hover);
+ transform: scale(1.02);
+ }
+
+ .complete-btn svg {
+ width: 14px;
+ height: 14px;
+ fill: currentColor;
+ }
+
+ /* ===== Fixed Bottom Player Bar ===== */
+ .bottom-player {
+ position: fixed;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ height: var(--footer-height);
+ background: rgba(245,245,247,0.8);
+ backdrop-filter: saturate(180%) blur(20px);
+ -webkit-backdrop-filter: saturate(180%) blur(20px);
+ border-top: 1px solid var(--border);
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 12px;
+ padding: 0 24px;
+ }
+
+ .player-section-label {
+ font-size: 0.75rem;
+ color: var(--fg-muted);
+ font-weight: 600;
+ padding: 4px 10px;
+ background: var(--accent-light);
+ border-radius: 6px;
+ border: 1px solid var(--accent-border);
+ }
+
+ .player-btn {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 5px;
+ padding: 8px 14px;
+ border: none;
+ border-radius: 8px;
+ font-size: 0.8rem;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s, transform 0.15s;
+ font-family: inherit;
+ background: var(--accent);
+ color: #fff;
+ }
+
+ .player-btn:hover {
+ background: var(--accent-hover);
+ transform: scale(1.02);
+ }
+
+ .player-btn.active {
+ background: #1d1d1f;
+ }
+
+ .player-btn svg {
+ width: 12px;
+ height: 12px;
+ fill: currentColor;
+ }
+
+ .player-label {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ }
+
+ .player-repeat-select {
+ padding: 6px 8px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg);
+ cursor: pointer;
+ font-family: inherit;
+ outline: none;
+ }
+
+ .player-repeat-select:focus {
+ border-color: var(--accent);
+ }
+
+ .player-loop-toggle {
+ display: inline-flex;
+ align-items: center;
+ gap: 4px;
+ padding: 6px 10px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg-muted);
+ cursor: pointer;
+ transition: all 0.2s;
+ font-family: inherit;
+ }
+
+ .player-loop-toggle.on {
+ background: var(--accent);
+ color: #fff;
+ border-color: var(--accent);
+ }
+
+ .player-progress {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ min-width: 80px;
+ text-align: center;
+ }
+
+ .player-progress .current-num {
+ color: var(--accent);
+ font-weight: 700;
+ }
+
+ /* Progress bar styles */
+ .progress-bar-container {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ flex: 1;
+ max-width: 200px;
+ }
+
+ .progress-bar {
+ width: 100%;
+ height: 4px;
+ background: rgba(0,0,0,0.08);
+ border-radius: 2px;
+ overflow: hidden;
+ }
+
+ .progress-bar-fill {
+ height: 100%;
+ background: var(--accent);
+ border-radius: 2px;
+ transition: width 0.3s ease;
+ width: 0%;
+ }
+
+ .progress-text {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ white-space: nowrap;
+ }
+
+
+
+ 
+
+ /* ===== Fixed Top Navigation Bar ===== */
+ .top-nav {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ height: var(--header-height);
+ background: rgba(245,245,247,0.8);
+ backdrop-filter: saturate(180%) blur(20px);
+ -webkit-backdrop-filter: saturate(180%) blur(20px);
+ border-bottom: 1px solid var(--border);
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 24px;
+ }
+
+ .nav-left {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ }
+
+ .nav-unit {
+ font-size: 0.75rem;
+ font-weight: 600;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--accent);
+ }
+
+ .nav-title {
+ font-size: 1.1rem;
+ font-weight: 700;
+ color: var(--fg);
+ letter-spacing: -0.02em;
+ }
+
+ .nav-title span { color: var(--accent); }
+
+ .nav-center {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ }
+
+ .nav-speed-label {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ display: flex;
+ align-items: center;
+ gap: 6px;
+ font-weight: 500;
+ }
+
+ .nav-speed-label svg {
+ width: 14px;
+ height: 14px;
+ }
+
+ .nav-speed-slider {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 100px;
+ height: 4px;
+ background: rgba(0,0,0,0.08);
+ border-radius: 2px;
+ outline: none;
+ cursor: pointer;
+ }
+
+ .nav-speed-slider::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 16px;
+ height: 16px;
+ border-radius: 50%;
+ background: var(--accent);
+ cursor: pointer;
+ border: none;
+ box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+ transition: transform 0.15s ease;
+ }
+
+ .nav-speed-slider::-webkit-slider-thumb:hover {
+ transform: scale(1.15);
+ }
+
+ .nav-speed-value {
+ color: var(--accent);
+ font-weight: 700;
+ font-size: 0.85rem;
+ min-width: 32px;
+ text-align: center;
+ }
+
+ .nav-right {
+ display: flex;
+ align-items: center;
+ }
+
+ .complete-btn {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ padding: 8px 16px;
+ border: none;
+ border-radius: 8px;
+ font-size: 0.85rem;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s, transform 0.15s;
+ font-family: inherit;
+ background: var(--accent);
+ color: #fff;
+ }
+
+ .complete-btn:hover {
+ background: var(--accent-hover);
+ transform: scale(1.02);
+ }
+
+ .complete-btn svg {
+ width: 14px;
+ height: 14px;
+ fill: currentColor;
+ }
+
+ /* ===== Fixed Bottom Player Bar ===== */
+ .bottom-player {
+ position: fixed;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ height: var(--footer-height);
+ background: rgba(245,245,247,0.8);
+ backdrop-filter: saturate(180%) blur(20px);
+ -webkit-backdrop-filter: saturate(180%) blur(20px);
+ border-top: 1px solid var(--border);
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 12px;
+ padding: 0 24px;
+ }
+
+ .player-section-label {
+ font-size: 0.75rem;
+ color: var(--fg-muted);
+ font-weight: 600;
+ padding: 4px 10px;
+ background: var(--accent-light);
+ border-radius: 6px;
+ border: 1px solid var(--accent-border);
+ }
+
+ .player-btn {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 5px;
+ padding: 8px 14px;
+ border: none;
+ border-radius: 8px;
+ font-size: 0.8rem;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s, transform 0.15s;
+ font-family: inherit;
+ background: var(--accent);
+ color: #fff;
+ }
+
+ .player-btn:hover {
+ background: var(--accent-hover);
+ transform: scale(1.02);
+ }
+
+ .player-btn.active {
+ background: #1d1d1f;
+ }
+
+ .player-btn svg {
+ width: 12px;
+ height: 12px;
+ fill: currentColor;
+ }
+
+ .player-label {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ }
+
+ .player-repeat-select {
+ padding: 6px 8px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg);
+ cursor: pointer;
+ font-family: inherit;
+ outline: none;
+ }
+
+ .player-repeat-select:focus {
+ border-color: var(--accent);
+ }
+
+ .player-loop-toggle {
+ display: inline-flex;
+ align-items: center;
+ gap: 4px;
+ padding: 6px 10px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg-muted);
+ cursor: pointer;
+ transition: all 0.2s;
+ font-family: inherit;
+ }
+
+ .player-loop-toggle.on {
+ background: var(--accent);
+ color: #fff;
+ border-color: var(--accent);
+ }
+
+ .player-progress {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ min-width: 80px;
+ text-align: center;
+ }
+
+ .player-progress .current-num {
+ color: var(--accent);
+ font-weight: 700;
+ }
+
+ /* Progress bar styles */
+ .progress-bar-container {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ flex: 1;
+ max-width: 200px;
+ }
+
+ .progress-bar {
+ width: 100%;
+ height: 4px;
+ background: rgba(0,0,0,0.08);
+ border-radius: 2px;
+ overflow: hidden;
+ }
+
+ .progress-bar-fill {
+ height: 100%;
+ background: var(--accent);
+ border-radius: 2px;
+ transition: width 0.3s ease;
+ width: 0%;
+ }
+
+ .progress-text {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ white-space: nowrap;
+ }
+
+ /* Highlight style for scene cards */
+ .scene-card.highlight {
+ background: rgba(0,113,227,0.08);
+ border-color: rgba(0,113,227,0.15);
+ }
+
+
 </style>
 </head>
 <body>
 
-<div class="container">
-
-  <header>
-    <div class="header-unit">Unit 2</div>
-    <h1>情境会话 <span>— Mining Terminology</span></h1>
-    <div class="header-sub">基于课文改编的采矿术语英语对话</div>
-  </header>
-
-  <div class="speed-control-bar">
-    <label>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+<!-- Fixed Top Navigation Bar -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 2</span>
+    <span class="nav-title">情境会话</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
       语速
-      <input type="range" id="speedSlider1" min="0.5" max="1.5" step="0.1" value="1.0">
-      <span class="speed-value" id="speedValue1">1.0x</span>
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
     </label>
   </div>
-
-  <!-- ==================== Scene 1 ==================== -->
-  <div class="scene-card">
-    <div class="scene-header">
-      <div class="scene-number">Scene 01</div>
-      <div class="scene-title">竖井与开拓 — Shaft and Development</div>
-      <div class="scene-desc">两位工程师讨论大型深部矿体的基本结构、竖井开拓方式、矿石损失与提升设备。</div>
-    </div>
-    <div class="scene-characters">
-      <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
-      <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
-    </div>
-    <div class="dialogue-area">
-
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s1_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          Mr. Li, let's discuss the basic structure of a mine. Large ore-bodies are often known as <span class="vocab">massive<span class="tooltip">巨大的</span></span>, but the term massive should not be confused with <span class="vocab">massive and disseminated ores<span class="tooltip">块状矿与浸染矿</span></span> in a geological sense.
-        </div>
-      </div>
-
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s1_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          I see. So a massive ore-body is likely to contain <span class="vocab">disseminated ores<span class="tooltip">浸染矿</span></span>, while a <span class="vocab">vein-type ore-body<span class="tooltip">脉型矿体</span></span> will probably contain bands of massive ore minerals.
-        </div>
-      </div>
-
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s1_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          Exactly. Now, a <span class="vocab">shaft<span class="tooltip">竖井</span></span> is <span class="vocab">sunk<span class="tooltip">开凿</span></span> alongside or through the ore-body for access. In practice, there must be two openings to allow air to be forced through the mine workings.
-        </div>
-      </div>
-
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s1_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          What happens if the shaft is sunk through the ore-body?
-        </div>
-      </div>
-
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s1_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          If the shaft is sunk through the ore-body, then some of the ore is <span class="vocab">sterilized<span class="tooltip">报废</span></span>. A cone of ore surrounding the shaft and widening with depth must be left until the rest of the ore is extracted.
-        </div>
-      </div>
-
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s1_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          That makes sense. Otherwise the movement of rock caused by ore extraction will damage the shaft and necessitate expensive repairs.
-        </div>
-      </div>
-
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s1_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          There are two types of <span class="vocab">conveyance<span class="tooltip">提升容器</span></span> in the shafts: <span class="vocab">cages<span class="tooltip">罐笼</span></span> and <span class="vocab">skips<span class="tooltip">箕斗</span></span>. Cages are used for man-riding and to wind mine cars containing ore, waste rock or materials.
-        </div>
-      </div>
-
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s1_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          So a large shaft may be equipped with a pair of skips for ore and rock hoisting and a single cage for man riding.
-        </div>
-      </div>
-
-    </div>
-
-    <div class="translation-toggle" onclick="toggleTranslation(this)">
-      <span class="arrow">&#9654;</span> 查看中文参考译文
-    </div>
-    <div class="translation-content">
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>李先生，我们来讨论一下矿山的基本结构。大型矿体通常被称为巨大的，但"巨大"一词不应与地质学意义上的块状矿和浸染矿混淆。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>我明白了。所以巨大的矿体可能含有浸染矿，而脉型矿体则可能含有块状矿石的条带。</div>
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>没错。竖井是沿着矿体或在矿体中开凿以供出入的。实际上，必须有两个开口，以便将空气压入矿井巷道中。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>如果竖井穿过矿体开凿会怎样？</div>
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>如果竖井穿过矿体开凿，那么部分矿石就会被报废。围绕竖井并向深处扩展的锥形矿石必须保留，直到其余矿石被采出。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>有道理。否则矿石开采引起的岩体移动会损坏竖井，需要进行昂贵的维修。</div>
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>竖井中有两种提升容器：罐笼和箕斗。罐笼用于载人以及提升装有矿石、废石或材料的矿车。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>所以大型竖井可能配备一对箕斗用于矿石和岩石提升，以及一个罐笼用于载人。</div>
-    </div>
-
-    <div class="vocab-list">
-      <div class="vocab-list-title">Key Vocabulary</div>
-      <div class="vocab-audio-bar" data-scene="1" data-count="10">
-        <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
-          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
-        </button>
-        <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
-          <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
-        </button>
-        <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-          循环
-        </button>
-        <span class="vab-label">遍数</span>
-        <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div>
-      <div class="vocab-items">
-        <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">shaft 竖井</span>
-        <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">sink 开凿</span>
-        <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">sterilize 报废</span>
-        <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">cage 罐笼</span>
-        <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">skip 箕斗</span>
-        <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">brace 支撑</span>
-        <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">massive ore 块状矿</span>
-        <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">vein-type ore-body 脉型矿体</span>
-        <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">disseminated ores 浸染矿</span>
-        <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">conveyance 提升容器</span>
-      </div>
-    </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
   </div>
+</div>
 
-  <!-- ==================== Scene 2 ==================== -->
-  <div class="scene-card">
-    <div class="scene-header">
-      <div class="scene-number">Scene 02</div>
-      <div class="scene-title">矿体形态与开拓 — Orebody Types and Development</div>
-      <div class="scene-desc">两位工程师讨论脉型矿体的走向、倾角、上下盘稳定性及斜井与竖井的开拓选择。</div>
+<!-- Fixed Bottom Player Bar -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSceneLabel">Scene 1</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
     </div>
-    <div class="scene-characters">
-      <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
-      <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
-    </div>
-    <div class="dialogue-area">
-
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s2_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          A large ore-body may in fact consist of <span class="vocab">clusters<span class="tooltip">群集</span></span> of smaller ore-bodies of a <span class="vocab">vein<span class="tooltip">矿脉</span></span>-type, and development may be on a regular grid.
-        </div>
-      </div>
-
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s2_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          <span class="vocab">Alternatively<span class="tooltip">或者</span></span>, the ore-body may be one <span class="vocab">predominant<span class="tooltip">主要的</span></span> vein which is long and narrow on its <span class="vocab">strike<span class="tooltip">走向</span></span> direction and which extends to the dip for a considerable depth.
-        </div>
-      </div>
-
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s2_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          Technically, the strike is at right angles to the full dip. But within an orebody the strike may follow a <span class="vocab">sinuous<span class="tooltip">蜿蜒的</span></span> line and the dip frequently varies.
-        </div>
-      </div>
-
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s2_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          I understand. So we have to take general trends into account. But what about the <span class="vocab">hanging wall<span class="tooltip">上盘</span></span> stability?
-        </div>
-      </div>
-
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s2_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          Mining operations would weaken the hanging wall, that is, the rock lying above the ore body, and cause it to collapse. As a result, the major developments are normally made in the <span class="vocab">footwall<span class="tooltip">下盘</span></span>.
-        </div>
-      </div>
-
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s2_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          So the footwall is below the orebody where the rock is more stable. That's why main developments are placed there.
-        </div>
-      </div>
-
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s2_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          Correct. In the early stages, an <span class="vocab">inclined shaft<span class="tooltip">斜井</span></span> may be driven down from the surface and <span class="vocab">progressively<span class="tooltip">逐步地</span></span> deepened to follow ore extraction.
-        </div>
-      </div>
-
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s2_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          But haulage speeds are generally lower and maintenance costs are higher in inclined shafts. So a change will be made to vertical shaft winding at greater depths.
-        </div>
-      </div>
-
-    </div>
-
-    <div class="translation-toggle" onclick="toggleTranslation(this)">
-      <span class="arrow">&#9654;</span> 查看中文参考译文
-    </div>
-    <div class="translation-content">
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>大型矿体实际上可能由脉型的较小矿体群集组成，开拓可以按规则网格进行。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>或者，矿体可能是一条主要矿脉，在其走向方向上又长又窄，并向倾斜方向延伸到相当深的地方。</div>
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>从技术上讲，走向与全倾角成直角。但在矿体内，走向可能沿蜿蜒的线条延伸，倾角也经常变化。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>我理解了。所以我们必须考虑总体趋势。但上盘的稳定性呢？</div>
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>采矿作业会削弱上盘，即位于矿体上方的岩石，并导致其坍塌。因此，主要开拓工程通常布置在下盘。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>所以下盘在矿体下方，岩石更稳定。这就是为什么主要开拓工程布置在那里。</div>
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>正确。在早期阶段，可以从地表向下掘进斜井，并逐步加深以跟随矿石开采。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>但斜井中的运输速度通常较低，维护成本较高。因此在更大深度会改为竖井提升。</div>
-    </div>
-
-    <div class="vocab-list">
-      <div class="vocab-list-title">Key Vocabulary</div>
-      <div class="vocab-audio-bar" data-scene="2" data-count="10">
-        <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
-          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
-        </button>
-        <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
-          <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
-        </button>
-        <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-          循环
-        </button>
-        <span class="vab-label">遍数</span>
-        <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div>
-      <div class="vocab-items">
-        <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">vein 矿脉</span>
-        <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">cluster 群集</span>
-        <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">alternatively 或者</span>
-        <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">predominant 主要的</span>
-        <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">strike 走向</span>
-        <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">sinuous 蜿蜒的</span>
-        <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">hanging wall 上盘</span>
-        <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">footwall 下盘</span>
-        <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">inclined shaft 斜井</span>
-        <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">progressively 逐步地</span>
-      </div>
-    </div>
+    <span class="progress-text" id="progressBarText">0 / 0</span>
   </div>
+</div>
 
-  <!-- ==================== Scene 3 ==================== -->
-  <div class="scene-card">
-    <div class="scene-header">
-      <div class="scene-number">Scene 03</div>
-      <div class="scene-title">浅部矿体与露天开采 — Shallow Orebodies and Open Pit</div>
-      <div class="scene-desc">两位工程师讨论浅部矿体的露天开采方式、台阶设计、运输系统及平巷开拓。</div>
-    </div>
-    <div class="scene-characters">
-      <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
-      <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
-    </div>
-    <div class="dialogue-area">
+<div class="container">
 
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s3_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          Shallow orebodies are worked as open pit mining operations wherever possible. The scale of equipment is generally smaller in <span class="vocab">metalliferous<span class="tooltip">金属的</span></span> orebodies than in shallow bedded deposits.
-        </div>
-      </div>
 
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s3_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          That's because of the need for <span class="vocab">bench<span class="tooltip">台阶</span></span>ing downwards. A center cut or drop cut is made in the pit bottom and a bench is taken outward.
-        </div>
-      </div>
 
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s3_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          The overall inclination of the pit walls is generally about 45 degrees and bench heights are generally about 15 meters. As the pit becomes deeper, more waste rock or <span class="vocab">overburden<span class="tooltip">覆盖层</span></span> has to be removed.
-        </div>
-      </div>
+ <div class="speed-control-bar">
+ <label>
+ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+ 语速
+ <input type="range" id="speedSlider1" min="0.5" max="1.5" step="0.1" value="1.0">
+ <span class="speed-value" id="speedValue1">1.0x</span>
+ </label>
+ </div>
 
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s3_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          Eventually economics force a change to underground mining methods. What about haulage out of the pit?
-        </div>
-      </div>
+ <!-- ==================== Scene 1 ==================== -->
+ <div class="scene-card">
+ <div class="scene-header">
+ <div class="scene-number">Scene 01</div>
+ <div class="scene-title">竖井与开拓 — Shaft and Development</div>
+ <div class="scene-desc">两位工程师讨论大型深部矿体的基本结构、竖井开拓方式、矿石损失与提升设备。</div>
+ </div>
+ <div class="scene-characters">
+ <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
+ <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
+ </div>
+ <div class="dialogue-area">
 
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s3_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          Haulage is at first by truck in a spiral around the benches. It may then become more economic to drop the ore through a crusher to an underground haulage.
-        </div>
-      </div>
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="1" data-src="../audio/unit2/dialog_s1_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ Mr. Li, let's discuss the basic structure of a mine. Large ore-bodies are often known as <span class="vocab">massive<span class="tooltip">巨大的</span></span>, but the term massive should not be confused with <span class="vocab">massive and disseminated ores<span class="tooltip">块状矿与浸染矿</span></span> in a geological sense.
+ </div>
+ </div>
 
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s3_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          The access tunnel driven down through the strata to the bottom of the open pit is called a <span class="vocab">drift<span class="tooltip">平巷</span></span>, isn't it?
-        </div>
-      </div>
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="2" data-src="../audio/unit2/dialog_s1_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ I see. So a massive ore-body is likely to contain <span class="vocab">disseminated ores<span class="tooltip">浸染矿</span></span>, while a <span class="vocab">vein-type ore-body<span class="tooltip">脉型矿体</span></span> will probably contain bands of massive ore minerals.
+ </div>
+ </div>
 
-      <div class="bubble-row">
-        <div class="bubble-avatar a">Z</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s3_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Dr. Zhang</div>
-          Yes. A drift is used for rail or conveyor haulage at grades of up to 1 in 2.5. With locomotive haulage the grades are restricted to less than 1 in 15.
-        </div>
-      </div>
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="3" data-src="../audio/unit2/dialog_s1_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ Exactly. Now, a <span class="vocab">shaft<span class="tooltip">竖井</span></span> is <span class="vocab">sunk<span class="tooltip">开凿</span></span> alongside or through the ore-body for access. In practice, there must be two openings to allow air to be forced through the mine workings.
+ </div>
+ </div>
 
-      <div class="bubble-row right">
-        <div class="bubble-avatar b">L</div>
-        <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit2/dialog_s3_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-          <div class="speaker-name">Mr. Li</div>
-          For large scale mechanized mining, hauling ore by <span class="vocab">low-profile diesel truck<span class="tooltip">低矮柴油卡车</span></span>s up an access spiral is probably cheaper than hauling to a shaft and hoisting.
-        </div>
-      </div>
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="4" data-src="../audio/unit2/dialog_s1_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ What happens if the shaft is sunk through the ore-body?
+ </div>
+ </div>
 
-    </div>
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="5" data-src="../audio/unit2/dialog_s1_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ If the shaft is sunk through the ore-body, then some of the ore is <span class="vocab">sterilized<span class="tooltip">报废</span></span>. A cone of ore surrounding the shaft and widening with depth must be left until the rest of the ore is extracted.
+ </div>
+ </div>
 
-    <div class="translation-toggle" onclick="toggleTranslation(this)">
-      <span class="arrow">&#9654;</span> 查看中文参考译文
-    </div>
-    <div class="translation-content">
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>浅部矿体尽可能采用露天开采方式。金属矿体的设备规模通常比浅部层状矿床小。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>这是因为需要向下分层台阶式开采。在坑底进行中心切割或下切，然后向外推进台阶。</div>
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>坑壁的整体倾角一般为45度左右，台阶高度一般约为15米。随着采坑加深，需要剥离更多的废石或覆盖层。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>最终经济因素会迫使转向地下开采方法。那采坑的运输呢？</div>
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>最初是卡车沿台阶螺旋运输。之后将矿石通过破碎机落入地下运输系统可能更经济。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>穿过岩层向下掘进到露天采坑底部的通道巷道叫做平巷，对吗？</div>
-      <div class="trans-line"><span class="trans-speaker">张博士：</span>是的。平巷用于铁路或输送机运输，坡度可达1:2.5。机车运输的坡度限制在小于1:15。</div>
-      <div class="trans-line"><span class="trans-speaker">李先生：</span>对于大规模机械化开采，用低矮柴油卡车沿出入螺旋运输矿石可能比运到竖井再提升更便宜。</div>
-    </div>
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="6" data-src="../audio/unit2/dialog_s1_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ That makes sense. Otherwise the movement of rock caused by ore extraction will damage the shaft and necessitate expensive repairs.
+ </div>
+ </div>
 
-    <div class="vocab-list">
-      <div class="vocab-list-title">Key Vocabulary</div>
-      <div class="vocab-audio-bar" data-scene="3" data-count="10">
-        <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
-          <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
-        </button>
-        <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
-          <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
-        </button>
-        <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-          循环
-        </button>
-        <span class="vab-label">遍数</span>
-        <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div>
-      <div class="vocab-items">
-        <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">metalliferous 金属的</span>
-        <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">bench 台阶</span>
-        <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">overburden 覆盖层</span>
-        <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">barren rock 废岩</span>
-        <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">drift 平巷</span>
-        <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">extraction 开采</span>
-        <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">ore pass 溜井</span>
-        <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">winding gear 提升机</span>
-        <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">low-profile diesel truck 低矮柴油卡车</span>
-        <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">rubber-typed loader 轮胎式装载机</span>
-      </div>
-    </div>
-  </div>
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="7" data-src="../audio/unit2/dialog_s1_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ There are two types of <span class="vocab">conveyance<span class="tooltip">提升容器</span></span> in the shafts: <span class="vocab">cages<span class="tooltip">罐笼</span></span> and <span class="vocab">skips<span class="tooltip">箕斗</span></span>. Cages are used for man-riding and to wind mine cars containing ore, waste rock or materials.
+ </div>
+ </div>
 
-  <footer>
-    Unit 2 Mining Terminology — 采矿专业英语情境会话
-  </footer>
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="8" data-src="../audio/unit2/dialog_s1_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ So a large shaft may be equipped with a pair of skips for ore and rock hoisting and a single cage for man riding.
+ </div>
+ </div>
+
+ </div>
+
+ <div class="translation-toggle" onclick="toggleTranslation(this)">
+ <span class="arrow">&#9654;</span> 查看中文参考译文
+ </div>
+ <div class="translation-content">
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>李先生，我们来讨论一下矿山的基本结构。大型矿体通常被称为巨大的，但"巨大"一词不应与地质学意义上的块状矿和浸染矿混淆。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>我明白了。所以巨大的矿体可能含有浸染矿，而脉型矿体则可能含有块状矿石的条带。</div>
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>没错。竖井是沿着矿体或在矿体中开凿以供出入的。实际上，必须有两个开口，以便将空气压入矿井巷道中。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>如果竖井穿过矿体开凿会怎样？</div>
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>如果竖井穿过矿体开凿，那么部分矿石就会被报废。围绕竖井并向深处扩展的锥形矿石必须保留，直到其余矿石被采出。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>有道理。否则矿石开采引起的岩体移动会损坏竖井，需要进行昂贵的维修。</div>
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>竖井中有两种提升容器：罐笼和箕斗。罐笼用于载人以及提升装有矿石、废石或材料的矿车。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>所以大型竖井可能配备一对箕斗用于矿石和岩石提升，以及一个罐笼用于载人。</div>
+ </div>
+
+ <div class="vocab-list">
+ <div class="vocab-list-title">Key Vocabulary</div>
+ <div class="vocab-audio-bar" data-scene="1" data-count="10">
+ <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
+ </button>
+ <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
+ <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
+ </button>
+ <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
+ <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+ 循环
+ </button>
+ <span class="vab-label">遍数</span>
+ <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
+ <option value="1">1</option>
+ <option value="2">2</option>
+ <option value="3">3</option>
+ <option value="4">4</option>
+ <option value="5">5</option>
+ </select>
+ </div>
+ <div class="vocab-items">
+ <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">shaft 竖井</span>
+ <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">sink 开凿</span>
+ <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">sterilize 报废</span>
+ <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">cage 罐笼</span>
+ <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">skip 箕斗</span>
+ <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">brace 支撑</span>
+ <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">massive ore 块状矿</span>
+ <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">vein-type ore-body 脉型矿体</span>
+ <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">disseminated ores 浸染矿</span>
+ <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">conveyance 提升容器</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- ==================== Scene 2 ==================== -->
+ <div class="scene-card">
+ <div class="scene-header">
+ <div class="scene-number">Scene 02</div>
+ <div class="scene-title">矿体形态与开拓 — Orebody Types and Development</div>
+ <div class="scene-desc">两位工程师讨论脉型矿体的走向、倾角、上下盘稳定性及斜井与竖井的开拓选择。</div>
+ </div>
+ <div class="scene-characters">
+ <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
+ <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
+ </div>
+ <div class="dialogue-area">
+
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="9" data-src="../audio/unit2/dialog_s2_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ A large ore-body may in fact consist of <span class="vocab">clusters<span class="tooltip">群集</span></span> of smaller ore-bodies of a <span class="vocab">vein<span class="tooltip">矿脉</span></span>-type, and development may be on a regular grid.
+ </div>
+ </div>
+
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="10" data-src="../audio/unit2/dialog_s2_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ <span class="vocab">Alternatively<span class="tooltip">或者</span></span>, the ore-body may be one <span class="vocab">predominant<span class="tooltip">主要的</span></span> vein which is long and narrow on its <span class="vocab">strike<span class="tooltip">走向</span></span> direction and which extends to the dip for a considerable depth.
+ </div>
+ </div>
+
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="11" data-src="../audio/unit2/dialog_s2_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ Technically, the strike is at right angles to the full dip. But within an orebody the strike may follow a <span class="vocab">sinuous<span class="tooltip">蜿蜒的</span></span> line and the dip frequently varies.
+ </div>
+ </div>
+
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="12" data-src="../audio/unit2/dialog_s2_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ I understand. So we have to take general trends into account. But what about the <span class="vocab">hanging wall<span class="tooltip">上盘</span></span> stability?
+ </div>
+ </div>
+
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="13" data-src="../audio/unit2/dialog_s2_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ Mining operations would weaken the hanging wall, that is, the rock lying above the ore body, and cause it to collapse. As a result, the major developments are normally made in the <span class="vocab">footwall<span class="tooltip">下盘</span></span>.
+ </div>
+ </div>
+
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="14" data-src="../audio/unit2/dialog_s2_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ So the footwall is below the orebody where the rock is more stable. That's why main developments are placed there.
+ </div>
+ </div>
+
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="15" data-src="../audio/unit2/dialog_s2_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ Correct. In the early stages, an <span class="vocab">inclined shaft<span class="tooltip">斜井</span></span> may be driven down from the surface and <span class="vocab">progressively<span class="tooltip">逐步地</span></span> deepened to follow ore extraction.
+ </div>
+ </div>
+
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="16" data-src="../audio/unit2/dialog_s2_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ But haulage speeds are generally lower and maintenance costs are higher in inclined shafts. So a change will be made to vertical shaft winding at greater depths.
+ </div>
+ </div>
+
+ </div>
+
+ <div class="translation-toggle" onclick="toggleTranslation(this)">
+ <span class="arrow">&#9654;</span> 查看中文参考译文
+ </div>
+ <div class="translation-content">
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>大型矿体实际上可能由脉型的较小矿体群集组成，开拓可以按规则网格进行。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>或者，矿体可能是一条主要矿脉，在其走向方向上又长又窄，并向倾斜方向延伸到相当深的地方。</div>
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>从技术上讲，走向与全倾角成直角。但在矿体内，走向可能沿蜿蜒的线条延伸，倾角也经常变化。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>我理解了。所以我们必须考虑总体趋势。但上盘的稳定性呢？</div>
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>采矿作业会削弱上盘，即位于矿体上方的岩石，并导致其坍塌。因此，主要开拓工程通常布置在下盘。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>所以下盘在矿体下方，岩石更稳定。这就是为什么主要开拓工程布置在那里。</div>
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>正确。在早期阶段，可以从地表向下掘进斜井，并逐步加深以跟随矿石开采。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>但斜井中的运输速度通常较低，维护成本较高。因此在更大深度会改为竖井提升。</div>
+ </div>
+
+ <div class="vocab-list">
+ <div class="vocab-list-title">Key Vocabulary</div>
+ <div class="vocab-audio-bar" data-scene="2" data-count="10">
+ <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
+ </button>
+ <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
+ <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
+ </button>
+ <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
+ <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+ 循环
+ </button>
+ <span class="vab-label">遍数</span>
+ <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
+ <option value="1">1</option>
+ <option value="2">2</option>
+ <option value="3">3</option>
+ <option value="4">4</option>
+ <option value="5">5</option>
+ </select>
+ </div>
+ <div class="vocab-items">
+ <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">vein 矿脉</span>
+ <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">cluster 群集</span>
+ <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">alternatively 或者</span>
+ <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">predominant 主要的</span>
+ <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">strike 走向</span>
+ <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">sinuous 蜿蜒的</span>
+ <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">hanging wall 上盘</span>
+ <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">footwall 下盘</span>
+ <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">inclined shaft 斜井</span>
+ <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">progressively 逐步地</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- ==================== Scene 3 ==================== -->
+ <div class="scene-card">
+ <div class="scene-header">
+ <div class="scene-number">Scene 03</div>
+ <div class="scene-title">浅部矿体与露天开采 — Shallow Orebodies and Open Pit</div>
+ <div class="scene-desc">两位工程师讨论浅部矿体的露天开采方式、台阶设计、运输系统及平巷开拓。</div>
+ </div>
+ <div class="scene-characters">
+ <div class="character-tag"><span class="char-avatar a">Z</span> Dr. Zhang — 地质工程师</div>
+ <div class="character-tag"><span class="char-avatar b">L</span> Mr. Li — 采矿工程师</div>
+ </div>
+ <div class="dialogue-area">
+
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="17" data-src="../audio/unit2/dialog_s3_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ Shallow orebodies are worked as open pit mining operations wherever possible. The scale of equipment is generally smaller in <span class="vocab">metalliferous<span class="tooltip">金属的</span></span> orebodies than in shallow bedded deposits.
+ </div>
+ </div>
+
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="18" data-src="../audio/unit2/dialog_s3_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ That's because of the need for <span class="vocab">bench<span class="tooltip">台阶</span></span>ing downwards. A center cut or drop cut is made in the pit bottom and a bench is taken outward.
+ </div>
+ </div>
+
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="19" data-src="../audio/unit2/dialog_s3_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ The overall inclination of the pit walls is generally about 45 degrees and bench heights are generally about 15 meters. As the pit becomes deeper, more waste rock or <span class="vocab">overburden<span class="tooltip">覆盖层</span></span> has to be removed.
+ </div>
+ </div>
+
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="20" data-src="../audio/unit2/dialog_s3_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ Eventually economics force a change to underground mining methods. What about haulage out of the pit?
+ </div>
+ </div>
+
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="21" data-src="../audio/unit2/dialog_s3_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ Haulage is at first by truck in a spiral around the benches. It may then become more economic to drop the ore through a crusher to an underground haulage.
+ </div>
+ </div>
+
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="22" data-src="../audio/unit2/dialog_s3_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ The access tunnel driven down through the strata to the bottom of the open pit is called a <span class="vocab">drift<span class="tooltip">平巷</span></span>, isn't it?
+ </div>
+ </div>
+
+ <div class="bubble-row">
+ <div class="bubble-avatar a">Z</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="23" data-src="../audio/unit2/dialog_s3_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Dr. Zhang</div>
+ Yes. A drift is used for rail or conveyor haulage at grades of up to 1 in 2.5. With locomotive haulage the grades are restricted to less than 1 in 15.
+ </div>
+ </div>
+
+ <div class="bubble-row right">
+ <div class="bubble-avatar b">L</div>
+ <div class="bubble">
+ <button class="bubble-play-btn" data-idx="24" data-src="../audio/unit2/dialog_s3_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+ <div class="speaker-name">Mr. Li</div>
+ For large scale mechanized mining, hauling ore by <span class="vocab">low-profile diesel truck<span class="tooltip">低矮柴油卡车</span></span>s up an access spiral is probably cheaper than hauling to a shaft and hoisting.
+ </div>
+ </div>
+
+ </div>
+
+ <div class="translation-toggle" onclick="toggleTranslation(this)">
+ <span class="arrow">&#9654;</span> 查看中文参考译文
+ </div>
+ <div class="translation-content">
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>浅部矿体尽可能采用露天开采方式。金属矿体的设备规模通常比浅部层状矿床小。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>这是因为需要向下分层台阶式开采。在坑底进行中心切割或下切，然后向外推进台阶。</div>
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>坑壁的整体倾角一般为45度左右，台阶高度一般约为15米。随着采坑加深，需要剥离更多的废石或覆盖层。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>最终经济因素会迫使转向地下开采方法。那采坑的运输呢？</div>
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>最初是卡车沿台阶螺旋运输。之后将矿石通过破碎机落入地下运输系统可能更经济。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>穿过岩层向下掘进到露天采坑底部的通道巷道叫做平巷，对吗？</div>
+ <div class="trans-line"><span class="trans-speaker">张博士：</span>是的。平巷用于铁路或输送机运输，坡度可达1:2.5。机车运输的坡度限制在小于1:15。</div>
+ <div class="trans-line"><span class="trans-speaker">李先生：</span>对于大规模机械化开采，用低矮柴油卡车沿出入螺旋运输矿石可能比运到竖井再提升更便宜。</div>
+ </div>
+
+ <div class="vocab-list">
+ <div class="vocab-list-title">Key Vocabulary</div>
+ <div class="vocab-audio-bar" data-scene="3" data-count="10">
+ <button class="vab-btn vab-play-all" onclick="vocabPlayAll(this)" title="连续播放">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 连续播放
+ </button>
+ <button class="vab-btn vab-stop" onclick="vocabStopAll(this)" title="停止" style="display:none;">
+ <svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 停止
+ </button>
+ <button class="vab-loop-toggle" onclick="vocabToggleLoop(this)" title="循环开关">
+ <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+ 循环
+ </button>
+ <span class="vab-label">遍数</span>
+ <select class="vab-repeat-select" onchange="vocabSetRepeat(this)">
+ <option value="1">1</option>
+ <option value="2">2</option>
+ <option value="3">3</option>
+ <option value="4">4</option>
+ <option value="5">5</option>
+ </select>
+ </div>
+ <div class="vocab-items">
+ <span class="vocab-chip" data-idx="1" onclick="vocabPlayChip(this, 1)">metalliferous 金属的</span>
+ <span class="vocab-chip" data-idx="2" onclick="vocabPlayChip(this, 2)">bench 台阶</span>
+ <span class="vocab-chip" data-idx="3" onclick="vocabPlayChip(this, 3)">overburden 覆盖层</span>
+ <span class="vocab-chip" data-idx="4" onclick="vocabPlayChip(this, 4)">barren rock 废岩</span>
+ <span class="vocab-chip" data-idx="5" onclick="vocabPlayChip(this, 5)">drift 平巷</span>
+ <span class="vocab-chip" data-idx="6" onclick="vocabPlayChip(this, 6)">extraction 开采</span>
+ <span class="vocab-chip" data-idx="7" onclick="vocabPlayChip(this, 7)">ore pass 溜井</span>
+ <span class="vocab-chip" data-idx="8" onclick="vocabPlayChip(this, 8)">winding gear 提升机</span>
+ <span class="vocab-chip" data-idx="9" onclick="vocabPlayChip(this, 9)">low-profile diesel truck 低矮柴油卡车</span>
+ <span class="vocab-chip" data-idx="10" onclick="vocabPlayChip(this, 10)">rubber-typed loader 轮胎式装载机</span>
+ </div>
+ </div>
+ </div>
+
+ <footer>
+ Unit 2 Mining Terminology — 采矿专业英语情境会话
+ </footer>
 
 </div>
 
 <script>
 /* Translation toggle */
 function toggleTranslation(el) {
-  var content = el.nextElementSibling;
-  var isOpen = el.classList.toggle('open');
-  content.classList.toggle('show', isOpen);
+ var content = el.nextElementSibling;
+ var isOpen = el.classList.toggle('open');
+ content.classList.toggle('show', isOpen);
 }
 
-/* Bubble audio */
+/* ===== Dialog Audio Player Logic ===== */
 (function() {
-  var currentAudio = null;
-  var currentBtn = null;
+ var globalSpeedSlider = document.getElementById('globalSpeed');
+ var globalSpeedVal = document.getElementById('globalSpeedVal');
+ var currentSpeed = 1.0;
 
-  window.toggleBubbleAudio = function(btn) {
-    var src = btn.getAttribute('data-src');
+ globalSpeedSlider.addEventListener('input', function() {
+ currentSpeed = parseFloat(this.value);
+ globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+ if (currentAudio) {
+ currentAudio.playbackRate = currentSpeed;
+ }
+ });
 
-    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
-      currentAudio.pause();
-      btn.classList.remove('playing');
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
-      return;
-    }
+ var currentAudio = null;
+ var currentPlayingBtn = null;
+ var currentPlayingBubble = null;
 
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio = null;
-    }
-    if (currentBtn) {
-      currentBtn.classList.remove('playing');
-      currentBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
-    }
+ var playState = {
+ playing: false,
+ currentIndex: 0,
+ loop: false,
+ repeatCount: 3,
+ currentRepeat: 1
+ };
 
-    var audio = new Audio(src);
-    var speedSlider = document.getElementById('speedSlider1');
-    if (speedSlider) {
-      audio.playbackRate = parseFloat(speedSlider.value);
-    }
+ function getAllBubbles() {
+ return document.querySelectorAll('.bubble-play-btn[data-idx]');
+ }
 
-    btn.classList.add('playing');
-    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
-    currentAudio = audio;
-    currentBtn = btn;
+ window.toggleBubbleAudio = function(btn) {
+ var bubble = btn.closest('.bubble');
+ var src = btn.getAttribute('data-src');
 
-    audio.play().catch(function() {});
+ if (playState.playing) {
+ stopContinuousPlay();
+ }
 
-    audio.addEventListener('ended', function() {
-      btn.classList.remove('playing');
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
-      currentAudio = null;
-      currentBtn = null;
-    });
-  };
+ if (currentAudio) {
+ currentAudio.pause();
+ currentAudio.currentTime = 0;
+ if (currentPlayingBtn) {
+ currentPlayingBtn.classList.remove('playing');
+ currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+ }
+ if (currentPlayingBubble) {
+ currentPlayingBubble.classList.remove('highlight');
+ }
+ }
 
-  var slider = document.getElementById('speedSlider1');
-  var speedVal = document.getElementById('speedValue1');
-  if (slider && speedVal) {
-    slider.addEventListener('input', function() {
-      var rate = parseFloat(this.value).toFixed(1);
-      speedVal.textContent = rate + 'x';
-      if (currentAudio) {
-        currentAudio.playbackRate = parseFloat(rate);
-      }
-    });
+ currentAudio = new Audio(src);
+ currentAudio.playbackRate = currentSpeed;
+ currentAudio.play().catch(function() {});
+
+ btn.classList.add('playing');
+ btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+ bubble.classList.add('highlight');
+
+ currentPlayingBtn = btn;
+ currentPlayingBubble = bubble;
+
+ currentAudio.addEventListener('ended', function() {
+ btn.classList.remove('playing');
+ btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+ bubble.classList.remove('highlight');
+ currentPlayingBtn = null;
+ currentPlayingBubble = null;
+ currentAudio = null;
+ });
+ };
+
+ window.toggleContinuousPlay = function() {
+ if (playState.playing) {
+ stopContinuousPlay();
+ return;
+ }
+
+ playState.playing = true;
+ playState.currentIndex = 0;
+ playState.currentRepeat = 1;
+ playState.repeatCount = parseInt(document.getElementById('repeatCount').value);
+ playState.loop = document.getElementById('loopBtn').classList.contains('on');
+
+ document.getElementById('playAllBtn').style.display = 'none';
+ document.getElementById('stopBtn').style.display = 'inline-flex';
+ document.getElementById('stopBtn').classList.add('active');
+
+ playNextInSequence();
+ };
+
+ window.stopContinuousPlay = function() {
+ playState.playing = false;
+ playState.currentIndex = 0;
+ playState.currentRepeat = 1;
+
+ if (currentAudio) {
+ currentAudio.pause();
+ currentAudio.currentTime = 0;
+ if (currentPlayingBtn) {
+ currentPlayingBtn.classList.remove('playing');
+ currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+ }
+ if (currentPlayingBubble) {
+ currentPlayingBubble.classList.remove('highlight');
+ }
+ currentAudio = null;
+ currentPlayingBtn = null;
+ currentPlayingBubble = null;
+ }
+
+ document.getElementById('playAllBtn').style.display = 'inline-flex';
+ document.getElementById('stopBtn').style.display = 'none';
+ document.getElementById('stopBtn').classList.remove('active');
+
+ var progressFill = document.getElementById('progressBarFill');
+ var progressText = document.getElementById('progressBarText');
+ if (progressFill && progressText) {
+ progressFill.style.width = '0%';
+ progressText.textContent = '0 / 0';
+ }
+ };
+
+ function playNextInSequence() {
+ var bubbles = getAllBubbles();
+
+ if (playState.currentIndex >= bubbles.length) {
+ if (playState.currentRepeat < playState.repeatCount) {
+ playState.currentRepeat++;
+ playState.currentIndex = 0;
+ } else if (playState.loop) {
+ playState.currentRepeat = 1;
+ playState.currentIndex = 0;
+ } else {
+ stopContinuousPlay();
+ return;
+ }
+ }
+
+ if (playState.currentIndex >= bubbles.length) {
+ stopContinuousPlay();
+ return;
+ }
+
+ var btn = bubbles[playState.currentIndex];
+ var bubble = btn.closest('.bubble');
+ var src = btn.getAttribute('data-src');
+
+ updateProgress(bubbles.length);
+
+ if (currentAudio) {
+ currentAudio.pause();
+ currentAudio.currentTime = 0;
+ if (currentPlayingBtn) {
+ currentPlayingBtn.classList.remove('playing');
+ currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+ }
+ if (currentPlayingBubble) {
+ currentPlayingBubble.classList.remove('highlight');
+ }
+ }
+
+ currentAudio = new Audio(src);
+ currentAudio.playbackRate = currentSpeed;
+ currentAudio.play().catch(function() {});
+
+ btn.classList.add('playing');
+ btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+ bubble.classList.add('highlight');
+
+ currentPlayingBtn = btn;
+ currentPlayingBubble = bubble;
+
+ var bubbleRow = btn.closest('.bubble-row');
+ if (bubbleRow) {
+ bubbleRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+ }
+
+ currentAudio.addEventListener('ended', function() {
+ btn.classList.remove('playing');
+ btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+ bubble.classList.remove('highlight');
+ currentPlayingBtn = null;
+ currentPlayingBubble = null;
+ currentAudio = null;
+
+ playState.currentIndex++;
+
+ if (playState.playing) {
+ playNextInSequence();
+ }
+ });
+ }
+
+ function updateProgress(total) {
+ var currentIdx = playState.currentIndex + 1;
+
+ var progressFill = document.getElementById('progressBarFill');
+ var progressText = document.getElementById('progressBarText');
+ if (progressFill && progressText) {
+ var percentage = (currentIdx / total) * 100;
+ progressFill.style.width = percentage + '%';
+ progressText.textContent = currentIdx + ' / ' + total;
+ }
+
+ var sectionLabel = document.getElementById('currentSectionLabel');
+ if (sectionLabel) {
+ var btn = getAllBubbles()[playState.currentIndex];
+ if (btn) {
+ var sceneCard = btn.closest('.scene-card');
+ if (sceneCard) {
+ var sceneTitle = sceneCard.querySelector('.scene-title');
+ if (sceneTitle) {
+ sectionLabel.textContent = sceneTitle.textContent;
+ }
+ }
+ }
+ }
+ }
+
+ window.toggleLoop = function() {
+ var btn = document.getElementById('loopBtn');
+ playState.loop = !playState.loop;
+ if (playState.loop) {
+ btn.classList.add('on');
+ } else {
+ btn.classList.remove('on');
+ }
+ };
+
+ window.updateRepeatCount = function() {
+ var select = document.getElementById('repeatCount');
+ playState.repeatCount = parseInt(select.value);
+ };
+
+ window.markComplete = function() {
+  if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+    studyTracker.markComplete('dialogue', 'unit2');
   }
+  alert('情境会话学习已完成！');
+ };
+
+ var style = document.createElement('style');
+ style.textContent = '.bubble.highlight { background: rgba(0,113,227,0.08); }';
+ document.head.appendChild(style);
 })();
 
 /* Vocabulary audio system */
 (function() {
-  var sceneStates = {};
+ var sceneStates = {};
 
-  function getSceneState(sceneNum) {
-    if (!sceneStates[sceneNum]) {
-      sceneStates[sceneNum] = {
-        isPlaying: false,
-        currentIndex: 0,
-        loop: false,
-        repeatCount: 1,
-        currentRepeat: 0,
-        audio: null
-      };
-    }
-    return sceneStates[sceneNum];
-  }
+ function getSceneState(sceneNum) {
+ if (!sceneStates[sceneNum]) {
+ sceneStates[sceneNum] = {
+ isPlaying: false,
+ currentIndex: 0,
+ loop: false,
+ repeatCount: 1,
+ currentRepeat: 0,
+ audio: null
+ };
+ }
+ return sceneStates[sceneNum];
+ }
 
-  function getBarForScene(sceneNum) {
-    var bars = document.querySelectorAll('.vocab-audio-bar');
-    for (var i = 0; i < bars.length; i++) {
-      if (parseInt(bars[i].getAttribute('data-scene')) === sceneNum) {
-        return bars[i];
-      }
-    }
-    return null;
-  }
+ function getBarForScene(sceneNum) {
+ var bars = document.querySelectorAll('.vocab-audio-bar');
+ for (var i = 0; i < bars.length; i++) {
+ if (parseInt(bars[i].getAttribute('data-scene')) === sceneNum) {
+ return bars[i];
+ }
+ }
+ return null;
+ }
 
-  function getChipsForScene(sceneNum) {
-    var bar = getBarForScene(sceneNum);
-    if (!bar) return [];
-    return bar.parentElement.querySelectorAll('.vocab-chip');
-  }
+ function getChipsForScene(sceneNum) {
+ var bar = getBarForScene(sceneNum);
+ if (!bar) return [];
+ return bar.parentElement.querySelectorAll('.vocab-chip');
+ }
 
-  function highlightChip(sceneNum, idx) {
-    var chips = getChipsForScene(sceneNum);
-    for (var i = 0; i < chips.length; i++) {
-      chips[i].classList.remove('active');
-    }
-    if (idx >= 1 && idx <= chips.length) {
-      chips[idx - 1].classList.add('active');
-    }
-  }
+ function highlightChip(sceneNum, idx) {
+ var chips = getChipsForScene(sceneNum);
+ for (var i = 0; i < chips.length; i++) {
+ chips[i].classList.remove('active');
+ }
+ if (idx >= 1 && idx <= chips.length) {
+ chips[idx - 1].classList.add('active');
+ }
+ }
 
-  function clearHighlight(sceneNum) {
-    var chips = getChipsForScene(sceneNum);
-    for (var i = 0; i < chips.length; i++) {
-      chips[i].classList.remove('active');
-    }
-  }
+ function clearHighlight(sceneNum) {
+ var chips = getChipsForScene(sceneNum);
+ for (var i = 0; i < chips.length; i++) {
+ chips[i].classList.remove('active');
+ }
+ }
 
-  function getAudioPath(sceneNum, idx) {
-    var num = idx < 10 ? '0' + idx : '' + idx;
-    return '../audio/unit2/vocab_dialog/vocab_d_s' + sceneNum + '_' + num + '.mp3';
-  }
+ function getAudioPath(sceneNum, idx) {
+ var num = idx < 10 ? '0' + idx : '' + idx;
+ return '../audio/unit2/vocab_dialog/vocab_d_s' + sceneNum + '_' + num + '.mp3';
+ }
 
-  function playVocabAudio(sceneNum, idx, onEnded) {
-    var state = getSceneState(sceneNum);
-    var src = getAudioPath(sceneNum, idx);
-    var audio = new Audio(src);
-    var speedSlider = document.getElementById('speedSlider1');
-    if (speedSlider) {
-      audio.playbackRate = parseFloat(speedSlider.value);
-    }
-    state.audio = audio;
-    highlightChip(sceneNum, idx);
-    audio.play().catch(function() {});
-    audio.addEventListener('ended', function() {
-      if (onEnded) onEnded();
-    });
-  }
+ function playVocabAudio(sceneNum, idx, onEnded) {
+ var state = getSceneState(sceneNum);
+ var src = getAudioPath(sceneNum, idx);
+ var audio = new Audio(src);
+ var speedSlider = document.getElementById('speedSlider1');
+ if (speedSlider) {
+ audio.playbackRate = parseFloat(speedSlider.value);
+ }
+ state.audio = audio;
+ highlightChip(sceneNum, idx);
+ audio.play().catch(function() {});
+ audio.addEventListener('ended', function() {
+ if (onEnded) onEnded();
+ });
+ }
 
-  function playNextInSequence(sceneNum) {
-    var state = getSceneState(sceneNum);
-    var bar = getBarForScene(sceneNum);
-    var total = parseInt(bar.getAttribute('data-count'));
+ function playNextInSequence(sceneNum) {
+ var state = getSceneState(sceneNum);
+ var bar = getBarForScene(sceneNum);
+ var total = parseInt(bar.getAttribute('data-count'));
 
-    state.currentIndex++;
+ state.currentIndex++;
 
-    if (state.currentIndex > total) {
-      state.currentRepeat++;
-      if (state.loop || state.currentRepeat < state.repeatCount) {
-        state.currentIndex = 1;
-      } else {
-        stopSequence(sceneNum);
-        return;
-      }
-    }
+ if (state.currentIndex > total) {
+ state.currentRepeat++;
+ if (state.loop || state.currentRepeat < state.repeatCount) {
+ state.currentIndex = 1;
+ } else {
+ stopSequence(sceneNum);
+ return;
+ }
+ }
 
-    playVocabAudio(sceneNum, state.currentIndex, function() {
-      if (state.isPlaying) {
-        playNextInSequence(sceneNum);
-      }
-    });
-  }
+ playVocabAudio(sceneNum, state.currentIndex, function() {
+ if (state.isPlaying) {
+ playNextInSequence(sceneNum);
+ }
+ });
+ }
 
-  function stopSequence(sceneNum) {
-    var state = getSceneState(sceneNum);
-    state.isPlaying = false;
-    if (state.audio) {
-      state.audio.pause();
-      state.audio = null;
-    }
-    clearHighlight(sceneNum);
-    var bar = getBarForScene(sceneNum);
-    if (bar) {
-      bar.querySelector('.vab-play-all').style.display = '';
-      bar.querySelector('.vab-stop').style.display = 'none';
-    }
-  }
+ function stopSequence(sceneNum) {
+ var state = getSceneState(sceneNum);
+ state.isPlaying = false;
+ if (state.audio) {
+ state.audio.pause();
+ state.audio = null;
+ }
+ clearHighlight(sceneNum);
+ var bar = getBarForScene(sceneNum);
+ if (bar) {
+ bar.querySelector('.vab-play-all').style.display = '';
+ bar.querySelector('.vab-stop').style.display = 'none';
+ }
+ }
 
-  window.vocabPlayAll = function(btn) {
-    var bar = btn.closest('.vocab-audio-bar');
-    var sceneNum = parseInt(bar.getAttribute('data-scene'));
-    var state = getSceneState(sceneNum);
+ window.vocabPlayAll = function(btn) {
+ var bar = btn.closest('.vocab-audio-bar');
+ var sceneNum = parseInt(bar.getAttribute('data-scene'));
+ var state = getSceneState(sceneNum);
 
-    if (state.isPlaying) {
-      stopSequence(sceneNum);
-    }
+ if (state.isPlaying) {
+ stopSequence(sceneNum);
+ }
 
-    state.isPlaying = true;
-    state.currentIndex = 0;
-    state.currentRepeat = 0;
+ state.isPlaying = true;
+ state.currentIndex = 0;
+ state.currentRepeat = 0;
 
-    btn.style.display = 'none';
-    bar.querySelector('.vab-stop').style.display = '';
+ btn.style.display = 'none';
+ bar.querySelector('.vab-stop').style.display = '';
 
-    playNextInSequence(sceneNum);
-  };
+ playNextInSequence(sceneNum);
+ };
 
-  window.vocabStopAll = function(btn) {
-    var bar = btn.closest('.vocab-audio-bar');
-    var sceneNum = parseInt(bar.getAttribute('data-scene'));
-    stopSequence(sceneNum);
-  };
+ window.vocabStopAll = function(btn) {
+ var bar = btn.closest('.vocab-audio-bar');
+ var sceneNum = parseInt(bar.getAttribute('data-scene'));
+ stopSequence(sceneNum);
+ };
 
-  window.vocabToggleLoop = function(btn) {
-    btn.classList.toggle('on');
-    var bar = btn.closest('.vocab-audio-bar');
-    var sceneNum = parseInt(bar.getAttribute('data-scene'));
-    var state = getSceneState(sceneNum);
-    state.loop = btn.classList.contains('on');
-  };
+ window.vocabToggleLoop = function(btn) {
+ btn.classList.toggle('on');
+ var bar = btn.closest('.vocab-audio-bar');
+ var sceneNum = parseInt(bar.getAttribute('data-scene'));
+ var state = getSceneState(sceneNum);
+ state.loop = btn.classList.contains('on');
+ };
 
-  window.vocabSetRepeat = function(sel) {
-    var bar = sel.closest('.vocab-audio-bar');
-    var sceneNum = parseInt(bar.getAttribute('data-scene'));
-    var state = getSceneState(sceneNum);
-    state.repeatCount = parseInt(sel.value);
-  };
+ window.vocabSetRepeat = function(sel) {
+ var bar = sel.closest('.vocab-audio-bar');
+ var sceneNum = parseInt(bar.getAttribute('data-scene'));
+ var state = getSceneState(sceneNum);
+ state.repeatCount = parseInt(sel.value);
+ };
 
-  window.vocabPlayChip = function(chip, idx) {
-    var bar = chip.closest('.vocab-list').querySelector('.vocab-audio-bar');
-    var sceneNum = parseInt(bar.getAttribute('data-scene'));
-    var state = getSceneState(sceneNum);
+ window.vocabPlayChip = function(chip, idx) {
+ var bar = chip.closest('.vocab-list').querySelector('.vocab-audio-bar');
+ var sceneNum = parseInt(bar.getAttribute('data-scene'));
+ var state = getSceneState(sceneNum);
 
-    if (state.isPlaying) {
-      stopSequence(sceneNum);
-    }
+ if (state.isPlaying) {
+ stopSequence(sceneNum);
+ }
 
-    if (state.audio) {
-      state.audio.pause();
-      state.audio = null;
-    }
+ if (state.audio) {
+ state.audio.pause();
+ state.audio = null;
+ }
 
-    playVocabAudio(sceneNum, idx, function() {
-      clearHighlight(sceneNum);
-      state.audio = null;
-    });
-  };
+ playVocabAudio(sceneNum, idx, function() {
+ clearHighlight(sceneNum);
+ state.audio = null;
+ });
+ };
 })();
 </script>
 <script src="../studyTracker.js"></script>

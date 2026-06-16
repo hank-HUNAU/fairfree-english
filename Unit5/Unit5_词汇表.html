@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5 Filling Mining Method — 词汇表 Vocabulary</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-light: rgba(0,0,0,0.04);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --radius-chip: 20px;
+    --sonia-color: #af52de;
+    --sonia-bg: rgba(175,82,222,0.08);
+    --sonia-border: rgba(175,82,222,0.18);
+    --chris-color: #ff9500;
+    --chris-bg: rgba(255,149,0,0.08);
+    --chris-border: rgba(255,149,0,0.18);
+    --header-height: 60px;
+    --footer-height: 56px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Fixed Top Navigation Bar */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-title span { color: var(--accent); }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-speed-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .nav-speed-label svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-speed-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    transition: transform 0.15s ease;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .nav-speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .complete-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* Fixed Bottom Player Bar */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .player-section-label {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    border-radius: 6px;
+    border: 1px solid var(--accent-border);
+  }
+
+  .player-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .player-btn.active {
+    background: #1d1d1f;
+  }
+
+  .player-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .player-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .player-repeat-select {
+    padding: 6px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .player-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .player-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .player-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .player-progress {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .player-progress .current-num {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Container with padding for fixed bars */
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 80px 20px 70px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Section */
+  .vocab-section {
+    margin-bottom: 48px;
+    animation: fadeSlideUp 0.5s ease both;
+  }
+
+  .vocab-section:nth-child(2) { animation-delay: 0.1s; }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-solid);
+  }
+
+  .section-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .section-icon.words-icon {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    color: var(--accent);
+  }
+
+  .section-icon.phrases-icon {
+    background: rgba(255,149,0,0.08);
+    border: 1px solid rgba(255,149,0,0.18);
+    color: #ff9500;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+
+  .section-title small {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--fg-muted);
+    margin-left: 8px;
+  }
+
+  /* Vocab Card (Table) */
+  .vocab-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-solid);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .vocab-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* Table */
+  .vocab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+
+  .vocab-table thead th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    background: rgba(0,0,0,0.02);
+    border-bottom: 1px solid var(--border-solid);
+  }
+
+  .vocab-table thead th:first-child {
+    width: 50px;
+    text-align: center;
+  }
+
+  .vocab-table thead th:nth-child(5) {
+    width: 60px;
+    text-align: center;
+  }
+
+  /* Voice tip in table header */
+  .voice-tip {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--sonia-color) 50%, var(--chris-color) 50%);
+    margin-left: 4px;
+    vertical-align: middle;
+    cursor: help;
+  }
+
+  .vocab-table tbody tr {
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    transition: background 0.2s ease;
+  }
+
+  .vocab-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .vocab-table tbody tr:hover {
+    background: rgba(0,113,227,0.03);
+  }
+
+  .vocab-table tbody tr.highlight {
+    background: rgba(0,113,227,0.08);
+  }
+
+  .vocab-table tbody td {
+    padding: 12px 16px;
+    vertical-align: middle;
+  }
+
+  .vocab-table tbody td:first-child {
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+  }
+
+  .vocab-table tbody td:last-child {
+    text-align: center;
+  }
+
+  /* Word cell */
+  .word-cell {
+    font-weight: 600;
+    color: var(--fg);
+    font-size: 0.95rem;
+  }
+
+  /* Phonetic cell */
+  .phonetic-cell {
+    color: var(--fg-muted);
+    font-size: 0.85rem;
+    font-style: normal;
+    white-space: nowrap;
+    min-width: 100px;
+  }
+
+  /* Meaning cell */
+  .meaning-cell {
+    color: var(--fg);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+
+  /* Voice indicator dot */
+  .voice-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  .voice-dot.sonia { background: var(--sonia-color); }
+  .voice-dot.chris { background: var(--chris-color); }
+
+  /* Row play button */
+  .row-play-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 1px 6px rgba(0,113,227,0.25);
+  }
+
+  .row-play-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.08);
+  }
+
+  .row-play-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: #ffffff;
+  }
+
+  .row-play-btn.playing {
+    animation: pulse-ring 1.2s ease-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(0,113,227,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); }
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: var(--fg-muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border-solid);
+    margin-top: 16px;
+  }
+
+
+  /* Part of speech cell */
+  .pos-cell {
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+    min-width: 60px;
+  }
+  
+  /* Progress bar styles */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+  
+  .progress-text {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .top-nav { padding: 0 12px; }
+    .nav-title { font-size: 0.95rem; }
+    .nav-speed-slider { width: 70px; }
+    .complete-btn { padding: 6px 12px; font-size: 0.78rem; }
+    .bottom-player { padding: 0 12px; gap: 8px; }
+    .player-btn { padding: 6px 10px; font-size: 0.75rem; }
+    .container { padding: 80px 12px 70px; }
+    .vocab-table { font-size: 0.82rem; }
+    .vocab-table thead th { padding: 10px 10px; font-size: 0.68rem; }
+    .vocab-table tbody td { padding: 10px 10px; }
+    .word-cell { font-size: 0.88rem; }
+    .phonetic-cell { font-size: 0.78rem; }
+    .meaning-cell { font-size: 0.8rem; }
+    .pos-cell { font-size: 0.75rem; min-width: 50px; }
+
+    .row-play-btn { width: 28px; height: 28px; }
+    .row-play-btn svg { width: 12px; height: 12px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+
+  @media (max-width: 480px) {
+    .vocab-table thead th:first-child { width: 36px; }
+    .vocab-table tbody td:first-child { font-size: 0.72rem; }
+    .nav-center { display: none; }
+    .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Fixed Top Navigation Bar -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 5</span>
+    <span class="nav-title">词汇表 <span>— Vocabulary</span></span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+<!-- Fixed Bottom Player Bar -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSectionLabel">单词区</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+
+    <div class="progress-bar-container">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+      <span class="progress-text" id="progressBarText">0 / 0</span>
+    </div>
+
+</div>
+
+<div class="container">
+
+  <!-- ==================== Words Section ==================== -->
+  <div class="vocab-section" id="wordsSection">
+    
+
+    <!-- Words Table -->
+    <div class="vocab-card">
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th>#<span class="voice-tip" title="紫色圆点=Sonia(奇数序号)，橙色圆点=Christopher(偶数序号)">●</span></th>
+            <th>单词</th>
+            <th>音标</th>
+            <th>词性</th>
+            <th>释义</th>
+            <th>播放</th>
+            
+        <tbody id="wordsBody">
+          <tr data-idx="1" data-src="../audio/unit5/vocab_table/vocab_t_01.mp3">
+            <td><span class="voice-dot sonia"></span>1</td>
+            <td class="word-cell">fill</td>
+            <td class="phonetic-cell">/fɪl/</td>
+            <td class="pos-cell">n./v.</td>
+            <td class="meaning-cell">充填物; 充填</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="2" data-src="../audio/unit5/vocab_table/vocab_t_02.mp3">
+            <td><span class="voice-dot chris"></span>2</td>
+            <td class="word-cell">backfill</td>
+            <td class="phonetic-cell">/ˈbækfɪl/</td>
+            <td class="pos-cell">n./v.</td>
+            <td class="meaning-cell">回填</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="3" data-src="../audio/unit5/vocab_table/vocab_t_03.mp3">
+            <td><span class="voice-dot sonia"></span>3</td>
+            <td class="word-cell">slurry</td>
+            <td class="phonetic-cell">/ˈslɜri/</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">浆体</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="4" data-src="../audio/unit5/vocab_table/vocab_t_04.mp3">
+            <td><span class="voice-dot chris"></span>4</td>
+            <td class="word-cell">paste</td>
+            <td class="phonetic-cell">/peɪst/</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">糊体; 膏体</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="5" data-src="../audio/unit5/vocab_table/vocab_t_05.mp3">
+            <td><span class="voice-dot sonia"></span>5</td>
+            <td class="word-cell">tailings</td>
+            <td class="phonetic-cell">/ˈteɪlɪŋz/</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">尾矿</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="6" data-src="../audio/unit5/vocab_table/vocab_t_06.mp3">
+            <td><span class="voice-dot chris"></span>6</td>
+            <td class="word-cell">desliming</td>
+            <td class="phonetic-cell">/dɪˈslaɪmɪŋ/</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">脱泥</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="7" data-src="../audio/unit5/vocab_table/vocab_t_07.mp3">
+            <td><span class="voice-dot sonia"></span>7</td>
+            <td class="word-cell">dewatering</td>
+            <td class="phonetic-cell">/diːˈwɔːtərɪŋ/</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">脱水</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="8" data-src="../audio/unit5/vocab_table/vocab_t_08.mp3">
+            <td><span class="voice-dot chris"></span>8</td>
+            <td class="word-cell">hydraulic</td>
+            <td class="phonetic-cell">/haɪˈdrɔlɪk/</td>
+            <td class="pos-cell">adj.</td>
+            <td class="meaning-cell">水力的; 液压的</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="9" data-src="../audio/unit5/vocab_table/vocab_t_09.mp3">
+            <td><span class="voice-dot sonia"></span>9</td>
+            <td class="word-cell">retaining</td>
+            <td class="phonetic-cell">/rɪˈteɪnɪŋ/</td>
+            <td class="pos-cell">adj.</td>
+            <td class="meaning-cell">保留的; 挡土的</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="10" data-src="../audio/unit5/vocab_table/vocab_t_10.mp3">
+            <td><span class="voice-dot chris"></span>10</td>
+            <td class="word-cell">bulkhead</td>
+            <td class="phonetic-cell">/ˈbʌlkhed/</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">挡墙</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="11" data-src="../audio/unit5/vocab_table/vocab_t_11.mp3">
+            <td><span class="voice-dot sonia"></span>11</td>
+            <td class="word-cell">barricade</td>
+            <td class="phonetic-cell">/ˈbærɪkeɪd/</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">挡墙; 隔墙</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="12" data-src="../audio/unit5/vocab_table/vocab_t_12.mp3">
+            <td><span class="voice-dot chris"></span>12</td>
+            <td class="word-cell">consolidation</td>
+            <td class="phonetic-cell">/kənˈsɒlɪdeɪʃən/</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">固结</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== Phrases Section ==================== -->
+  <div class="vocab-section" id="phrasesSection">
+    
+
+    <!-- Phrases Table -->
+    <div class="vocab-card">
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th>#<span class="voice-tip" title="紫色圆点=Sonia(奇数序号)，橙色圆点=Christopher(偶数序号)">●</span></th>
+            <th>短语</th>
+            <th>音标</th>
+            <th>词性</th>
+            <th>释义</th>
+            <th>播放</th>
+            
+        <tbody id="phrasesBody">
+          <tr data-idx="13" data-src="../audio/unit5/vocab_table/vocab_t_13.mp3">
+            <td><span class="voice-dot sonia"></span>13</td>
+            <td class="word-cell">cut and fill</td>
+            <td class="phonetic-cell">/kʌt ənd fɪl/</td>
+            <td class="pos-cell"></td>
+            <td class="meaning-cell">充填采矿法</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="14" data-src="../audio/unit5/vocab_table/vocab_t_14.mp3">
+            <td><span class="voice-dot chris"></span>14</td>
+            <td class="word-cell">hydraulic fill</td>
+            <td class="phonetic-cell">/haɪˈdrɔlɪk fɪl/</td>
+            <td class="pos-cell"></td>
+            <td class="meaning-cell">水力充填</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="15" data-src="../audio/unit5/vocab_table/vocab_t_15.mp3">
+            <td><span class="voice-dot sonia"></span>15</td>
+            <td class="word-cell">paste fill</td>
+            <td class="phonetic-cell">/peɪst fɪl/</td>
+            <td class="pos-cell"></td>
+            <td class="meaning-cell">膏体充填</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="16" data-src="../audio/unit5/vocab_table/vocab_t_16.mp3">
+            <td><span class="voice-dot chris"></span>16</td>
+            <td class="word-cell">cemented fill</td>
+            <td class="phonetic-cell">/sɪˈmentɪd fɪl/</td>
+            <td class="pos-cell"></td>
+            <td class="meaning-cell">胶结充填</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="17" data-src="../audio/unit5/vocab_table/vocab_t_17.mp3">
+            <td><span class="voice-dot sonia"></span>17</td>
+            <td class="word-cell">filling system</td>
+            <td class="phonetic-cell">/ˈfɪlɪŋ ˈsɪstəm/</td>
+            <td class="pos-cell"></td>
+            <td class="meaning-cell">充填系统</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+          <tr data-idx="18" data-src="../audio/unit5/vocab_table/vocab_t_18.mp3">
+            <td><span class="voice-dot chris"></span>18</td>
+            <td class="word-cell">filling pipeline</td>
+            <td class="phonetic-cell">/ˈfɪlɪŋ ˈpaɪplaɪn/</td>
+            <td class="pos-cell"></td>
+            <td class="meaning-cell">充填管道</td>
+            
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    Unit 5 Filling Mining Method &mdash; Vocabulary &copy; 采矿专业英语
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  // ===== Global Speed Control =====
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = currentSpeed;
+    }
+  });
+
+  // ===== Audio State =====
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingRow = null;
+
+  // Unified continuous play state
+  var playState = {
+    playing: false,
+    currentSection: 'words',
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 1,
+    currentRepeat: 1
+  };
+
+  // ===== Get rows for current section =====
+  function getCurrentRows() {
+    var section = playState.currentSection;
+    if (section === 'words') {
+      return document.getElementById('wordsBody').querySelectorAll('tr');
+    } else {
+      return document.getElementById('phrasesBody').querySelectorAll('tr');
+    }
+  }
+
+  // ===== Determine section from row =====
+  function getSectionFromRow(row) {
+    var tbody = row.closest('tbody');
+    if (tbody && tbody.id === 'wordsBody') return 'words';
+    if (tbody && tbody.id === 'phrasesBody') return 'phrases';
+    return null;
+  }
+
+  // ===== Update section label =====
+  function updateSectionLabel() {
+    var label = document.getElementById('currentSectionLabel');
+    if (playState.currentSection === 'words') {
+      label.textContent = '单词区';
+    } else {
+      label.textContent = '短语区';
+    }
+  }
+
+  // ===== Play a single row =====
+  window.playRow = function(btn) {
+    var row = btn.closest('tr');
+    var src = row.getAttribute('data-src');
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      if (currentPlayingRow) {
+        currentPlayingRow.classList.remove('highlight');
+      }
+    }
+
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    if (btn) btn.classList.add('playing');
+    var btnSvg = btn.querySelector('svg'); if (btnSvg) btnSvg.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    row.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingRow = row;
+
+    var section = getSectionFromRow(row);
+    if (section) {
+      playState.currentSection = section;
+      updateSectionLabel();
+    }
+
+    currentAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      var btnSvg = btn.querySelector('svg'); if (btnSvg) btnSvg.innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      row.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingRow = null;
+      currentAudio = null;
+
+      if (playState.playing) {
+        playNextInSequence();
+      }
+    });
+  };
+
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
+      return;
+    }
+
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+    updateSectionLabel();
+
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      if (currentPlayingRow) {
+        currentPlayingRow.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingRow = null;
+    }
+
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+    var progressEl = document.getElementById('progress');
+    if (progressEl) progressEl.innerHTML = '';
+    
+    // Reset progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / 0';
+    }
+  };
+
+  // ===== Play Next in Sequence =====
+  function playNextInSequence() {
+    var rows = getCurrentRows();
+
+    if (playState.currentIndex >= rows.length) {
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        if (playState.currentSection === 'words') {
+          playState.currentSection = 'phrases';
+          playState.currentIndex = 0;
+          playState.currentRepeat = 1;
+          updateSectionLabel();
+        } else {
+          stopContinuousPlay();
+          return;
+        }
+      }
+    }
+
+    rows = getCurrentRows();
+
+    if (playState.currentIndex >= rows.length) {
+      stopContinuousPlay();
+      return;
+    }
+
+    var row = rows[playState.currentIndex];
+    var btn = row.querySelector('.row-play-btn');
+    var src = row.getAttribute('data-src');
+
+    updateProgress();
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var btnSvg = currentPlayingBtn.querySelector('svg');
+        if (btnSvg) btnSvg.innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      if (currentPlayingRow) {
+        currentPlayingRow.classList.remove('highlight');
+      }
+    }
+
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    if (btn) {
+      if (btn) btn.classList.add('playing');
+      var btnSvg = btn.querySelector('svg');
+      if (btnSvg) btnSvg.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    }
+    row.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingRow = row;
+
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      if (btn) {
+        btn.classList.remove('playing');
+        var btnSvg = btn.querySelector('svg');
+        if (btnSvg) btnSvg.innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      row.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingRow = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
+      }
+    });
+  }
+
+  // ===== Update Progress =====
+  function updateProgress() {
+    var rows = getCurrentRows();
+    var currentIdx = playState.currentIndex + 1;
+    var total = rows.length;
+    var repeatInfo = '';
+    if (playState.repeatCount > 1 || playState.loop) {
+      repeatInfo = ' (第' + playState.currentRepeat + '遍)';
+    }
+    var progressEl = document.getElementById('progress');
+    if (progressEl) {
+      progressEl.innerHTML =
+        '<span class="current-num">' + currentIdx + '</span> / ' + total + repeatInfo;
+    }
+    
+    // Update progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
+  }
+
+  // ===== Toggle Loop =====
+  window.toggleLoop = function() {
+    playState.loop = !playState.loop;
+    var btn = document.getElementById('loopBtn');
+    if (playState.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
+  };
+
+  // ===== Update Repeat Count =====
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  // ===== Mark Complete =====
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('vocab', 'unit5');
+    }
+    alert('词汇表学习已完成！');
+  };
+
+})();
+</script>
+
+<script src="../studyTracker.js"></script>
+</body>
+</html>

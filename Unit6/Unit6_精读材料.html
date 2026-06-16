@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 6 Mine Development of Large Metalliferous Orebodies — 精读材料</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --vocab-color: #0071e3;
+    --vocab-bg: rgba(0,113,227,0.08);
+    --vocab-border: rgba(0,113,227,0.2);
+    --header-height: 60px;
+    --footer-height: 56px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 48px 20px 36px;
+  }
+
+  .header-unit {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  header h1 span { color: var(--accent); }
+
+  .header-sub {
+    font-size: 1rem;
+    color: var(--fg-muted);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  /* ===== Fixed Top Navigation Bar ===== */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-title span { color: var(--accent); }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-speed-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .nav-speed-label svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-speed-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    transition: transform 0.15s ease;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .nav-speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .complete-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* ===== Fixed Bottom Player Bar ===== */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .player-section-label {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    border-radius: 6px;
+    border: 1px solid var(--accent-border);
+  }
+
+  .player-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .player-btn.active {
+    background: #1d1d1f;
+  }
+
+  .player-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .player-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .player-repeat-select {
+    padding: 6px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .player-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .player-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .player-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .player-progress {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .player-progress .current-num {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Progress bar styles */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* Section header */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-solid);
+  }
+
+  .section-tag {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* Paragraph card */
+  .para-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-solid);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+    padding: 24px 28px;
+    transition: box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .para-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  .para-card.highlight {
+    background: rgba(0,113,227,0.08);
+    border-color: var(--accent);
+  }
+
+  .para-num {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .en-text {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--fg);
+    margin-bottom: 16px;
+  }
+
+  .vocab {
+    color: var(--vocab-color);
+    background: var(--vocab-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border-bottom: 2px solid var(--vocab-border);
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+  }
+
+  .vocab .tip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card-bg);
+    border: 1px solid var(--border-solid);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: var(--fg);
+    white-space: nowrap;
+    box-shadow: var(--shadow);
+    z-index: 10;
+    margin-bottom: 4px;
+  }
+
+  .vocab:hover .tip {
+    display: block;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .play-btn, .trans-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--radius-btn);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+  }
+
+  .play-btn {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .play-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .play-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .play-btn.playing {
+    animation: pulse-ring 1.2s ease-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(0,113,227,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); }
+  }
+
+  .trans-btn {
+    background: var(--fg-muted);
+    color: #fff;
+  }
+
+  .trans-btn:hover {
+    background: #1d1d1f;
+  }
+
+  .cn-text {
+    display: none;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--fg);
+    background: rgba(0,0,0,0.02);
+    padding: 16px 20px;
+    border-radius: var(--radius-btn);
+    margin-top: 16px;
+    border-left: 3px solid var(--accent);
+    opacity: 0.9;
+  }
+
+  .cn-text.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 0.9; transform: translateY(0); }
+  }
+
+  footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: var(--fg-muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border-solid);
+    margin-top: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 20px 12px 60px; }
+    .para-card { padding: 18px 16px; }
+    .en-text { font-size: 0.95rem; }
+    .btn-row { flex-wrap: wrap; }
+    .top-nav { padding: 0 12px; }
+    .nav-title { font-size: 0.95rem; }
+    .nav-speed-slider { width: 70px; }
+    .complete-btn { padding: 6px 12px; font-size: 0.78rem; }
+    .bottom-player { padding: 0 12px; gap: 8px; }
+    .player-btn { padding: 6px 10px; font-size: 0.75rem; }
+    .player-section-label { font-size: 0.7rem; padding: 3px 8px; }
+    .player-repeat-select { font-size: 0.75rem; padding: 5px 6px; }
+    .player-loop-toggle { font-size: 0.75rem; padding: 5px 8px; }
+    .progress-bar-container { max-width: 120px; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-center { display: none; }
+    .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px; }
+    .progress-bar-container { order: -1; width: 100%; max-width: none; margin-bottom: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Fixed Top Navigation Bar ===== -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 6</span>
+    <span class="nav-title">精读材料</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+<!-- ===== Fixed Bottom Player Bar ===== -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSectionLabel">段落区</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3" selected>3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <span class="progress-text" id="progressBarText">0 / 19</span>
+  </div>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+
+  <!-- Introduction -->
+  <div class="section-header">
+    <span class="section-tag">1. Introduction</span>
+    <span class="section-title">引言</span>
+  </div>
+
+  <!-- Paragraph 1 -->
+  <div class="para-card" data-idx="1" data-src="../audio/unit6/reading_p01.mp3">
+    <div class="para-num">Paragraph 1</div>
+    <div class="en-text">
+      These orebodies will certainly require <span class="vocab">shafts<span class="tip">竖井</span></span> and <span class="vocab">levels<span class="tip">水平巷道；中段</span></span> and probably <span class="vocab">declines<span class="tip">斜坡道</span></span> for access for machinery between levels. If one has to <span class="vocab">opt<span class="tip">选择；决定</span></span> for a modern development as typical, then Cobar Mines is probably very representative. Its benefits have been such to the company that before the metal price crisis of the mid-1970s Cobar had deepened both shafts and added a third major <span class="vocab">haulage level<span class="tip">主运输中段</span></span>.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p01.mp3" data-id="p1" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">大型金属矿床要采用竖井和水平巷道进行开拓，同时在中段之间还可能开掘斜坡道方便机械设备上下转移。卡巴矿就是一个典型的现代矿山竖井开拓的实例。在20世纪70年代中期金属价格低迷之前，该矿就已经延伸的竖井，并增设了第三个主运输中段，从而使得矿山收益。</div>
+  </div>
+
+  <!-- Mine Developments -->
+  <div class="section-header">
+    <span class="section-tag">2. Mine Developments</span>
+    <span class="section-title">矿山开拓</span>
+  </div>
+
+  <!-- Paragraph 2 -->
+  <div class="para-card" data-idx="2" data-src="../audio/unit6/reading_p02.mp3">
+    <div class="para-num">Paragraph 2</div>
+    <div class="en-text">
+      Shafts: The location of these has been dealt with earlier.<br><br>
+      Levels: The <span class="vocab">interval<span class="tip">间距</span></span> between levels depends on: (1) Geology and size of orebody; (2) Strength of backs and walls; (3) Mining methods; (4) Life of <span class="vocab">ore passes<span class="tip">矿石溜井</span></span>; (5) Capital available for equipment on levels, and for driving between levels; (6) Access for men; (7) Current technology; (8) Surveying convenience.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p02.mp3" data-id="p2" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">竖井：竖井位置选择已经进行了叙述。<br><br>中段：两中段之间的高度取决于：（1）矿床地质条件和矿床大小；（2）矿床顶、底板和侧面岩石强度；（3）采矿方法；（4）矿石溜井使用期限；（5）购买中段运输设备以及采场设备的资金量；（6）人员通道；（7）当前的技术水平；（8）便于勘探。</div>
+  </div>
+
+  <!-- Paragraph 3 -->
+  <div class="para-card" data-idx="3" data-src="../audio/unit6/reading_p03.mp3">
+    <div class="para-num">Paragraph 3</div>
+    <div class="en-text">
+      (1) Geology and size of orebody. A badly <span class="vocab">faulted<span class="tip">断层错动的</span></span> and disturbed orebody will need many <span class="vocab">exploration levels<span class="tip">勘探水平</span></span> and <span class="vocab">diamond drill holes<span class="tip">金刚石钻孔</span></span>. Variable <span class="vocab">grade<span class="tip">品位</span></span> bodies will also need more exploration, and probably will need <span class="vocab">selective mining<span class="tip">选择性开采</span></span>. Consequently a large orebody which really consists of many <span class="vocab">scattered<span class="tip">分散的</span></span> <span class="vocab">lenses<span class="tip">透镜状矿体</span></span> of variable grade will have to be developed with a close level interval (say 20 to 30m) and mined selectively.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p03.mp3" data-id="p3" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">矿体被断层带错动的矿体需要在多个水平进行勘探和钻探来探明矿体。当矿体品位分布不均匀时，也需要更多的勘探工作，并采取不同的采矿方法。因此，当矿体品位分布不均匀，且由多个分散的透镜状矿体组成的大型矿体的开拓水平之间的高度要降低（如20~30m），而且要进行选择性开采。</div>
+  </div>
+
+  <!-- Paragraph 4 -->
+  <div class="para-card" data-idx="4" data-src="../audio/unit6/reading_p04.mp3">
+    <div class="para-num">Paragraph 4</div>
+    <div class="en-text">
+      Size of orebody will control levels on a simple multiple basis. If the orebody is 400m deep, even though a 180m level interval is feasible, the orebody is too deep for two levels, so it may be conveniently split into three, for instance two at 130m and the bottom at 140m.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p04.mp3" data-id="p4" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">根据开拓水平高度和矿体延伸尺寸就可以确定矿床开拓水平数量。如果矿体垂直延伸400m，尽管矿床开拓可以采用阶段高度180m，那么设计两个中段进行开拓就不能满足矿床开拓的需要，因此，需要设计成三个中段进行开拓，即设计两个130m高的中段，最下一个中段采用140m高。</div>
+  </div>
+
+  <!-- Paragraph 5 -->
+  <div class="para-card" data-idx="5" data-src="../audio/unit6/reading_p05.mp3">
+    <div class="para-num">Paragraph 5</div>
+    <div class="en-text">
+      (2) Strength of backs and walls and mining methods. Because these two are so closely related, indeed 2 controls 3, they should be considered together. A strong ore and strong <span class="vocab">country rock<span class="tip">围岩</span></span> enable large <span class="vocab">open stopes<span class="tip">空场采场</span></span> to be worked, or large <span class="vocab">hanging wall<span class="tip">顶板</span></span> area to be left open. Other things being equal, stopes should be worked as high as possible because that reduce the cost of <span class="vocab">drawpoints<span class="tip">出矿口</span></span> and <span class="vocab">chutes<span class="tip">溜槽</span></span> to a minimum for the mine. <span class="vocab">Cut and fill<span class="tip">充填法</span></span> methods enable large intervals to be obtained between levels, because <span class="vocab">ring drilling<span class="tip">环形钻孔</span></span> is unnecessary within stopes.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p05.mp3" data-id="p5" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">因为矿床顶底板及侧面岩石强度与采矿方法这两个因素密切相关，其实，矿床顶底板及侧面岩石强度性能是采矿方法的选择重要因素，因此，矿床顶底板及侧面岩石强度与采矿方法必须一起考虑。矿石与围岩强度大，则采场空间就大，采空区的顶板面积就大。同样，采场高度也应该尽量大一些，因为采场的高度高，可以减少掘进出矿口和溜槽数量，从而降低成本。采用充填法采矿，可以增加中段高度，因为充填采矿法的采场内无须钻凿环形炮孔。</div>
+  </div>
+
+  <!-- Paragraph 6 -->
+  <div class="para-card" data-idx="6" data-src="../audio/unit6/reading_p06.mp3">
+    <div class="para-num">Paragraph 6</div>
+    <div class="en-text">
+      If current development in <span class="vocab">down-the-hole drilling<span class="tip">潜孔钻进</span></span> of 100mm diameter and larger holes is <span class="vocab">discounted<span class="tip">不考虑</span></span>, then drilling technology at present limits straight holes to about 20m, because <span class="vocab">ring-drilled holes<span class="tip">环形炮孔</span></span> must <span class="vocab">overlap<span class="tip">重叠</span></span> about 1.5 to 2m to obtain good <span class="vocab">fragmentation<span class="tip">破碎效果</span></span>, then there must be at least a <span class="vocab">drill sub-level<span class="tip">凿岩分段</span></span> every 36m, say 35m to round it off. Some mines have experimented with <span class="vocab">longhole open stope<span class="tip">深孔空场法</span></span> about 40 to 60m high, drilled up and down from levels about 80 to 120m apart. However these mines have found that there is a tendency for a <span class="vocab">bridge of ore<span class="tip">采场悬拱</span></span> to develop at the <span class="vocab">mid-line<span class="tip">中线</span></span> of the stope which is then difficult to break out.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p06.mp3" data-id="p6" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">如果 100mm 或直径更大的下向钻机没有进展，那么目前的钻孔技术就只能钻凿孔深 20m 的直孔。因为环形炮孔之间需要相互重叠约 1.5~2m 才能获得良好的破碎效果，因此，需要每隔 36m 设置一个分段凿岩巷，按分段高度取 35m 计算，那么就可以使环形炮孔重叠起来。有些矿山采用过深空凿岩的空场法，其孔深达 40~60m，从中段凿岩巷道中分别向上和向下凿岩，中段高度约 80~120m。可是，这些矿山的实践表明，在采场中部若出现矿石拱顶的趋势，处理起来比较困难。</div>
+  </div>
+
+  <!-- Paragraph 7 -->
+  <div class="para-card" data-idx="7" data-src="../audio/unit6/reading_p07.mp3">
+    <div class="para-num">Paragraph 7</div>
+    <div class="en-text">
+      As ores and rocks becomes weaker, closer support methods are adopted until eventually one considers <span class="vocab">caving<span class="tip">崩落法</span></span>. In <span class="vocab">sub-level caving<span class="tip">分段崩落法</span></span> the sub-levels may be only 15 to 18m apart, so that there is a tendency towards closer spacing even of main levels, although this is offset by ore pass development.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p07.mp3" data-id="p7" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">当矿石与围岩变得软弱时，采场支架需要更加密集，如果矿岩更加软弱，则应采用崩落法回采。分段崩落法的分段高度可以为15~18m，因此其发展趋势是中段高度降低，但掘井的溜井数量增加。</div>
+  </div>
+
+  <!-- Paragraph 8 -->
+  <div class="para-card" data-idx="8" data-src="../audio/unit6/reading_p08.mp3">
+    <div class="para-num">Paragraph 8</div>
+    <div class="en-text">
+      <span class="vocab">Block caving<span class="tip">阶段崩落法</span></span> tends to increase the spacing between levels because access is not normally needed into the stopes and a level interval of 150 to 180m is easily attainable, indeed it is probably beneficial to assist development of a good cave.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p08.mp3" data-id="p8" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">阶段崩落法的发展趋势是增加中段高度，因为无须掘进巷道进入采场，其中段高度可以达到150~180m，这个中段高度其实是有益于矿体获得更好的崩落条件。</div>
+  </div>
+
+  <!-- Paragraph 9 -->
+  <div class="para-card" data-idx="9" data-src="../audio/unit6/reading_p09.mp3">
+    <div class="para-num">Paragraph 9</div>
+    <div class="en-text">
+      (3) Life of ore passes. In most stopping methods ore is drawn off through an <span class="vocab">ore pass<span class="tip">矿石溜井</span></span> at some stage. The pass may be through ore, through rock, or may be a <span class="vocab">lined pass<span class="tip">内衬溜井</span></span> through fill. All of these have a finite life after which they are so enlarged as to be unsafe, with subsequent cave-ins, or <span class="vocab">slabbing<span class="tip">片帮</span></span> of the walls may cause heavy <span class="vocab">dilution<span class="tip">贫化</span></span>, followed by a cave-in.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p09.mp3" data-id="p9" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">在大多数采矿方法中，矿石在某个阶段需要通过矿石溜井进行放矿。溜井可以在矿体内，也可以在岩体内，或是在充填体内的顺路溜井。所有这些溜井都有一定的使用寿命，当溜井使用达到其寿命时，溜井断面扩大，变得不安全，随后发生冒落，或溜井侧墙片帮导致矿石严重贫化，最终发生冒落。</div>
+  </div>
+
+  <!-- Paragraph 10 -->
+  <div class="para-card" data-idx="10" data-src="../audio/unit6/reading_p10.mp3">
+    <div class="para-num">Paragraph 10</div>
+    <div class="en-text">
+      Once the life of an ore pass has been determined in tonnes, the cost of spacing x length can be determined. Obviously the fewer the ore passes in relation to <span class="vocab">tramming runs<span class="tip">电机车运输</span></span>, the lower the cost. However if there are too few ore passes they will wear out and limit the stope height and hence decrease the level interval.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p10.mp3" data-id="p10" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">当溜井的使用寿命（以矿石吨数计算）确定后，就可以确定溜井间距与长度的成本。显然，溜井数量越少，运输距离越短，成本就越低。但是，如果溜井数量太少，溜井就会很快磨损，从而限制采场高度，进而减小中段高度。</div>
+  </div>
+
+  <!-- Paragraph 11 -->
+  <div class="para-card" data-idx="11" data-src="../audio/unit6/reading_p11.mp3">
+    <div class="para-num">Paragraph 11</div>
+    <div class="en-text">
+      (4) Capital available. If capital is difficult to raise, small equipment will be used and operating costs tend to be high. Small equipment usually needs more men and easy access up ladders to stope, consequently levels intervals are close. However shaft and <span class="vocab">skip<span class="tip">箕斗</span></span> size will be small and <span class="vocab">loading pocket<span class="tip">装载硐室</span></span> construction will not be expensive.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p11.mp3" data-id="p11" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">如果资金筹措困难，则只能使用小型设备，生产成本就会偏高。小型设备通常需要更多工人，并且需要通过梯子进入采场，因此中段高度较低。但是，竖井和箕斗尺寸也会较小，装载硐室的建设成本不会很高。</div>
+  </div>
+
+  <!-- Paragraph 12 -->
+  <div class="para-card" data-idx="12" data-src="../audio/unit6/reading_p12.mp3">
+    <div class="para-num">Paragraph 12</div>
+    <div class="en-text">
+      High capital expenditure has to be justified by large outputs. This needs automated winding arrangements and expensive <span class="vocab">plat<span class="tip">井底车场</span></span> installations. It also needs big reliable locomotives, large mine cars, heavy rails, good track, etc. So that the capital cost of equipment per level is high. One obviously must keep <span class="vocab">haulage levels<span class="tip">运输中段</span></span> to a minimum. However ore pass life and access to stopes can be a problem so that one may compromise with a major haulage level at (say) 150 to 450m intervals, and <span class="vocab">access levels<span class="tip">通道中段</span></span> for men and materials at 75 to 150m intervals between these major levels.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p12.mp3" data-id="p12" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">高资本投入需要大规模生产来证明其合理性。这需要自动化提升系统和昂贵的井底车场设施。还需要大型可靠的机车、大型矿车、重型轨道、良好的轨道条件等。因此，每个中段的设备资本成本很高。必须尽量减少运输中段的数量。但是，矿石溜井寿命和采场通道可能成为问题，因此可以折中处理：主要运输中段间隔150~450m，人员和材料通道中段间隔75~150m。</div>
+  </div>
+
+  <!-- Paragraph 13 -->
+  <div class="para-card" data-idx="13" data-src="../audio/unit6/reading_p13.mp3">
+    <div class="para-num">Paragraph 13</div>
+    <div class="en-text">
+      (5) Access for men. In most stopping methods men must have easy access. If they have to climb ladders then about 50m may be a limit. Modern technology may compromise by adding in the cost of <span class="vocab">service cages<span class="tip">服务罐笼</span></span>, or even lifts, to take men up through an <span class="vocab">access raise<span class="tip">人行天井</span></span> into the stopes. With an increasing use of <span class="vocab">raise borers<span class="tip">天井钻机</span></span> to improve level intervals, a raise-bored "lift" shaft becomes an attractive possibility.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p13.mp3" data-id="p13" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">在大多数采矿方法中，人员必须有便捷的通道。如果需要爬梯子，大约50m可能就是极限。现代技术可以通过增加服务罐笼或电梯的成本来折中处理，将人员通过人行天井送入采场。随着天井钻机越来越多地用于改善中段高度，钻凿的"电梯"井成为一种有吸引力的选择。</div>
+  </div>
+
+  <!-- Paragraph 14 -->
+  <div class="para-card" data-idx="14" data-src="../audio/unit6/reading_p14.mp3">
+    <div class="para-num">Paragraph 14</div>
+    <div class="en-text">
+      (6) Current mines technology. Older mines were limited by <span class="vocab">hand-raising<span class="tip">人工掘进天井</span></span> techniques to short intervals between levels. A study of mine plans will show that. As machines such as the <span class="vocab">Alimak<span class="tip">阿利马克天井爬罐</span></span> raise climber, and techniques such as <span class="vocab">long-hole raise blasting<span class="tip">深孔天井爆破</span></span>, were tried, the interval between levels gradually increased from 15 to 20m, then 30m and finally to about 50m. Now that <span class="vocab">raise boring<span class="tip">天井钻进</span></span> is more common in large mines, and cutter technology and hydraulic thrust equipment has been improved, raise-bored holes of 300m or more between levels are feasible. This means that a development such as Cobar Mines, with major levels at 180m intervals and a <span class="vocab">decline<span class="tip">斜坡道</span></span> access ramp for mining, is currently the most economic. The fewer levels there are, the more money can be spent on them and on ore pass development.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p14.mp3" data-id="p14" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">老矿山由于采用人工掘进天井技术，中段高度较低。研究矿山设计图可以看出这一点。随着阿利马克天井爬罐、深孔天井爆破等技术尝试应用，中段高度逐渐从15~20m增加到30m，最终达到约50m。现在天井钻机在大型矿山中越来越普遍，刀具技术和液压推进设备得到改进，300m或更长的天井钻进已成为可行。这意味着像卡巴矿这样的开拓设计，主要中段间隔180m并配有斜坡道，是目前最经济的方案。中段越少，就可以在中段和矿石溜井建设上投入更多资金。</div>
+  </div>
+
+  <!-- Paragraph 15 -->
+  <div class="para-card" data-idx="15" data-src="../audio/unit6/reading_p15.mp3">
+    <div class="para-num">Paragraph 15</div>
+    <div class="en-text">
+      The limitation of ring drilling technology has been mentioned above. In <span class="vocab">sublevel open stopping<span class="tip">分段空场法</span></span> small blastholes (about 50mm) tend to <span class="vocab">deviate<span class="tip">偏斜</span></span> at depths of about 15m and may be 0.3m out of line at 20m into the hole. With <span class="vocab">spacing<span class="tip">孔间距</span></span> and <span class="vocab">burdens<span class="tip">抵抗线</span></span> of the order of 1.2 to 1.5m, a deviation of 0.3m each on adjacent holes may be a 50% increase in spacing. This may cause either poor fragmentation or a complete failure to break a ring, with failure of subsequent rings in the same blast.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p15.mp3" data-id="p15" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">前面已经提到了环形钻孔技术的局限性。在分段空场法中，小直径炮孔（约50mm）在深度约15m处开始偏斜，20m深度处可能偏离0.3m。当孔间距和抵抗线为1.2~1.5m时，相邻炮孔各偏离0.3m，间距可能增加50%。这可能导致破碎效果差或完全无法破碎一个环形炮孔，从而导致同一爆破中后续环形炮孔也无法破碎。</div>
+  </div>
+
+  <!-- Paragraph 16 -->
+  <div class="para-card" data-idx="16" data-src="../audio/unit6/reading_p16.mp3">
+    <div class="para-num">Paragraph 16</div>
+    <div class="en-text">
+      A current development to extend the range of long-hole open stopping is to emulate surface practice. <span class="vocab">Down-the-hole hammer drills<span class="tip">潜孔锤钻</span></span> with bit diameters of 100 to 150mm are being used. These can drill 20 to 30m without noticeable deviation because the impact is at the bottom of the hole, which reduces <span class="vocab">rod whip<span class="tip">钻杆摆动</span></span>. Hole lengths of 50 to 60m are possible and large <span class="vocab">decked charges<span class="tip">分段装药</span></span> can be used so the possibility of poor fragmentation is reduced. The limitations would appear to be increased blast vibration, possibly more <span class="vocab">fumes<span class="tip">有毒气体</span></span> underground, and because burden and spacing are increased, a greater likelihood of <span class="vocab">oversize boulders<span class="tip">大块矿石</span></span> needing <span class="vocab">secondary blasting<span class="tip">二次爆破</span></span>.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p16.mp3" data-id="p16" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">目前延长深孔空场法应用范围的发展是模仿露天采矿实践。直径100~150mm的潜孔锤钻正在被使用。这些钻机可以钻进20~30m而无明显偏差，因为冲击作用在孔底，减少了钻杆摆动。孔深可达50~60m，可以使用大型分段装药，从而降低破碎不良的可能性。局限性似乎是爆破震动增加，井下可能有更多有毒气体，而且由于抵抗线和间距增大，大块矿石需要二次爆破的可能性增加。</div>
+  </div>
+
+  <!-- Paragraph 17 -->
+  <div class="para-card" data-idx="17" data-src="../audio/unit6/reading_p17.mp3">
+    <div class="para-num">Paragraph 17</div>
+    <div class="en-text">
+      (7) Surveying convenience. After all the previous factors have been developed it would be normal practice to round the level interval out to a convenient figure. For instance it would be unlikely that a theoretical figure of 187.6m would be adopted, and the planning engineer would either drop back to 180m or round up to 200m, to allow easy measurement, and easier construction of mine plans.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p17.mp3" data-id="p17" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">在考虑了所有上述因素后，通常的做法是将中段高度取整为方便的数值。例如，不太可能采用187.6m这样的理论数值，设计工程师要么降到180m，要么取整到200m，以便于测量和绘制矿山设计图。</div>
+  </div>
+
+  <!-- Paragraph 18 -->
+  <div class="para-card" data-idx="18" data-src="../audio/unit6/reading_p18.mp3">
+    <div class="para-num">Paragraph 18</div>
+    <div class="en-text">
+      (8) Ore pass development. Improvement in raise-driving techniques have enabled ore passed to be driven over greater intervals. Contemporary wage increase have encouraged mines to keep non-productive employment, such as haulage work, to a minimum. Near-vertical ore passes in rock can provide a means of concentrating output from several stopes into a central <span class="vocab">ore bin<span class="tip">矿仓</span></span> close to the shaft. The ore or <span class="vocab">mullock<span class="tip">废石</span></span>, can be run through a <span class="vocab">primary crusher<span class="tip">初级破碎机</span></span> and onto a conveyor to fill the <span class="vocab">skip pockets<span class="tip">箕斗装载硐室</span></span> for automated hoisting procedures.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p18.mp3" data-id="p18" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">天井掘进技术的改进使得矿石溜井可以掘进更长的距离。当前工资上涨促使矿山尽量减少非生产性用工，如运输工作。岩体内近垂直的矿石溜井可以将多个采场的矿石集中到一个靠近竖井的中央矿仓。矿石或废石可以通过初级破碎机，然后输送到皮带输送机上，装入箕斗装载硐室，实现自动化提升。</div>
+  </div>
+
+  <!-- Future Development -->
+  <div class="section-header">
+    <span class="section-tag">3. Future Development</span>
+    <span class="section-title">未来发展</span>
+  </div>
+
+  <!-- Paragraph 19 -->
+  <div class="para-card" data-idx="19" data-src="../audio/unit6/reading_p19.mp3">
+    <div class="para-num">Paragraph 19</div>
+    <div class="en-text">
+      Ore pass development as a logical full scale system would have ore and mullock passes developed over heights of 300m or more in the <span class="vocab">footwall<span class="tip">下盘</span></span> of the orebody.<br><br>
+      This would imply future developments as:<br><br>
+      (1) A primary and secondary crusher installed at the bottom of the mine, or approximately 450m intervals, with a conveyor to load (over any distance) into an ore bin/skip pocket system at the shaft;<br>
+      (2) Major levels at about 300m or 450m intervals;<br>
+      (3) Cage access to intermediate level for drilling, and stope access through raise bored shafts; or for smaller orebodies levels at about 100m intervals in the main shaft and a service cage system between levels.<br><br>
+      Under these circumstances the level interval becomes a surveying exercise in studying ore pass angles and dividing the orebody into neat geometrical patterns. After the strategic development plan has been drawn up, only minor relocation should be necessary to suit local geological and rock mechanics difficulties.
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit6/reading_p19.mp3" data-id="p19" onclick="togglePlay(this)">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        播放
+      </button>
+      <button class="trans-btn" onclick="toggleTrans(this)">译文</button>
+    </div>
+    <div class="cn-text">作为合理的完整系统，矿石溜井的发展将在矿体下盘掘进高度300m或更高的矿石溜井和废石溜井。<br><br>这意味着未来的发展包括：<br><br>（1）在矿井底部或大约450m间隔处安装初级和二级破碎机，通过皮带输送机（任意距离）将矿石装入竖井处的矿仓/箕斗装载硐室系统；<br>（2）主要中段间隔约300m或450m；<br>（3）罐笼通往中间水平进行钻孔，通过天井钻机钻凿的井筒进入采场；或对于较小的矿体，主竖井中段间隔约100m，中段之间设置服务罐笼系统。<br><br>在这种情况下，中段高度就成为研究矿石溜井角度和将矿体划分为整齐几何形状的测量工作。在战略开拓计划制定后，只需进行少量调整以适应局部地质和岩石力学条件。</div>
+  </div>
+
+  <footer>
+    Unit 6 Mine Development of Large Metalliferous Orebodies &mdash; Reading Material &copy; 采矿专业英语
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  // ===== Global Speed Control =====
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = currentSpeed;
+    }
+  });
+
+  // ===== Audio State =====
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingCard = null;
+
+  // Unified continuous play state
+  var playState = {
+    playing: false,
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 3,
+    currentRepeat: 1
+  };
+
+  // ===== Get all paragraph cards =====
+  function getAllCards() {
+    return document.querySelectorAll('.para-card[data-idx]');
+  }
+
+  // ===== Play a single card =====
+  window.togglePlay = function(btn) {
+    var card = btn.closest('.para-card');
+    var src = btn.getAttribute('data-audio');
+
+    // Stop continuous play if active
+    if (playState.playing) {
+      stopContinuousPlay();
+    }
+
+    // Stop any currently playing audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var iconPlay = currentPlayingBtn.querySelector('.icon-play');
+        var iconPause = currentPlayingBtn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = '';
+        if (iconPause) iconPause.style.display = 'none';
+        currentPlayingBtn.childNodes[currentPlayingBtn.childNodes.length - 1].textContent = ' 播放';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+    }
+
+    // Create and play new audio
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.classList.add('playing');
+    var iconPlay = btn.querySelector('.icon-play');
+    var iconPause = btn.querySelector('.icon-pause');
+    if (iconPlay) iconPlay.style.display = 'none';
+    if (iconPause) iconPause.style.display = '';
+    btn.childNodes[btn.childNodes.length - 1].textContent = ' 暂停';
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    currentAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      if (iconPlay) iconPlay.style.display = '';
+      if (iconPause) iconPause.style.display = 'none';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+    });
+  };
+
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
+      return;
+    }
+
+    // Start continuous play
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+    playState.repeatCount = parseInt(document.getElementById('repeatCount').value);
+    playState.loop = document.getElementById('loopBtn').classList.contains('on');
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    // Stop current audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var iconPlay = currentPlayingBtn.querySelector('.icon-play');
+        var iconPause = currentPlayingBtn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = '';
+        if (iconPause) iconPause.style.display = 'none';
+        currentPlayingBtn.childNodes[currentPlayingBtn.childNodes.length - 1].textContent = ' 播放';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+    }
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+
+    // Reset progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / 19';
+    }
+  };
+
+  // ===== Play Next in Sequence =====
+  function playNextInSequence() {
+    var cards = getAllCards();
+
+    if (playState.currentIndex >= cards.length) {
+      // One round complete
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        // Done with all
+        stopContinuousPlay();
+        return;
+      }
+    }
+
+    if (playState.currentIndex >= cards.length) {
+      stopContinuousPlay();
+      return;
+    }
+
+    var card = cards[playState.currentIndex];
+    var btn = card.querySelector('.play-btn');
+    var src = card.getAttribute('data-src');
+
+    // Update progress
+    updateProgress(cards.length);
+
+    // Stop any currently playing
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var prevIconPlay = currentPlayingBtn.querySelector('.icon-play');
+        var prevIconPause = currentPlayingBtn.querySelector('.icon-pause');
+        if (prevIconPlay) prevIconPlay.style.display = '';
+        if (prevIconPause) prevIconPause.style.display = 'none';
+        currentPlayingBtn.childNodes[currentPlayingBtn.childNodes.length - 1].textContent = ' 播放';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+    }
+
+    // Play
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    if (btn) {
+      btn.classList.add('playing');
+      var iconPlay = btn.querySelector('.icon-play');
+      var iconPause = btn.querySelector('.icon-pause');
+      if (iconPlay) iconPlay.style.display = 'none';
+      if (iconPause) iconPause.style.display = '';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' 暂停';
+    }
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    // Scroll into view
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      if (btn) {
+        btn.classList.remove('playing');
+        var iconPlay = btn.querySelector('.icon-play');
+        var iconPause = btn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = '';
+        if (iconPause) iconPause.style.display = 'none';
+        btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
+      }
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
+      }
+    });
+  }
+
+  // ===== Update Progress =====
+  function updateProgress(total) {
+    var currentIdx = playState.currentIndex + 1;
+    var repeatInfo = '';
+    if (playState.repeatCount > 1 || playState.loop) {
+      repeatInfo = ' (第' + playState.currentRepeat + '遍)';
+    }
+
+    // Update progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
+
+    // Update section label
+    var sectionLabel = document.getElementById('currentSectionLabel');
+    if (sectionLabel) {
+      if (playState.currentIndex === 0) {
+        sectionLabel.textContent = 'Introduction';
+      } else if (playState.currentIndex >= 1 && playState.currentIndex <= 17) {
+        sectionLabel.textContent = 'Mine Developments';
+      } else {
+        sectionLabel.textContent = 'Future Development';
+      }
+    }
+  }
+
+  // ===== Toggle Loop =====
+  window.toggleLoop = function() {
+    var btn = document.getElementById('loopBtn');
+    playState.loop = !playState.loop;
+    if (playState.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
+  };
+
+  // ===== Update Repeat Count =====
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  // ===== Mark Complete =====
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('reading', 'unit6');
+    }
+    alert('精读材料学习已完成！');
+  };
+
+  // ===== Toggle Translation =====
+  window.toggleTrans = function(btn) {
+    var cnText = btn.closest('.para-card').querySelector('.cn-text');
+    if (cnText.classList.contains('show')) {
+      cnText.classList.remove('show');
+      btn.textContent = '译文';
+    } else {
+      cnText.classList.add('show');
+      btn.textContent = '隐藏译文';
+    }
+  };
+})();
+</script>
+
+<script src="../studyTracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 6 Mine Development of Large Metalliferous Orebodies — 句型汇总</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fafafa;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-light: #2997ff;
+    --accent-dim: rgba(0,113,227,0.15);
+    --border: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --color-s: #0071e3;
+    --color-v: #ff3b30;
+    --color-o: #34c759;
+    --color-c: #af52de;
+    --color-s-bg: rgba(0,113,227,0.08);
+    --color-v-bg: rgba(255,59,48,0.08);
+    --color-o-bg: rgba(52,199,89,0.08);
+    --color-c-bg: rgba(175,82,222,0.08);
+    --color-s-border: rgba(0,113,227,0.2);
+    --color-v-border: rgba(255,59,48,0.2);
+    --color-o-border: rgba(52,199,89,0.2);
+    --color-c-border: rgba(175,82,222,0.2);
+    --tag-struct: #0071e3;
+    --tag-struct-bg: rgba(0,113,227,0.08);
+    --tag-struct-border: rgba(0,113,227,0.18);
+    --tag-special: #af52de;
+    --tag-special-bg: rgba(175,82,222,0.08);
+    --tag-special-border: rgba(175,82,222,0.18);
+    --tag-func: #ff9500;
+    --tag-func-bg: rgba(255,149,0,0.08);
+    --tag-func-border: rgba(255,149,0,0.18);
+    --header-height: 60px;
+    --footer-height: 56px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 48px 20px 36px;
+  }
+
+  .header-unit {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  header h1 span { color: var(--accent); }
+
+  .header-sub {
+    font-size: 1rem;
+    color: var(--fg-muted);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  /* ===== Fixed Top Navigation Bar ===== */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-title span { color: var(--accent); }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-speed-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .nav-speed-label svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-speed-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    transition: transform 0.15s ease;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .nav-speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    background: var(--accent-light);
+    transform: scale(1.02);
+  }
+
+  .complete-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* ===== Fixed Bottom Player Bar ===== */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .player-section-label {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-dim);
+    border-radius: 6px;
+    border: 1px solid rgba(0,113,227,0.15);
+  }
+
+  .player-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-light);
+    transform: scale(1.02);
+  }
+
+  .player-btn.active {
+    background: #1d1d1f;
+  }
+
+  .player-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .player-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .player-repeat-select {
+    padding: 6px 8px;
+    border: 1px solid rgba(0,113,227,0.15);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .player-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .player-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid rgba(0,113,227,0.15);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .player-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* Progress bar styles */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin: 28px 0 48px;
+    padding: 18px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .legend-dot.s { background: var(--color-s); }
+  .legend-dot.v { background: var(--color-v); }
+  .legend-dot.o { background: var(--color-o); }
+  .legend-dot.c { background: var(--color-c); }
+
+  .sentence-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+    position: relative;
+  }
+
+  .sentence-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+  }
+
+  .sentence-card.highlight {
+    background: rgba(0,113,227,0.08);
+    border-color: var(--accent);
+  }
+
+  .sentence-play-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s, transform 0.15s;
+    z-index: 5;
+    box-shadow: 0 1px 6px rgba(0,113,227,0.25);
+  }
+
+  .sentence-play-btn:hover {
+    background: var(--accent-light);
+    transform: scale(1.08);
+  }
+
+  .sentence-play-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: #ffffff;
+  }
+
+  .sentence-play-btn.playing {
+    animation: pulse-ring 1.2s ease-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(0,113,227,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); }
+  }
+
+  .card-num {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .tag-struct, .tag-special, .tag-func {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .tag-struct {
+    background: var(--tag-struct-bg);
+    border: 1px solid var(--tag-struct-border);
+    color: var(--tag-struct);
+  }
+
+  .tag-special {
+    background: var(--tag-special-bg);
+    border: 1px solid var(--tag-special-border);
+    color: var(--tag-special);
+  }
+
+  .tag-func {
+    background: var(--tag-func-bg);
+    border: 1px solid var(--tag-func-border);
+    color: var(--tag-func);
+  }
+
+  .en-sentence {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    margin-bottom: 16px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent);
+  }
+
+  .en-sentence .s {
+    color: var(--color-s);
+    background: var(--color-s-bg);
+    border-bottom: 2px solid var(--color-s-border);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .en-sentence .v {
+    color: var(--color-v);
+    background: var(--color-v-bg);
+    border-bottom: 2px solid var(--color-v-border);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .en-sentence .o {
+    color: var(--color-o);
+    background: var(--color-o-bg);
+    border-bottom: 2px solid var(--color-o-border);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .en-sentence .c {
+    color: var(--color-c);
+    background: var(--color-c-bg);
+    border-bottom: 2px solid var(--color-c-border);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .cn-translation {
+    font-size: 0.9rem;
+    color: var(--fg);
+    margin-bottom: 12px;
+    padding-left: 14px;
+    border-left: 2px solid var(--border);
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  .grammar-note {
+    font-size: 0.82rem;
+    color: var(--fg);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    line-height: 1.65;
+    opacity: 0.8;
+  }
+
+  .grammar-note::before {
+    content: 'Grammar';
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-right: 8px;
+    background: var(--accent-dim);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: var(--fg-muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 20px 12px 60px; }
+    .sentence-card { padding: 18px 16px; }
+    .en-sentence { padding: 12px 14px; font-size: 0.93rem; }
+    .legend { gap: 14px; padding: 14px 16px; }
+    header { padding: 32px 16px 24px; }
+    .top-nav { padding: 0 12px; }
+    .nav-title { font-size: 0.95rem; }
+    .nav-speed-slider { width: 70px; }
+    .complete-btn { padding: 6px 12px; font-size: 0.78rem; }
+    .bottom-player { padding: 0 12px; gap: 8px; }
+    .player-btn { padding: 6px 10px; font-size: 0.75rem; }
+    .player-section-label { font-size: 0.7rem; padding: 3px 8px; }
+    .player-repeat-select { font-size: 0.75rem; padding: 5px 6px; }
+    .player-loop-toggle { font-size: 0.75rem; padding: 5px 8px; }
+    .progress-bar-container { max-width: 120px; }
+    .sentence-play-btn { width: 28px; height: 28px; top: 14px; right: 14px; }
+    .sentence-play-btn svg { width: 12px; height: 12px; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-center { display: none; }
+    .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px; }
+    .progress-bar-container { order: -1; width: 100%; max-width: none; margin-bottom: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Fixed Top Navigation Bar ===== -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 6</span>
+    <span class="nav-title">句型汇总</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+<!-- ===== Fixed Bottom Player Bar ===== -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSectionLabel">句型区</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3" selected>3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <span class="progress-text" id="progressBarText">0 / 20</span>
+  </div>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+
+
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot s"></span> Subject 主语 (S)</div>
+    <div class="legend-item"><span class="legend-dot v"></span> Verb 谓语 (V)</div>
+    <div class="legend-item"><span class="legend-dot o"></span> Object 宾语 (O)</div>
+    <div class="legend-item"><span class="legend-dot c"></span> Complement 补语 (C)</div>
+  </div>
+
+  <!-- Sentence 1 -->
+  <div class="sentence-card" data-idx="1" data-src="../audio/unit6/sentence_01.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_01.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 01</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">These orebodies</span> will certainly <span class="v">require</span> <span class="o">shafts and levels and probably declines for access for machinery between levels</span>.
+    </div>
+    <div class="cn-translation">大型金属矿床需要竖井和水平巷道，同时在中段之间还可能开掘斜坡道方便机械设备上下转移。</div>
+    <div class="grammar-note">主语 These orebodies + 谓语 require + 宾语 shafts and levels...。will certainly 为助动词+副词修饰谓语，表示肯定推测。宾语为并列名词短语，declines 后接 for 短语作定语。</div>
+  </div>
+
+  <!-- Sentence 2 -->
+  <div class="sentence-card" data-idx="2" data-src="../audio/unit6/sentence_02.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_02.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 02</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      If one has to <span class="v">opt</span> for a modern development as typical, then <span class="s">Cobar Mines</span> <span class="v">is</span> probably very <span class="c">representative</span>.
+    </div>
+    <div class="cn-translation">如果要选择一个典型的现代矿山开拓实例，卡巴矿就是一个很好的代表。</div>
+    <div class="grammar-note">If 引导条件状语从句，主句为 SVC 结构（主系表）。opt for 意为"选择"，representative 为形容词作表语。probably very 为副词+程度副词修饰表语。</div>
+  </div>
+
+  <!-- Sentence 3 -->
+  <div class="sentence-card" data-idx="3" data-src="../audio/unit6/sentence_03.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_03.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 03</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Complex</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Its benefits</span> have been such to the company that before the metal price crisis of the mid-1970s <span class="s">Cobar</span> had <span class="v">deepened</span> both shafts and <span class="v">added</span> a third major haulage level.
+    </div>
+    <div class="cn-translation">矿山收益如此之大，以至于在20世纪70年代中期金属价格低迷之前，卡巴矿就已经延伸了竖井，并增设了第三个主运输中段。</div>
+    <div class="grammar-note">such...that... 为结果状语从句结构。主句为 SVC 结构，such 为表语。从句中 Cobar 为主语，had deepened 和 added 为并列谓语（过去完成时）。</div>
+  </div>
+
+  <!-- Sentence 4 -->
+  <div class="sentence-card" data-idx="4" data-src="../audio/unit6/sentence_04.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_04.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 04</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVP</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">The interval between levels</span> <span class="v">depends on</span> <span class="o">geology and size of orebody, strength of backs and walls, mining methods, life of ore passes, capital available, access for men, current technology, and surveying convenience</span>.
+    </div>
+    <div class="cn-translation">两中段之间的高度取决于矿床地质条件和矿床大小、矿床顶底板和侧面岩石强度、采矿方法、矿石溜井使用期限、资金量、人员通道、当前的技术水平和便于勘探等因素。</div>
+    <div class="grammar-note">主语 The interval between levels + 谓语 depends on（动词短语）+ 宾语（八个并列名词短语）。depends on 为固定搭配，意为"取决于"。宾语为复杂的并列结构。</div>
+  </div>
+
+  <!-- Sentence 5 -->
+  <div class="sentence-card" data-idx="5" data-src="../audio/unit6/sentence_05.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_05.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 05</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      A badly <span class="s">faulted and disturbed orebody</span> will <span class="v">need</span> <span class="o">many exploration levels and diamond drill holes</span>.
+    </div>
+    <div class="cn-translation">断层带错动的矿体需要在多个水平进行勘探和钻探来探明矿体。</div>
+    <div class="grammar-note">主语 faulted and disturbed orebody（形容词+并列形容词+名词）+ 谓语 will need + 宾语 many exploration levels...。faulted 和 disturbed 为过去分词作前置定语修饰 orebody。</div>
+  </div>
+
+  <!-- Sentence 6 -->
+  <div class="sentence-card" data-idx="6" data-src="../audio/unit6/sentence_06.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_06.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 06</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">A large orebody</span> which really consists of many scattered lenses of variable grade will have to be <span class="v">developed</span> with a close level interval and <span class="v">mined</span> selectively.
+    </div>
+    <div class="cn-translation">由多个分散的透镜状矿体组成的大型矿体的开拓水平之间的高度要降低，而且要进行选择性开采。</div>
+    <div class="grammar-note">主语 A large orebody + which 定语从句修饰 + 谓语 will have to be developed and mined（被动语态并列谓语）。with a close level interval 为方式状语，selectively 为副词修饰 mined。</div>
+  </div>
+
+  <!-- Sentence 7 -->
+  <div class="sentence-card" data-idx="7" data-src="../audio/unit6/sentence_07.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_07.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 07</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Size of orebody</span> will <span class="v">control</span> <span class="o">levels on a simple multiple basis</span>.
+    </div>
+    <div class="cn-translation">根据开拓水平高度和矿体延伸尺寸就可以确定矿床开拓水平数量。</div>
+    <div class="grammar-note">主语 Size of orebody + 谓语 will control + 宾语 levels。on a simple multiple basis 为介词短语作方式状语，说明控制的方式。</div>
+  </div>
+
+  <!-- Sentence 8 -->
+  <div class="sentence-card" data-idx="8" data-src="../audio/unit6/sentence_08.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_08.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 08</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Complex</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      If <span class="s">the orebody</span> <span class="v">is</span> 400m deep, even though a 180m level interval <span class="v">is</span> feasible, <span class="s">it</span> <span class="v">may be</span> conveniently <span class="v">split</span> into three.
+    </div>
+    <div class="cn-translation">如果矿体垂直延伸400m，尽管矿床开拓可以采用阶段高度180m，那么设计两个中段进行开拓就不能满足矿床开拓的需要，因此，需要设计成三个中段进行开拓。</div>
+    <div class="grammar-note">If 引导条件状语从句，even though 引导让步状语从句。主句为 SVO 结构，it 指代 orebody，may be split 为被动语态谓语，into three 为介词短语作结果状语。</div>
+  </div>
+
+  <!-- Sentence 9 -->
+  <div class="sentence-card" data-idx="9" data-src="../audio/unit6/sentence_09.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_09.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 09</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      A strong ore and strong <span class="s">country rock</span> <span class="v">enable</span> <span class="o">large open stopes to be worked</span>.
+    </div>
+    <div class="cn-translation">矿石与围岩强度大，则采场空间就大。</div>
+    <div class="grammar-note">主语 strong ore and strong country rock（并列名词短语）+ 谓语 enable + 宾语 large open stopes + to be worked（不定式作宾语补足语）。enable sb./sth. to do 为固定搭配。</div>
+  </div>
+
+  <!-- Sentence 10 -->
+  <div class="sentence-card" data-idx="10" data-src="../audio/unit6/sentence_10.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_10.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 10</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Stopes</span> should be <span class="v">worked</span> as high as possible because that <span class="v">reduce</span> the cost of drawpoints and chutes to a minimum for the mine.
+    </div>
+    <div class="cn-translation">采场高度也应该尽量大一些，因为采场的高度高，可以减少掘进出矿口和溜槽数量，从而降低成本。</div>
+    <div class="grammar-note">主句为被动语态 SVO 结构，should be worked。as high as possible 为方式状语。because 引导原因状语从句，从句中 that reduce... 为 SVO 结构，reduce... to a minimum 为固定搭配。</div>
+  </div>
+
+  <!-- Sentence 11 -->
+  <div class="sentence-card" data-idx="11" data-src="../audio/unit6/sentence_11.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_11.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 11</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Cut and fill methods</span> <span class="v">enable</span> <span class="o">large intervals to be obtained between levels</span>.
+    </div>
+    <div class="cn-translation">采用充填法采矿，可以增加中段高度。</div>
+    <div class="grammar-note">主语 Cut and fill methods + 谓语 enable + 宾语 large intervals + to be obtained（不定式被动式作宾语补足语）。between levels 为介词短语作定语修饰 intervals。</div>
+  </div>
+
+  <!-- Sentence 12 -->
+  <div class="sentence-card" data-idx="12" data-src="../audio/unit6/sentence_12.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_12.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 12</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Ring-drilled holes</span> must <span class="v">overlap</span> about 1.5 to 2m to obtain good fragmentation.
+    </div>
+    <div class="cn-translation">环形炮孔之间需要相互重叠约1.5~2m才能获得良好的破碎效果。</div>
+    <div class="grammar-note">主语 Ring-drilled holes（过去分词作定语）+ 谓语 must overlap + 宾语 about 1.5 to 2m。to obtain good fragmentation 为不定式作目的状语。</div>
+  </div>
+
+  <!-- Sentence 13 -->
+  <div class="sentence-card" data-idx="13" data-src="../audio/unit6/sentence_13.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_13.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 13</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Block caving</span> tends to <span class="v">increase</span> <span class="o">the spacing between levels</span>.
+    </div>
+    <div class="cn-translation">阶段崩落法的发展趋势是增加中段高度。</div>
+    <div class="grammar-note">主语 Block caving + 谓语 tends to increase（动词短语）+ 宾语 the spacing between levels。tends to 为固定搭配，意为"倾向于"。between levels 为介词短语作定语。</div>
+  </div>
+
+  <!-- Sentence 14 -->
+  <div class="sentence-card" data-idx="14" data-src="../audio/unit6/sentence_14.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_14.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 14</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">A level interval of 150 to 180m</span> <span class="v">is</span> easily <span class="c">attainable</span>.
+    </div>
+    <div class="cn-translation">中段高度可以达到150~180m。</div>
+    <div class="grammar-note">主语 A level interval of 150 to 180m + 系动词 is + 表语 attainable（形容词）。easily 为副词修饰 attainable。此句为 SVC 结构，表示状态的被动形式。</div>
+  </div>
+
+  <!-- Sentence 15 -->
+  <div class="sentence-card" data-idx="15" data-src="../audio/unit6/sentence_15.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_15.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 15</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      In most stopping methods <span class="s">ore</span> <span class="v">is drawn off</span> through an ore pass at some stage.
+    </div>
+    <div class="cn-translation">在大多数采矿方法中，矿石在某个阶段需要通过矿石溜井进行放矿。</div>
+    <div class="grammar-note">In most stopping methods 为介词短语作状语。主语 ore + 谓语 is drawn off（被动语态动词短语）+ through an ore pass 为方式状语 + at some stage 为时间状语。</div>
+  </div>
+
+  <!-- Sentence 16 -->
+  <div class="sentence-card" data-idx="16" data-src="../audio/unit6/sentence_16.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_16.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 16</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      Once the life of an ore pass has been determined in tonnes, <span class="s">the cost</span> can be <span class="v">determined</span>.
+    </div>
+    <div class="cn-translation">当溜井的使用寿命（以矿石吨数计算）确定后，就可以确定溜井间距与长度的成本。</div>
+    <div class="grammar-note">Once 引导时间状语从句，从句为被动语态。主句主语 the cost + 谓语 can be determined（被动语态）。此句为典型的科技英语被动句型。</div>
+  </div>
+
+  <!-- Sentence 17 -->
+  <div class="sentence-card" data-idx="17" data-src="../audio/unit6/sentence_17.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_17.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 17</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">The fewer the ore passes</span> in relation to tramming runs, <span class="v">the lower</span> <span class="o">the cost</span>.
+    </div>
+    <div class="cn-translation">溜井数量越少，运输距离越短，成本就越低。</div>
+    <div class="grammar-note">此句为 "the + 比较级..., the + 比较级..." 结构，表示"越...就越..."。前半部分为比较状语，后半部分为主句。in relation to tramming runs 为介词短语修饰 ore passes。</div>
+  </div>
+
+  <!-- Sentence 18 -->
+  <div class="sentence-card" data-idx="18" data-src="../audio/unit6/sentence_18.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_18.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 18</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Modal</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      If capital is difficult to raise, <span class="s">small equipment</span> will be <span class="v">used</span>.
+    </div>
+    <div class="cn-translation">如果资金筹措困难，则只能使用小型设备。</div>
+    <div class="grammar-note">If 引导条件状语从句。主句主语 small equipment + 谓语 will be used（被动语态）。difficult to raise 为形容词+不定式结构作表语。</div>
+  </div>
+
+  <!-- Sentence 19 -->
+  <div class="sentence-card" data-idx="19" data-src="../audio/unit6/sentence_19.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_19.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 19</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">High capital expenditure</span> has to be <span class="v">justified</span> by large outputs.
+    </div>
+    <div class="cn-translation">高资本投入需要大规模生产来证明其合理性。</div>
+    <div class="grammar-note">主语 High capital expenditure + 谓语 has to be justified（情态动词+被动语态）+ by large outputs 为方式状语（动作执行者）。justify 意为"证明...是合理的"。</div>
+  </div>
+
+  <!-- Sentence 20 -->
+  <div class="sentence-card" data-idx="20" data-src="../audio/unit6/sentence_20.mp3">
+    <button class="sentence-play-btn" data-audio="../audio/unit6/sentence_20.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">Sentence 20</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Raise-bored holes</span> of 300m or more between levels <span class="v">are</span> <span class="c">feasible</span>.
+    </div>
+    <div class="cn-translation">300m或更长的天井钻进已成为可行。</div>
+    <div class="grammar-note">主语 Raise-bored holes + of 300m or more between levels（介词短语作定语）+ 系动词 are + 表语 feasible（形容词）。此句为 SVC 结构，表示状态的可行性。</div>
+  </div>
+
+  <footer>
+    Unit 6 Mine Development of Large Metalliferous Orebodies &mdash; 采矿专业英语句型汇总
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  // ===== Global Speed Control =====
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = currentSpeed;
+    }
+  });
+
+  // ===== Audio State =====
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingCard = null;
+
+  // Unified continuous play state
+  var playState = {
+    playing: false,
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 3,
+    currentRepeat: 1
+  };
+
+  // ===== Get all sentence cards =====
+  function getAllCards() {
+    return document.querySelectorAll('.sentence-card[data-idx]');
+  }
+
+  // ===== Play a single card =====
+  window.toggleSentenceAudio = function(btn) {
+    var card = btn.closest('.sentence-card');
+    var src = btn.getAttribute('data-audio');
+
+    // Stop continuous play if active
+    if (playState.playing) {
+      stopContinuousPlay();
+    }
+
+    // Stop any currently playing audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+    }
+
+    // Create and play new audio
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.classList.add('playing');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    currentAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+    });
+  };
+
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
+      return;
+    }
+
+    // Start continuous play
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+    playState.repeatCount = parseInt(document.getElementById('repeatCount').value);
+    playState.loop = document.getElementById('loopBtn').classList.contains('on');
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    // Stop current audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+    }
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+
+    // Reset progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / 20';
+    }
+  };
+
+  // ===== Play Next in Sequence =====
+  function playNextInSequence() {
+    var cards = getAllCards();
+
+    if (playState.currentIndex >= cards.length) {
+      // One round complete
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        // Done with all
+        stopContinuousPlay();
+        return;
+      }
+    }
+
+    if (playState.currentIndex >= cards.length) {
+      stopContinuousPlay();
+      return;
+    }
+
+    var card = cards[playState.currentIndex];
+    var btn = card.querySelector('.sentence-play-btn');
+    var src = card.getAttribute('data-src');
+
+    // Update progress
+    updateProgress(cards.length);
+
+    // Stop any currently playing
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+    }
+
+    // Play
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    if (btn) {
+      btn.classList.add('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
+    }
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    // Scroll into view
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      if (btn) {
+        btn.classList.remove('playing');
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
+      }
+    });
+  }
+
+  // ===== Update Progress =====
+  function updateProgress(total) {
+    var currentIdx = playState.currentIndex + 1;
+
+    // Update progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
+
+    // Update section label
+    var sectionLabel = document.getElementById('currentSectionLabel');
+    if (sectionLabel) {
+      sectionLabel.textContent = 'Sentence ' + String(playState.currentIndex + 1).padStart(2, '0');
+    }
+  }
+
+  // ===== Toggle Loop =====
+  window.toggleLoop = function() {
+    var btn = document.getElementById('loopBtn');
+    playState.loop = !playState.loop;
+    if (playState.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
+  };
+
+  // ===== Update Repeat Count =====
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  // ===== Mark Complete =====
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('sentence', 'unit6');
+    }
+    alert('句型汇总学习已完成！');
+  };
+})();
+</script>
+<script src="../studyTracker.js"></script>
+</body>
+</html>

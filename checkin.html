@@ -499,7 +499,7 @@ body {
 <body>
 
 <header class="header">
-  <button class="header-back" onclick="goBack()">← 返回课程</button>
+  <a class="header-back" href="main.html">← 返回主页</a>
   <span class="header-title">学习打卡</span>
 </header>
 
@@ -561,12 +561,6 @@ body {
       <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
     </div>
     <div class="calendar-grid" id="calendarGrid"></div>
-  </div>
-
-  <!-- Unit Progress -->
-  <div class="progress-card">
-    <div class="progress-title">单元学习进度</div>
-    <div class="progress-list" id="progressList"></div>
   </div>
 
   <!-- Settings -->
@@ -635,7 +629,6 @@ function init() {
   startTimer();
   checkReminder();
   renderCalendar();
-  renderProgress();
   checkNotifyStatus();
   
   if (!userData.name) {
@@ -796,53 +789,6 @@ function renderCalendar() {
   }
 }
 
-// ===== Progress =====
-function renderProgress() {
-  const list = document.getElementById('progressList');
-  list.innerHTML = '';
-  
-  const units = [
-    { num: 1, name: 'Geological Terminology' },
-    { num: 2, name: 'Mining Terminology' },
-    { num: 3, name: 'Underground Mine Development' },
-    { num: 4, name: 'Factors Which Require A Shaft' },
-    { num: 5, name: 'Location of Access Relative to Orebodies' },
-    { num: 6, name: 'Mine Development of Large Metalliferous Orebodies' },
-    { num: 7, name: 'Underground Metalliferous Mining' },
-    { num: 8, name: 'Room and Pillar Mining' },
-    { num: 9, name: 'Stope and Pillar Mining' },
-    { num: 10, name: 'Shrinkage Stopping' },
-    { num: 11, name: 'Sublevel Stopping' },
-    { num: 12, name: 'Supported Methods' },
-    { num: 13, name: 'Caving Methods' },
-    { num: 14, name: 'Mine Ventilation' },
-    { num: 15, name: 'The History of Surface Mining' },
-    { num: 16, name: 'Planning and Design of Surface Mines' },
-    { num: 17, name: 'Ultimate Pit Definition' },
-    { num: 18, name: 'Open Pit Optimization' },
-    { num: 19, name: 'Materials Handling and Waste Disposal' },
-    { num: 20, name: 'Drilling' },
-    { num: 21, name: 'Blasting' }
-  ];
-  
-  units.forEach(u => {
-    const p = userData.unitProgress[u.num] || { vocab: false, reading: false, dialogue: false, sentences: false };
-    const done = [p.vocab, p.reading, p.dialogue, p.sentences].filter(Boolean).length;
-    
-    const item = document.createElement('div');
-    item.className = 'progress-item';
-    item.innerHTML = `
-      <div class="progress-num">${String(u.num).padStart(2,'0')}</div>
-      <div class="progress-info">
-        <div class="progress-name">${u.name}</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:${done*25}%"></div></div>
-      </div>
-      <div class="progress-count">${done}/4</div>
-    `;
-    list.appendChild(item);
-  });
-}
-
 // ===== Reminder =====
 function checkReminder() {
   const today = getTodayStr();
@@ -964,7 +910,6 @@ function doImport() {
       saveData();
       updateUI();
       renderCalendar();
-      renderProgress();
       document.getElementById('importModal').classList.remove('open');
       alert('导入成功！');
     } catch (err) {

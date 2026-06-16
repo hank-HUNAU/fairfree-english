@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 7 Underground Metalliferous Mining — 句型汇总</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --bg-card: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --subject-color: #0071e3;
+    --verb-color: #ff3b30;
+    --object-color: #34c759;
+    --complement-color: #af52de;
+    --svo-bg: rgba(0,113,227,0.08);
+    --svp-bg: rgba(255,149,0,0.08);
+    --svc-bg: rgba(175,82,222,0.08);
+    --passive-bg: rgba(255,59,48,0.08);
+    --complex-bg: rgba(52,199,89,0.08);
+    --modal-bg: rgba(90,200,250,0.08);
+    --header-height: 60px;
+    --footer-height: 56px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; min-height: 100vh; padding-top: var(--header-height); padding-bottom: var(--footer-height); }
+  .container { max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; }
+  header { text-align: center; margin-bottom: 48px; padding: 48px 20px 36px; }
+  .header-unit { font-size: 0.82rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  header h1 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); font-weight: 700; color: var(--fg); margin-bottom: 8px; }
+  header h1 span { color: var(--accent); }
+  .header-sub { font-size: 1rem; color: var(--fg-muted); margin-top: 6px; }
+
+  /* ===== Fixed Top Navigation Bar ===== */
+  .top-nav { position: fixed; top: 0; left: 0; right: 0; height: var(--header-height); background: rgba(245,245,247,0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+  .nav-left { display: flex; align-items: center; gap: 16px; }
+  .nav-unit { font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
+  .nav-title { font-size: 1.1rem; font-weight: 700; color: var(--fg); letter-spacing: -0.02em; }
+  .nav-title span { color: var(--accent); }
+  .nav-center { display: flex; align-items: center; gap: 12px; }
+  .nav-speed-label { font-size: 0.78rem; color: var(--fg-muted); display: flex; align-items: center; gap: 6px; font-weight: 500; }
+  .nav-speed-label svg { width: 14px; height: 14px; }
+  .nav-speed-slider { -webkit-appearance: none; appearance: none; width: 100px; height: 4px; background: rgba(0,0,0,0.08); border-radius: 2px; outline: none; cursor: pointer; }
+  .nav-speed-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; border: none; box-shadow: 0 1px 4px rgba(0,113,227,0.3); transition: transform 0.15s ease; }
+  .nav-speed-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .nav-speed-value { color: var(--accent); font-weight: 700; font-size: 0.85rem; min-width: 32px; text-align: center; }
+  .nav-right { display: flex; align-items: center; }
+  .complete-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; background: var(--accent); color: #fff; }
+  .complete-btn:hover { background: var(--accent-hover); transform: scale(1.02); }
+  .complete-btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+  /* ===== Fixed Bottom Player Bar ===== */
+  .bottom-player { position: fixed; bottom: 0; left: 0; right: 0; height: var(--footer-height); background: rgba(245,245,247,0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-top: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 0 24px; }
+  .player-section-label { font-size: 0.75rem; color: var(--fg-muted); font-weight: 600; padding: 4px 10px; background: var(--accent-light); border-radius: 6px; border: 1px solid var(--accent-border); }
+  .player-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 8px 14px; border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; background: var(--accent); color: #fff; }
+  .player-btn:hover { background: var(--accent-hover); transform: scale(1.02); }
+  .player-btn.active { background: #1d1d1f; }
+  .player-btn svg { width: 12px; height: 12px; fill: currentColor; }
+  .player-label { font-size: 0.78rem; color: var(--fg-muted); font-weight: 500; }
+  .player-repeat-select { padding: 6px 8px; border: 1px solid var(--accent-border); border-radius: 8px; background: #fff; font-size: 0.78rem; font-weight: 500; color: var(--fg); cursor: pointer; font-family: inherit; outline: none; }
+  .player-repeat-select:focus { border-color: var(--accent); }
+  .player-loop-toggle { display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; border: 1px solid var(--accent-border); border-radius: 8px; background: #fff; font-size: 0.78rem; font-weight: 500; color: var(--fg-muted); cursor: pointer; transition: all 0.2s; font-family: inherit; }
+  .player-loop-toggle.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .progress-bar-container { display: flex; align-items: center; gap: 8px; flex: 1; max-width: 200px; }
+  .progress-bar { width: 100%; height: 4px; background: rgba(0,0,0,0.08); border-radius: 2px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s ease; width: 0%; }
+  .progress-text { font-size: 0.78rem; color: var(--fg-muted); font-weight: 500; white-space: nowrap; }
+
+  .tag-legend { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 28px 0 48px; padding: 18px 24px; background: var(--bg-card); border: 1px solid var(--border-solid); border-radius: var(--radius-card); box-shadow: var(--shadow); }
+  .tag-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--fg-muted); }
+  .tag-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .tag-dot.subject { background: var(--subject-color); }
+  .tag-dot.verb { background: var(--verb-color); }
+  .tag-dot.object { background: var(--object-color); }
+  .tag-dot.complement { background: var(--complement-color); }
+
+  .sentence-card { background: var(--bg-card); border: 1px solid var(--border-solid); border-radius: var(--radius-card); box-shadow: var(--shadow); margin-bottom: 24px; padding: 20px 24px; transition: box-shadow 0.3s ease; position: relative; }
+  .sentence-card:hover { box-shadow: var(--shadow-hover); }
+  .sentence-card.highlight { background: rgba(0,113,227,0.08); border-color: var(--accent); }
+  .sentence-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .sentence-num { background: var(--accent); color: #fff; width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+  .tag.struct { background: var(--svo-bg); border: 1px solid var(--accent-border); color: var(--accent); }
+  .tag.svo { background: var(--svo-bg); color: var(--accent); }
+  .tag.svp { background: var(--svp-bg); color: #ff9500; }
+  .tag.svc { background: var(--svc-bg); color: #af52de; }
+  .tag.passive { background: var(--passive-bg); color: #ff3b30; }
+  .tag.complex { background: var(--complex-bg); color: #34c759; }
+  .tag.modal { background: var(--modal-bg); color: #5ac8fa; }
+  .tag.func { background: rgba(0,0,0,0.06); color: var(--fg-muted); }
+  .tag.func.pos { background: rgba(52,199,89,0.08); color: #34c759; }
+  .tag.func.neg { background: rgba(255,59,48,0.08); color: #ff3b30; }
+  .sentence-en { font-size: 1rem; line-height: 1.85; color: var(--fg); margin-bottom: 12px; }
+  .sentence-en .subject { color: var(--subject-color); font-weight: 600; }
+  .sentence-en .verb { color: var(--verb-color); font-weight: 600; }
+  .sentence-en .object { color: var(--object-color); font-weight: 600; }
+  .sentence-en .complement { color: var(--complement-color); font-weight: 600; }
+  .sentence-cn { font-size: 0.9rem; line-height: 1.6; color: var(--fg-muted); margin-bottom: 12px; padding-left: 12px; border-left: 2px solid var(--accent-border); }
+  .grammar-box { background: rgba(0,0,0,0.02); border: 1px solid var(--border-solid); border-radius: 8px; padding: 12px 16px; margin-top: 12px; }
+  .grammar-title { font-size: 0.78rem; font-weight: 600; color: var(--fg-muted); margin-bottom: 6px; }
+  .grammar-text { font-size: 0.85rem; line-height: 1.6; color: var(--fg); }
+  .btn-row { display: flex; gap: 10px; margin-top: 16px; }
+  .play-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 16px; border: none; border-radius: var(--radius-btn); font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; background: var(--accent); color: #fff; }
+  .play-btn:hover { background: var(--accent-hover); transform: scale(1.02); }
+  .play-btn svg { width: 14px; height: 14px; fill: currentColor; }
+  .play-btn.playing { animation: pulse-ring 1.2s ease-out infinite; }
+  @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.4); } 70% { box-shadow: 0 0 0 8px rgba(0,113,227,0); } 100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); } }
+  footer { text-align: center; padding: 36px 20px; color: var(--fg-muted); font-size: 0.78rem; border-top: 1px solid var(--border-solid); margin-top: 24px; }
+
+  @media (max-width: 768px) { .container { padding: 20px 12px 60px; } .sentence-card { padding: 16px 14px; } .sentence-en { font-size: 0.92rem; } .sentence-cn { font-size: 0.85rem; } .tag { padding: 3px 8px; font-size: 0.7rem; } .top-nav { padding: 0 12px; } .nav-title { font-size: 0.95rem; } .nav-speed-slider { width: 70px; } .complete-btn { padding: 6px 12px; font-size: 0.78rem; } .bottom-player { padding: 0 12px; gap: 8px; } .player-btn { padding: 6px 10px; font-size: 0.75rem; } .player-section-label { font-size: 0.7rem; padding: 3px 8px; } .player-repeat-select { font-size: 0.75rem; padding: 5px 6px; } .player-loop-toggle { font-size: 0.75rem; padding: 5px 8px; } .progress-bar-container { max-width: 120px; } }
+  @media (max-width: 480px) { .nav-center { display: none; } .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px; } .progress-bar-container { order: -1; width: 100%; max-width: none; margin-bottom: 4px; } }
+</style>
+</head>
+<body>
+
+<!-- ===== Fixed Top Navigation Bar ===== -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 7</span>
+    <span class="nav-title">句型汇总</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+<!-- ===== Fixed Bottom Player Bar ===== -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSectionLabel">句型区</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3" selected>3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <span class="progress-text" id="progressBarText">0 / 10</span>
+  </div>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+
+
+
+  <div class="tag-legend">
+    <div class="tag-legend-item"><span class="tag-dot subject"></span> Subject</div>
+    <div class="tag-legend-item"><span class="tag-dot verb"></span> Verb</div>
+    <div class="tag-legend-item"><span class="tag-dot object"></span> Object</div>
+    <div class="tag-legend-item"><span class="tag-dot complement"></span> Complement</div>
+  </div>
+
+  <div class="sentence-card" data-idx="1" data-src="../audio/unit7/sentence_01.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">1</span>
+      <div class="tag-row"><span class="tag struct">SVO</span><span class="tag func pos">Decl+</span></div>
+    </div>
+    <div class="sentence-en">This chapter will deal with orebodies that have significant vertical dimensions.</div>
+    <div class="sentence-cn">本章讲述垂直延伸矿体的开采。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 This chapter + 谓语 will deal with + 宾语 orebodies。that引导定语从句。</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_01.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <div class="sentence-card" data-idx="2" data-src="../audio/unit7/sentence_02.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">2</span>
+      <div class="tag-row"><span class="tag struct">SV</span><span class="tag func pos">Decl+</span></div>
+    </div>
+    <div class="sentence-en">Mining proceeds upwards in overhand stopping, or downwards in underhand stopping.</div>
+    <div class="sentence-cn">采矿作业可以采用上向式开采，也可以采用下向式开采。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 Mining + 谓语 proceeds。upwards/downwards为副词。</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_02.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <div class="sentence-card" data-idx="3" data-src="../audio/unit7/sentence_03.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">3</span>
+      <div class="tag-row"><span class="tag struct">SVO</span><span class="tag passive">Passive</span><span class="tag func pos">Decl+</span></div>
+    </div>
+    <div class="sentence-en">Steeply inclined thin orebodies are worked on these general methods.</div>
+    <div class="sentence-cn">急倾斜矿体可以采用这样的开采方法。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 Steeply inclined thin orebodies + 谓语 are worked（被动语态）。</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_03.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <div class="sentence-card" data-idx="4" data-src="../audio/unit7/sentence_04.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">4</span>
+      <div class="tag-row"><span class="tag struct">SVO</span><span class="tag passive">Passive</span><span class="tag func pos">Decl+</span></div>
+    </div>
+    <div class="sentence-en">Underground mining methods are categorized in three classes.</div>
+    <div class="sentence-cn">地下开采方法分为三大类。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 Underground mining methods + 谓语 are categorized（被动语态）。</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_04.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <div class="sentence-card" data-idx="5" data-src="../audio/unit7/sentence_05.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">5</span>
+      <div class="tag-row"><span class="tag struct">SVO</span><span class="tag complex">Complex</span><span class="tag func pos">Decl+</span></div>
+    </div>
+    <div class="sentence-en">The unsupported class consists of those methods which are essentially self-supporting.</div>
+    <div class="sentence-cn">空场法主要包括几种采矿法，这几种空场采矿法基本靠自身支撑地压。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 The unsupported class + 谓语 consists of + 宾语 those methods。which引导定语从句。</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_05.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <div class="sentence-card" data-idx="6" data-src="../audio/unit7/sentence_06.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">6</span>
+      <div class="tag-row"><span class="tag struct">SVO</span><span class="tag passive">Passive</span><span class="tag func pos">Decl+</span></div>
+    </div>
+    <div class="sentence-en">The superincumbent load is comprised of the weight of the overburden.</div>
+    <div class="sentence-cn">采场上部荷载是由上覆岩层自重组成。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 The superincumbent load + 谓语 is comprised of（被动语态动词短语）。</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_06.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <div class="sentence-card" data-idx="7" data-src="../audio/unit7/sentence_07.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">7</span>
+      <div class="tag-row"><span class="tag struct">SVO</span><span class="tag func pos">Decl+</span></div>
+    </div>
+    <div class="sentence-en">The unsupported class accounts for over 80% of U.S. mineral production.</div>
+    <div class="sentence-cn">空场法占美国地下矿产产量的80%以上。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 The unsupported class + 谓语 accounts for + 宾语 over 80%...</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_07.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <div class="sentence-card" data-idx="8" data-src="../audio/unit7/sentence_08.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">8</span>
+      <div class="tag-row"><span class="tag struct">SVC</span><span class="tag func pos">Decl+</span></div>
+    </div>
+    <div class="sentence-en">Room and pillar mining is one of the unsupported methods.</div>
+    <div class="sentence-cn">房柱法是空场法之一。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 Room and pillar mining + 系动词 is + 表语 one of the unsupported methods。</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_08.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <div class="sentence-card" data-idx="9" data-src="../audio/unit7/sentence_09.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">9</span>
+      <div class="tag-row"><span class="tag struct">SVO</span><span class="tag func neg">Decl-</span></div>
+    </div>
+    <div class="sentence-en">The definition does not preclude the use of rock bolts.</div>
+    <div class="sentence-cn">定义没有排除使用岩石锚杆。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 The definition + 谓语 does not preclude + 宾语 the use of rock bolts。</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_09.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <div class="sentence-card" data-idx="10" data-src="../audio/unit7/sentence_10.mp3">
+    <div class="sentence-header">
+      <span class="sentence-num">10</span>
+      <div class="tag-row"><span class="tag struct">SVO</span><span class="tag passive">Passive</span><span class="tag func pos">Decl+</span></div>
+    </div>
+    <div class="sentence-en">These methods can be used in any type of mineral deposit.</div>
+    <div class="sentence-cn">这些方法可以用于任何类型的矿床。</div>
+    <div class="grammar-box">
+      <div class="grammar-title">Grammar Analysis</div>
+      <div class="grammar-text">主语 These methods + 谓语 can be used（情态动词+被动语态）。</div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" data-audio="../audio/unit7/sentence_10.mp3" onclick="toggleSentenceAudio(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+    </div>
+  </div>
+
+  <footer>Unit 7 Underground Metalliferous Mining &mdash; Sentence Patterns &copy; 采矿专业英语</footer>
+
+</div>
+
+<script>
+(function() {
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingCard = null;
+
+  var playState = {
+    playing: false,
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 3,
+    currentRepeat: 1
+  };
+
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) currentAudio.playbackRate = currentSpeed;
+  });
+
+  function getAllCards() {
+    return document.querySelectorAll('.sentence-card[data-idx]');
+  }
+
+  window.toggleSentenceAudio = function(btn) {
+    var card = btn.closest('.sentence-card');
+    var src = btn.getAttribute('data-audio');
+
+    if (playState.playing) stopContinuousPlay();
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 播放';
+      }
+      if (currentPlayingCard) currentPlayingCard.classList.remove('highlight');
+    }
+
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.classList.add('playing');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 播放中';
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    currentAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 播放';
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+    });
+  };
+
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) { stopContinuousPlay(); return; }
+
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+    playState.repeatCount = parseInt(document.getElementById('repeatCount').value);
+    playState.loop = document.getElementById('loopBtn').classList.contains('on');
+
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 播放';
+      }
+      if (currentPlayingCard) currentPlayingCard.classList.remove('highlight');
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+    }
+
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / 10';
+    }
+  };
+
+  function playNextInSequence() {
+    var cards = getAllCards();
+
+    if (playState.currentIndex >= cards.length) {
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        stopContinuousPlay();
+        return;
+      }
+    }
+
+    if (playState.currentIndex >= cards.length) { stopContinuousPlay(); return; }
+
+    var card = cards[playState.currentIndex];
+    var btn = card.querySelector('.play-btn');
+    var src = card.getAttribute('data-src');
+
+    updateProgress(cards.length);
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 播放';
+      }
+      if (currentPlayingCard) currentPlayingCard.classList.remove('highlight');
+    }
+
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    if (btn) {
+      btn.classList.add('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg> 播放中';
+    }
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      if (btn) {
+        btn.classList.remove('playing');
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 播放';
+      }
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) playNextInSequence();
+    });
+  }
+
+  function updateProgress(total) {
+    var currentIdx = playState.currentIndex + 1;
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
+
+    var sectionLabel = document.getElementById('currentSectionLabel');
+    if (sectionLabel) {
+      sectionLabel.textContent = 'Sentence ' + String(playState.currentIndex + 1).padStart(2, '0');
+    }
+  }
+
+  window.toggleLoop = function() {
+    var btn = document.getElementById('loopBtn');
+    playState.loop = !playState.loop;
+    if (playState.loop) btn.classList.add('on');
+    else btn.classList.remove('on');
+  };
+
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('sentence', 'unit7');
+    }
+    alert('句型汇总学习已完成！');
+  };
+})();
+</script>
+<script src="../studyTracker.js"></script>
+</body>
+</html>

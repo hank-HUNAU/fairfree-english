@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3 地下矿山开拓 — 情境会话</title>
+<style>
+
+ :root {
+ --bg: #f5f5f7;
+ --card-bg: #ffffff;
+ --fg: #1d1d1f;
+ --fg-muted: #86868b;
+ --accent: #0071e3;
+ --accent-hover: #0077ed;
+ --accent-light: rgba(0,113,227,0.08);
+ --accent-border: rgba(0,113,227,0.15);
+ --border: rgba(0,0,0,0.06);
+ --border-solid: #e8e8ed;
+ --shadow: 0 2px 12px rgba(0,0,0,0.06);
+ --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+ --radius-card: 16px;
+ --radius-btn: 10px;
+ --radius-bubble: 18px;
+ --dr-color: #34c759;
+ --dr-bg: rgba(52,199,89,0.08);
+ --mr-color: #0071e3;
+ --mr-bg: rgba(0,113,227,0.08);
+ --vocab-color: #0071e3;
+ --vocab-bg: rgba(0,113,227,0.08);
+ --vocab-border: rgba(0,113,227,0.2);
+ --header-height: 60px;
+ --footer-height: 56px;
+ }
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; min-height: 100vh; }
+ .container { max-width: 920px; margin: 0 auto; padding: calc(var(--header-height) + 20px) 20px calc(var(--footer-height) + 24px); position: relative; z-index: 1; }
+ header { text-align: center; margin-bottom: 48px; padding: 48px 20px 36px; }
+ .header-unit { font-size: 0.82rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+ header h1 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); font-weight: 700; color: var(--fg); margin-bottom: 8px; }
+ header h1 span { color: var(--accent); }
+ .header-sub { font-size: 1rem; color: var(--fg-muted); margin-top: 6px; }
+ .speed-control-bar { position: sticky; top: 0; z-index: 100; background: rgba(245,245,247,0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 24px; }
+ .speed-control-bar label { font-size: 0.85rem; color: var(--fg-muted); display: flex; align-items: center; gap: 8px; font-weight: 500; }
+ .speed-control-bar .speed-value { color: var(--accent); font-weight: 700; min-width: 36px; }
+ .speed-control-bar input[type="range"] { -webkit-appearance: none; width: 140px; height: 4px; background: rgba(0,0,0,0.08); border-radius: 2px; cursor: pointer; }
+ .speed-control-bar input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+ .scene-card { background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: var(--radius-card); box-shadow: var(--shadow); margin-bottom: 32px; padding: 24px 28px; }
+ .scene-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-solid); }
+ .scene-icon { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
+ .scene-title { font-size: 1.15rem; font-weight: 700; color: var(--fg); }
+ .scene-desc { font-size: 0.85rem; color: var(--fg-muted); margin-top: 4px; }
+ .dialogue-container { display: flex; flex-direction: column; gap: 16px; }
+ .dialogue-line { display: flex; gap: 12px; align-items: flex-start; }
+ .dialogue-line.dr { flex-direction: row; }
+ .dialogue-line.mr { flex-direction: row-reverse; }
+ .speaker-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+ .dialogue-line.dr .speaker-avatar { background: var(--dr-bg); color: var(--dr-color); border: 1px solid rgba(52,199,89,0.2); }
+ .dialogue-line.mr .speaker-avatar { background: var(--mr-bg); color: var(--mr-color); border: 1px solid rgba(0,113,227,0.2); }
+ .bubble { max-width: 70%; padding: 12px 16px; border-radius: var(--radius-bubble); position: relative; }
+ .dialogue-line.dr .bubble { background: var(--dr-bg); border: 1px solid rgba(52,199,89,0.15); }
+ .dialogue-line.mr .bubble { background: var(--mr-bg); border: 1px solid rgba(0,113,227,0.15); }
+ .bubble-en { font-size: 0.95rem; line-height: 1.7; color: var(--fg); margin-bottom: 6px; }
+ .bubble-cn { font-size: 0.82rem; color: var(--fg-muted); line-height: 1.5; }
+ .vocab { color: var(--vocab-color); background: var(--vocab-bg); border-bottom: 2px solid var(--vocab-border); padding: 1px 5px; border-radius: 4px; font-weight: 600; cursor: pointer; position: relative; }
+ .vocab .tip { display: none; position: absolute; bottom: 100%; left: 0; background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: 8px; padding: 8px 12px; font-size: 0.82rem; color: var(--fg); white-space: nowrap; box-shadow: var(--shadow); z-index: 10; }
+ .vocab:hover .tip { display: block; }
+ .bubble-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; margin-top: 8px; }
+ .bubble-btn svg { width: 12px; height: 12px; fill: #fff; }
+ .key-vocab { margin-top: 20px; padding: 16px 20px; background: rgba(0,0,0,0.02); border-radius: var(--radius-btn); }
+ .key-vocab-title { font-size: 0.85rem; font-weight: 600; color: var(--fg-muted); margin-bottom: 12px; }
+ .key-vocab-list { display: flex; flex-wrap: wrap; gap: 8px; }
+ .key-vocab-item { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: 8px; font-size: 0.82rem; color: var(--fg); }
+ .key-vocab-play { width: 20px; height: 20px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+ .key-vocab-play svg { width: 10px; height: 10px; fill: #fff; }
+ footer { text-align: center; padding: 36px 20px; color: var(--fg-muted); font-size: 0.78rem; border-top: 1px solid var(--border-solid); margin-top: 16px; }
+ @media (max-width: 768px) { .container { padding: 20px 12px 60px; } .scene-card { padding: 18px 16px; } .bubble { max-width: 85%; padding: 10px 12px; } .bubble-en { font-size: 0.88rem; } .bubble-cn { font-size: 0.78rem; } }
+
+
+ 
+
+ /* ===== Fixed Top Navigation Bar ===== */
+ .top-nav {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ height: var(--header-height);
+ background: rgba(245,245,247,0.8);
+ backdrop-filter: saturate(180%) blur(20px);
+ -webkit-backdrop-filter: saturate(180%) blur(20px);
+ border-bottom: 1px solid var(--border);
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 24px;
+ }
+
+ .nav-left {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ }
+
+ .nav-unit {
+ font-size: 0.75rem;
+ font-weight: 600;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--accent);
+ }
+
+ .nav-title {
+ font-size: 1.1rem;
+ font-weight: 700;
+ color: var(--fg);
+ letter-spacing: -0.02em;
+ }
+
+ .nav-title span { color: var(--accent); }
+
+ .nav-center {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ }
+
+ .nav-speed-label {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ display: flex;
+ align-items: center;
+ gap: 6px;
+ font-weight: 500;
+ }
+
+ .nav-speed-label svg {
+ width: 14px;
+ height: 14px;
+ }
+
+ .nav-speed-slider {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 100px;
+ height: 4px;
+ background: rgba(0,0,0,0.08);
+ border-radius: 2px;
+ outline: none;
+ cursor: pointer;
+ }
+
+ .nav-speed-slider::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 16px;
+ height: 16px;
+ border-radius: 50%;
+ background: var(--accent);
+ cursor: pointer;
+ border: none;
+ box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+ transition: transform 0.15s ease;
+ }
+
+ .nav-speed-slider::-webkit-slider-thumb:hover {
+ transform: scale(1.15);
+ }
+
+ .nav-speed-value {
+ color: var(--accent);
+ font-weight: 700;
+ font-size: 0.85rem;
+ min-width: 32px;
+ text-align: center;
+ }
+
+ .nav-right {
+ display: flex;
+ align-items: center;
+ }
+
+ .complete-btn {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ padding: 8px 16px;
+ border: none;
+ border-radius: 8px;
+ font-size: 0.85rem;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s, transform 0.15s;
+ font-family: inherit;
+ background: var(--accent);
+ color: #fff;
+ }
+
+ .complete-btn:hover {
+ background: var(--accent-hover);
+ transform: scale(1.02);
+ }
+
+ .complete-btn svg {
+ width: 14px;
+ height: 14px;
+ fill: currentColor;
+ }
+
+ /* ===== Fixed Bottom Player Bar ===== */
+ .bottom-player {
+ position: fixed;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ height: var(--footer-height);
+ background: rgba(245,245,247,0.8);
+ backdrop-filter: saturate(180%) blur(20px);
+ -webkit-backdrop-filter: saturate(180%) blur(20px);
+ border-top: 1px solid var(--border);
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 12px;
+ padding: 0 24px;
+ }
+
+ .player-section-label {
+ font-size: 0.75rem;
+ color: var(--fg-muted);
+ font-weight: 600;
+ padding: 4px 10px;
+ background: var(--accent-light);
+ border-radius: 6px;
+ border: 1px solid var(--accent-border);
+ }
+
+ .player-btn {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 5px;
+ padding: 8px 14px;
+ border: none;
+ border-radius: 8px;
+ font-size: 0.8rem;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s, transform 0.15s;
+ font-family: inherit;
+ background: var(--accent);
+ color: #fff;
+ }
+
+ .player-btn:hover {
+ background: var(--accent-hover);
+ transform: scale(1.02);
+ }
+
+ .player-btn.active {
+ background: #1d1d1f;
+ }
+
+ .player-btn svg {
+ width: 12px;
+ height: 12px;
+ fill: currentColor;
+ }
+
+ .player-label {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ }
+
+ .player-repeat-select {
+ padding: 6px 8px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg);
+ cursor: pointer;
+ font-family: inherit;
+ outline: none;
+ }
+
+ .player-repeat-select:focus {
+ border-color: var(--accent);
+ }
+
+ .player-loop-toggle {
+ display: inline-flex;
+ align-items: center;
+ gap: 4px;
+ padding: 6px 10px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg-muted);
+ cursor: pointer;
+ transition: all 0.2s;
+ font-family: inherit;
+ }
+
+ .player-loop-toggle.on {
+ background: var(--accent);
+ color: #fff;
+ border-color: var(--accent);
+ }
+
+ .player-progress {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ min-width: 80px;
+ text-align: center;
+ }
+
+ .player-progress .current-num {
+ color: var(--accent);
+ font-weight: 700;
+ }
+
+ /* Progress bar styles */
+ .progress-bar-container {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ flex: 1;
+ max-width: 200px;
+ }
+
+ .progress-bar {
+ width: 100%;
+ height: 4px;
+ background: rgba(0,0,0,0.08);
+ border-radius: 2px;
+ overflow: hidden;
+ }
+
+ .progress-bar-fill {
+ height: 100%;
+ background: var(--accent);
+ border-radius: 2px;
+ transition: width 0.3s ease;
+ width: 0%;
+ }
+
+ .progress-text {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ white-space: nowrap;
+ }
+
+
+
+ 
+
+ /* ===== Fixed Top Navigation Bar ===== */
+ .top-nav {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ height: var(--header-height);
+ background: rgba(245,245,247,0.8);
+ backdrop-filter: saturate(180%) blur(20px);
+ -webkit-backdrop-filter: saturate(180%) blur(20px);
+ border-bottom: 1px solid var(--border);
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 24px;
+ }
+
+ .nav-left {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ }
+
+ .nav-unit {
+ font-size: 0.75rem;
+ font-weight: 600;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--accent);
+ }
+
+ .nav-title {
+ font-size: 1.1rem;
+ font-weight: 700;
+ color: var(--fg);
+ letter-spacing: -0.02em;
+ }
+
+ .nav-title span { color: var(--accent); }
+
+ .nav-center {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ }
+
+ .nav-speed-label {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ display: flex;
+ align-items: center;
+ gap: 6px;
+ font-weight: 500;
+ }
+
+ .nav-speed-label svg {
+ width: 14px;
+ height: 14px;
+ }
+
+ .nav-speed-slider {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 100px;
+ height: 4px;
+ background: rgba(0,0,0,0.08);
+ border-radius: 2px;
+ outline: none;
+ cursor: pointer;
+ }
+
+ .nav-speed-slider::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 16px;
+ height: 16px;
+ border-radius: 50%;
+ background: var(--accent);
+ cursor: pointer;
+ border: none;
+ box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+ transition: transform 0.15s ease;
+ }
+
+ .nav-speed-slider::-webkit-slider-thumb:hover {
+ transform: scale(1.15);
+ }
+
+ .nav-speed-value {
+ color: var(--accent);
+ font-weight: 700;
+ font-size: 0.85rem;
+ min-width: 32px;
+ text-align: center;
+ }
+
+ .nav-right {
+ display: flex;
+ align-items: center;
+ }
+
+ .complete-btn {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ padding: 8px 16px;
+ border: none;
+ border-radius: 8px;
+ font-size: 0.85rem;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s, transform 0.15s;
+ font-family: inherit;
+ background: var(--accent);
+ color: #fff;
+ }
+
+ .complete-btn:hover {
+ background: var(--accent-hover);
+ transform: scale(1.02);
+ }
+
+ .complete-btn svg {
+ width: 14px;
+ height: 14px;
+ fill: currentColor;
+ }
+
+ /* ===== Fixed Bottom Player Bar ===== */
+ .bottom-player {
+ position: fixed;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ height: var(--footer-height);
+ background: rgba(245,245,247,0.8);
+ backdrop-filter: saturate(180%) blur(20px);
+ -webkit-backdrop-filter: saturate(180%) blur(20px);
+ border-top: 1px solid var(--border);
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 12px;
+ padding: 0 24px;
+ }
+
+ .player-section-label {
+ font-size: 0.75rem;
+ color: var(--fg-muted);
+ font-weight: 600;
+ padding: 4px 10px;
+ background: var(--accent-light);
+ border-radius: 6px;
+ border: 1px solid var(--accent-border);
+ }
+
+ .player-btn {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 5px;
+ padding: 8px 14px;
+ border: none;
+ border-radius: 8px;
+ font-size: 0.8rem;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s, transform 0.15s;
+ font-family: inherit;
+ background: var(--accent);
+ color: #fff;
+ }
+
+ .player-btn:hover {
+ background: var(--accent-hover);
+ transform: scale(1.02);
+ }
+
+ .player-btn.active {
+ background: #1d1d1f;
+ }
+
+ .player-btn svg {
+ width: 12px;
+ height: 12px;
+ fill: currentColor;
+ }
+
+ .player-label {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ }
+
+ .player-repeat-select {
+ padding: 6px 8px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg);
+ cursor: pointer;
+ font-family: inherit;
+ outline: none;
+ }
+
+ .player-repeat-select:focus {
+ border-color: var(--accent);
+ }
+
+ .player-loop-toggle {
+ display: inline-flex;
+ align-items: center;
+ gap: 4px;
+ padding: 6px 10px;
+ border: 1px solid var(--accent-border);
+ border-radius: 8px;
+ background: #fff;
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: var(--fg-muted);
+ cursor: pointer;
+ transition: all 0.2s;
+ font-family: inherit;
+ }
+
+ .player-loop-toggle.on {
+ background: var(--accent);
+ color: #fff;
+ border-color: var(--accent);
+ }
+
+ .player-progress {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ min-width: 80px;
+ text-align: center;
+ }
+
+ .player-progress .current-num {
+ color: var(--accent);
+ font-weight: 700;
+ }
+
+ /* Progress bar styles */
+ .progress-bar-container {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ flex: 1;
+ max-width: 200px;
+ }
+
+ .progress-bar {
+ width: 100%;
+ height: 4px;
+ background: rgba(0,0,0,0.08);
+ border-radius: 2px;
+ overflow: hidden;
+ }
+
+ .progress-bar-fill {
+ height: 100%;
+ background: var(--accent);
+ border-radius: 2px;
+ transition: width 0.3s ease;
+ width: 0%;
+ }
+
+ .progress-text {
+ font-size: 0.78rem;
+ color: var(--fg-muted);
+ font-weight: 500;
+ white-space: nowrap;
+ }
+
+ /* Highlight style for scene cards */
+ .scene-card.highlight {
+ background: rgba(0,113,227,0.08);
+ border-color: rgba(0,113,227,0.15);
+ }
+
+
+</style>
+</head>
+<body>
+
+<!-- Fixed Top Navigation Bar -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 3</span>
+    <span class="nav-title">情境会话</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+<!-- Fixed Bottom Player Bar -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSceneLabel">Scene 1</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <span class="progress-text" id="progressBarText">0 / 0</span>
+  </div>
+</div>
+
+<div class="container">
+
+ <div class="speed-control-bar">
+ <label>
+ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+ 语速
+ <input type="range" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+ <span class="speed-value" id="globalSpeedVal">1.0x</span>
+ </label>
+ </div>
+ <div class="scene-card">
+ <div class="scene-header">
+ <div class="scene-icon">S1</div>
+ <div>
+ <div class="scene-title">开拓巷道分类讨论</div>
+ <div class="scene-desc">工程师讨论地下开拓巷道的分类</div>
+ </div>
+ </div>
+ <div class="dialogue-container">
+ <div class="dialogue-line dr">
+ <div class="speaker-avatar">Dr</div>
+ <div class="bubble">
+ <div class="bubble-en">Let's discuss the classification of underground development openings.</div>
+ <div class="bubble-cn">我们来讨论地下开拓巷道的分类。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s1_01.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line mr">
+ <div class="speaker-avatar">Mr</div>
+ <div class="bubble">
+ <div class="bubble-en">They can be ranked in three categories: <span class="vocab">primary<span class="tip">primary</span></span>, <span class="vocab">secondary<span class="tip">secondary</span></span>, and <span class="vocab">tertiary<span class="tip">tertiary</span></span>.</div>
+ <div class="bubble-cn">它们可按三类排序：主要、次要和第三类。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s1_02.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line dr">
+ <div class="speaker-avatar">Dr</div>
+ <div class="bubble">
+ <div class="bubble-en">What are examples of <span class="vocab">primary<span class="tip">primary</span></span> openings?</div>
+ <div class="bubble-cn">主要巷道的例子有哪些？</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s1_03.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line mr">
+ <div class="speaker-avatar">Mr</div>
+ <div class="bubble">
+ <div class="bubble-en">Primary openings include <span class="vocab">shaft<span class="tip">shaft</span></span>s and <span class="vocab">slope<span class="tip">slope</span></span>s.</div>
+ <div class="bubble-cn">主要巷道包括竖井和斜井。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s1_04.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line dr">
+ <div class="speaker-avatar">Dr</div>
+ <div class="bubble">
+ <div class="bubble-en">And <span class="vocab">secondary<span class="tip">secondary</span></span> openings?</div>
+ <div class="bubble-cn">次要巷道呢？</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s1_05.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line mr">
+ <div class="speaker-avatar">Mr</div>
+ <div class="bubble">
+ <div class="bubble-en">Secondary openings include <span class="vocab">drift<span class="tip">drift</span></span>s and entries.</div>
+ <div class="bubble-cn">次要巷道包括平巷和进路。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s1_06.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ </div>
+ <div class="key-vocab">
+ <div class="key-vocab-title">Key Vocabulary</div>
+ <div class="key-vocab-list">
+ <div class="key-vocab-item">
+ shaft
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s1_01.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ slope
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s1_02.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ drift
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s1_03.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ entry
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s1_04.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ primary
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s1_05.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ secondary
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s1_06.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ tertiary
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s1_07.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="scene-card">
+ <div class="scene-header">
+ <div class="scene-icon">S2</div>
+ <div>
+ <div class="scene-title">采矿方法选择</div>
+ <div class="scene-desc">讨论采矿方法对开拓巷道的影响</div>
+ </div>
+ </div>
+ <div class="dialogue-container">
+ <div class="dialogue-line dr">
+ <div class="speaker-avatar">Dr</div>
+ <div class="bubble">
+ <div class="bubble-en">Why is mining method selection so crucial?</div>
+ <div class="bubble-cn">为什么采矿方法选择如此关键？</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s2_01.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line mr">
+ <div class="speaker-avatar">Mr</div>
+ <div class="bubble">
+ <div class="bubble-en">It largely governs the type and placement of primary development openings.</div>
+ <div class="bubble-cn">它很大程度上决定了主要开拓巷道的类型和位置。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s2_02.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line dr">
+ <div class="speaker-avatar">Dr</div>
+ <div class="bubble">
+ <div class="bubble-en">What happens if surface <span class="vocab">subsidence<span class="tip">subsidence</span></span> is anticipated?</div>
+ <div class="bubble-cn">如果预计地表沉陷会怎样？</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s2_03.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line mr">
+ <div class="speaker-avatar">Mr</div>
+ <div class="bubble">
+ <div class="bubble-en">All access openings must be located outside the zone of fracture.</div>
+ <div class="bubble-cn">所有通道都必须位于破裂区之外。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s2_04.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line dr">
+ <div class="speaker-avatar">Dr</div>
+ <div class="bubble">
+ <div class="bubble-en">What are the three main classes of underground methods?</div>
+ <div class="bubble-cn">地下采矿方法的三大类别是什么？</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s2_05.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line mr">
+ <div class="speaker-avatar">Mr</div>
+ <div class="bubble">
+ <div class="bubble-en">They are unsupported, supported, and <span class="vocab">caving method<span class="tip">caving method</span></span>s.</div>
+ <div class="bubble-cn">它们是空场法、充填法和崩落法。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s2_06.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ </div>
+ <div class="key-vocab">
+ <div class="key-vocab-title">Key Vocabulary</div>
+ <div class="key-vocab-list">
+ <div class="key-vocab-item">
+ unsupported method
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s2_01.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ supported method
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s2_02.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ caving method
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s2_03.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ subsidence
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s2_04.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ fracture zone
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s2_05.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="scene-card">
+ <div class="scene-header">
+ <div class="scene-icon">S3</div>
+ <div>
+ <div class="scene-title">巷道类型选择</div>
+ <div class="scene-desc">讨论不同类型开拓巷道的特点</div>
+ </div>
+ </div>
+ <div class="dialogue-container">
+ <div class="dialogue-line dr">
+ <div class="speaker-avatar">Dr</div>
+ <div class="bubble">
+ <div class="bubble-en">What are the common choices for opening types?</div>
+ <div class="bubble-cn">巷道类型有哪些常见选择？</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s3_01.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line mr">
+ <div class="speaker-avatar">Mr</div>
+ <div class="bubble">
+ <div class="bubble-en">There are three choices: <span class="vocab">shaft<span class="tip">shaft</span></span>s, <span class="vocab">decline<span class="tip">decline</span></span>s, and <span class="vocab">adit<span class="tip">adit</span></span>s or <span class="vocab">drift<span class="tip">drift</span></span>s.</div>
+ <div class="bubble-cn">有三种选择：竖井、斜坡道和平硐或平巷。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s3_02.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line dr">
+ <div class="speaker-avatar">Dr</div>
+ <div class="bubble">
+ <div class="bubble-en">When would you choose a vertical <span class="vocab">shaft<span class="tip">shaft</span></span>?</div>
+ <div class="bubble-cn">什么情况下选择竖井？</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s3_03.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line mr">
+ <div class="speaker-avatar">Mr</div>
+ <div class="bubble">
+ <div class="bubble-en">Vertical <span class="vocab">shaft<span class="tip">shaft</span></span>s are most common for deep mines.</div>
+ <div class="bubble-cn">竖井是深矿井最常见的类型。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s3_04.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line dr">
+ <div class="speaker-avatar">Dr</div>
+ <div class="bubble">
+ <div class="bubble-en">What about <span class="vocab">decline<span class="tip">decline</span></span>s?</div>
+ <div class="bubble-cn">斜坡道呢？</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s3_05.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ <div class="dialogue-line mr">
+ <div class="speaker-avatar">Mr</div>
+ <div class="bubble">
+ <div class="bubble-en">Declines allow <span class="vocab">diesel equipment<span class="tip">diesel equipment</span></span> to access any level of the mine.</div>
+ <div class="bubble-cn">斜坡道允许柴油设备进入矿山的任何水平。</div>
+ <button class="bubble-btn" data-src="../audio/unit3/dialog_s3_06.mp3" onclick="playDialogue(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ </div>
+ <div class="key-vocab">
+ <div class="key-vocab-title">Key Vocabulary</div>
+ <div class="key-vocab-list">
+ <div class="key-vocab-item">
+ shaft
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s3_01.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ decline
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s3_02.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ adit
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s3_03.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ drift
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s3_04.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ <div class="key-vocab-item">
+ diesel equipment
+ <button class="key-vocab-play" data-src="../audio/unit3/vocab_dialog/vocab_d_s3_05.mp3" onclick="playVocab(this)">
+ <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+ </button>
+ </div>
+ </div>
+ </div>
+ </div>
+ <footer>
+ Unit 3 地下矿山开拓 &mdash; 情境会话 &copy; 采矿专业英语
+ </footer>
+</div>
+
+<script>
+/* ===== Dialog Audio Player Logic ===== */
+(function() {
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = currentSpeed;
+    }
+  });
+
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingBubble = null;
+
+  var playState = {
+    playing: false,
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 3,
+    currentRepeat: 1
+  };
+
+  function getAllBubbles() {
+    return document.querySelectorAll('.bubble-btn[data-src]');
+  }
+
+  window.playDialogue = function(btn) {
+    var bubble = btn.closest('.bubble');
+    var src = btn.getAttribute('data-src');
+
+    if (playState.playing) {
+      stopContinuousPlay();
+    }
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingBubble) {
+        currentPlayingBubble.classList.remove('highlight');
+      }
+    }
+
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+    bubble.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingBubble = bubble;
+
+    currentAudio.addEventListener('ended', function() {
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      bubble.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingBubble = null;
+      currentAudio = null;
+    });
+  };
+
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
+      return;
+    }
+
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+    playState.repeatCount = parseInt(document.getElementById('repeatCount').value);
+    playState.loop = document.getElementById('loopBtn').classList.contains('on');
+
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingBubble) {
+        currentPlayingBubble.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingBubble = null;
+    }
+
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / 0';
+    }
+  };
+
+  function playNextInSequence() {
+    var bubbles = getAllBubbles();
+
+    if (playState.currentIndex >= bubbles.length) {
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        stopContinuousPlay();
+        return;
+      }
+    }
+
+    if (playState.currentIndex >= bubbles.length) {
+      stopContinuousPlay();
+      return;
+    }
+
+    var btn = bubbles[playState.currentIndex];
+    var bubble = btn.closest('.bubble');
+    var src = btn.getAttribute('data-src');
+
+    updateProgress(bubbles.length);
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingBubble) {
+        currentPlayingBubble.classList.remove('highlight');
+      }
+    }
+
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+    bubble.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingBubble = bubble;
+
+    var bubbleRow = btn.closest('.dialogue-line');
+    if (bubbleRow) {
+      bubbleRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    currentAudio.addEventListener('ended', function() {
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      bubble.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingBubble = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
+      }
+    });
+  }
+
+  function updateProgress(total) {
+    var currentIdx = playState.currentIndex + 1;
+
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
+
+    var sectionLabel = document.getElementById('currentSceneLabel');
+    if (sectionLabel) {
+      var btn = getAllBubbles()[playState.currentIndex];
+      if (btn) {
+        var sceneCard = btn.closest('.scene-card');
+        if (sceneCard) {
+          var sceneTitle = sceneCard.querySelector('.scene-title');
+          if (sceneTitle) {
+            sectionLabel.textContent = sceneTitle.textContent;
+          }
+        }
+      }
+    }
+  }
+
+  window.toggleLoop = function() {
+    var btn = document.getElementById('loopBtn');
+    playState.loop = !playState.loop;
+    if (playState.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
+  };
+
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('dialogue', 'unit3');
+    }
+    alert('情境会话学习已完成！');
+  };
+
+  window.playVocab = function(btn) {
+    var src = btn.getAttribute('data-src');
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    var audio = new Audio(src);
+    audio.playbackRate = currentSpeed;
+    audio.play().catch(function() {});
+    currentAudio = audio;
+  };
+
+  var style = document.createElement('style');
+  style.textContent = '.bubble.highlight { background: rgba(0,113,227,0.12); }';
+  document.head.appendChild(style);
+})();
+</script>
+<script src="../studyTracker.js"></script>
+</body>
+</html>

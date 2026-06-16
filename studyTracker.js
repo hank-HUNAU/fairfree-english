@@ -4,25 +4,18 @@
 (function() {
   const STORAGE_KEY = 'miningEnglishCheckin';
   
-  // 从URL解析当前单元和模块
-  function parseCurrentPage() {
-    const path = window.location.pathname;
-    const match = path.match(/Unit(\d+)\/Unit(\d+)_(.+)\.html/);
-    if (match) {
-      return {
-        unit: parseInt(match[1]),
-        module: match[3] // 词汇表, 精读材料, 情境会话, 句型汇总
-      };
-    }
-    return null;
-  }
-  
   // 模块名称映射
   const moduleMap = {
     '词汇表': 'vocab',
+    'vocab': 'vocab',
     '精读材料': 'reading',
+    'reading': 'reading',
     '情境会话': 'dialogue',
-    '句型汇总': 'sentences'
+    'dialog': 'dialogue',
+    'dialogue': 'dialogue',
+    '句型汇总': 'sentences',
+    'sentence': 'sentences',
+    'sentences': 'sentences'
   };
   
   // 加载打卡数据
@@ -44,27 +37,40 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }
   
-  // 记录模块完成
-  function markModuleComplete(unit, moduleName) {
+  // 记录模块完成（供外部调用）
+  function markComplete(moduleType, unitKey) {
     const data = loadData();
-    const key = moduleMap[moduleName];
-    if (!key) return;
     
-    if (!data.unitProgress[unit]) {
-      data.unitProgress[unit] = { vocab: false, reading: false, dialogue: false, sentences: false };
+    // 解析单元号
+    const unitNum = parseInt(unitKey.replace('unit', ''));
+    const key = moduleMap[moduleType];
+    if (!key || !unitNum) {
+      console.warn('[StudyTracker] Invalid module or unit:', moduleType, unitKey);
+      return;
     }
     
-    data.unitProgress[unit][key] = true;
+    if (!data.unitProgress[unitNum]) {
+      data.unitProgress[unitNum] = { vocab: false, reading: false, dialogue: false, sentences: false };
+    }
+    
+    data.unitProgress[unitNum][key] = true;
     saveData(data);
     
-    console.log(`[StudyTracker] Unit ${unit} - ${moduleName} marked complete`);
+    console.log(`[StudyTracker] Unit ${unitNum} - ${moduleType} marked complete`);
     
     // 显示完成提示
-    showCompleteToast(unit, moduleName);
+    showCompleteToast(unitNum, moduleType);
   }
   
   // 显示完成提示
   function showCompleteToast(unit, moduleName) {
+    const moduleNames = {
+      'vocab': '词汇表',
+      'reading': '精读材料',
+      'dialogue': '情境会话',
+      'sentences': '句型汇总'
+    };
+    
     const toast = document.createElement('div');
     toast.style.cssText = `
       position: fixed;
@@ -79,60 +85,24 @@
       font-weight: 500;
       z-index: 9999;
       animation: fadeInUp 0.3s ease;
+      box-shadow: 0 4px 12px rgba(48, 209, 88, 0.3);
     `;
-    toast.textContent = `✓ Unit ${unit} ${moduleName} 已完成`;
+    toast.textContent = `✓ Unit ${unit} ${moduleNames[moduleName] || moduleName} 学习完成！`;
     document.body.appendChild(toast);
     
     setTimeout(() => {
       toast.style.opacity = '0';
+      toast.style.transition = 'opacity 0.3s';
       setTimeout(() => toast.remove(), 300);
     }, 2000);
   }
   
-  // 添加完成按钮到页面底部
-  function addCompleteButton() {
-    const page = parseCurrentPage();
-    if (!page) return;
-    
-    const btn = document.createElement('button');
-    btn.id = 'studyCompleteBtn';
-    btn.style.cssText = `
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #30d158;
-      color: #fff;
-      border: none;
-      padding: 14px 32px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      z-index: 9999;
-      box-shadow: 0 4px 12px rgba(48, 209, 88, 0.3);
-      transition: all 0.2s;
-    `;
-    btn.textContent = '✓ 完成学习';
-    btn.onmouseenter = () => btn.style.transform = 'translateX(-50%) scale(1.05)';
-    btn.onmouseleave = () => btn.style.transform = 'translateX(-50%) scale(1)';
-    
-    btn.onclick = () => {
-      markModuleComplete(page.unit, page.module);
-      btn.textContent = '✓ 已记录';
-      btn.style.background = '#8e8e93';
-      btn.disabled = true;
-    };
-    
-    document.body.appendChild(btn);
-  }
-  
-  // 页面加载完成后添加按钮
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addCompleteButton);
-  } else {
-    addCompleteButton();
-  }
+  // 导出到全局
+  window.studyTracker = {
+    markComplete: markComplete,
+    loadData: loadData,
+    saveData: saveData
+  };
   
   // 添加动画样式
   const style = document.createElement('style');
@@ -143,4 +113,6 @@
     }
   `;
   document.head.appendChild(style);
+  
+  console.log('[StudyTracker] Initialized');
 })();

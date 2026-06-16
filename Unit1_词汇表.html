@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 Geological Terminology — 词汇表 Vocabulary</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-light: rgba(0,0,0,0.04);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --radius-chip: 20px;
+    --sonia-color: #af52de;
+    --sonia-bg: rgba(175,82,222,0.08);
+    --sonia-border: rgba(175,82,222,0.18);
+    --chris-color: #ff9500;
+    --chris-bg: rgba(255,149,0,0.08);
+    --chris-border: rgba(255,149,0,0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 48px 20px 36px;
+  }
+
+  .header-unit {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  header h1 span { color: var(--accent); }
+
+  .header-sub {
+    font-size: 1rem;
+    color: var(--fg-muted);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  /* Voice Legend */
+  .voice-legend {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin: 28px 0 48px;
+    padding: 18px 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-solid);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .legend-dot.sonia { background: var(--sonia-color); }
+  .legend-dot.chris { background: var(--chris-color); }
+
+  /* Global Speed Control Bar */
+  .speed-control-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .speed-control-bar label {
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+
+  .speed-control-bar .speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    min-width: 36px;
+    text-align: center;
+  }
+
+  .speed-control-bar input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 140px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .speed-control-bar input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    transition: transform 0.15s ease;
+  }
+
+  .speed-control-bar input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .speed-control-bar input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+  }
+
+  /* Section */
+  .vocab-section {
+    margin-bottom: 48px;
+    animation: fadeSlideUp 0.5s ease both;
+  }
+
+  .vocab-section:nth-child(2) { animation-delay: 0.1s; }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-solid);
+  }
+
+  .section-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .section-icon.words-icon {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    color: var(--accent);
+  }
+
+  .section-icon.phrases-icon {
+    background: rgba(255,149,0,0.08);
+    border: 1px solid rgba(255,149,0,0.18);
+    color: #ff9500;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+
+  .section-title small {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--fg-muted);
+    margin-left: 8px;
+  }
+
+  /* Audio Control Bar (per section) */
+  .audio-control-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-btn);
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .audio-control-bar .acb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .audio-control-bar .acb-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .audio-control-bar .acb-btn.active {
+    background: #1d1d1f;
+  }
+
+  .audio-control-bar .acb-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .audio-control-bar .acb-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .audio-control-bar .acb-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .audio-control-bar .acb-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .audio-control-bar .acb-repeat-select {
+    padding: 5px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .audio-control-bar .acb-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .audio-control-bar .acb-progress {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    margin-left: auto;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  .audio-control-bar .acb-progress .current-num {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Vocab Card (Table) */
+  .vocab-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-solid);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .vocab-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* Table */
+  .vocab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+
+  .vocab-table thead th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    background: rgba(0,0,0,0.02);
+    border-bottom: 1px solid var(--border-solid);
+  }
+
+  .vocab-table thead th:first-child {
+    width: 50px;
+    text-align: center;
+  }
+
+  .vocab-table thead th:nth-child(4) {
+    width: 60px;
+    text-align: center;
+  }
+
+  .vocab-table tbody tr {
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    transition: background 0.2s ease;
+  }
+
+  .vocab-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .vocab-table tbody tr:hover {
+    background: rgba(0,113,227,0.03);
+  }
+
+  .vocab-table tbody tr.highlight {
+    background: rgba(0,113,227,0.08);
+  }
+
+  .vocab-table tbody td {
+    padding: 12px 16px;
+    vertical-align: middle;
+  }
+
+  .vocab-table tbody td:first-child {
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+  }
+
+  .vocab-table tbody td:last-child {
+    text-align: center;
+  }
+
+  /* Word cell */
+  .word-cell {
+    font-weight: 600;
+    color: var(--fg);
+    font-size: 0.95rem;
+  }
+
+  /* Phonetic cell */
+  .phonetic-cell {
+    color: var(--fg-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  /* Meaning cell */
+  .meaning-cell {
+    color: var(--fg);
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  /* Voice indicator dot */
+  .voice-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  .voice-dot.sonia { background: var(--sonia-color); }
+  .voice-dot.chris { background: var(--chris-color); }
+
+  /* Row play button */
+  .row-play-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 1px 6px rgba(0,113,227,0.25);
+  }
+
+  .row-play-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.08);
+  }
+
+  .row-play-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: #ffffff;
+  }
+
+  .row-play-btn.playing {
+    animation: pulse-ring 1.2s ease-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(0,113,227,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); }
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: var(--fg-muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border-solid);
+    margin-top: 16px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 20px 12px 60px; }
+    header { padding: 32px 16px 24px; }
+    .vocab-table { font-size: 0.82rem; }
+    .vocab-table thead th { padding: 10px 10px; font-size: 0.68rem; }
+    .vocab-table tbody td { padding: 10px 10px; }
+    .word-cell { font-size: 0.88rem; }
+    .phonetic-cell { font-size: 0.78rem; }
+    .meaning-cell { font-size: 0.8rem; }
+    .row-play-btn { width: 28px; height: 28px; }
+    .row-play-btn svg { width: 12px; height: 12px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .audio-control-bar { gap: 6px; padding: 10px 12px; }
+    .speed-control-bar { padding: 10px 12px; gap: 10px; }
+    .speed-control-bar input[type="range"] { width: 100px; }
+    .voice-legend { gap: 14px; padding: 14px 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .vocab-table thead th:nth-child(2),
+    .vocab-table tbody td:nth-child(2) {
+      display: none;
+    }
+    .vocab-table thead th:first-child { width: 36px; }
+    .vocab-table tbody td:first-child { font-size: 0.72rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="header-unit">Unit 1</div>
+    <h1>词汇表 <span>— Vocabulary</span></h1>
+    <div class="header-sub">Geological Terminology 核心词汇与短语</div>
+  </header>
+
+  <!-- Voice Legend -->
+  <div class="voice-legend">
+    <div class="legend-item"><span class="legend-dot sonia"></span> Sonia (奇数序号)</div>
+    <div class="legend-item"><span class="legend-dot chris"></span> Christopher (偶数序号)</div>
+  </div>
+
+  <!-- Global Speed Control -->
+  <div class="speed-control-bar">
+    <label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+
+  <!-- ==================== Words Section ==================== -->
+  <div class="vocab-section" id="wordsSection">
+    <div class="section-header">
+      <div class="section-icon words-icon">W</div>
+      <div class="section-title">Words <small>单词</small></div>
+    </div>
+
+    <!-- Audio Control Bar -->
+    <div class="audio-control-bar" id="wordsAudioBar">
+      <button class="acb-btn" id="wordsPlayAllBtn" onclick="toggleContinuousPlay('words')">
+        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+        连续播放
+      </button>
+      <button class="acb-btn" id="wordsStopBtn" onclick="stopContinuousPlay('words')" style="display:none;">
+        <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        停止
+      </button>
+      <span class="acb-label">遍数</span>
+      <select class="acb-repeat-select" id="wordsRepeatCount" onchange="updateRepeatCount('words')">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <button class="acb-loop-toggle" id="wordsLoopBtn" onclick="toggleLoop('words')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        循环
+      </button>
+      <span class="acb-progress" id="wordsProgress"></span>
+    </div>
+
+    <!-- Words Table -->
+    <div class="vocab-card">
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>单词</th>
+            <th>音标</th>
+            <th>释义</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="wordsBody">
+          <tr data-idx="1" data-src="audio/unit1/vocab_table/vocab_t_01.mp3">
+            <td><span class="voice-dot sonia"></span>1</td>
+            <td class="word-cell">alluvial</td>
+            <td class="phonetic-cell">/əˈluːviəl/</td>
+            <td class="meaning-cell">n. 冲积土; adj. 冲积的；冲积期的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="2" data-src="audio/unit1/vocab_table/vocab_t_02.mp3">
+            <td><span class="voice-dot chris"></span>2</td>
+            <td class="word-cell">basalt</td>
+            <td class="phonetic-cell">/ˈbæsɔːlt/</td>
+            <td class="meaning-cell">n. 玄武岩;一种黑色的陶器</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="3" data-src="audio/unit1/vocab_table/vocab_t_03.mp3">
+            <td><span class="voice-dot sonia"></span>3</td>
+            <td class="word-cell">crest</td>
+            <td class="phonetic-cell">/krest/</td>
+            <td class="meaning-cell">n. 鸟冠；顶; vt. 到达……之顶; vi. 形成顶；到达顶端</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="4" data-src="audio/unit1/vocab_table/vocab_t_04.mp3">
+            <td><span class="voice-dot chris"></span>4</td>
+            <td class="word-cell">deposit</td>
+            <td class="phonetic-cell">/dɪˈpɒzɪt/</td>
+            <td class="meaning-cell">n. 沉淀物；沉淀</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="5" data-src="audio/unit1/vocab_table/vocab_t_05.mp3">
+            <td><span class="voice-dot sonia"></span>5</td>
+            <td class="word-cell">deposition</td>
+            <td class="phonetic-cell">/ˌdepəˈzɪʃən/</td>
+            <td class="meaning-cell">n. 罢免；储存；沉积物</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="6" data-src="audio/unit1/vocab_table/vocab_t_06.mp3">
+            <td><span class="voice-dot chris"></span>6</td>
+            <td class="word-cell">dissect</td>
+            <td class="phonetic-cell">/dɪˈsekt/</td>
+            <td class="meaning-cell">vt. 解剖；详细研究; vi. 解剖</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="7" data-src="audio/unit1/vocab_table/vocab_t_07.mp3">
+            <td><span class="voice-dot sonia"></span>7</td>
+            <td class="word-cell">eluvial</td>
+            <td class="phonetic-cell">/ɪˈljuːviəl/</td>
+            <td class="meaning-cell">adj. 残积层的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="8" data-src="audio/unit1/vocab_table/vocab_t_08.mp3">
+            <td><span class="voice-dot chris"></span>8</td>
+            <td class="word-cell">epigenetic</td>
+            <td class="phonetic-cell">/ˌepɪdʒɪˈnetɪk/</td>
+            <td class="meaning-cell">adj. 外力变质的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="9" data-src="audio/unit1/vocab_table/vocab_t_09.mp3">
+            <td><span class="voice-dot sonia"></span>9</td>
+            <td class="word-cell">ferruginous</td>
+            <td class="phonetic-cell">/feˈruːdʒɪnəs/</td>
+            <td class="meaning-cell">adj. 铁的；含铁的；铁锈色的；赤褐色的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="10" data-src="audio/unit1/vocab_table/vocab_t_10.mp3">
+            <td><span class="voice-dot chris"></span>10</td>
+            <td class="word-cell">fold</td>
+            <td class="phonetic-cell">/fəʊld/</td>
+            <td class="meaning-cell">vt. 折叠; n. 折层；折页；折痕</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="11" data-src="audio/unit1/vocab_table/vocab_t_11.mp3">
+            <td><span class="voice-dot sonia"></span>11</td>
+            <td class="word-cell">galena</td>
+            <td class="phonetic-cell">/ɡəˈliːnə/</td>
+            <td class="meaning-cell">n. 方铅矿</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="12" data-src="audio/unit1/vocab_table/vocab_t_12.mp3">
+            <td><span class="voice-dot chris"></span>12</td>
+            <td class="word-cell">gossan</td>
+            <td class="phonetic-cell">/ˈɡɒsn/</td>
+            <td class="meaning-cell">n. [矿] 铁帽</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="13" data-src="audio/unit1/vocab_table/vocab_t_13.mp3">
+            <td><span class="voice-dot sonia"></span>13</td>
+            <td class="word-cell">goethite</td>
+            <td class="phonetic-cell">/ˈɡɜːθaɪt/</td>
+            <td class="meaning-cell">n. 针铁矿</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="14" data-src="audio/unit1/vocab_table/vocab_t_14.mp3">
+            <td><span class="voice-dot chris"></span>14</td>
+            <td class="word-cell">haematite</td>
+            <td class="phonetic-cell">/ˈhiːmətaɪt/</td>
+            <td class="meaning-cell">n. = hematite, [矿物] 赤铁矿</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="15" data-src="audio/unit1/vocab_table/vocab_t_15.mp3">
+            <td><span class="voice-dot sonia"></span>15</td>
+            <td class="word-cell">igneous</td>
+            <td class="phonetic-cell">/ˈɪɡniəs/</td>
+            <td class="meaning-cell">adj. 火成的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="16" data-src="audio/unit1/vocab_table/vocab_t_16.mp3">
+            <td><span class="voice-dot chris"></span>16</td>
+            <td class="word-cell">ilmenite</td>
+            <td class="phonetic-cell">/ˈɪlmənaɪt/</td>
+            <td class="meaning-cell">n. 钛铁矿</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="17" data-src="audio/unit1/vocab_table/vocab_t_17.mp3">
+            <td><span class="voice-dot sonia"></span>17</td>
+            <td class="word-cell">jarosite</td>
+            <td class="phonetic-cell">/ˈdʒærəsaɪt/</td>
+            <td class="meaning-cell">n. [矿] 黄钾铁矾</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="18" data-src="audio/unit1/vocab_table/vocab_t_18.mp3">
+            <td><span class="voice-dot chris"></span>18</td>
+            <td class="word-cell">lateritic</td>
+            <td class="phonetic-cell">/ˌlætəˈrɪtɪk/</td>
+            <td class="meaning-cell">adj. 含红土的；有红土之特性的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="19" data-src="audio/unit1/vocab_table/vocab_t_19.mp3">
+            <td><span class="voice-dot sonia"></span>19</td>
+            <td class="word-cell">magmatic</td>
+            <td class="phonetic-cell">/mæɡˈmætɪk/</td>
+            <td class="meaning-cell">adj. 岩浆的；乳剂的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="20" data-src="audio/unit1/vocab_table/vocab_t_20.mp3">
+            <td><span class="voice-dot chris"></span>20</td>
+            <td class="word-cell">massive</td>
+            <td class="phonetic-cell">/ˈmæsɪv/</td>
+            <td class="meaning-cell">adj. 巨大的；[矿物] 非结晶形的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="21" data-src="audio/unit1/vocab_table/vocab_t_21.mp3">
+            <td><span class="voice-dot sonia"></span>21</td>
+            <td class="word-cell">non-ferrous</td>
+            <td class="phonetic-cell">/ˌnɒnˈferəs/</td>
+            <td class="meaning-cell">adj. 有色的；非铁或钢的（金属）</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="22" data-src="audio/unit1/vocab_table/vocab_t_22.mp3">
+            <td><span class="voice-dot chris"></span>22</td>
+            <td class="word-cell">orogenic</td>
+            <td class="phonetic-cell">/ˌɒrəʊˈdʒenɪk/</td>
+            <td class="meaning-cell">adj. 造山运动的，造山作用的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="23" data-src="audio/unit1/vocab_table/vocab_t_23.mp3">
+            <td><span class="voice-dot sonia"></span>23</td>
+            <td class="word-cell">outcrop</td>
+            <td class="phonetic-cell">/ˈaʊtkrɒp/</td>
+            <td class="meaning-cell">vi. 露出地面；出现; n. 露头</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="24" data-src="audio/unit1/vocab_table/vocab_t_24.mp3">
+            <td><span class="voice-dot chris"></span>24</td>
+            <td class="word-cell">percolate</td>
+            <td class="phonetic-cell">/ˈpɜːkəleɪt/</td>
+            <td class="meaning-cell">vi. 渗透; vt. 渗透过</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="25" data-src="audio/unit1/vocab_table/vocab_t_25.mp3">
+            <td><span class="voice-dot sonia"></span>25</td>
+            <td class="word-cell">permeate</td>
+            <td class="phonetic-cell">/ˈpɜːmieɪt/</td>
+            <td class="meaning-cell">v. 透过；渗透</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="26" data-src="audio/unit1/vocab_table/vocab_t_26.mp3">
+            <td><span class="voice-dot chris"></span>26</td>
+            <td class="word-cell">phosphate</td>
+            <td class="phonetic-cell">/ˈfɒsfeɪt/</td>
+            <td class="meaning-cell">n. 磷酸盐;磷酸;磷肥</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="27" data-src="audio/unit1/vocab_table/vocab_t_27.mp3">
+            <td><span class="voice-dot sonia"></span>27</td>
+            <td class="word-cell">placer</td>
+            <td class="phonetic-cell">/ˈpleɪsə/</td>
+            <td class="meaning-cell">n. 砂矿</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="28" data-src="audio/unit1/vocab_table/vocab_t_28.mp3">
+            <td><span class="voice-dot chris"></span>28</td>
+            <td class="word-cell">potash</td>
+            <td class="phonetic-cell">/ˈpɒtæʃ/</td>
+            <td class="meaning-cell">n. 钾碱;碳酸钾;钾;氢氧化钾</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="29" data-src="audio/unit1/vocab_table/vocab_t_29.mp3">
+            <td><span class="voice-dot sonia"></span>29</td>
+            <td class="word-cell">redeposition</td>
+            <td class="phonetic-cell">/ˌriːdepəˈzɪʃən/</td>
+            <td class="meaning-cell">n. 再沉积</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="30" data-src="audio/unit1/vocab_table/vocab_t_30.mp3">
+            <td><span class="voice-dot chris"></span>30</td>
+            <td class="word-cell">rutile</td>
+            <td class="phonetic-cell">/ˈruːtaɪl/</td>
+            <td class="meaning-cell">n. 金红石</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="31" data-src="audio/unit1/vocab_table/vocab_t_31.mp3">
+            <td><span class="voice-dot sonia"></span>31</td>
+            <td class="word-cell">scree</td>
+            <td class="phonetic-cell">/skriː/</td>
+            <td class="meaning-cell">n. 山麓碎石;卵石;岩屑堆</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="32" data-src="audio/unit1/vocab_table/vocab_t_32.mp3">
+            <td><span class="voice-dot chris"></span>32</td>
+            <td class="word-cell">sedimentary</td>
+            <td class="phonetic-cell">/ˌsedɪˈmentri/</td>
+            <td class="meaning-cell">adj. 沉淀物的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="33" data-src="audio/unit1/vocab_table/vocab_t_33.mp3">
+            <td><span class="voice-dot sonia"></span>33</td>
+            <td class="word-cell">seam</td>
+            <td class="phonetic-cell">/siːm/</td>
+            <td class="meaning-cell">n. 缝，接缝；层</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="34" data-src="audio/unit1/vocab_table/vocab_t_34.mp3">
+            <td><span class="voice-dot chris"></span>34</td>
+            <td class="word-cell">solution</td>
+            <td class="phonetic-cell">/səˈluːʃən/</td>
+            <td class="meaning-cell">n. 溶解；分离</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="35" data-src="audio/unit1/vocab_table/vocab_t_35.mp3">
+            <td><span class="voice-dot sonia"></span>35</td>
+            <td class="word-cell">speck</td>
+            <td class="phonetic-cell">/spek/</td>
+            <td class="meaning-cell">n. 污点</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="36" data-src="audio/unit1/vocab_table/vocab_t_36.mp3">
+            <td><span class="voice-dot chris"></span>36</td>
+            <td class="word-cell">supergene</td>
+            <td class="phonetic-cell">/ˈsjuːpədʒiːn/</td>
+            <td class="meaning-cell">adj. 浅成生的，表生的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="37" data-src="audio/unit1/vocab_table/vocab_t_37.mp3">
+            <td><span class="voice-dot sonia"></span>37</td>
+            <td class="word-cell">superimposed</td>
+            <td class="phonetic-cell">/ˌsjuːpərɪmˈpəʊzd/</td>
+            <td class="meaning-cell">adj. 叠置的；叠积的</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="38" data-src="audio/unit1/vocab_table/vocab_t_38.mp3">
+            <td><span class="voice-dot chris"></span>38</td>
+            <td class="word-cell">sulphide</td>
+            <td class="phonetic-cell">/ˈsʌlfaɪd/</td>
+            <td class="meaning-cell">n. [化学] 硫化物</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="39" data-src="audio/unit1/vocab_table/vocab_t_39.mp3">
+            <td><span class="voice-dot sonia"></span>39</td>
+            <td class="word-cell">syncline</td>
+            <td class="phonetic-cell">/ˈsɪŋklaɪn/</td>
+            <td class="meaning-cell">n. 向斜</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="40" data-src="audio/unit1/vocab_table/vocab_t_40.mp3">
+            <td><span class="voice-dot chris"></span>40</td>
+            <td class="word-cell">transition</td>
+            <td class="phonetic-cell">/trænˈzɪʃən/</td>
+            <td class="meaning-cell">n. 转变；过渡</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="41" data-src="audio/unit1/vocab_table/vocab_t_41.mp3">
+            <td><span class="voice-dot sonia"></span>41</td>
+            <td class="word-cell">unconformity</td>
+            <td class="phonetic-cell">/ˌʌnkənˈfɔːmɪti/</td>
+            <td class="meaning-cell">n. 地层不整合</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="42" data-src="audio/unit1/vocab_table/vocab_t_42.mp3">
+            <td><span class="voice-dot chris"></span>42</td>
+            <td class="word-cell">zircon</td>
+            <td class="phonetic-cell">/ˈzɜːkɒn/</td>
+            <td class="meaning-cell">n. 锆石</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="43" data-src="audio/unit1/vocab_table/vocab_t_43.mp3">
+            <td><span class="voice-dot sonia"></span>43</td>
+            <td class="word-cell">fault</td>
+            <td class="phonetic-cell">/fɔːlt/</td>
+            <td class="meaning-cell">n. 缺点；断层</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="44" data-src="audio/unit1/vocab_table/vocab_t_44.mp3">
+            <td><span class="voice-dot chris"></span>44</td>
+            <td class="word-cell">gangue</td>
+            <td class="phonetic-cell">/ɡæŋ/</td>
+            <td class="meaning-cell">n. 脉石</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="45" data-src="audio/unit1/vocab_table/vocab_t_45.mp3">
+            <td><span class="voice-dot sonia"></span>45</td>
+            <td class="word-cell">mullock</td>
+            <td class="phonetic-cell">/ˈmʌlək/</td>
+            <td class="meaning-cell">n. 矿山废石</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== Phrases Section ==================== -->
+  <div class="vocab-section" id="phrasesSection">
+    <div class="section-header">
+      <div class="section-icon phrases-icon">P</div>
+      <div class="section-title">Phrases <small>短语</small></div>
+    </div>
+
+    <!-- Audio Control Bar -->
+    <div class="audio-control-bar" id="phrasesAudioBar">
+      <button class="acb-btn" id="phrasesPlayAllBtn" onclick="toggleContinuousPlay('phrases')">
+        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+        连续播放
+      </button>
+      <button class="acb-btn" id="phrasesStopBtn" onclick="stopContinuousPlay('phrases')" style="display:none;">
+        <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        停止
+      </button>
+      <span class="acb-label">遍数</span>
+      <select class="acb-repeat-select" id="phrasesRepeatCount" onchange="updateRepeatCount('phrases')">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <button class="acb-loop-toggle" id="phrasesLoopBtn" onclick="toggleLoop('phrases')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        循环
+      </button>
+      <span class="acb-progress" id="phrasesProgress"></span>
+    </div>
+
+    <!-- Phrases Table -->
+    <div class="vocab-card">
+      <table class="vocab-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>短语</th>
+            <th>音标</th>
+            <th>释义</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="phrasesBody">
+          <tr data-idx="46" data-src="audio/unit1/vocab_table/vocab_t_46.mp3">
+            <td><span class="voice-dot sonia"></span>46</td>
+            <td class="word-cell">anticlinal stratum</td>
+            <td class="phonetic-cell">/ˌæntɪˈklaɪnl ˈstrɑːtəm/</td>
+            <td class="meaning-cell">背斜地层</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="47" data-src="audio/unit1/vocab_table/vocab_t_47.mp3">
+            <td><span class="voice-dot chris"></span>47</td>
+            <td class="word-cell">bedded deposit</td>
+            <td class="phonetic-cell">/ˈbedɪd dɪˈpɒzɪt/</td>
+            <td class="meaning-cell">层状矿床</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="48" data-src="audio/unit1/vocab_table/vocab_t_48.mp3">
+            <td><span class="voice-dot sonia"></span>48</td>
+            <td class="word-cell">broke up</td>
+            <td class="phonetic-cell">/brəʊk ʌp/</td>
+            <td class="meaning-cell">分手</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="49" data-src="audio/unit1/vocab_table/vocab_t_49.mp3">
+            <td><span class="voice-dot chris"></span>49</td>
+            <td class="word-cell">conformable beds</td>
+            <td class="phonetic-cell">/kənˈfɔːməbl bedz/</td>
+            <td class="meaning-cell">整合层</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="50" data-src="audio/unit1/vocab_table/vocab_t_50.mp3">
+            <td><span class="voice-dot sonia"></span>50</td>
+            <td class="word-cell">disseminated ore</td>
+            <td class="phonetic-cell">/dɪˈsemɪneɪtɪd ɔː/</td>
+            <td class="meaning-cell">浸染状矿石</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="51" data-src="audio/unit1/vocab_table/vocab_t_51.mp3">
+            <td><span class="voice-dot chris"></span>51</td>
+            <td class="word-cell">epigenetic deposit</td>
+            <td class="phonetic-cell">/ˌepɪdʒɪˈnetɪk dɪˈpɒzɪt/</td>
+            <td class="meaning-cell">后生矿床</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="52" data-src="audio/unit1/vocab_table/vocab_t_52.mp3">
+            <td><span class="voice-dot sonia"></span>52</td>
+            <td class="word-cell">glacial deposition</td>
+            <td class="phonetic-cell">/ˈɡleɪʃəl ˌdepəˈzɪʃən/</td>
+            <td class="meaning-cell">冰川沉积</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="53" data-src="audio/unit1/vocab_table/vocab_t_53.mp3">
+            <td><span class="voice-dot chris"></span>53</td>
+            <td class="word-cell">non-ferrous metallic</td>
+            <td class="phonetic-cell">/ˌnɒnˈferəs məˈtælɪk/</td>
+            <td class="meaning-cell">有色金属</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="54" data-src="audio/unit1/vocab_table/vocab_t_54.mp3">
+            <td><span class="voice-dot sonia"></span>54</td>
+            <td class="word-cell">parent rock</td>
+            <td class="phonetic-cell">/ˈpeərənt rɒk/</td>
+            <td class="meaning-cell">母岩</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="55" data-src="audio/unit1/vocab_table/vocab_t_55.mp3">
+            <td><span class="voice-dot chris"></span>55</td>
+            <td class="word-cell">placer and alluvial deposits</td>
+            <td class="phonetic-cell">/ˈpleɪsər ənd əˈluːviəl dɪˈpɒzɪts/</td>
+            <td class="meaning-cell">砂矿和冲积矿床</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="56" data-src="audio/unit1/vocab_table/vocab_t_56.mp3">
+            <td><span class="voice-dot sonia"></span>56</td>
+            <td class="word-cell">saddle reef</td>
+            <td class="phonetic-cell">/ˈsædl riːf/</td>
+            <td class="meaning-cell">鞍礁</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="57" data-src="audio/unit1/vocab_table/vocab_t_57.mp3">
+            <td><span class="voice-dot chris"></span>57</td>
+            <td class="word-cell">sedimentary action</td>
+            <td class="phonetic-cell">/ˌsedɪˈmentri ˈækʃn/</td>
+            <td class="meaning-cell">沉积作用</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="58" data-src="audio/unit1/vocab_table/vocab_t_58.mp3">
+            <td><span class="voice-dot sonia"></span>58</td>
+            <td class="word-cell">supergene enrichment</td>
+            <td class="phonetic-cell">/ˈsjuːpədʒiːn ɪnˈrɪtʃmənt/</td>
+            <td class="meaning-cell">表生富集</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+          <tr data-idx="59" data-src="audio/unit1/vocab_table/vocab_t_59.mp3">
+            <td><span class="voice-dot chris"></span>59</td>
+            <td class="word-cell">syngenetic deposit</td>
+            <td class="phonetic-cell">/ˌsɪndʒɪˈnetɪk dɪˈpɒzɪt/</td>
+            <td class="meaning-cell">同生矿床</td>
+            <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    Unit 1 Geological Terminology &mdash; Vocabulary &copy; 采矿专业英语
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  // ===== Global Speed Control =====
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    // Update all currently playing audio
+    if (currentAudio) {
+      currentAudio.playbackRate = currentSpeed;
+    }
+  });
+
+  // ===== Audio State =====
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingRow = null;
+
+  // Continuous play state per section
+  var continuousState = {
+    words: { playing: false, currentIndex: 0, loop: false, repeatCount: 1, currentRepeat: 1, totalItems: 45 },
+    phrases: { playing: false, currentIndex: 0, loop: false, repeatCount: 1, currentRepeat: 1, totalItems: 14 }
+  };
+
+  // ===== Get rows for a section =====
+  function getSectionRows(section) {
+    if (section === 'words') {
+      return document.getElementById('wordsBody').querySelectorAll('tr');
+    } else {
+      return document.getElementById('phrasesBody').querySelectorAll('tr');
+    }
+  }
+
+  // ===== Play a single row =====
+  window.playRow = function(btn) {
+    var row = btn.closest('tr');
+    var src = row.getAttribute('data-src');
+
+    // Stop any currently playing audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      if (currentPlayingRow) {
+        currentPlayingRow.classList.remove('highlight');
+      }
+    }
+
+    // Create and play new audio
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.classList.add('playing');
+    btn.querySelector('svg').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    row.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingRow = row;
+
+    currentAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      btn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      row.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingRow = null;
+      currentAudio = null;
+
+      // If continuous play is active, continue
+      var section = getSectionFromRow(row);
+      if (section && continuousState[section].playing) {
+        playNextInSequence(section);
+      }
+    });
+  };
+
+  // ===== Determine section from row =====
+  function getSectionFromRow(row) {
+    var tbody = row.closest('tbody');
+    if (tbody && tbody.id === 'wordsBody') return 'words';
+    if (tbody && tbody.id === 'phrasesBody') return 'phrases';
+    return null;
+  }
+
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function(section) {
+    var state = continuousState[section];
+    if (state.playing) {
+      // Pause
+      stopContinuousPlay(section);
+      return;
+    }
+
+    // Start continuous play
+    state.playing = true;
+    state.currentIndex = 0;
+    state.currentRepeat = 1;
+
+    // Update UI
+    document.getElementById(section + 'PlayAllBtn').style.display = 'none';
+    document.getElementById(section + 'StopBtn').style.display = 'inline-flex';
+    document.getElementById(section + 'StopBtn').classList.add('active');
+
+    playNextInSequence(section);
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function(section) {
+    var state = continuousState[section];
+    state.playing = false;
+    state.currentIndex = 0;
+    state.currentRepeat = 1;
+
+    // Stop current audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      if (currentPlayingRow) {
+        currentPlayingRow.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingRow = null;
+    }
+
+    // Update UI
+    document.getElementById(section + 'PlayAllBtn').style.display = 'inline-flex';
+    document.getElementById(section + 'StopBtn').style.display = 'none';
+    document.getElementById(section + 'StopBtn').classList.remove('active');
+    document.getElementById(section + 'Progress').innerHTML = '';
+  };
+
+  // ===== Play Next in Sequence =====
+  function playNextInSequence(section) {
+    var state = continuousState[section];
+    var rows = getSectionRows(section);
+
+    if (state.currentIndex >= rows.length) {
+      // One round complete
+      if (state.currentRepeat < state.repeatCount) {
+        state.currentRepeat++;
+        state.currentIndex = 0;
+      } else if (state.loop) {
+        state.currentRepeat = 1;
+        state.currentIndex = 0;
+      } else {
+        // Done
+        stopContinuousPlay(section);
+        return;
+      }
+    }
+
+    var row = rows[state.currentIndex];
+    var btn = row.querySelector('.row-play-btn');
+    var src = row.getAttribute('data-src');
+
+    // Update progress
+    updateProgress(section);
+
+    // Stop any currently playing
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      if (currentPlayingRow) {
+        currentPlayingRow.classList.remove('highlight');
+      }
+    }
+
+    // Play
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.classList.add('playing');
+    btn.querySelector('svg').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    row.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingRow = row;
+
+    // Scroll into view
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      btn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      row.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingRow = null;
+      currentAudio = null;
+
+      state.currentIndex++;
+
+      if (state.playing) {
+        playNextInSequence(section);
+      }
+    });
+  }
+
+  // ===== Update Progress =====
+  function updateProgress(section) {
+    var state = continuousState[section];
+    var rows = getSectionRows(section);
+    var currentIdx = state.currentIndex + 1;
+    var total = rows.length;
+    var repeatInfo = '';
+    if (state.repeatCount > 1 || state.loop) {
+      repeatInfo = ' (第' + state.currentRepeat + '遍)';
+    }
+    document.getElementById(section + 'Progress').innerHTML =
+      '<span class="current-num">' + currentIdx + '</span> / ' + total + repeatInfo;
+  }
+
+  // ===== Toggle Loop =====
+  window.toggleLoop = function(section) {
+    var state = continuousState[section];
+    state.loop = !state.loop;
+    var btn = document.getElementById(section + 'LoopBtn');
+    if (state.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
+  };
+
+  // ===== Update Repeat Count =====
+  window.updateRepeatCount = function(section) {
+    var select = document.getElementById(section + 'RepeatCount');
+    continuousState[section].repeatCount = parseInt(select.value);
+  };
+
+})();
+</script>
+
+</body>
+</html>

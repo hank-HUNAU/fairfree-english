@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 10 Shrinkage Stopping — 情境会话</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --vocab-color: #0071e3;
+    --vocab-bg: rgba(0,113,227,0.08);
+    --vocab-border: rgba(0,113,227,0.2);
+    --left-bg: rgba(0,113,227,0.06);
+    --right-bg: rgba(255,149,0,0.06);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; min-height: 100vh; }
+  .container { max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; }
+  header { text-align: center; margin-bottom: 48px; padding: 48px 20px 36px; }
+  .header-unit { font-size: 0.82rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  header h1 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); font-weight: 700; color: var(--fg); margin-bottom: 8px; }
+  header h1 span { color: var(--accent); }
+  .header-sub { font-size: 1rem; color: var(--fg-muted); margin-top: 6px; }
+  .voice-legend { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin: 28px 0 48px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: var(--radius-card); box-shadow: var(--shadow); }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--fg-muted); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .legend-dot.william { background: var(--accent); }
+  .legend-dot.ryan { background: #ff9500; }
+  .speed-control-bar { position: sticky; top: 0; z-index: 100; background: rgba(245,245,247,0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 24px; }
+  .speed-control-bar label { font-size: 0.85rem; color: var(--fg-muted); display: flex; align-items: center; gap: 8px; font-weight: 500; }
+  .speed-control-bar .speed-value { color: var(--accent); font-weight: 700; min-width: 36px; text-align: center; }
+  .speed-control-bar input[type="range"] { -webkit-appearance: none; width: 140px; height: 4px; background: rgba(0,0,0,0.08); border-radius: 2px; outline: none; cursor: pointer; }
+  .speed-control-bar input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .scene-card { background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: var(--radius-card); box-shadow: var(--shadow); margin-bottom: 32px; overflow: hidden; }
+  .scene-header { background: var(--accent-light); border-bottom: 1px solid var(--accent-border); padding: 16px 20px; display: flex; align-items: center; gap: 14px; }
+  .scene-num { background: var(--accent); color: #fff; width: 32px; height: 32px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; }
+  .scene-title { font-size: 1.1rem; font-weight: 700; color: var(--fg); }
+  .scene-desc { font-size: 0.85rem; color: var(--fg-muted); margin-top: 4px; }
+  .dialog-container { padding: 20px; }
+  .dialog-item { display: flex; gap: 12px; margin-bottom: 16px; }
+  .dialog-item:last-child { margin-bottom: 0; }
+  .dialog-item.left { justify-content: flex-start; }
+  .dialog-item.right { justify-content: flex-end; }
+  .speaker-avatar { width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .speaker-avatar.dr-zhang { background: var(--accent); }
+  .speaker-avatar.mr-li { background: #ff9500; }
+  .dialog-bubble { max-width: 75%; padding: 14px 18px; border-radius: 16px; }
+  .dialog-item.left .dialog-bubble { background: var(--left-bg); border: 1px solid var(--accent-border); }
+  .dialog-item.right .dialog-bubble { background: var(--right-bg); border: 1px solid rgba(255,149,0,0.18); }
+  .dialog-en { font-size: 0.95rem; line-height: 1.7; color: var(--fg); margin-bottom: 8px; }
+  .dialog-cn { font-size: 0.85rem; line-height: 1.6; color: var(--fg-muted); }
+  .vocab { color: var(--vocab-color); background: var(--vocab-bg); padding: 2px 6px; border-radius: 4px; border-bottom: 2px solid var(--vocab-border); cursor: pointer; position: relative; font-weight: 500; }
+  .vocab .tip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: 8px; padding: 8px 12px; font-size: 0.8rem; color: var(--fg); white-space: nowrap; box-shadow: var(--shadow); z-index: 10; margin-bottom: 4px; }
+  .vocab:hover .tip { display: block; }
+  .dialog-btn-row { margin-top: 10px; }
+  .dialog-play-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 6px 12px; border: none; border-radius: 8px; font-size: 0.78rem; font-weight: 500; cursor: pointer; font-family: inherit; background: var(--accent); color: #fff; transition: background 0.2s, transform 0.15s; }
+  .dialog-play-btn:hover { background: var(--accent-hover); transform: scale(1.02); }
+  .dialog-play-btn svg { width: 12px; height: 12px; fill: currentColor; }
+  .vocab-section { background: rgba(0,0,0,0.02); border-top: 1px solid var(--border-solid); padding: 16px 20px; }
+  .vocab-section-title { font-size: 0.85rem; font-weight: 600; color: var(--fg-muted); margin-bottom: 12px; }
+  .vocab-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .vocab-item { background: var(--card-bg); border: 1px solid var(--border-solid); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; }
+  .vocab-item .word { font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+  .vocab-item .meaning { font-size: 0.78rem; color: var(--fg-muted); }
+  .vocab-play-btn { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; padding: 0; }
+  .vocab-play-btn svg { width: 10px; height: 10px; fill: #fff; }
+  footer { text-align: center; padding: 36px 20px; color: var(--fg-muted); font-size: 0.78rem; border-top: 1px solid var(--border-solid); margin-top: 24px; }
+  @media (max-width: 768px) { .container { padding: 20px 12px 60px; } .dialog-bubble { max-width: 85%; padding: 12px 14px; } .dialog-en { font-size: 0.88rem; } .dialog-cn { font-size: 0.8rem; } .speaker-avatar { width: 36px; height: 36px; font-size: 0.7rem; } .speed-control-bar { padding: 10px 12px; gap: 10px; } .speed-control-bar input[type="range"] { width: 100px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="voice-legend">
+    <div class="legend-item"><span class="legend-dot william"></span> William (Dr.Zhang)</div>
+    <div class="legend-item"><span class="legend-dot ryan"></span> Ryan (Mr.Li)</div>
+  </div>
+  <div class="speed-control-bar">
+    <label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="scene-card" id="scene1">
+    <div class="scene-header">
+      <span class="scene-num">1</span>
+      <div>
+        <div class="scene-title">Shrinkage Stopping Principle</div>
+        <div class="scene-desc">留矿法原理讨论</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What is the basic support mechanism in shrinkage stopping?</div>
+          <div class="dialog-cn">留矿法的基本支护机制是什么？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s1_01.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">The support is <span class="vocab">broken ore<span class="tip">破碎矿石</span></span> left in the stope. When the stope is filled with <span class="vocab">broken ore<span class="tip">破碎矿石</span></span>, the fractured rock is <span class="vocab">restrained<span class="tip">约束</span></span> from falling.</div>
+          <div class="dialog-cn">支护是留在采场内的破碎矿石。当采场充满破碎矿石时，破裂岩石被约束不会掉落。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s1_02.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What is the <span class="vocab">swell factor<span class="tip">碎胀系数</span></span> and why is it important?</div>
+          <div class="dialog-cn">什么是碎胀系数，为什么它很重要？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s1_03.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">The <span class="vocab">swell factor<span class="tip">碎胀系数</span></span> is about 1.3 to 1.5. Without this swell, there would be no output during mining.</div>
+          <div class="dialog-cn">碎胀系数约1.3到1.5。没有碎胀，采矿期间就无法出矿。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s1_04.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+    </div>
+    <div class="vocab-section">
+      <div class="vocab-section-title">Key Vocabulary</div>
+      <div class="vocab-grid">
+          <div class="vocab-item">
+            <span class="word">broken ore</span>
+            <span class="meaning">破碎矿石</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s1_01.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">swell factor</span>
+            <span class="meaning">碎胀系数</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s1_02.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">restrained</span>
+            <span class="meaning">约束</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s1_03.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">fragmentation</span>
+            <span class="meaning">破碎</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s1_04.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="scene-card" id="scene2">
+    <div class="scene-header">
+      <span class="scene-num">2</span>
+      <div>
+        <div class="scene-title">Vertical Stopping Method</div>
+        <div class="scene-desc">垂直采矿方法讨论</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What makes shrinkage stopping a <span class="vocab">vertical stopping<span class="tip">垂直采矿</span></span> method?</div>
+          <div class="dialog-cn">什么使留矿法成为垂直采矿方法？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s2_01.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">The stope is carried on in a vertical or near-vertical plane at an angle greater than the <span class="vocab">angle of repose<span class="tip">安息角</span></span> of the broken ore.</div>
+          <div class="dialog-cn">采场在垂直或近似垂直面上进行，角度大于破碎矿石的安息角。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s2_02.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">How does shrinkage stopping provide working space for miners?</div>
+          <div class="dialog-cn">留矿法如何为矿工提供作业空间？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s2_03.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">30% to 40% of broken ore is drawn off during mining to provide working space. The remaining ore serves as temporary support and <span class="vocab">working platform<span class="tip">作业平台</span></span>.</div>
+          <div class="dialog-cn">采矿期间放出30%到40%的破碎矿石提供作业空间。剩余矿石作为临时支护和作业平台。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s2_04.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+    </div>
+    <div class="vocab-section">
+      <div class="vocab-section-title">Key Vocabulary</div>
+      <div class="vocab-grid">
+          <div class="vocab-item">
+            <span class="word">vertical stopping</span>
+            <span class="meaning">垂直采矿</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s2_01.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">angle of repose</span>
+            <span class="meaning">安息角</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s2_02.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">working platform</span>
+            <span class="meaning">作业平台</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s2_03.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">overhand method</span>
+            <span class="meaning">上向式采矿</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s2_04.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="scene-card" id="scene3">
+    <div class="scene-header">
+      <span class="scene-num">3</span>
+      <div>
+        <div class="scene-title">Crown Pillar Support</div>
+        <div class="scene-desc">顶柱支护讨论</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">How should we support the <span class="vocab">crown pillar<span class="tip">顶柱</span></span> in shrinkage stopping?</div>
+          <div class="dialog-cn">留矿法中如何支护顶柱？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s3_01.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">The backs under the <span class="vocab">crown pillar<span class="tip">顶柱</span></span> may be <span class="vocab">rock-bolted<span class="tip">岩石锚杆支护</span></span> to increase stability and avoid <span class="vocab">premature collapse<span class="tip">过早冒落</span></span> when drawing off ores.</div>
+          <div class="dialog-cn">顶柱下方可以采用岩石锚杆支护，增加稳定性，避免出矿时过早冒落。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s3_02.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What measures can be taken to suppress dust during ore drawing?</div>
+          <div class="dialog-cn">出矿期间可以采取什么措施抑制粉尘？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s3_03.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">Water sprays can be installed on the backs before the stope is drawn off to help suppress dust at draw points.</div>
+          <div class="dialog-cn">出矿前可以在顶板安装喷水设备，抑制出矿口的粉尘。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit10/dialog_s3_04.mp3" onclick="playDialog(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>播放</button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+    </div>
+    <div class="vocab-section">
+      <div class="vocab-section-title">Key Vocabulary</div>
+      <div class="vocab-grid">
+          <div class="vocab-item">
+            <span class="word">crown pillar</span>
+            <span class="meaning">顶柱</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s3_01.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">rock-bolted</span>
+            <span class="meaning">岩石锚杆支护</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s3_02.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">premature collapse</span>
+            <span class="meaning">过早冒落</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s3_03.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">dust suppression</span>
+            <span class="meaning">粉尘抑制</span>
+            <button class="vocab-play-btn" data-src="../audio/unit10/vocab_dialog/vocab_d_s3_04.mp3" onclick="playVocab(this)"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Unit 10 Shrinkage Stopping &mdash; Dialogues &copy; 采矿专业英语</footer>
+</div>
+<script>
+(function() {
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+  var currentAudio = null;
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) currentAudio.playbackRate = currentSpeed;
+  });
+  window.playDialog = function(btn) {
+    var src = btn.getAttribute('data-src');
+    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+    var audio = new Audio(src);
+    audio.playbackRate = currentSpeed;
+    currentAudio = audio;
+    audio.play().catch(function() {});
+    audio.addEventListener('ended', function() { currentAudio = null; });
+  };
+  window.playVocab = function(btn) {
+    var src = btn.getAttribute('data-src');
+    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+    var audio = new Audio(src);
+    audio.playbackRate = currentSpeed;
+    currentAudio = audio;
+    audio.play().catch(function() {});
+    audio.addEventListener('ended', function() { currentAudio = null; });
+  };
+
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('dialogue', 'unit10');
+    }
+    alert('情境会话学习已完成！');
+  };
+})();
+</script>
+<script src="../studyTracker.js"></script>
+</body>
+</html>

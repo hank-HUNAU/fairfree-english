@@ -16,6 +16,7 @@
     --accent-border: rgba(0,113,227,0.15);
     --border: rgba(0,0,0,0.06);
     --border-light: rgba(0,0,0,0.04);
+    --border-solid: #e8e8ed;
     --shadow: 0 2px 12px rgba(0,0,0,0.06);
     --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
     --radius-card: 16px;
@@ -30,6 +31,8 @@
     --avatar-blue: #2196f3;
     --tooltip-bg: #1d1d1f;
     --tooltip-fg: #ffffff;
+    --header-height: 60px;
+    --footer-height: 56px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -47,7 +50,9 @@
   .container {
     max-width: 860px;
     margin: 0 auto;
-    padding: 40px 20px 80px;
+    padding: calc(var(--header-height) + 20px) 20px calc(var(--footer-height) + 24px);
+    position: relative;
+    z-index: 1;
   }
 
   /* Header */
@@ -87,43 +92,71 @@
     font-weight: 400;
   }
 
-  /* Global Speed Control */
-  .speed-control-bar {
-    position: sticky;
+  /* Fixed Top Navigation Bar */
+  .top-nav {
+    position: fixed;
     top: 0;
-    z-index: 100;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
     background: rgba(245,245,247,0.8);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--border);
-    padding: 12px 20px;
+    z-index: 1000;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin-bottom: 24px;
+    justify-content: space-between;
+    padding: 0 24px;
   }
 
-  .speed-control-bar label {
-    font-size: 0.85rem;
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-title span { color: var(--accent); }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-speed-label {
+    font-size: 0.78rem;
     color: var(--fg-muted);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-weight: 500;
   }
 
-  .speed-control-bar .speed-value {
-    color: var(--accent);
-    font-weight: 600;
-    min-width: 36px;
-    text-align: center;
+  .nav-speed-label svg {
+    width: 14px;
+    height: 14px;
   }
 
-  .speed-control-bar input[type="range"] {
+  .nav-speed-slider {
     -webkit-appearance: none;
     appearance: none;
-    width: 140px;
+    width: 100px;
     height: 4px;
     background: rgba(0,0,0,0.08);
     border-radius: 2px;
@@ -131,24 +164,212 @@
     cursor: pointer;
   }
 
-  .speed-control-bar input[type="range"]::-webkit-slider-thumb {
+  .nav-speed-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
-  }
-
-  .speed-control-bar input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: var(--accent);
     cursor: pointer;
     border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    transition: transform 0.15s ease;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .nav-speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .complete-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* Fixed Bottom Player Bar */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .player-section-label {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    border-radius: 6px;
+    border: 1px solid var(--accent-border);
+  }
+
+  .player-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .player-btn.active {
+    background: #1d1d1f;
+  }
+
+  .player-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .player-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .player-repeat-select {
+    padding: 6px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .player-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .player-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .player-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .player-progress {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .player-progress .current-num {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Progress bar styles */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    white-space: nowrap;
   }
 
   /* Scene Card */
@@ -612,7 +833,7 @@
 
   /* Responsive */
   @media (max-width: 640px) {
-    .container { padding: 20px 12px 60px; }
+    .container { padding: calc(var(--header-height) + 12px) 12px calc(var(--footer-height) + 16px); }
     .scene-header { padding: 18px 18px 14px; }
     .scene-characters { padding: 10px 18px; }
     .dialogue-area { padding: 18px; }
@@ -622,33 +843,83 @@
     .bubble { max-width: 85%; padding: 10px 34px 10px 14px; }
     header { padding: 32px 16px 24px; }
     .bubble-avatar { width: 28px; height: 28px; font-size: 0.6rem; }
-    .speed-control-bar { padding: 10px 12px; gap: 8px; }
-    .speed-control-bar input[type="range"] { width: 100px; }
+    .top-nav { padding: 0 12px; }
+    .nav-title { font-size: 0.95rem; }
+    .nav-speed-slider { width: 70px; }
+    .complete-btn { padding: 6px 12px; font-size: 0.78rem; }
+    .bottom-player { padding: 0 12px; gap: 8px; }
+    .player-btn { padding: 6px 10px; font-size: 0.75rem; }
     .vocab-audio-bar { gap: 6px; padding: 8px 10px; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-center { display: none; }
+    .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; }
+    .progress-bar-container { max-width: 150px; }
   }
 </style>
 </head>
 <body>
 
-<div class="container">
-
-  <header>
-    <div class="header-unit">Unit 1</div>
-    <h1>情境会话 <span>— Geological Terminology</span></h1>
-    <div class="header-sub">基于课文改编的采矿场景英语对话</div>
-  </header>
-
-  <div class="speed-control-bar">
-    <label>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+<!-- Fixed Top Navigation Bar -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 1</span>
+    <span class="nav-title">情境会话</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
       语速
-      <input type="range" id="speedSlider1" min="0.5" max="1.5" step="0.1" value="1.0">
-      <span class="speed-value" id="speedValue1">1.0x</span>
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
     </label>
   </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+<!-- Fixed Bottom Player Bar -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSceneLabel">Scene 1</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <span class="progress-text" id="progressBarText">0 / 0</span>
+  </div>
+</div>
+
+<div class="container">
+
+
 
   <!-- ==================== Scene 1 ==================== -->
-  <div class="scene-card">
+  <div class="scene-card" data-scene="1">
     <div class="scene-header">
       <div class="scene-number">Scene 01</div>
       <div class="scene-title">野外地质勘查 — Field Geological Survey</div>
@@ -663,7 +934,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_01.mp3" data-idx="1" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Mr. Li, take a look at this <span class="vocab">rock strata<span class="tooltip">岩层</span></span> section. The simplest form is where each <span class="vocab">stratum<span class="tooltip">地层</span></span> is <span class="vocab">superimposed<span class="tooltip">叠加</span></span> on another. These are <span class="vocab">conformable beds<span class="tooltip">整合层</span></span>.
         </div>
@@ -672,7 +943,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_02.mp3" data-idx="2" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           I see. So the layers have been deposited in a regular sequence without any significant break. But what about those curved formations over there?
         </div>
@@ -681,7 +952,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_03.mp3" data-idx="3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Good observation. Those are <span class="vocab">folds<span class="tooltip">褶皱</span></span>. The beds have been distorted by <span class="vocab">movements of the earth's crust<span class="tooltip">地壳运动</span></span>. This downward curve here is a <span class="vocab">syncline<span class="tooltip">向斜</span></span>, and the upward arch is an <span class="vocab">anticline<span class="tooltip">背斜</span></span>.
         </div>
@@ -690,7 +961,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_04.mp3" data-idx="4" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           The scale is impressive. How large can a single fold be?
         </div>
@@ -699,7 +970,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_05.mp3" data-idx="5" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           A single fold producing a <span class="vocab">synclinal basin<span class="tooltip">向斜盆地</span></span> may stretch for hundreds of kilometers. Or it may be measured with a wavelength of just a few meters. The scale varies enormously.
         </div>
@@ -708,7 +979,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_06.mp3" data-idx="6" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           I notice the rock here is heavily <span class="vocab">fractured<span class="tooltip">断裂的</span></span>, especially near the crest of that anticline.
         </div>
@@ -717,7 +988,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_07.mp3" data-idx="7" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Exactly. Where the folding is severe, the rock is frequently heavily fractured, particularly where it is under <span class="vocab">tension<span class="tooltip">张力</span></span> on the crest of an anticlinal stratum or at the base of a synclinal stratum.
         </div>
@@ -726,7 +997,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_08.mp3" data-idx="8" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           So these <span class="vocab">weakened zones<span class="tooltip">弱化带</span></span> could provide a path for mineral-rich solutions to permeate the host rock?
         </div>
@@ -735,7 +1006,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_09.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_09.mp3" data-idx="9" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Precisely. These weakened zones provide a path for <span class="vocab">igneous intrusive rocks<span class="tooltip">火成侵入岩</span></span> or mineral-rich solutions to permeate the <span class="vocab">host rock<span class="tooltip">围岩</span></span> and produce <span class="vocab">ore bodies<span class="tooltip">矿体</span></span>. That is why many ore bodies have a typical form, such as <span class="vocab">saddle reefs<span class="tooltip">鞍状矿脉</span></span>.
         </div>
@@ -744,7 +1015,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_10.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_10.mp3" data-idx="10" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           That makes sense. What about the <span class="vocab">faults<span class="tooltip">断层</span></span> in this area? I can see several fracture lines running through the formation.
         </div>
@@ -753,7 +1024,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_11.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s1_11.mp3" data-idx="11" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           In practice, a fault of this magnitude would have many associated smaller faults and fractures that can again give rise to an area favourable for subsequent <span class="vocab">mineralisation<span class="tooltip">矿化</span></span>. These are the areas we should focus on for exploration.
         </div>
@@ -823,7 +1094,7 @@
   </div>
 
   <!-- ==================== Scene 2 ==================== -->
-  <div class="scene-card">
+  <div class="scene-card" data-scene="2">
     <div class="scene-header">
       <div class="scene-number">Scene 02</div>
       <div class="scene-title">矿体分析讨论 — Orebody Analysis</div>
@@ -838,7 +1109,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_01.mp3" data-idx="1" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Let's discuss the classification of this <span class="vocab">orebody<span class="tooltip">矿体</span></span>. An orebody may contain both desirable metallic minerals and unwanted non-metallic minerals. The metallic minerals form the <span class="vocab">ore<span class="tooltip">矿石</span></span>, and the unwanted minerals are known as <span class="vocab">gangue<span class="tooltip">脉石</span></span>.
         </div>
@@ -847,7 +1118,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_02.mp3" data-idx="2" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           I understand. So we need to separate the ore from the gangue during processing. But how do we define the boundary of an orebody?
         </div>
@@ -856,7 +1127,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_03.mp3" data-idx="3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           That is where the concept of <span class="vocab">cut-off grade<span class="tooltip">边界品位</span></span> comes in. A gradual transition of high grade to low grade ore is common, and it is not always easy to determine the physical limits of an ore body.
         </div>
@@ -865,7 +1136,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_04.mp3" data-idx="4" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           So the cut-off grade is the grade below which the material is no longer economically worth mining?
         </div>
@@ -874,7 +1145,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_05.mp3" data-idx="5" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Exactly. An orebody should be known more accurately as <span class="vocab">mineralisation<span class="tooltip">矿化</span></span> which comprises economic ore and <span class="vocab">sub-economic<span class="tooltip">次经济的</span></span> lower grade material. The lower grade material broken during mine development is called <span class="vocab">mullock<span class="tooltip">废石</span></span> or waste.
         </div>
@@ -883,7 +1154,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_06.mp3" data-idx="6" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           What about the physical form of the ore? I have heard the terms <span class="vocab">massive ore<span class="tooltip">块状矿</span></span> and <span class="vocab">disseminated ore<span class="tooltip">浸染矿</span></span>.
         </div>
@@ -892,7 +1163,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_07.mp3" data-idx="7" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Where the ore occurs in relatively pure form — for example, as almost 100 percent <span class="vocab">lead sulphide<span class="tooltip">硫化铅</span></span> (<span class="vocab">galena<span class="tooltip">方铅矿</span></span>) — even in small amounts, it is said to be massive.
         </div>
@@ -901,7 +1172,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_08.mp3" data-idx="8" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           And disseminated ore is the opposite — the ore is spread thinly through the body of rock?
         </div>
@@ -910,7 +1181,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_09.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_09.mp3" data-idx="9" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Correct. If the ore is spread thinly through a body of rock so that individual <span class="vocab">specks<span class="tooltip">颗粒</span></span> of the ore are surrounded by a high percentage of rock, then this is a disseminated ore. Massive ore is generally easier to process, but disseminated ore can still be economic if the deposit is large enough.
         </div>
@@ -919,7 +1190,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_10.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s2_10.mp3" data-idx="10" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           That is very helpful. Now I have a clearer picture of how we classify and evaluate an orebody.
         </div>
@@ -983,7 +1254,7 @@
   </div>
 
   <!-- ==================== Scene 3 ==================== -->
-  <div class="scene-card">
+  <div class="scene-card" data-scene="3">
     <div class="scene-header">
       <div class="scene-number">Scene 03</div>
       <div class="scene-title">铁帽与表生富集 — Gossan and Supergene Enrichment</div>
@@ -998,7 +1269,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_01.mp3" data-idx="1" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Look at this <span class="vocab">outcrop<span class="tooltip">露头</span></span> here, Mr. Li. Notice the yellowish-brown, reddish <span class="vocab">capping<span class="tooltip">覆盖层</span></span> on top? This is what we call a <span class="vocab">gossan<span class="tooltip">铁帽</span></span>.
         </div>
@@ -1007,7 +1278,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_02.mp3" data-idx="2" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           It is quite distinctive. How does a gossan form?
         </div>
@@ -1016,7 +1287,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_03.mp3" data-idx="3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Where orebodies <span class="vocab">outcrop to the surface<span class="tooltip">出露地表</span></span>, particularly in geologically mature areas free of <span class="vocab">glacial deposition<span class="tooltip">冰川沉积</span></span>, the portion near the surface may be <span class="vocab">leached<span class="tooltip">淋滤</span></span> by impure <span class="vocab">percolating waters<span class="tooltip">渗流水</span></span> and subsequently <span class="vocab">oxidized<span class="tooltip">氧化</span></span>.
         </div>
@@ -1025,7 +1296,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_04.mp3" data-idx="4" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           So the valuable minerals are dissolved and carried away, leaving the iron behind?
         </div>
@@ -1034,7 +1305,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_05.mp3" data-idx="5" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           That is right. Many metallic ores contain a proportion of <span class="vocab">iron sulphides<span class="tooltip">硫化铁</span></span>, and these do not leach away but change to <span class="vocab">iron oxides<span class="tooltip">铁氧化物</span></span> — <span class="vocab">haematite<span class="tooltip">赤铁矿</span></span>, <span class="vocab">goethite<span class="tooltip">针铁矿</span></span> and <span class="vocab">jarosite<span class="tooltip">黄钾铁矾</span></span>. The colour varies slightly with the original mineral content, but the general result is a yellowish, brownish, or reddish <span class="vocab">ferruginous capping<span class="tooltip">铁质覆盖层</span></span> known as a gossan.
         </div>
@@ -1043,7 +1314,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_06.mp3" data-idx="6" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           So a gossan is essentially an indicator of potential mineralisation beneath the surface. But what happens to the minerals that were leached away?
         </div>
@@ -1052,7 +1323,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_07.mp3" data-idx="7" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Excellent question. The minerals leached away from the outcrop often cause a zone of <span class="vocab">secondary enrichment<span class="tooltip">次生富集</span></span>, generally in the form of sulphides, at a depth of 60 to 120 metres from the surface. This is known as <span class="vocab">supergene enrichment<span class="tooltip">表生富集</span></span>.
         </div>
@@ -1061,7 +1332,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_08.mp3" data-idx="8" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           So the enrichment zone lies between the leached gossan on top and the unaltered <span class="vocab">primary orebody<span class="tooltip">原生矿体</span></span> below?
         </div>
@@ -1070,7 +1341,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_09.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_09.mp3" data-idx="9" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Exactly. This enrichment zone then lies on top of the unaltered primary orebody. The supergene zone is often richer than the primary ore, which makes it a priority target for mining. It is important to understand this zonation when planning exploration drilling.
         </div>
@@ -1079,7 +1350,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_10.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_10.mp3" data-idx="10" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           That is fascinating. So finding a gossan at the surface is essentially a clue that there may be a richer orebody at depth. This knowledge will be very useful for our exploration programme.
         </div>
@@ -1088,7 +1359,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_11.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s3_11.mp3" data-idx="11" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Precisely. Gossans have historically been one of the most important <span class="vocab">prospecting<span class="tooltip">找矿</span></span> indicators. In fact, many major deposits around the world were first discovered through the observation of iron-capped outcrops.
         </div>
@@ -1159,7 +1430,7 @@
   </div>
 
   <!-- ==================== Scene 4 ==================== -->
-  <div class="scene-card">
+  <div class="scene-card" data-scene="4">
     <div class="scene-header">
       <div class="scene-number">Scene 04</div>
       <div class="scene-title">砂矿勘探 — Placer Exploration</div>
@@ -1174,7 +1445,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_01.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_01.mp3" data-idx="1" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           We are now entering an area where <span class="vocab">placer deposits<span class="tooltip">砂矿</span></span> and <span class="vocab">alluvial deposits<span class="tooltip">冲积矿床</span></span> are likely to be found. This river valley is a promising location.
         </div>
@@ -1183,7 +1454,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_02.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_02.mp3" data-idx="2" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           How do placer deposits form, Dr. Zhang? Are they related to the primary deposits we discussed earlier?
         </div>
@@ -1192,7 +1463,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_03.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_03.mp3" data-idx="3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Yes, they are directly related. When the <span class="vocab">primary deposits<span class="tooltip">原生矿床</span></span> are brought to the surface by geological methods and then <span class="vocab">mechanically eroded<span class="tooltip">机械侵蚀</span></span>, they can suffer one of two fates.
         </div>
@@ -1201,7 +1472,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_04.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_04.mp3" data-idx="4" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           What are the two possible fates?
         </div>
@@ -1210,7 +1481,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_05.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_05.mp3" data-idx="5" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           They may go into solution for subsequent <span class="vocab">chemical redeposition<span class="tooltip">化学再沉积</span></span>, or they may break up into fairly <span class="vocab">stable particles<span class="tooltip">稳定颗粒</span></span> which are transported varying distances.
         </div>
@@ -1219,7 +1490,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_06.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_06.mp3" data-idx="6" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           And the placer deposits are formed by the second process — the mechanical breakdown and transport of particles?
         </div>
@@ -1228,7 +1499,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_07.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_07.mp3" data-idx="7" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Exactly. <span class="vocab">Heavy mineral particles<span class="tooltip">重矿物颗粒</span></span>, such as gold, settle close to their source. Lighter particles are carried further downstream. This is why placer gold is often found in river beds and <span class="vocab">alluvial plains<span class="tooltip">冲积平原</span></span> near the original source.
         </div>
@@ -1237,7 +1508,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_08.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_08.mp3" data-idx="8" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           So the distribution of placer minerals depends on the specific gravity of the particles?
         </div>
@@ -1246,7 +1517,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_09.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_09.mp3" data-idx="9" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           That is one important factor. The energy of the transporting medium — water in this case — also plays a role. In areas of high water energy, even heavy particles can be moved, but they tend to settle in <span class="vocab">traps<span class="tooltip">陷阱（地质）</span></span> such as behind boulders, in bedrock <span class="vocab">crevices<span class="tooltip">裂隙</span></span>, or at bends in the river.
         </div>
@@ -1255,7 +1526,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_10.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_10.mp3" data-idx="10" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           How do placer deposits compare to <span class="vocab">bedded deposits<span class="tooltip">层状矿床</span></span> in terms of formation?
         </div>
@@ -1264,7 +1535,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_11.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_11.mp3" data-idx="11" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           They are quite different. Chemical and physical deposition of consolidated minerals can produce bedded deposits which may extend over larger areas. These are minerals such as coal, iron ore, salt or <span class="vocab">potash deposits<span class="tooltip">钾盐矿床</span></span>, and <span class="vocab">phosphates<span class="tooltip">磷酸盐</span></span>. Placer deposits, on the other hand, are the result of mechanical erosion and gravity separation.
         </div>
@@ -1273,7 +1544,7 @@
       <div class="bubble-row right">
         <div class="bubble-avatar b">L</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_12.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_12.mp3" data-idx="12" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Mr. Li</div>
           I see. So for our exploration here, we should focus on sampling the river bed sediments, especially behind those large boulders and in the crevices of the bedrock.
         </div>
@@ -1282,7 +1553,7 @@
       <div class="bubble-row">
         <div class="bubble-avatar a">Z</div>
         <div class="bubble">
-          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_13.mp3" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+          <button class="bubble-play-btn" data-src="../audio/unit1/dialog_s4_13.mp3" data-idx="13" onclick="toggleBubbleAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
           <div class="speaker-name">Dr. Zhang</div>
           Precisely. Those are the natural trap sites where heavy minerals would accumulate. We should also consider that <span class="vocab">outcrops<span class="tooltip">露头</span></span> occur when a series of beds are cut away by general erosion of the surface or dissected by rivers, so that the edges of beds are exposed. This could also indicate nearby primary mineralisation.
         </div>
@@ -1357,75 +1628,303 @@
 </div>
 
 <script>
-/* Translation toggle */
-function toggleTranslation(el) {
-  var content = el.nextElementSibling;
-  var isOpen = el.classList.toggle('open');
-  content.classList.toggle('show', isOpen);
-}
-
-/* Bubble audio */
 (function() {
-  var currentAudio = null;
-  var currentBtn = null;
+  // ===== Global Speed Control =====
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
 
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = currentSpeed;
+    }
+  });
+
+  // ===== Audio State =====
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingRow = null;
+
+  // Unified continuous play state
+  var playState = {
+    playing: false,
+    currentScene: 1,
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 1,
+    currentRepeat: 1
+  };
+
+  // Scene bubble counts
+  var sceneBubbleCounts = {
+    1: 11,
+    2: 10,
+    3: 11,
+    4: 13
+  };
+
+  // ===== Get bubbles for current scene =====
+  function getCurrentBubbles() {
+    var sceneCard = document.querySelector('.scene-card[data-scene="' + playState.currentScene + '"]');
+    if (sceneCard) {
+      return sceneCard.querySelectorAll('.bubble-play-btn');
+    }
+    return [];
+  }
+
+  // ===== Update scene label =====
+  function updateSceneLabel() {
+    var label = document.getElementById('currentSceneLabel');
+    label.textContent = 'Scene ' + playState.currentScene;
+  }
+
+  // ===== Translation toggle =====
+  window.toggleTranslation = function(el) {
+    var content = el.nextElementSibling;
+    var isOpen = el.classList.toggle('open');
+    content.classList.toggle('show', isOpen);
+  };
+
+  // ===== Play a single bubble =====
   window.toggleBubbleAudio = function(btn) {
     var src = btn.getAttribute('data-src');
 
-    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+    // If continuous play is active, stop it
+    if (playState.playing) {
+      stopContinuousPlay();
+    }
+
+    // Stop any currently playing audio
+    if (currentAudio) {
       currentAudio.pause();
-      btn.classList.remove('playing');
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+    }
+
+    // If same button is playing, just stop
+    if (currentPlayingBtn === btn && currentAudio && !currentAudio.paused) {
+      currentAudio = null;
+      currentPlayingBtn = null;
       return;
     }
 
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio = null;
-    }
-    if (currentBtn) {
-      currentBtn.classList.remove('playing');
-      currentBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
-    }
-
-    var audio = new Audio(src);
-    var speedSlider = document.getElementById('speedSlider1');
-    if (speedSlider) {
-      audio.playbackRate = parseFloat(speedSlider.value);
-    }
+    // Create and play new audio
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
 
     btn.classList.add('playing');
-    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
+    btn.querySelector('svg').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
 
-    currentAudio = audio;
-    currentBtn = btn;
+    currentPlayingBtn = btn;
 
-    audio.play().catch(function() {});
+    // Update current scene based on button
+    var sceneCard = btn.closest('.scene-card');
+    if (sceneCard) {
+      playState.currentScene = parseInt(sceneCard.getAttribute('data-scene'));
+      updateSceneLabel();
+    }
 
-    audio.addEventListener('ended', function() {
+    currentAudio.addEventListener('ended', function() {
       btn.classList.remove('playing');
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      btn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      currentPlayingBtn = null;
       currentAudio = null;
-      currentBtn = null;
     });
   };
 
-  var slider = document.getElementById('speedSlider1');
-  var speedVal = document.getElementById('speedValue1');
-  if (slider && speedVal) {
-    slider.addEventListener('input', function() {
-      var rate = parseFloat(this.value).toFixed(1);
-      speedVal.textContent = rate + 'x';
-      if (currentAudio) {
-        currentAudio.playbackRate = parseFloat(rate);
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
+      return;
+    }
+
+    // Start continuous play from current scene
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+    updateSceneLabel();
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    // Stop current audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+    }
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+
+    // Reset progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / 0';
+    }
+  };
+
+  // ===== Play Next in Sequence =====
+  function playNextInSequence() {
+    var bubbles = getCurrentBubbles();
+    var totalInScene = sceneBubbleCounts[playState.currentScene] || bubbles.length;
+
+    if (playState.currentIndex >= totalInScene) {
+      // One scene complete
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        // Check if we should switch to next scene
+        if (playState.currentScene < 4) {
+          playState.currentScene++;
+          playState.currentIndex = 0;
+          playState.currentRepeat = 1;
+          updateSceneLabel();
+        } else {
+          // Done with all
+          stopContinuousPlay();
+          return;
+        }
+      }
+    }
+
+    bubbles = getCurrentBubbles(); // Refresh after potential scene switch
+    totalInScene = sceneBubbleCounts[playState.currentScene] || bubbles.length;
+
+    if (playState.currentIndex >= bubbles.length) {
+      stopContinuousPlay();
+      return;
+    }
+
+    var btn = bubbles[playState.currentIndex];
+    var src = btn.getAttribute('data-src');
+
+    // Update progress
+    updateProgress();
+
+    // Stop any currently playing
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var btnSvg = currentPlayingBtn.querySelector('svg');
+        if (btnSvg) btnSvg.innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+    }
+
+    // Play
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    if (btn) {
+      btn.classList.add('playing');
+      var btnSvg = btn.querySelector('svg');
+      if (btnSvg) btnSvg.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    }
+
+    currentPlayingBtn = btn;
+
+    // Scroll into view
+    var bubbleRow = btn.closest('.bubble-row');
+    if (bubbleRow) {
+      bubbleRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    currentAudio.addEventListener('ended', function() {
+      if (btn) {
+        btn.classList.remove('playing');
+        var btnSvg = btn.querySelector('svg');
+        if (btnSvg) btnSvg.innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      currentPlayingBtn = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
       }
     });
   }
-})();
 
-/* Vocabulary audio system */
-(function() {
-  // State for each scene
+  // ===== Update Progress =====
+  function updateProgress() {
+    var currentIdx = playState.currentIndex + 1;
+    var totalInScene = sceneBubbleCounts[playState.currentScene] || 0;
+    var repeatInfo = '';
+    if (playState.repeatCount > 1 || playState.loop) {
+      repeatInfo = ' (第' + playState.currentRepeat + '遍)';
+    }
+
+    // Update progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText && totalInScene > 0) {
+      var percentage = (currentIdx / totalInScene) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + totalInScene + repeatInfo;
+    }
+  }
+
+  // ===== Toggle Loop =====
+  window.toggleLoop = function() {
+    playState.loop = !playState.loop;
+    var btn = document.getElementById('loopBtn');
+    if (playState.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
+  };
+
+  // ===== Update Repeat Count =====
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  // ===== Mark Complete =====
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('dialogue', 'unit1');
+    }
+    alert('情境会话学习已完成！');
+  };
+
+  // ===== Vocabulary audio system =====
   var sceneStates = {};
 
   function getSceneState(sceneNum) {
@@ -1484,10 +1983,7 @@ function toggleTranslation(el) {
     var state = getSceneState(sceneNum);
     var src = getAudioPath(sceneNum, idx);
     var audio = new Audio(src);
-    var speedSlider = document.getElementById('speedSlider1');
-    if (speedSlider) {
-      audio.playbackRate = parseFloat(speedSlider.value);
-    }
+    audio.playbackRate = currentSpeed;
     state.audio = audio;
     highlightChip(sceneNum, idx);
     audio.play().catch(function() {});
@@ -1496,7 +1992,7 @@ function toggleTranslation(el) {
     });
   }
 
-  function playNextInSequence(sceneNum) {
+  function playNextInVocabSequence(sceneNum) {
     var state = getSceneState(sceneNum);
     var bar = getBarForScene(sceneNum);
     var total = parseInt(bar.getAttribute('data-count'));
@@ -1508,19 +2004,19 @@ function toggleTranslation(el) {
       if (state.loop || state.currentRepeat < state.repeatCount) {
         state.currentIndex = 1;
       } else {
-        stopSequence(sceneNum);
+        stopVocabSequence(sceneNum);
         return;
       }
     }
 
     playVocabAudio(sceneNum, state.currentIndex, function() {
       if (state.isPlaying) {
-        playNextInSequence(sceneNum);
+        playNextInVocabSequence(sceneNum);
       }
     });
   }
 
-  function stopSequence(sceneNum) {
+  function stopVocabSequence(sceneNum) {
     var state = getSceneState(sceneNum);
     state.isPlaying = false;
     if (state.audio) {
@@ -1540,9 +2036,14 @@ function toggleTranslation(el) {
     var sceneNum = parseInt(bar.getAttribute('data-scene'));
     var state = getSceneState(sceneNum);
 
-    // Stop any existing playback
+    // Stop continuous dialog playback if running
+    if (playState.playing) {
+      stopContinuousPlay();
+    }
+
+    // Stop any existing vocab playback
     if (state.isPlaying) {
-      stopSequence(sceneNum);
+      stopVocabSequence(sceneNum);
     }
 
     state.isPlaying = true;
@@ -1552,13 +2053,13 @@ function toggleTranslation(el) {
     btn.style.display = 'none';
     bar.querySelector('.vab-stop').style.display = '';
 
-    playNextInSequence(sceneNum);
+    playNextInVocabSequence(sceneNum);
   };
 
   window.vocabStopAll = function(btn) {
     var bar = btn.closest('.vocab-audio-bar');
     var sceneNum = parseInt(bar.getAttribute('data-scene'));
-    stopSequence(sceneNum);
+    stopVocabSequence(sceneNum);
   };
 
   window.vocabToggleLoop = function(btn) {
@@ -1581,9 +2082,14 @@ function toggleTranslation(el) {
     var sceneNum = parseInt(bar.getAttribute('data-scene'));
     var state = getSceneState(sceneNum);
 
+    // Stop continuous dialog playback if running
+    if (playState.playing) {
+      stopContinuousPlay();
+    }
+
     // Stop sequential playback if running
     if (state.isPlaying) {
-      stopSequence(sceneNum);
+      stopVocabSequence(sceneNum);
     }
 
     // Stop any single vocab audio

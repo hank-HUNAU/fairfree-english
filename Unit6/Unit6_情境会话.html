@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 6 Mine Development of Large Metalliferous Orebodies — 情境会话</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --radius-bubble: 18px;
+    --vocab-color: #0071e3;
+    --vocab-bg: rgba(0,113,227,0.08);
+    --vocab-border: rgba(0,113,227,0.2);
+    --dr-zhang-bg: #e8f5e9;
+    --dr-zhang-border: #4caf50;
+    --mr-li-bg: #e3f2fd;
+    --mr-li-border: #2196f3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 48px 20px 36px;
+  }
+
+  .header-unit {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  header h1 span { color: var(--accent); }
+
+  .header-sub {
+    font-size: 1rem;
+    color: var(--fg-muted);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  .speed-control-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .speed-control-bar label {
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+
+  .speed-control-bar .speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    min-width: 36px;
+    text-align: center;
+  }
+
+  .speed-control-bar input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 140px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .speed-control-bar input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+  }
+
+  .scene-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-solid);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+    margin-bottom: 32px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .scene-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  .scene-header {
+    background: var(--accent-light);
+    border-bottom: 1px solid var(--accent-border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .scene-num {
+    background: var(--accent);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .scene-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  .scene-desc {
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    margin-top: 4px;
+  }
+
+  .dialog-container {
+    padding: 24px;
+  }
+
+  .dialog-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dialog-item.left {
+    justify-content: flex-start;
+  }
+
+  .dialog-item.right {
+    justify-content: flex-end;
+  }
+
+  .speaker-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .speaker-avatar.dr-zhang {
+    background: var(--dr-zhang-bg);
+    border: 2px solid var(--dr-zhang-border);
+    color: var(--dr-zhang-border);
+  }
+
+  .speaker-avatar.mr-li {
+    background: var(--mr-li-bg);
+    border: 2px solid var(--mr-li-border);
+    color: var(--mr-li-border);
+  }
+
+  .dialog-bubble {
+    max-width: 70%;
+    padding: 14px 18px;
+    border-radius: var(--radius-bubble);
+    position: relative;
+  }
+
+  .dialog-item.left .dialog-bubble {
+    background: var(--dr-zhang-bg);
+    border: 1px solid var(--dr-zhang-border);
+  }
+
+  .dialog-item.right .dialog-bubble {
+    background: var(--mr-li-bg);
+    border: 1px solid var(--mr-li-border);
+  }
+
+  .dialog-en {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--fg);
+    margin-bottom: 8px;
+  }
+
+  .vocab {
+    color: var(--vocab-color);
+    background: var(--vocab-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border-bottom: 2px solid var(--vocab-border);
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+  }
+
+  .vocab .tip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card-bg);
+    border: 1px solid var(--border-solid);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: var(--fg);
+    white-space: nowrap;
+    box-shadow: var(--shadow);
+    z-index: 10;
+    margin-bottom: 4px;
+  }
+
+  .vocab:hover .tip {
+    display: block;
+  }
+
+  .dialog-cn {
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    opacity: 0.85;
+  }
+
+  .dialog-btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .dialog-play-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .dialog-play-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .dialog-play-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .dialog-play-btn.playing {
+    animation: pulse-ring 1.2s ease-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(0,113,227,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); }
+  }
+
+  .vocab-section {
+    margin-top: 24px;
+    padding: 16px 24px;
+    background: rgba(0,0,0,0.02);
+    border-radius: var(--radius-btn);
+  }
+
+  .vocab-section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .vocab-section-title span {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    color: var(--accent);
+  }
+
+  .vocab-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .vocab-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-solid);
+    border-radius: 8px;
+    font-size: 0.85rem;
+  }
+
+  .vocab-item .word {
+    font-weight: 600;
+    color: var(--vocab-color);
+  }
+
+  .vocab-item .meaning {
+    color: var(--fg-muted);
+  }
+
+  .vocab-play-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .vocab-play-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.05);
+  }
+
+  .vocab-play-btn svg {
+    width: 10px;
+    height: 10px;
+    fill: #fff;
+  }
+
+  footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: var(--fg-muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border-solid);
+    margin-top: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 20px 12px 60px; }
+    .dialog-container { padding: 16px; }
+    .dialog-bubble { max-width: 85%; }
+    .scene-header { padding: 12px 16px; }
+    .speed-control-bar { padding: 10px 12px; gap: 10px; }
+    .speed-control-bar input[type="range"] { width: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="speed-control-bar">
+    <label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+
+  <!-- Scene 1: 中段间距设计讨论 -->
+  <div class="scene-card" id="scene1">
+    <div class="scene-header">
+      <span class="scene-num">1</span>
+      <div>
+        <div class="scene-title">Level Interval Design Discussion</div>
+        <div class="scene-desc">中段间距设计讨论</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <!-- Dialog 1 -->
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">Good morning, Mr. Li. Today we need to discuss the <span class="vocab">level interval<span class="tip">中段间距</span></span> design for our new project. What factors should we consider?</div>
+          <div class="dialog-cn">早上好，李先生。今天我们需要讨论新项目的中段间距设计。我们应该考虑哪些因素？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s1_01.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Dialog 2 -->
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">Based on the textbook, the <span class="vocab">interval<span class="tip">间距</span></span> between levels depends on eight factors. The most important ones are <span class="vocab">geology<span class="tip">地质条件</span></span> and size of orebody, strength of <span class="vocab">backs and walls<span class="tip">顶底板和侧墙</span></span>, and mining methods.</div>
+          <div class="dialog-cn">根据教材，中段间距取决于八个因素。最重要的是矿床地质条件和大小、顶底板和侧墙强度以及采矿方法。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s1_02.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <!-- Dialog 3 -->
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">Excellent. Our orebody is badly <span class="vocab">faulted<span class="tip">断层错动的</span></span> and has variable <span class="vocab">grade<span class="tip">品位</span></span>. What level interval would you recommend?</div>
+          <div class="dialog-cn">很好。我们的矿体断层错动严重，品位变化大。你建议采用什么中段间距？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s1_03.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Dialog 4 -->
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">For such conditions, a close level interval of 20 to 30 meters is necessary. We also need to adopt <span class="vocab">selective mining<span class="tip">选择性开采</span></span> because the orebody consists of many <span class="vocab">scattered lenses<span class="tip">分散的透镜状矿体</span></span>.</div>
+          <div class="dialog-cn">对于这种情况，需要采用20到30米的较小中段间距。我们还需要采用选择性开采，因为矿体由许多分散的透镜状矿体组成。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s1_04.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+
+      <!-- Key Vocabulary -->
+      <div class="vocab-section">
+        <div class="vocab-section-title">Key Vocabulary <span>场景关键词汇</span></div>
+        <div class="vocab-list">
+          <div class="vocab-item">
+            <span class="word">level interval</span>
+            <span class="meaning">中段间距</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s1_01.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">faulted</span>
+            <span class="meaning">断层错动的</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s1_02.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">grade</span>
+            <span class="meaning">品位</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s1_03.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">selective mining</span>
+            <span class="meaning">选择性开采</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s1_04.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 2: 钻孔技术与分段高度 -->
+  <div class="scene-card" id="scene2">
+    <div class="scene-header">
+      <span class="scene-num">2</span>
+      <div>
+        <div class="scene-title">Drilling Technology and Sub-level Height</div>
+        <div class="scene-desc">钻孔技术与分段高度讨论</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <!-- Dialog 1 -->
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">Mr. Li, what are the limitations of current <span class="vocab">ring drilling<span class="tip">环形钻孔</span></span> technology for our <span class="vocab">sublevel open stopping<span class="tip">分段空场法</span></span>?</div>
+          <div class="dialog-cn">李先生，当前环形钻孔技术对我们的分段空场法有什么限制？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s2_01.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Dialog 2 -->
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">Small blastholes of about 50mm tend to <span class="vocab">deviate<span class="tip">偏斜</span></span> at depths of 15m. At 20m depth, deviation may reach 0.3m. This can cause poor <span class="vocab">fragmentation<span class="tip">破碎效果</span></span> or complete failure to break a ring.</div>
+          <div class="dialog-cn">约50mm的小直径炮孔在15m深度处开始偏斜。在20m深度处，偏斜可能达到0.3m。这可能导致破碎效果差或完全无法破碎一个环形炮孔。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s2_02.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <!-- Dialog 3 -->
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What about <span class="vocab">down-the-hole hammer drills<span class="tip">潜孔锤钻</span></span> with larger diameters? Can they help extend the drilling range?</div>
+          <div class="dialog-cn">直径更大的潜孔锤钻怎么样？它们能帮助延长钻孔范围吗？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s2_03.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Dialog 4 -->
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">Yes, drills with 100 to 150mm bit diameters can drill 20 to 30m without noticeable deviation. The impact at the bottom reduces <span class="vocab">rod whip<span class="tip">钻杆摆动</span></span>. Hole lengths of 50 to 60m are possible.</div>
+          <div class="dialog-cn">是的，直径100到150mm的钻头可以钻进20到30m而无明显偏差。孔底的冲击作用减少了钻杆摆动。孔深可达50到60m。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s2_04.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+
+      <!-- Key Vocabulary -->
+      <div class="vocab-section">
+        <div class="vocab-section-title">Key Vocabulary <span>场景关键词汇</span></div>
+        <div class="vocab-list">
+          <div class="vocab-item">
+            <span class="word">ring drilling</span>
+            <span class="meaning">环形钻孔</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s2_01.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">deviate</span>
+            <span class="meaning">偏斜</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s2_02.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">fragmentation</span>
+            <span class="meaning">破碎效果</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s2_03.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">down-the-hole</span>
+            <span class="meaning">潜孔</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s2_04.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 3: 矿石溜井系统设计 -->
+  <div class="scene-card" id="scene3">
+    <div class="scene-header">
+      <span class="scene-num">3</span>
+      <div>
+        <div class="scene-title">Ore Pass System Design</div>
+        <div class="scene-desc">矿石溜井系统设计讨论</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <!-- Dialog 1 -->
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">Let's discuss the <span class="vocab">ore pass<span class="tip">矿石溜井</span></span> system. What factors affect the life of ore passes?</div>
+          <div class="dialog-cn">让我们讨论矿石溜井系统。哪些因素影响溜井的使用寿命？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s3_01.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Dialog 2 -->
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">Ore passes can be through ore, through rock, or a <span class="vocab">lined pass<span class="tip">内衬溜井</span></span> through fill. All have finite life. When enlarged, they become unsafe with subsequent <span class="vocab">cave-ins<span class="tip">冒落</span></span> or <span class="vocab">slabbing<span class="tip">片帮</span></span> causing heavy <span class="vocab">dilution<span class="tip">贫化</span></span>.</div>
+          <div class="dialog-cn">溜井可以在矿体内、岩体内，或充填体内的内衬溜井。所有溜井都有一定的使用寿命。当断面扩大后变得不安全，随后发生冒落或片帮导致严重贫化。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s3_02.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <!-- Dialog 3 -->
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">How should we optimize the ore pass layout to reduce <span class="vocab">tramming runs<span class="tip">电机车运输</span></span> costs?</div>
+          <div class="dialog-cn">我们应该如何优化溜井布置以降低电机车运输成本？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s3_03.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Dialog 4 -->
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">Near-vertical ore passes in rock can concentrate output from several stopes into a central <span class="vocab">ore bin<span class="tip">矿仓</span></span> close to the shaft. Ore can run through a <span class="vocab">primary crusher<span class="tip">初级破碎机</span></span> and onto a conveyor for automated hoisting.</div>
+          <div class="dialog-cn">岩体内近垂直的溜井可以将多个采场的矿石集中到靠近竖井的中央矿仓。矿石可以通过初级破碎机，然后输送到皮带输送机实现自动化提升。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s3_04.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+
+      <!-- Key Vocabulary -->
+      <div class="vocab-section">
+        <div class="vocab-section-title">Key Vocabulary <span>场景关键词汇</span></div>
+        <div class="vocab-list">
+          <div class="vocab-item">
+            <span class="word">ore pass</span>
+            <span class="meaning">矿石溜井</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s3_01.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">cave-in</span>
+            <span class="meaning">冒落</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s3_02.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">dilution</span>
+            <span class="meaning">贫化</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s3_03.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">ore bin</span>
+            <span class="meaning">矿仓</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s3_04.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 4: 天井钻进技术进步 -->
+  <div class="scene-card" id="scene4">
+    <div class="scene-header">
+      <span class="scene-num">4</span>
+      <div>
+        <div class="scene-title">Raise Boring Technology Advancement</div>
+        <div class="scene-desc">天井钻进技术进步讨论</div>
+      </div>
+    </div>
+    <div class="dialog-container">
+      <!-- Dialog 1 -->
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">How has <span class="vocab">raise boring<span class="tip">天井钻进</span></span> technology changed level interval design in modern mines?</div>
+          <div class="dialog-cn">天井钻进技术如何改变了现代矿山的中段间距设计？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s4_01.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Dialog 2 -->
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">Older mines using <span class="vocab">hand-raising<span class="tip">人工掘进天井</span></span> had intervals of only 15 to 20m. With <span class="vocab">Alimak<span class="tip">阿利马克爬罐</span></span> climbers, intervals increased to 30m then 50m. Now <span class="vocab">raise-bored holes<span class="tip">天井钻孔</span></span> of 300m or more are feasible.</div>
+          <div class="dialog-cn">采用人工掘进天井的老矿山间距只有15到20m。使用阿利马克爬罐后，间距增加到30m再到50m。现在300m或更长的天井钻孔已成为可行。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s4_02.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+      <!-- Dialog 3 -->
+      <div class="dialog-item left">
+        <div class="speaker-avatar dr-zhang">Dr.Z</div>
+        <div class="dialog-bubble">
+          <div class="dialog-en">What is the most economic development design today? Can you give an example?</div>
+          <div class="dialog-cn">目前最经济的开拓设计是什么？你能举个例子吗？</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s4_03.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Dialog 4 -->
+      <div class="dialog-item right">
+        <div class="dialog-bubble">
+          <div class="dialog-en">Cobar Mines is a good example. It has major levels at 180m intervals with a <span class="vocab">decline<span class="tip">斜坡道</span></span> access ramp. Fewer levels mean more investment per level and better <span class="vocab">ore pass<span class="tip">矿石溜井</span></span> development.</div>
+          <div class="dialog-cn">卡巴矿是一个很好的例子。它的主要中段间距为180m，配有斜坡道通道。中段越少，每个中段的投入越多，矿石溜井建设也更好。</div>
+          <div class="dialog-btn-row">
+            <button class="dialog-play-btn" data-src="../audio/unit6/dialog_s4_04.mp3" onclick="playDialog(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+              播放
+            </button>
+          </div>
+        </div>
+        <div class="speaker-avatar mr-li">Mr.L</div>
+      </div>
+
+      <!-- Key Vocabulary -->
+      <div class="vocab-section">
+        <div class="vocab-section-title">Key Vocabulary <span>场景关键词汇</span></div>
+        <div class="vocab-list">
+          <div class="vocab-item">
+            <span class="word">raise boring</span>
+            <span class="meaning">天井钻进</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s4_01.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">hand-raising</span>
+            <span class="meaning">人工掘进天井</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s4_02.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">decline</span>
+            <span class="meaning">斜坡道</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s4_03.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+          <div class="vocab-item">
+            <span class="word">Alimak</span>
+            <span class="meaning">阿利马克爬罐</span>
+            <button class="vocab-play-btn" data-src="../audio/unit6/vocab_dialog/vocab_d_s4_04.mp3" onclick="playVocab(this)">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Unit 6 Mine Development of Large Metalliferous Orebodies &mdash; Situational Dialogue &copy; 采矿专业英语
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+  var currentAudio = null;
+  var currentBtn = null;
+
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = currentSpeed;
+    }
+  });
+
+  window.playDialog = function(btn) {
+    var src = btn.getAttribute('data-src');
+
+    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+      currentAudio.pause();
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 播放';
+      return;
+    }
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    if (currentBtn) {
+      currentBtn.classList.remove('playing');
+      currentBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 播放';
+    }
+
+    var audio = new Audio(src);
+    audio.playbackRate = currentSpeed;
+
+    btn.classList.add('playing');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> 播放中';
+
+    currentAudio = audio;
+    currentBtn = btn;
+
+    audio.play().catch(function() {});
+
+    audio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg> 播放';
+      currentAudio = null;
+      currentBtn = null;
+    });
+  };
+
+  window.playVocab = function(btn) {
+    var src = btn.getAttribute('data-src');
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+
+    var audio = new Audio(src);
+    audio.playbackRate = currentSpeed;
+    currentAudio = audio;
+    audio.play().catch(function() {});
+
+    audio.addEventListener('ended', function() {
+      currentAudio = null;
+    });
+  };
+
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('dialogue', 'unit6');
+    }
+    alert('情境会话学习已完成！');
+  };
+})();
+</script>
+
+<script src="../studyTracker.js"></script>
+</body>
+</html>

@@ -16,6 +16,310 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --header-height: 60px;
+    --footer-height: 56px;
+  }
+
+  body {
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
+  }
+
+  /* ===== Fixed Top Navigation Bar ===== */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-title span { color: var(--accent); }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-speed-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .nav-speed-label svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-speed-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    transition: transform 0.15s ease;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .nav-speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .complete-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* ===== Fixed Bottom Player Bar ===== */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .player-section-label {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    border-radius: 6px;
+    border: 1px solid var(--accent-border);
+  }
+
+  .player-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .player-btn.active {
+    background: #1d1d1f;
+  }
+
+  .player-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .player-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .player-repeat-select {
+    padding: 6px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .player-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .player-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .player-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .player-progress {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .player-progress .current-num {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Progress bar styles */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
   /* ===== Header ===== */
   .header {
     background: #ffffff;
@@ -502,6 +806,59 @@
 </head>
 <body>
 
+<!-- Fixed Top Navigation Bar -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 2</span>
+    <span class="nav-title">精读材料</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+<!-- Fixed Bottom Player Bar -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSectionLabel">段落区</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3" selected>3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <span class="progress-text" id="progressBarText">0 / 0</span>
+  </div>
+</div>
+
 <!-- ===== Header ===== -->
 <div class="header">
   <h1>Unit 2 Mining Terminology</h1>
@@ -526,7 +883,7 @@
 <div class="section-title">1. Large Deep Orebodies</div>
 
 <!-- NOTE 1 -->
-<div class="para-card">
+<div class="para-card" data-idx="1" data-src="../audio/unit2/reading_n1.mp3">
   <div class="en-text">Large ore-bodies are often known as massive, but the term massive should not be confused with <span class="vocab">massive ore<span class="tip">块状矿石</span></span> and <span class="vocab">disseminated ores<span class="tip">浸染状矿石</span></span> in a geological sense. In fact a massive ore-body is likely to contain <span class="vocab">disseminated ores<span class="tip">浸染状矿石</span></span> minerals. A <span class="vocab">vein<span class="tip">/veɪn/ 矿脉</span></span>-type ore-body will probably contain bands of <span class="vocab">massive ore<span class="tip">块状矿石</span></span> minerals.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit2/reading_n1.mp3" data-id="n1" onclick="togglePlay(this)">
@@ -542,7 +899,7 @@
 </div>
 
 <!-- NOTE 2 -->
-<div class="para-card">
+<div class="para-card" data-idx="2" data-src="../audio/unit2/reading_n2.mp3">
   <div class="en-text">A <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> is <span class="vocab">sink<span class="tip">/sɪŋk/ 掘进</span></span> alongside or through the ore-body for access. In practice, there must be two openings to allow air to be forced through the mine workings. It must be noted that if the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> is <span class="vocab">sink<span class="tip">/sɪŋk/ 掘进</span></span> through the ore-body then some of the ore is <span class="vocab">sterilize<span class="tip">/ˈsterɪlaɪz/ 保安矿柱</span></span>d. A cone of ore surrounding the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> and widening with depth must be left until the rest of the ore is <span class="vocab">extraction<span class="tip">/ɪkˈstrækʃən/ 开采</span></span>ed. Otherwise the movement of rock caused by ore <span class="vocab">extraction<span class="tip">/ɪkˈstrækʃən/ 开采</span></span> will damage the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> and necessitate expensive repairs, and lost production.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit2/reading_n2.mp3" data-id="n2" onclick="togglePlay(this)">
@@ -558,7 +915,7 @@
 </div>
 
 <!-- NOTE 3 -->
-<div class="para-card">
+<div class="para-card" data-idx="3" data-src="../audio/unit2/reading_n3.mp3">
   <div class="en-text">Waste rock, ore, men and materials have to be raised and lowered in the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span>s. There are two types of conveyance, <span class="vocab">cage<span class="tip">/keɪdʒ/ 罐笼</span></span>s and <span class="vocab">skip<span class="tip">/skɪp/ 箕斗</span></span>s. <span class="vocab">Cage<span class="tip">/keɪdʒ/ 罐笼</span></span>s are used for man-riding and to wind mine cars containing ore, waste rock or materials.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit2/reading_n3.mp3" data-id="n3" onclick="togglePlay(this)">
@@ -574,7 +931,7 @@
 </div>
 
 <!-- NOTE 4 -->
-<div class="para-card">
+<div class="para-card" data-idx="4" data-src="../audio/unit2/reading_n4.mp3">
   <div class="en-text">A large <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> may be equipped with a pair of <span class="vocab">skip<span class="tip">/skɪp/ 箕斗</span></span>s for ore and rock hoisting and a single <span class="vocab">cage<span class="tip">/keɪdʒ/ 罐笼</span></span> for man riding. The area around the <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> at ground <span class="vocab">level<span class="tip">/ˈlevəl/ 中段</span></span> is known as the <span class="vocab">brace<span class="tip">/breɪs/ 井架</span></span> in <span class="vocab">metalliferous<span class="tip">/ˌmetəˈlɪfərəs/ 金属的</span></span> mining.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit2/reading_n4.mp3" data-id="n4" onclick="togglePlay(this)">
@@ -593,7 +950,7 @@
 <div class="section-title">2. Vein-type Ore-body</div>
 
 <!-- NOTE 5 -->
-<div class="para-card">
+<div class="para-card" data-idx="5" data-src="../audio/unit2/reading_n5.mp3">
   <div class="en-text">A large ore-body may in fact consist of <span class="vocab">cluster<span class="tip">/ˈklʌstə/ 群</span></span>s of smaller ore-bodies of a <span class="vocab">vein<span class="tip">/veɪn/ 矿脉</span></span>-type, and development may be on a regular grid. <span class="vocab">Alternatively<span class="tip">/ɔːlˈtɜːnətɪvli/ 或者</span></span> the ore-body may be one <span class="vocab">predominant<span class="tip">/prɪˈdɒmɪnənt/ 主要的</span></span> <span class="vocab">vein<span class="tip">/veɪn/ 矿脉</span></span> which is long and narrow on its <span class="vocab">strike<span class="tip">/straɪk/ 走向</span></span> (horizontal) direction and which extends to the dip for a considerable depth. Technically the <span class="vocab">strike<span class="tip">/straɪk/ 走向</span></span> is at right angles to the full dip, but within an orebody the <span class="vocab">strike<span class="tip">/straɪk/ 走向</span></span> may follow a <span class="vocab">sinuous<span class="tip">/ˈsɪnjuəs/ 弯曲的</span></span> line and the dip frequently varies so that general trends have to be taken.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit2/reading_n5.mp3" data-id="n5" onclick="togglePlay(this)">
@@ -609,7 +966,7 @@
 </div>
 
 <!-- NOTE 6 -->
-<div class="para-card">
+<div class="para-card" data-idx="6" data-src="../audio/unit2/reading_n6.mp3">
   <div class="en-text">It can be <span class="vocab">appreciate<span class="tip">/əˈpriːʃieɪt/ 理解</span></span>d that a vertical <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> rapidly loses contact with an inclined orebody and increasingly long <span class="vocab">level<span class="tip">/ˈlevəl/ 中段</span></span>s have to be driven. It can also be <span class="vocab">appreciate<span class="tip">/əˈpriːʃieɪt/ 理解</span></span>d that mining operations would weaken the <span class="vocab">hanging wall<span class="tip">上盘</span></span> i. e. the rock lying above the ore body, and cause it to collapse. As a result the major developments are normally made in the <span class="vocab">footwall<span class="tip">/ˈfʊtwɔːl/ 下盘</span></span>, below the orebody, where the rock is more stable.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit2/reading_n6.mp3" data-id="n6" onclick="togglePlay(this)">
@@ -628,7 +985,7 @@
 <div class="section-title">3. Large Shallow Orebodies</div>
 
 <!-- NOTE 7a (first half) -->
-<div class="para-card">
+<div class="para-card" data-idx="7" data-src="../audio/unit2/reading_n7.mp3">
   <div class="en-text">In the early stages of working the shallowest ore an <span class="vocab">inclined shaft<span class="tip">斜井</span></span> may be driven down from the surface and <span class="vocab">progressively<span class="tip">/prəˈɡresɪvli/ 逐渐地</span></span> deepened to follow ore <span class="vocab">extraction<span class="tip">/ɪkˈstrækʃən/ 开采</span></span>. However haulage speeds are generally lower and maintenance costs are higher in <span class="vocab">inclined shaft<span class="tip">斜井</span></span>s, so that with increased depth a change will be made to vertical <span class="vocab">shaft<span class="tip">/ʃɑːft/ 竖井</span></span> <span class="vocab">winding gear<span class="tip">提升设备</span></span>.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit2/reading_n7.mp3" data-id="n7" onclick="togglePlay(this)">
@@ -644,7 +1001,7 @@
 </div>
 
 <!-- NOTE 7b (second half) -->
-<div class="para-card">
+<div class="para-card" data-idx="8" data-src="../audio/unit2/reading_n7.mp3">
   <div class="en-text">An <span class="vocab">ore pass<span class="tip">溜井</span></span> system will probably be developed to drop ore and rock to widely spaced main haulage <span class="vocab">level<span class="tip">/ˈlevəl/ 中段</span></span>s.</div>
   <div class="btn-row">
     <button class="play-btn" data-audio="../audio/unit2/reading_n7.mp3" data-id="n7b" onclick="togglePlay(this)">
@@ -832,89 +1189,305 @@ document.addEventListener('keydown', function(e) {
 
 /* ===== Paragraph Audio Player Logic ===== */
 (function() {
-  let currentAudio = null;
-  let currentBtn = null;
-  let currentId = null;
+  // ===== Global Speed Control =====
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
 
-  const speedSlider = document.getElementById('speedSlider');
-  const speedValue = document.getElementById('speedValue');
-  const playStatus = document.getElementById('playStatus');
-
-  speedSlider.addEventListener('input', function() {
-    const rate = parseFloat(this.value);
-    speedValue.textContent = rate.toFixed(1) + 'x';
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
     if (currentAudio) {
-      currentAudio.playbackRate = rate;
+      currentAudio.playbackRate = currentSpeed;
     }
   });
 
-  const titleMap = {
-    n1: 'Large Deep Orebodies - NOTE 1',
-    n2: 'Large Deep Orebodies - NOTE 2',
-    n3: 'Large Deep Orebodies - NOTE 3',
-    n4: 'Large Deep Orebodies - NOTE 4',
-    n5: 'Vein-type Ore-body - NOTE 5',
-    n6: 'Vein-type Ore-body - NOTE 6',
-    n7: 'Large Shallow Orebodies - NOTE 7',
-    n7b: 'Large Shallow Orebodies - NOTE 7 (Part 2)'
+  // ===== Audio State =====
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingCard = null;
+
+  // Unified continuous play state
+  var playState = {
+    playing: false,
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 3,
+    currentRepeat: 1
   };
 
-  window.togglePlay = function(btn) {
-    const audioSrc = btn.getAttribute('data-audio');
-    const audioId = btn.getAttribute('data-id');
+  // ===== Get all paragraph cards =====
+  function getAllCards() {
+    return document.querySelectorAll('.para-card[data-idx]');
+  }
 
-    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
-      currentAudio.pause();
-      setButtonState(btn, false);
-      playStatus.textContent = '已暂停 - ' + (titleMap[audioId] || audioId);
-      return;
+  // ===== Play a single card =====
+  window.togglePlay = function(btn) {
+    var card = btn.closest('.para-card');
+    var src = btn.getAttribute('data-audio');
+
+    // Stop continuous play if active
+    if (playState.playing) {
+      stopContinuousPlay();
     }
 
+    // Stop any currently playing audio
     if (currentAudio) {
       currentAudio.pause();
-      currentAudio = null;
-      if (currentBtn && currentBtn !== btn) {
-        setButtonState(currentBtn, false);
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var iconPlay = currentPlayingBtn.querySelector('.icon-play');
+        var iconPause = currentPlayingBtn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = '';
+        if (iconPause) iconPause.style.display = 'none';
+        currentPlayingBtn.childNodes[currentPlayingBtn.childNodes.length - 1].textContent = ' 播放';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
       }
     }
 
-    currentAudio = new Audio(audioSrc);
-    currentAudio.playbackRate = parseFloat(speedSlider.value);
-    currentBtn = btn;
-    currentId = audioId;
+    // Create and play new audio
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
 
-    currentAudio.play().then(function() {
-      setButtonState(btn, true);
-      playStatus.textContent = '正在播放 - ' + (titleMap[audioId] || audioId);
-    }).catch(function(err) {
-      console.warn('Audio play failed:', err);
-      playStatus.textContent = '播放失败';
-    });
+    btn.classList.add('playing');
+    var iconPlay = btn.querySelector('.icon-play');
+    var iconPause = btn.querySelector('.icon-pause');
+    if (iconPlay) iconPlay.style.display = 'none';
+    if (iconPause) iconPause.style.display = '';
+    btn.childNodes[btn.childNodes.length - 1].textContent = ' 暂停';
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
 
     currentAudio.addEventListener('ended', function() {
-      setButtonState(btn, false);
-      playStatus.textContent = '未在播放';
+      btn.classList.remove('playing');
+      if (iconPlay) iconPlay.style.display = '';
+      if (iconPause) iconPause.style.display = 'none';
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
       currentAudio = null;
-      currentBtn = null;
-      currentId = null;
     });
   };
 
-  function setButtonState(btn, isPlaying) {
-    const iconPlay = btn.querySelector('.icon-play');
-    const iconPause = btn.querySelector('.icon-pause');
-    if (isPlaying) {
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
+      return;
+    }
+
+    // Start continuous play
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+    playState.repeatCount = parseInt(document.getElementById('repeatCount').value);
+    playState.loop = document.getElementById('loopBtn').classList.contains('on');
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    // Stop current audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var iconPlay = currentPlayingBtn.querySelector('.icon-play');
+        var iconPause = currentPlayingBtn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = '';
+        if (iconPause) iconPause.style.display = 'none';
+        currentPlayingBtn.childNodes[currentPlayingBtn.childNodes.length - 1].textContent = ' 播放';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+    }
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+
+    // Reset progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / 0';
+    }
+  };
+
+  // ===== Play Next in Sequence =====
+  function playNextInSequence() {
+    var cards = getAllCards();
+
+    if (playState.currentIndex >= cards.length) {
+      // One round complete
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        // Done with all
+        stopContinuousPlay();
+        return;
+      }
+    }
+
+    if (playState.currentIndex >= cards.length) {
+      stopContinuousPlay();
+      return;
+    }
+
+    var card = cards[playState.currentIndex];
+    var btn = card.querySelector('.play-btn');
+    var src = card.getAttribute('data-src');
+
+    // Update progress
+    updateProgress(cards.length);
+
+    // Stop any currently playing
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var prevIconPlay = currentPlayingBtn.querySelector('.icon-play');
+        var prevIconPause = currentPlayingBtn.querySelector('.icon-pause');
+        if (prevIconPlay) prevIconPlay.style.display = '';
+        if (prevIconPause) prevIconPause.style.display = 'none';
+        currentPlayingBtn.childNodes[currentPlayingBtn.childNodes.length - 1].textContent = ' 播放';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+    }
+
+    // Play
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    if (btn) {
       btn.classList.add('playing');
-      iconPlay.style.display = 'none';
-      iconPause.style.display = '';
+      var iconPlay = btn.querySelector('.icon-play');
+      var iconPause = btn.querySelector('.icon-pause');
+      if (iconPlay) iconPlay.style.display = 'none';
+      if (iconPause) iconPause.style.display = '';
       btn.childNodes[btn.childNodes.length - 1].textContent = ' 暂停';
-    } else {
-      btn.classList.remove('playing');
-      iconPlay.style.display = '';
-      iconPause.style.display = 'none';
-      btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
+    }
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    // Scroll into view
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      if (btn) {
+        btn.classList.remove('playing');
+        var iconPlay = btn.querySelector('.icon-play');
+        var iconPause = btn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = '';
+        if (iconPause) iconPause.style.display = 'none';
+        btn.childNodes[btn.childNodes.length - 1].textContent = ' 播放';
+      }
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
+      }
+    });
+  }
+
+  // ===== Update Progress =====
+  function updateProgress(total) {
+    var currentIdx = playState.currentIndex + 1;
+    var repeatInfo = '';
+    if (playState.repeatCount > 1 || playState.loop) {
+      repeatInfo = ' (第' + playState.currentRepeat + '遍)';
+    }
+
+    // Update progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
+
+    // Update section label
+    var sectionLabel = document.getElementById('currentSectionLabel');
+    if (sectionLabel) {
+      if (playState.currentIndex < 4) {
+        sectionLabel.textContent = 'Large Deep Orebodies';
+      } else if (playState.currentIndex < 6) {
+        sectionLabel.textContent = 'Vein-type Ore-body';
+      } else {
+        sectionLabel.textContent = 'Large Shallow Orebodies';
+      }
     }
   }
+
+  // ===== Toggle Loop =====
+  window.toggleLoop = function() {
+    var btn = document.getElementById('loopBtn');
+    playState.loop = !playState.loop;
+    if (playState.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
+  };
+
+  // ===== Update Repeat Count =====
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  // ===== Mark Complete =====
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('reading', 'unit2');
+    }
+    alert('精读材料学习已完成！');
+  };
+
+  // ===== Add highlight style for cards =====
+  var style = document.createElement('style');
+  style.textContent = '.para-card.highlight { background: rgba(0,113,227,0.08); border-color: rgba(0,113,227,0.15); }';
+  document.head.appendChild(style);
 })();
 
 /* ===== Vocabulary Audio Player Logic ===== */

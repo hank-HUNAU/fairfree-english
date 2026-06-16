@@ -28,6 +28,8 @@
     --chris-color: #ff9500;
     --chris-bg: rgba(255,149,0,0.08);
     --chris-border: rgba(255,149,0,0.18);
+    --header-height: 60px;
+    --footer-height: 56px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,117 +44,71 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .container {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 40px 20px 80px;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Header */
-  header {
-    text-align: center;
-    margin-bottom: 48px;
-    padding: 48px 20px 36px;
-  }
-
-  .header-unit {
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-
-  header h1 {
-    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
-    font-weight: 700;
-    color: var(--fg);
-    margin-bottom: 8px;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-  }
-
-  header h1 span { color: var(--accent); }
-
-  .header-sub {
-    font-size: 1rem;
-    color: var(--fg-muted);
-    margin-top: 6px;
-    font-weight: 400;
-  }
-
-  /* Voice Legend */
-  .voice-legend {
-    display: flex;
-    justify-content: center;
-    gap: 28px;
-    flex-wrap: wrap;
-    margin: 28px 0 48px;
-    padding: 18px 24px;
-    background: var(--card-bg);
-    border: 1px solid var(--border-solid);
-    border-radius: var(--radius-card);
-    box-shadow: var(--shadow);
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    color: var(--fg-muted);
-  }
-
-  .legend-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .legend-dot.sonia { background: var(--sonia-color); }
-  .legend-dot.chris { background: var(--chris-color); }
-
-  /* Global Speed Control Bar */
-  .speed-control-bar {
-    position: sticky;
+  /* Fixed Top Navigation Bar */
+  .top-nav {
+    position: fixed;
     top: 0;
-    z-index: 100;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
     background: rgba(245,245,247,0.8);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--border);
-    padding: 12px 20px;
+    z-index: 1000;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin-bottom: 24px;
+    justify-content: space-between;
+    padding: 0 24px;
   }
 
-  .speed-control-bar label {
-    font-size: 0.85rem;
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-title span { color: var(--accent); }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-speed-label {
+    font-size: 0.78rem;
     color: var(--fg-muted);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-weight: 500;
   }
 
-  .speed-control-bar .speed-value {
-    color: var(--accent);
-    font-weight: 700;
-    min-width: 36px;
-    text-align: center;
+  .nav-speed-label svg {
+    width: 14px;
+    height: 14px;
   }
 
-  .speed-control-bar input[type="range"] {
+  .nav-speed-slider {
     -webkit-appearance: none;
     appearance: none;
-    width: 140px;
+    width: 100px;
     height: 4px;
     background: rgba(0,0,0,0.08);
     border-radius: 2px;
@@ -160,11 +116,11 @@
     cursor: pointer;
   }
 
-  .speed-control-bar input[type="range"]::-webkit-slider-thumb {
+  .nav-speed-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: var(--accent);
     cursor: pointer;
@@ -173,18 +129,176 @@
     transition: transform 0.15s ease;
   }
 
-  .speed-control-bar input[type="range"]::-webkit-slider-thumb:hover {
+  .nav-speed-slider::-webkit-slider-thumb:hover {
     transform: scale(1.15);
   }
 
-  .speed-control-bar input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
+  .nav-speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
     border: none;
-    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .complete-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* Fixed Bottom Player Bar */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .player-section-label {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    border-radius: 6px;
+    border: 1px solid var(--accent-border);
+  }
+
+  .player-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .player-btn.active {
+    background: #1d1d1f;
+  }
+
+  .player-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .player-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .player-repeat-select {
+    padding: 6px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .player-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .player-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .player-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .player-progress {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .player-progress .current-num {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Container with padding for fixed bars */
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 80px 20px 70px;
+    position: relative;
+    z-index: 1;
   }
 
   /* Section */
@@ -246,110 +360,6 @@
     margin-left: 8px;
   }
 
-  /* Audio Control Bar (per section) */
-  .audio-control-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    background: var(--accent-light);
-    border: 1px solid var(--accent-border);
-    border-radius: var(--radius-btn);
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-  }
-
-  .audio-control-bar .acb-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 6px 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    font-family: inherit;
-    background: var(--accent);
-    color: #fff;
-  }
-
-  .audio-control-bar .acb-btn:hover {
-    background: var(--accent-hover);
-    transform: scale(1.02);
-  }
-
-  .audio-control-bar .acb-btn.active {
-    background: #1d1d1f;
-  }
-
-  .audio-control-bar .acb-btn svg {
-    width: 12px;
-    height: 12px;
-    fill: currentColor;
-  }
-
-  .audio-control-bar .acb-label {
-    font-size: 0.78rem;
-    color: var(--fg-muted);
-    font-weight: 500;
-  }
-
-  .audio-control-bar .acb-loop-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 5px 10px;
-    border: 1px solid var(--accent-border);
-    border-radius: 8px;
-    background: #fff;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--fg-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-  }
-
-  .audio-control-bar .acb-loop-toggle.on {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-
-  .audio-control-bar .acb-repeat-select {
-    padding: 5px 8px;
-    border: 1px solid var(--accent-border);
-    border-radius: 8px;
-    background: #fff;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--fg);
-    cursor: pointer;
-    font-family: inherit;
-    outline: none;
-  }
-
-  .audio-control-bar .acb-repeat-select:focus {
-    border-color: var(--accent);
-  }
-
-  .audio-control-bar .acb-progress {
-    font-size: 0.78rem;
-    color: var(--fg-muted);
-    font-weight: 500;
-    margin-left: auto;
-    min-width: 60px;
-    text-align: right;
-  }
-
-  .audio-control-bar .acb-progress .current-num {
-    color: var(--accent);
-    font-weight: 700;
-  }
-
   /* Vocab Card (Table) */
   .vocab-card {
     background: var(--card-bg);
@@ -388,9 +398,21 @@
     text-align: center;
   }
 
-  .vocab-table thead th:nth-child(4) {
+  .vocab-table thead th:nth-child(5) {
     width: 60px;
     text-align: center;
+  }
+
+  /* Voice tip in table header */
+  .voice-tip {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--sonia-color) 50%, var(--chris-color) 50%);
+    margin-left: 4px;
+    vertical-align: middle;
+    cursor: help;
   }
 
   .vocab-table tbody tr {
@@ -446,17 +468,8 @@
   .meaning-cell {
     color: var(--fg);
     font-size: 0.88rem;
-    line-height: 1.4;
+    line-height: 1.6;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 320px;
-  }
-
-  .meaning-cell:hover {
-    white-space: normal;
-    overflow: visible;
-    text-overflow: unset;
   }
 
   /* Voice indicator dot */
@@ -519,298 +532,406 @@
     margin-top: 16px;
   }
 
+
+  /* Part of speech cell */
+  .pos-cell {
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+    min-width: 60px;
+  }
+  
+  /* Progress bar styles */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+  
+  .progress-text {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
   /* Responsive */
   @media (max-width: 768px) {
-    .container { padding: 20px 12px 60px; }
-    header { padding: 32px 16px 24px; }
+    .top-nav { padding: 0 12px; }
+    .nav-title { font-size: 0.95rem; }
+    .nav-speed-slider { width: 70px; }
+    .complete-btn { padding: 6px 12px; font-size: 0.78rem; }
+    .bottom-player { padding: 0 12px; gap: 8px; }
+    .player-btn { padding: 6px 10px; font-size: 0.75rem; }
+    .container { padding: 80px 12px 70px; }
     .vocab-table { font-size: 0.82rem; }
     .vocab-table thead th { padding: 10px 10px; font-size: 0.68rem; }
     .vocab-table tbody td { padding: 10px 10px; }
     .word-cell { font-size: 0.88rem; }
     .phonetic-cell { font-size: 0.78rem; }
     .meaning-cell { font-size: 0.8rem; }
+    .pos-cell { font-size: 0.75rem; min-width: 50px; }
+
     .row-play-btn { width: 28px; height: 28px; }
     .row-play-btn svg { width: 12px; height: 12px; }
     .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .audio-control-bar { gap: 6px; padding: 10px 12px; }
-    .speed-control-bar { padding: 10px 12px; gap: 10px; }
-    .speed-control-bar input[type="range"] { width: 100px; }
-    .voice-legend { gap: 14px; padding: 14px 16px; }
   }
 
   @media (max-width: 480px) {
     .vocab-table thead th:first-child { width: 36px; }
     .vocab-table tbody td:first-child { font-size: 0.72rem; }
+    .nav-center { display: none; }
+    .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; }
   }
 </style>
 </head>
 <body>
 
-<div class="container">
-
-  <header>
-    <div class="header-unit">Unit 2</div>
-    <h1>词汇表 <span>— Vocabulary</span></h1>
-    <div class="header-sub">Mining Terminology 核心词汇与短语</div>
-  </header>
-
-  <!-- Voice Legend -->
-  <div class="voice-legend">
-    <div class="legend-item"><span class="legend-dot sonia"></span> Sonia (奇数序号)</div>
-    <div class="legend-item"><span class="legend-dot chris"></span> Christopher (偶数序号)</div>
+<!-- Fixed Top Navigation Bar -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 2</span>
+    <span class="nav-title">词汇表 <span>— Vocabulary</span></span>
   </div>
-
-  <!-- Global Speed Control -->
-  <div class="speed-control-bar">
-    <label>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
       语速
-      <input type="range" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
-      <span class="speed-value" id="globalSpeedVal">1.0x</span>
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
     </label>
   </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+<!-- Fixed Bottom Player Bar -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSectionLabel">单词区</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+
+    <div class="progress-bar-container">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+      <span class="progress-text" id="progressBarText">0 / 0</span>
+    </div>
+
+</div>
+
+<div class="container">
 
   <!-- ==================== Words Section ==================== -->
   <div class="vocab-section" id="wordsSection">
-    <div class="section-header">
-      <div class="section-icon words-icon">W</div>
-      <div class="section-title">Words <small>单词 (1-28)</small></div>
-    </div>
-
-    <!-- Audio Control Bar -->
-    <div class="audio-control-bar" id="wordsAudioBar">
-      <button class="acb-btn" id="wordsPlayAllBtn" onclick="toggleContinuousPlay('words')">
-        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
-        连续播放
-      </button>
-      <button class="acb-btn" id="wordsStopBtn" onclick="stopContinuousPlay('words')" style="display:none;">
-        <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-        停止
-      </button>
-      <span class="acb-label">遍数</span>
-      <select class="acb-repeat-select" id="wordsRepeatCount" onchange="updateRepeatCount('words')">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <button class="acb-loop-toggle" id="wordsLoopBtn" onclick="toggleLoop('words')">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-        循环
-      </button>
-      <span class="acb-progress" id="wordsProgress"></span>
-    </div>
+    
 
     <!-- Words Table -->
     <div class="vocab-card">
       <table class="vocab-table">
         <thead>
           <tr>
-            <th>#</th>
+            <th>#<span class="voice-tip" title="紫色圆点=Sonia(奇数序号)，橙色圆点=Christopher(偶数序号)">●</span></th>
             <th>单词</th>
             <th>音标</th>
+            <th>词性</th>
             <th>释义</th>
-            <th></th>
-          </tr>
-        </thead>
+            <th>播放</th>
+            
         <tbody id="wordsBody">
           <tr data-idx="1" data-src="../audio/unit2/vocab_table/vocab_t_01.mp3">
             <td><span class="voice-dot sonia"></span>1</td>
             <td class="word-cell">vein</td>
             <td class="phonetic-cell">/veɪn/</td>
-            <td class="meaning-cell">n. 矿脉; vt. 在......画条纹;提供脉络</td>
+            <td class="pos-cell">n./vt.</td>
+            <td class="meaning-cell">矿脉; 在......画条纹; 提供脉络</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="2" data-src="../audio/unit2/vocab_table/vocab_t_02.mp3">
             <td><span class="voice-dot chris"></span>2</td>
             <td class="word-cell">shaft</td>
             <td class="phonetic-cell">/ʃɑːft/</td>
-            <td class="meaning-cell">n. 井筒</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">井筒</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="3" data-src="../audio/unit2/vocab_table/vocab_t_03.mp3">
             <td><span class="voice-dot sonia"></span>3</td>
             <td class="word-cell">sink</td>
             <td class="phonetic-cell">/sɪŋk/</td>
-            <td class="meaning-cell">vi. 下沉 vt. 使下沉;钻</td>
+            <td class="pos-cell">vi./vt.</td>
+            <td class="meaning-cell">下沉 使下沉; 钻</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="4" data-src="../audio/unit2/vocab_table/vocab_t_04.mp3">
             <td><span class="voice-dot chris"></span>4</td>
             <td class="word-cell">partition</td>
             <td class="phonetic-cell">/pɑːˈtɪʃən/</td>
-            <td class="meaning-cell">n. 划分;隔墙 vt. 分割;隔开</td>
+            <td class="pos-cell">n./vt.</td>
+            <td class="meaning-cell">划分; 隔墙 分割; 隔开</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="5" data-src="../audio/unit2/vocab_table/vocab_t_05.mp3">
             <td><span class="voice-dot sonia"></span>5</td>
             <td class="word-cell">sterilize</td>
             <td class="phonetic-cell">/ˈsterɪlaɪz/</td>
-            <td class="meaning-cell">vt. 使不能生产;消毒</td>
+            <td class="pos-cell">vt.</td>
+            <td class="meaning-cell">使不能生产; 消毒</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="6" data-src="../audio/unit2/vocab_table/vocab_t_06.mp3">
             <td><span class="voice-dot chris"></span>6</td>
             <td class="word-cell">cage</td>
             <td class="phonetic-cell">/keɪdʒ/</td>
-            <td class="meaning-cell">n. 罐笼,监狱 vt. 关入笼中;监禁</td>
+            <td class="pos-cell">n./vt.</td>
+            <td class="meaning-cell">罐笼,监狱 关入笼中; 监禁</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="7" data-src="../audio/unit2/vocab_table/vocab_t_07.mp3">
             <td><span class="voice-dot sonia"></span>7</td>
             <td class="word-cell">skip</td>
             <td class="phonetic-cell">/skɪp/</td>
-            <td class="meaning-cell">n. 箕斗</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">箕斗</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="8" data-src="../audio/unit2/vocab_table/vocab_t_08.mp3">
             <td><span class="voice-dot chris"></span>8</td>
             <td class="word-cell">brace</td>
             <td class="phonetic-cell">/breɪs/</td>
-            <td class="meaning-cell">n. 支柱;紧缚之物 vt. 支住</td>
+            <td class="pos-cell">n./vt.</td>
+            <td class="meaning-cell">支柱; 紧缚之物 支住</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="9" data-src="../audio/unit2/vocab_table/vocab_t_09.mp3">
             <td><span class="voice-dot sonia"></span>9</td>
             <td class="word-cell">bank</td>
             <td class="phonetic-cell">/bæŋk/</td>
-            <td class="meaning-cell">n. 岸 vt. 围以堤</td>
+            <td class="pos-cell">n./vt.</td>
+            <td class="meaning-cell">岸 围以堤</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="10" data-src="../audio/unit2/vocab_table/vocab_t_10.mp3">
             <td><span class="voice-dot chris"></span>10</td>
             <td class="word-cell">level</td>
             <td class="phonetic-cell">/ˈlevl/</td>
-            <td class="meaning-cell">n. 中段,[矿物]主平巷 adj. 水平的</td>
+            <td class="pos-cell">n./adj.</td>
+            <td class="meaning-cell">中段,主平巷 水平的</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="11" data-src="../audio/unit2/vocab_table/vocab_t_11.mp3">
             <td><span class="voice-dot sonia"></span>11</td>
             <td class="word-cell">plat</td>
             <td class="phonetic-cell">/plæt/</td>
-            <td class="meaning-cell">n. 褶皱;辫状物(=plait)</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">褶皱; 辫状物(=plait)</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="12" data-src="../audio/unit2/vocab_table/vocab_t_12.mp3">
             <td><span class="voice-dot chris"></span>12</td>
             <td class="word-cell">inset</td>
             <td class="phonetic-cell">/ˈɪnset/</td>
-            <td class="meaning-cell">vt. 嵌入;插入</td>
+            <td class="pos-cell">vt.</td>
+            <td class="meaning-cell">嵌入; 插入</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="13" data-src="../audio/unit2/vocab_table/vocab_t_13.mp3">
             <td><span class="voice-dot sonia"></span>13</td>
             <td class="word-cell">sublevel</td>
             <td class="phonetic-cell">/ˈsʌblevl/</td>
-            <td class="meaning-cell">n. [矿物]分段</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">分段</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="14" data-src="../audio/unit2/vocab_table/vocab_t_14.mp3">
             <td><span class="voice-dot chris"></span>14</td>
             <td class="word-cell">winzing</td>
             <td class="phonetic-cell">/ˈwɪnzɪŋ/</td>
-            <td class="meaning-cell">n. (垂直或倾斜的)开暗井</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">(垂直或倾斜的)开暗井</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="15" data-src="../audio/unit2/vocab_table/vocab_t_15.mp3">
             <td><span class="voice-dot sonia"></span>15</td>
             <td class="word-cell">crosscut</td>
             <td class="phonetic-cell">/ˈkrɒskʌt/</td>
-            <td class="meaning-cell">v. 横越;横切</td>
+            <td class="pos-cell">v.</td>
+            <td class="meaning-cell">横越; 横切</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="16" data-src="../audio/unit2/vocab_table/vocab_t_16.mp3">
             <td><span class="voice-dot chris"></span>16</td>
             <td class="word-cell">stope</td>
             <td class="phonetic-cell">/stəʊp/</td>
-            <td class="meaning-cell">n. 采场</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">采场</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="17" data-src="../audio/unit2/vocab_table/vocab_t_17.mp3">
             <td><span class="voice-dot sonia"></span>17</td>
             <td class="word-cell">cluster</td>
             <td class="phonetic-cell">/ˈklʌstə/</td>
-            <td class="meaning-cell">n. 串；束；丛；群；团</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">串；束；丛；群；团</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="18" data-src="../audio/unit2/vocab_table/vocab_t_18.mp3">
             <td><span class="voice-dot chris"></span>18</td>
             <td class="word-cell">alternatively</td>
             <td class="phonetic-cell">/ɔːlˈtɜːnətɪvli/</td>
-            <td class="meaning-cell">adv. 二选一地，替换地，选择地</td>
+            <td class="pos-cell">adv.</td>
+            <td class="meaning-cell">二选一地，替换地，选择地</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="19" data-src="../audio/unit2/vocab_table/vocab_t_19.mp3">
             <td><span class="voice-dot sonia"></span>19</td>
             <td class="word-cell">predominant</td>
             <td class="phonetic-cell">/prɪˈdɒmɪnənt/</td>
-            <td class="meaning-cell">adj. 主要的；有势力的</td>
+            <td class="pos-cell">adj.</td>
+            <td class="meaning-cell">主要的；有势力的</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="20" data-src="../audio/unit2/vocab_table/vocab_t_20.mp3">
             <td><span class="voice-dot chris"></span>20</td>
             <td class="word-cell">strike</td>
             <td class="phonetic-cell">/straɪk/</td>
-            <td class="meaning-cell">n. 走向</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">赋向</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="21" data-src="../audio/unit2/vocab_table/vocab_t_21.mp3">
             <td><span class="voice-dot sonia"></span>21</td>
             <td class="word-cell">sinuous</td>
             <td class="phonetic-cell">/ˈsɪnjuəs/</td>
-            <td class="meaning-cell">adj. 弯弯曲曲的；蜿蜒的</td>
+            <td class="pos-cell">adj.</td>
+            <td class="meaning-cell">弯弯曲曲的；蜿蜒的</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="22" data-src="../audio/unit2/vocab_table/vocab_t_22.mp3">
             <td><span class="voice-dot chris"></span>22</td>
             <td class="word-cell">appreciate</td>
             <td class="phonetic-cell">/əˈpriːʃieɪt/</td>
-            <td class="meaning-cell">vt. 为......表示感激；重视 vi. 涨价；增多</td>
+            <td class="pos-cell">vt./vi.</td>
+            <td class="meaning-cell">为......表示感激；重视 涨价；增多</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="23" data-src="../audio/unit2/vocab_table/vocab_t_23.mp3">
             <td><span class="voice-dot sonia"></span>23</td>
             <td class="word-cell">footwall</td>
             <td class="phonetic-cell">/ˈfʊtwɔːl/</td>
-            <td class="meaning-cell">n. 底板</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">底板</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="24" data-src="../audio/unit2/vocab_table/vocab_t_24.mp3">
             <td><span class="voice-dot chris"></span>24</td>
             <td class="word-cell">extraction</td>
             <td class="phonetic-cell">/ɪkˈstrækʃən/</td>
-            <td class="meaning-cell">n. 抽出；采矿</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">抽出；采矿</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="25" data-src="../audio/unit2/vocab_table/vocab_t_25.mp3">
             <td><span class="voice-dot sonia"></span>25</td>
             <td class="word-cell">progressively</td>
             <td class="phonetic-cell">/prəˈɡresɪvli/</td>
-            <td class="meaning-cell">adv. 日益增多的</td>
+            <td class="pos-cell">adv.</td>
+            <td class="meaning-cell">日益增多的</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="26" data-src="../audio/unit2/vocab_table/vocab_t_26.mp3">
             <td><span class="voice-dot chris"></span>26</td>
             <td class="word-cell">metalliferous</td>
             <td class="phonetic-cell">/ˌmetəˈlɪfərəs/</td>
-            <td class="meaning-cell">adj. 产金属的；含金属的</td>
+            <td class="pos-cell">adj.</td>
+            <td class="meaning-cell">产金属的；含金属的</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="27" data-src="../audio/unit2/vocab_table/vocab_t_27.mp3">
             <td><span class="voice-dot sonia"></span>27</td>
             <td class="word-cell">bench</td>
             <td class="phonetic-cell">/bentʃ/</td>
-            <td class="meaning-cell">n. 台阶</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">台阶</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="28" data-src="../audio/unit2/vocab_table/vocab_t_28.mp3">
             <td><span class="voice-dot chris"></span>28</td>
             <td class="word-cell">overburden</td>
             <td class="phonetic-cell">/ˌəʊvəˈbɜːdn/</td>
-            <td class="meaning-cell">n. 过重的负担 [矿物] 上覆岩层</td>
+            <td class="pos-cell">n.</td>
+            <td class="meaning-cell">过重的负担 上覆岩层</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
         </tbody>
       </table>
     </div>
@@ -818,126 +939,120 @@
 
   <!-- ==================== Phrases Section ==================== -->
   <div class="vocab-section" id="phrasesSection">
-    <div class="section-header">
-      <div class="section-icon phrases-icon">P</div>
-      <div class="section-title">Phrases <small>短语 (29-39)</small></div>
-    </div>
-
-    <!-- Audio Control Bar -->
-    <div class="audio-control-bar" id="phrasesAudioBar">
-      <button class="acb-btn" id="phrasesPlayAllBtn" onclick="toggleContinuousPlay('phrases')">
-        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
-        连续播放
-      </button>
-      <button class="acb-btn" id="phrasesStopBtn" onclick="stopContinuousPlay('phrases')" style="display:none;">
-        <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-        停止
-      </button>
-      <span class="acb-label">遍数</span>
-      <select class="acb-repeat-select" id="phrasesRepeatCount" onchange="updateRepeatCount('phrases')">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <button class="acb-loop-toggle" id="phrasesLoopBtn" onclick="toggleLoop('phrases')">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-        循环
-      </button>
-      <span class="acb-progress" id="phrasesProgress"></span>
-    </div>
+    
 
     <!-- Phrases Table -->
     <div class="vocab-card">
       <table class="vocab-table">
         <thead>
           <tr>
-            <th>#</th>
+            <th>#<span class="voice-tip" title="紫色圆点=Sonia(奇数序号)，橙色圆点=Christopher(偶数序号)">●</span></th>
             <th>短语</th>
             <th>音标</th>
+            <th>词性</th>
             <th>释义</th>
-            <th></th>
-          </tr>
-        </thead>
+            <th>播放</th>
+            
         <tbody id="phrasesBody">
           <tr data-idx="29" data-src="../audio/unit2/vocab_table/vocab_t_29.mp3">
             <td><span class="voice-dot sonia"></span>29</td>
             <td class="word-cell">bands of</td>
             <td class="phonetic-cell">/bændz əv/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">成群的</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="30" data-src="../audio/unit2/vocab_table/vocab_t_30.mp3">
             <td><span class="voice-dot chris"></span>30</td>
             <td class="word-cell">barren rock</td>
             <td class="phonetic-cell">/ˈbærən rɒk/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">贫瘠岩石，围岩</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="31" data-src="../audio/unit2/vocab_table/vocab_t_31.mp3">
             <td><span class="voice-dot sonia"></span>31</td>
             <td class="word-cell">hanging wall</td>
             <td class="phonetic-cell">/ˈhæŋɪŋ wɔːl/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">顶板</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="32" data-src="../audio/unit2/vocab_table/vocab_t_32.mp3">
             <td><span class="voice-dot chris"></span>32</td>
             <td class="word-cell">inclined shaft</td>
             <td class="phonetic-cell">/ɪnˈklaɪnd ʃɑːft/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">斜井</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="33" data-src="../audio/unit2/vocab_table/vocab_t_33.mp3">
             <td><span class="voice-dot sonia"></span>33</td>
             <td class="word-cell">ore pass</td>
             <td class="phonetic-cell">/ɔː pɑːs/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">矿石溜井</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="34" data-src="../audio/unit2/vocab_table/vocab_t_34.mp3">
             <td><span class="voice-dot chris"></span>34</td>
             <td class="word-cell">winding gear</td>
             <td class="phonetic-cell">/ˈwaɪndɪŋ ɡɪə/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">卷绕装置</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="35" data-src="../audio/unit2/vocab_table/vocab_t_35.mp3">
             <td><span class="voice-dot sonia"></span>35</td>
             <td class="word-cell">low-profile diesel truck</td>
             <td class="phonetic-cell">/ləʊ ˈprəʊfaɪl ˈdiːzəl trʌk/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">高度矮的柴油卡车</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="36" data-src="../audio/unit2/vocab_table/vocab_t_36.mp3">
             <td><span class="voice-dot chris"></span>36</td>
             <td class="word-cell">rubber-typed loader</td>
             <td class="phonetic-cell">/ˈrʌbə taɪpt ˈləʊdə/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">轮式装载机</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="37" data-src="../audio/unit2/vocab_table/vocab_t_37.mp3">
             <td><span class="voice-dot sonia"></span>37</td>
             <td class="word-cell">ancillary equipment</td>
             <td class="phonetic-cell">/ænˈsɪləri ɪˈkwɪpmənt/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">辅助设备</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="38" data-src="../audio/unit2/vocab_table/vocab_t_38.mp3">
             <td><span class="voice-dot chris"></span>38</td>
             <td class="word-cell">vein-type ore-body</td>
             <td class="phonetic-cell">/veɪn taɪp ˈɔːbɒdi/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">脉状矿体</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
           <tr data-idx="39" data-src="../audio/unit2/vocab_table/vocab_t_39.mp3">
             <td><span class="voice-dot sonia"></span>39</td>
             <td class="word-cell">disseminated ores</td>
             <td class="phonetic-cell">/dɪˈsemɪneɪtɪd ɔːz/</td>
+            <td class="pos-cell"></td>
             <td class="meaning-cell">浸染状矿石</td>
+            
             <td><button class="row-play-btn" onclick="playRow(this)" title="播放"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button></td>
-          </tr>
+            </tr>
         </tbody>
       </table>
     </div>
@@ -959,7 +1074,6 @@
   globalSpeedSlider.addEventListener('input', function() {
     currentSpeed = parseFloat(this.value);
     globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
-    // Update all currently playing audio
     if (currentAudio) {
       currentAudio.playbackRate = currentSpeed;
     }
@@ -970,66 +1084,25 @@
   var currentPlayingBtn = null;
   var currentPlayingRow = null;
 
-  // Continuous play state per section
-  var continuousState = {
-    words: { playing: false, currentIndex: 0, loop: false, repeatCount: 1, currentRepeat: 1, totalItems: 28 },
-    phrases: { playing: false, currentIndex: 0, loop: false, repeatCount: 1, currentRepeat: 1, totalItems: 11 }
+  // Unified continuous play state
+  var playState = {
+    playing: false,
+    currentSection: 'words',
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 1,
+    currentRepeat: 1
   };
 
-  // ===== Get rows for a section =====
-  function getSectionRows(section) {
+  // ===== Get rows for current section =====
+  function getCurrentRows() {
+    var section = playState.currentSection;
     if (section === 'words') {
       return document.getElementById('wordsBody').querySelectorAll('tr');
     } else {
       return document.getElementById('phrasesBody').querySelectorAll('tr');
     }
   }
-
-  // ===== Play a single row =====
-  window.playRow = function(btn) {
-    var row = btn.closest('tr');
-    var src = row.getAttribute('data-src');
-
-    // Stop any currently playing audio
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      if (currentPlayingBtn) {
-        currentPlayingBtn.classList.remove('playing');
-        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
-      }
-      if (currentPlayingRow) {
-        currentPlayingRow.classList.remove('highlight');
-      }
-    }
-
-    // Create and play new audio
-    currentAudio = new Audio(src);
-    currentAudio.playbackRate = currentSpeed;
-    currentAudio.play().catch(function() {});
-
-    btn.classList.add('playing');
-    btn.querySelector('svg').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
-    row.classList.add('highlight');
-
-    currentPlayingBtn = btn;
-    currentPlayingRow = row;
-
-    currentAudio.addEventListener('ended', function() {
-      btn.classList.remove('playing');
-      btn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
-      row.classList.remove('highlight');
-      currentPlayingBtn = null;
-      currentPlayingRow = null;
-      currentAudio = null;
-
-      // If continuous play is active, continue
-      var section = getSectionFromRow(row);
-      if (section && continuousState[section].playing) {
-        playNextInSequence(section);
-      }
-    });
-  };
 
   // ===== Determine section from row =====
   function getSectionFromRow(row) {
@@ -1039,86 +1112,21 @@
     return null;
   }
 
-  // ===== Toggle Continuous Play =====
-  window.toggleContinuousPlay = function(section) {
-    var state = continuousState[section];
-    if (state.playing) {
-      // Pause
-      stopContinuousPlay(section);
-      return;
+  // ===== Update section label =====
+  function updateSectionLabel() {
+    var label = document.getElementById('currentSectionLabel');
+    if (playState.currentSection === 'words') {
+      label.textContent = '单词区';
+    } else {
+      label.textContent = '短语区';
     }
+  }
 
-    // Start continuous play
-    state.playing = true;
-    state.currentIndex = 0;
-    state.currentRepeat = 1;
-
-    // Update UI
-    document.getElementById(section + 'PlayAllBtn').style.display = 'none';
-    document.getElementById(section + 'StopBtn').style.display = 'inline-flex';
-    document.getElementById(section + 'StopBtn').classList.add('active');
-
-    playNextInSequence(section);
-  };
-
-  // ===== Stop Continuous Play =====
-  window.stopContinuousPlay = function(section) {
-    var state = continuousState[section];
-    state.playing = false;
-    state.currentIndex = 0;
-    state.currentRepeat = 1;
-
-    // Stop current audio
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      if (currentPlayingBtn) {
-        currentPlayingBtn.classList.remove('playing');
-        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
-      }
-      if (currentPlayingRow) {
-        currentPlayingRow.classList.remove('highlight');
-      }
-      currentAudio = null;
-      currentPlayingBtn = null;
-      currentPlayingRow = null;
-    }
-
-    // Update UI
-    document.getElementById(section + 'PlayAllBtn').style.display = 'inline-flex';
-    document.getElementById(section + 'StopBtn').style.display = 'none';
-    document.getElementById(section + 'StopBtn').classList.remove('active');
-    document.getElementById(section + 'Progress').innerHTML = '';
-  };
-
-  // ===== Play Next in Sequence =====
-  function playNextInSequence(section) {
-    var state = continuousState[section];
-    var rows = getSectionRows(section);
-
-    if (state.currentIndex >= rows.length) {
-      // One round complete
-      if (state.currentRepeat < state.repeatCount) {
-        state.currentRepeat++;
-        state.currentIndex = 0;
-      } else if (state.loop) {
-        state.currentRepeat = 1;
-        state.currentIndex = 0;
-      } else {
-        // Done
-        stopContinuousPlay(section);
-        return;
-      }
-    }
-
-    var row = rows[state.currentIndex];
-    var btn = row.querySelector('.row-play-btn');
+  // ===== Play a single row =====
+  window.playRow = function(btn) {
+    var row = btn.closest('tr');
     var src = row.getAttribute('data-src');
 
-    // Update progress
-    updateProgress(section);
-
-    // Stop any currently playing
     if (currentAudio) {
       currentAudio.pause();
       currentAudio.currentTime = 0;
@@ -1131,57 +1139,207 @@
       }
     }
 
-    // Play
     currentAudio = new Audio(src);
     currentAudio.playbackRate = currentSpeed;
     currentAudio.play().catch(function() {});
 
-    btn.classList.add('playing');
-    btn.querySelector('svg').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    if (btn) btn.classList.add('playing');
+    var btnSvg = btn.querySelector('svg'); if (btnSvg) btnSvg.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
     row.classList.add('highlight');
 
     currentPlayingBtn = btn;
     currentPlayingRow = row;
 
-    // Scroll into view
-    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    var section = getSectionFromRow(row);
+    if (section) {
+      playState.currentSection = section;
+      updateSectionLabel();
+    }
 
     currentAudio.addEventListener('ended', function() {
       btn.classList.remove('playing');
-      btn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      var btnSvg = btn.querySelector('svg'); if (btnSvg) btnSvg.innerHTML = '<polygon points="6,3 20,12 6,21"/>';
       row.classList.remove('highlight');
       currentPlayingBtn = null;
       currentPlayingRow = null;
       currentAudio = null;
 
-      state.currentIndex++;
+      if (playState.playing) {
+        playNextInSequence();
+      }
+    });
+  };
 
-      if (state.playing) {
-        playNextInSequence(section);
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
+      return;
+    }
+
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+    updateSectionLabel();
+
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.querySelector('svg').innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      if (currentPlayingRow) {
+        currentPlayingRow.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingRow = null;
+    }
+
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+    var progressEl = document.getElementById('progress');
+    if (progressEl) progressEl.innerHTML = '';
+    
+    // Reset progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / 0';
+    }
+  };
+
+  // ===== Play Next in Sequence =====
+  function playNextInSequence() {
+    var rows = getCurrentRows();
+
+    if (playState.currentIndex >= rows.length) {
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        if (playState.currentSection === 'words') {
+          playState.currentSection = 'phrases';
+          playState.currentIndex = 0;
+          playState.currentRepeat = 1;
+          updateSectionLabel();
+        } else {
+          stopContinuousPlay();
+          return;
+        }
+      }
+    }
+
+    rows = getCurrentRows();
+
+    if (playState.currentIndex >= rows.length) {
+      stopContinuousPlay();
+      return;
+    }
+
+    var row = rows[playState.currentIndex];
+    var btn = row.querySelector('.row-play-btn');
+    var src = row.getAttribute('data-src');
+
+    updateProgress();
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        var btnSvg = currentPlayingBtn.querySelector('svg');
+        if (btnSvg) btnSvg.innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      if (currentPlayingRow) {
+        currentPlayingRow.classList.remove('highlight');
+      }
+    }
+
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    if (btn) {
+      if (btn) btn.classList.add('playing');
+      var btnSvg = btn.querySelector('svg');
+      if (btnSvg) btnSvg.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    }
+    row.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingRow = row;
+
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      if (btn) {
+        btn.classList.remove('playing');
+        var btnSvg = btn.querySelector('svg');
+        if (btnSvg) btnSvg.innerHTML = '<polygon points="6,3 20,12 6,21"/>';
+      }
+      row.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingRow = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
       }
     });
   }
 
   // ===== Update Progress =====
-  function updateProgress(section) {
-    var state = continuousState[section];
-    var rows = getSectionRows(section);
-    var currentIdx = state.currentIndex + 1;
+  function updateProgress() {
+    var rows = getCurrentRows();
+    var currentIdx = playState.currentIndex + 1;
     var total = rows.length;
     var repeatInfo = '';
-    if (state.repeatCount > 1 || state.loop) {
-      repeatInfo = ' (第' + state.currentRepeat + '遍)';
+    if (playState.repeatCount > 1 || playState.loop) {
+      repeatInfo = ' (第' + playState.currentRepeat + '遍)';
     }
-    document.getElementById(section + 'Progress').innerHTML =
-      '<span class="current-num">' + currentIdx + '</span> / ' + total + repeatInfo;
+    var progressEl = document.getElementById('progress');
+    if (progressEl) {
+      progressEl.innerHTML =
+        '<span class="current-num">' + currentIdx + '</span> / ' + total + repeatInfo;
+    }
+    
+    // Update progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
   }
 
   // ===== Toggle Loop =====
-  window.toggleLoop = function(section) {
-    var state = continuousState[section];
-    state.loop = !state.loop;
-    var btn = document.getElementById(section + 'LoopBtn');
-    if (state.loop) {
+  window.toggleLoop = function() {
+    playState.loop = !playState.loop;
+    var btn = document.getElementById('loopBtn');
+    if (playState.loop) {
       btn.classList.add('on');
     } else {
       btn.classList.remove('on');
@@ -1189,9 +1347,17 @@
   };
 
   // ===== Update Repeat Count =====
-  window.updateRepeatCount = function(section) {
-    var select = document.getElementById(section + 'RepeatCount');
-    continuousState[section].repeatCount = parseInt(select.value);
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  // ===== Mark Complete =====
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('vocab', 'unit2');
+    }
+    alert('词汇表学习已完成！');
   };
 
 })();

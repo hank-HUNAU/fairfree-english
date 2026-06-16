@@ -19,26 +19,29 @@
     --shadow-hover: 0 4px 20px rgba(0,0,0,0.08);
     --radius: 16px;
     --radius-sm: 10px;
-    /* Structure colors */
+    /* Sentence component colors */
     --color-s: #0071e3;
     --color-v: #ff3b30;
     --color-o: #34c759;
+    --color-c: #bf5af2;
     --color-s-bg: rgba(0,113,227,0.08);
     --color-v-bg: rgba(255,59,48,0.08);
     --color-o-bg: rgba(52,199,89,0.08);
+    --color-c-bg: rgba(191,90,242,0.08);
     --color-s-border: rgba(0,113,227,0.2);
     --color-v-border: rgba(255,59,48,0.2);
     --color-o-border: rgba(52,199,89,0.2);
-    /* Type tag colors */
-    --type-a: #0071e3;
-    --type-a-bg: rgba(0,113,227,0.08);
-    --type-a-border: rgba(0,113,227,0.18);
-    --type-b: #ff9500;
-    --type-b-bg: rgba(255,149,0,0.08);
-    --type-b-border: rgba(255,149,0,0.18);
-    --type-c: #af52de;
-    --type-c-bg: rgba(175,82,222,0.08);
-    --type-c-border: rgba(175,82,222,0.18);
+    --color-c-border: rgba(191,90,242,0.2);
+    /* Tag colors - New dual-tag system */
+    --tag-struct: #0071e3;
+    --tag-struct-bg: rgba(0,113,227,0.08);
+    --tag-struct-border: rgba(0,113,227,0.18);
+    --tag-special: #bf5af2;
+    --tag-special-bg: rgba(191,90,242,0.08);
+    --tag-special-border: rgba(191,90,242,0.18);
+    --tag-func: #ff9500;
+    --tag-func-bg: rgba(255,149,0,0.08);
+    --tag-func-border: rgba(255,149,0,0.18);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -96,11 +99,11 @@
     font-weight: 400;
   }
 
-  /* Legend */
+  /* Legend - Updated for dual-tag system */
   .legend {
     display: flex;
     justify-content: center;
-    gap: 28px;
+    gap: 20px;
     flex-wrap: wrap;
     margin: 28px 0 48px;
     padding: 18px 24px;
@@ -110,11 +113,26 @@
     box-shadow: var(--shadow);
   }
 
+  .legend-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .legend-section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    letter-spacing: 0.5px;
+    margin-right: 4px;
+  }
+
   .legend-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
+    gap: 6px;
+    font-size: 0.82rem;
     color: var(--fg-muted);
   }
 
@@ -128,75 +146,18 @@
   .legend-dot.s { background: var(--color-s); }
   .legend-dot.v { background: var(--color-v); }
   .legend-dot.o { background: var(--color-o); }
+  .legend-dot.c { background: var(--color-c); }
 
-  /* Section */
-  .section {
-    margin-bottom: 48px;
-    animation: fadeSlideUp 0.5s ease both;
+  .legend-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
   }
 
-  .section:nth-child(1) { animation-delay: 0.05s; }
-  .section:nth-child(2) { animation-delay: 0.1s; }
-  .section:nth-child(3) { animation-delay: 0.15s; }
-
-  @keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 20px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .type-tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    flex-shrink: 0;
-  }
-
-  .type-tag.a {
-    background: var(--type-a-bg);
-    border: 1px solid var(--type-a-border);
-    color: var(--type-a);
-  }
-
-  .type-tag.b {
-    background: var(--type-b-bg);
-    border: 1px solid var(--type-b-border);
-    color: var(--type-b);
-  }
-
-  .type-tag.c {
-    background: var(--type-c-bg);
-    border: 1px solid var(--type-c-border);
-    color: var(--type-c);
-  }
-
-  .section-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--fg);
-    letter-spacing: -0.01em;
-  }
-
-  .section-title small {
-    font-size: 0.82rem;
-    font-weight: 400;
-    color: var(--fg-muted);
-    margin-left: 8px;
-  }
+  .legend-tag.struct { background: var(--tag-struct-bg); color: var(--tag-struct); border: 1px solid var(--tag-struct-border); }
+  .legend-tag.special { background: var(--tag-special-bg); color: var(--tag-special); border: 1px solid var(--tag-special-border); }
+  .legend-tag.func { background: var(--tag-func-bg); color: var(--tag-func); border: 1px solid var(--tag-func-border); }
 
   /* Audio Control Bar */
   .audio-control-bar {
@@ -336,6 +297,44 @@
     text-transform: uppercase;
   }
 
+  /* Tag Row - New dual-tag system */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+    align-items: center;
+  }
+
+  .tag-struct, .tag-special, .tag-func {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  .tag-struct {
+    background: var(--tag-struct-bg);
+    border: 1px solid var(--tag-struct-border);
+    color: var(--tag-struct);
+  }
+
+  .tag-special {
+    background: var(--tag-special-bg);
+    border: 1px solid var(--tag-special-border);
+    color: var(--tag-special);
+  }
+
+  .tag-func {
+    background: var(--tag-func-bg);
+    border: 1px solid var(--tag-func-border);
+    color: var(--tag-func);
+  }
+
   /* English sentence with structure highlighting */
   .en-sentence {
     font-size: 1.02rem;
@@ -369,6 +368,15 @@
     color: var(--color-o);
     background: var(--color-o-bg);
     border-bottom: 2px solid var(--color-o-border);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .en-sentence .c {
+    color: var(--color-c);
+    background: var(--color-c-bg);
+    border-bottom: 2px solid var(--color-c-border);
     padding: 1px 5px;
     border-radius: 4px;
     font-weight: 600;
@@ -409,6 +417,12 @@
     color: var(--color-o);
   }
 
+  .struct-label.c-label {
+    background: var(--color-c-bg);
+    border: 1px solid var(--color-c-border);
+    color: var(--color-c);
+  }
+
   .struct-arrow {
     color: var(--fg-muted);
     font-size: 0.82rem;
@@ -431,7 +445,7 @@
     opacity: 0.85;
   }
 
-  /* Grammar note */
+  /* Grammar note - Enhanced */
   .grammar-note {
     font-size: 0.82rem;
     color: var(--fg);
@@ -472,26 +486,382 @@
     .container { padding: 20px 12px 60px; }
     .sentence-card { padding: 18px 16px; }
     .en-sentence { padding: 12px 14px; font-size: 0.93rem; }
-    .section-title { font-size: 1.1rem; }
-    .legend { gap: 14px; padding: 14px 16px; }
+    .legend { gap: 10px; padding: 14px 16px; }
+    .legend-section { gap: 8px; }
     header { padding: 32px 16px 24px; }
-    .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
     .audio-control-bar { padding: 10px 12px; gap: 10px; }
     .audio-control-bar input[type="range"] { width: 100px; }
     .sentence-play-btn { width: 28px; height: 28px; top: 14px; right: 14px; }
     .sentence-play-btn svg { width: 12px; height: 12px; }
+    .tag-row { gap: 6px; }
   }
+
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --header-height: 60px;
+    --footer-height: 56px;
+  }
+
+  body {
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
+  }
+
+  /* ===== Fixed Top Navigation Bar ===== */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-title span { color: var(--accent); }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-speed-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .nav-speed-label svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-speed-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    transition: transform 0.15s ease;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .nav-speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .complete-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* ===== Fixed Bottom Player Bar ===== */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .player-section-label {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    border-radius: 6px;
+    border: 1px solid var(--accent-border);
+  }
+
+  .player-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .player-btn.active {
+    background: #1d1d1f;
+  }
+
+  .player-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .player-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .player-repeat-select {
+    padding: 6px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .player-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .player-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .player-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .player-progress {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .player-progress .current-num {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Progress bar styles */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+
 </style>
 </head>
 <body>
 
+<!-- Fixed Top Navigation Bar -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 2</span>
+    <span class="nav-title">句型汇总</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+
+<!-- Fixed Bottom Player Bar -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSectionLabel">句型汇总</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3" selected>3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <span class="progress-text" id="progressBarText">0 / 0</span>
+  </div>
+</div>
+
+
 <div class="container">
 
-  <header>
-    <div class="header-unit">Unit 2</div>
-    <h1>句型汇总 <span>—</span> Mine Access and Shaft System</h1>
-    <div class="header-sub">课文核心句型结构分析与翻译</div>
-  </header>
 
   <div class="audio-control-bar">
     <label>
@@ -502,365 +872,440 @@
     </label>
   </div>
 
-  <!-- Legend -->
+  <!-- Legend - Updated -->
   <div class="legend">
-    <div class="legend-item"><span class="legend-dot s"></span> Subject 主语 (S)</div>
-    <div class="legend-item"><span class="legend-dot v"></span> Verb / Linking Verb 谓语/系动词 (V)</div>
-    <div class="legend-item"><span class="legend-dot o"></span> Object / Predicative 宾语/表语 (O/P)</div>
+    <div class="legend-section">
+      <span class="legend-section-title">成分:</span>
+      <div class="legend-item"><span class="legend-dot s"></span> S 主语</div>
+      <div class="legend-item"><span class="legend-dot v"></span> V 谓语</div>
+      <div class="legend-item"><span class="legend-dot o"></span> O 宾语</div>
+      <div class="legend-item"><span class="legend-dot c"></span> C 补语</div>
+    </div>
+    <div class="legend-section">
+      <span class="legend-section-title">标签:</span>
+      <span class="legend-tag struct">结构</span>
+      <span class="legend-tag special">特殊</span>
+      <span class="legend-tag func">功能</span>
+    </div>
   </div>
 
-  <!-- ==================== Section A ==================== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="type-tag a">A</span>
-      <div class="section-title">主系表结构 <small>Subject + Linking Verb + Predicative</small></div>
+  <!-- ==================== SVP Sentences ==================== -->
+  <!-- 01 -->
+  <div class="sentence-card" data-idx="1" data-src="../audio/unit2/sentence_a_01.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_01.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">01</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVP</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
     </div>
-
-    <!-- A-01 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_01.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">A-01</div>
-      <div class="en-sentence">
-        <span class="s">Large ore-bodies</span> <span class="v">are</span> often <span class="v">known as</span> <span class="o">massive</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">系 系动词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">P 表语</span>
-        <span class="struct-text">（be known as 固定搭配作系表结构）</span>
-      </div>
-      <div class="cn-translation">大型矿体通常被称为块状矿体。</div>
-      <div class="grammar-note">be known as 是常见的主系表结构，表示"被称为……"。known as 为过去分词短语作表语，说明主语的身份或类别。often 为频率副词，修饰整个系表结构。</div>
+    <div class="en-sentence">
+      <span class="s">Large ore-bodies</span> <span class="v">are</span> often <span class="v">known as</span> <span class="o">massive</span>.
     </div>
-
-    <!-- A-02 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_02.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">A-02</div>
-      <div class="en-sentence">
-        <span class="s">The term massive</span> <span class="v">should not be confused with</span> <span class="o">massive and disseminated ores</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">系 系动词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">P 表语</span>
-        <span class="struct-text">（被动语态作系表结构）</span>
-      </div>
-      <div class="cn-translation">块状矿体这一术语不应与地质学中的块状矿石和浸染状矿石混淆。</div>
-      <div class="grammar-note">should not be confused with 为被动语态作系表结构，表示"不应与……混淆"。should 为情态动词表建议或义务，be confused with 为固定搭配。表语部分为名词短语 massive and disseminated ores。</div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">系 系动词</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">P 表语</span>
+      <span class="struct-text">（be known as 固定搭配作系表结构）</span>
     </div>
-
-    <!-- A-03 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_03.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">A-03</div>
-      <div class="en-sentence">
-        <span class="s">The area around the shaft at ground level</span> <span class="v">is</span> <span class="v">known as</span> <span class="o">the brace</span> in metal mining.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">系 系动词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">P 表语</span>
-        <span class="struct-text">（is known as 固定搭配）</span>
-      </div>
-      <div class="cn-translation">在金属矿山中，井筒地面部分称为井架。</div>
-      <div class="grammar-note">is known as 为固定搭配，意为"被称为/称为"。主语 The area around the shaft at ground level 带有两个介词短语作后置定语。表语 the brace 为名词，in metal mining 为介词短语作范围状语。</div>
-    </div>
-
-    <!-- A-04 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_04.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">A-04</div>
-      <div class="en-sentence">
-        <span class="s">The interval between the levels</span> <span class="v">is</span> <span class="o">a function of the mining method</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">系 系动词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">P 表语</span>
-        <span class="struct-text">（名词短语作表语）</span>
-      </div>
-      <div class="cn-translation">中段间距取决于采矿方法。</div>
-      <div class="grammar-note">is a function of 表示"是……的函数/取决于"，是科技英语中常见的系表搭配。a function of the mining method 为名词短语作表语，of 短语说明函数关系的主变量。</div>
-    </div>
-
-    <!-- A-05 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_05.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">A-05</div>
-      <div class="en-sentence">
-        <span class="s">Haulage speeds</span> <span class="v">are</span> <span class="o">generally lower</span> in inclined shafts.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">系 系动词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">P 表语</span>
-        <span class="struct-text">（形容词比较级作表语）</span>
-      </div>
-      <div class="cn-translation">斜井中的提升速度通常较低。</div>
-      <div class="grammar-note">lower 为形容词 low 的比较级作表语，generally 为程度副词修饰比较级。in inclined shafts 为介词短语作地点状语，说明比较的范围和语境。</div>
-    </div>
-
-    <!-- A-06 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_06.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">A-06</div>
-      <div class="en-sentence">
-        <span class="s">Maintenance costs</span> <span class="v">are</span> <span class="o">higher</span> in inclined shafts.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">系 系动词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">P 表语</span>
-        <span class="struct-text">（形容词比较级作表语）</span>
-      </div>
-      <div class="cn-translation">斜井的维修成本较高。</div>
-      <div class="grammar-note">higher 为形容词 high 的比较级作表语。此句与 A-05 结构完全相同，均为"主语 + are + 比较级形容词 + 介词短语"，是采矿技术文献中常见的对比描述句型。</div>
-    </div>
-
+    <div class="cn-translation">大型矿体通常被称为块状矿体。</div>
+    <div class="grammar-note">句型结构：SVP + Passive（主系表+被动）。be known as 是常见的主系表结构，表示"被称为……"。known as 为过去分词短语作表语，说明主语的身份或类别。often 为频率副词，修饰整个系表结构。</div>
   </div>
 
-  <!-- ==================== Section B ==================== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="type-tag b">B</span>
-      <div class="section-title">主谓宾结构 <small>Subject + Verb + Object</small></div>
+  <!-- 02 -->
+  <div class="sentence-card" data-idx="2" data-src="../audio/unit2/sentence_a_02.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_02.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">02</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVP</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-special">Modal</span>
+      <span class="tag-func">Decl-</span>
     </div>
-
-    <!-- B-01 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_01.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">B-01</div>
-      <div class="en-sentence">
-        <span class="s">A shaft</span> <span class="v">is sunk</span> <span class="o">alongside or through the ore-body</span> for access.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">V 谓语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">O 宾语/状语</span>
-        <span class="struct-text">（被动语态 SVO）</span>
-      </div>
-      <div class="cn-translation">要进入矿体开采，首先要在矿体周边掘进竖井或在矿体中掘进竖井作为出入口。</div>
-      <div class="grammar-note">is sunk 为被动语态（sink 的过去分词形式），表示"被掘进"。alongside or through the ore-body 为介词短语作地点状语，for access 为目的状语。被动语态在技术文献中极为常见，强调动作承受者而非执行者。</div>
+    <div class="en-sentence">
+      <span class="s">The term massive</span> <span class="v">should not be confused with</span> <span class="o">massive and disseminated ores</span>.
     </div>
-
-    <!-- B-02 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_02.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">B-02</div>
-      <div class="en-sentence">
-        <span class="s">Two openings</span> <span class="v">must be provided</span> <span class="o">to allow air to be forced through the mine workings</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">V 谓语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">O 目的/补充</span>
-        <span class="struct-text">（情态被动语态 + 不定式）</span>
-      </div>
-      <div class="cn-translation">矿山必须具备两个出入口，以便让空气通过井下工作面。</div>
-      <div class="grammar-note">must be provided 为情态动词 + 被动语态，表示"必须被提供/设置"。to allow air to be forced through... 为不定式短语作目的状语，其中包含 allow sb. to do 的复合结构和被动不定式 to be forced。</div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">系 系动词</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">P 表语</span>
+      <span class="struct-text">（被动语态作系表结构）</span>
     </div>
-
-    <!-- B-03 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_03.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">B-03</div>
-      <div class="en-sentence">
-        <span class="s">Cages</span> <span class="v">are used</span> <span class="o">for man-riding and to wind mine cars</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">V 谓语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">O 用途/目的</span>
-        <span class="struct-text">（被动语态 + 介词短语/不定式）</span>
-      </div>
-      <div class="cn-translation">罐笼用于提升人员和缠绕矿车。</div>
-      <div class="grammar-note">are used for 为被动语态 + 介词短语，表示"被用于……"。for man-riding 和 to wind mine cars 为两个并列的用途说明，前者为介词短语，后者为不定式短语。man-riding 为复合名词，表示"人员提升"。</div>
-    </div>
-
-    <!-- B-04 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_04.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">B-04</div>
-      <div class="en-sentence">
-        <span class="s">A large shaft</span> <span class="v">may be equipped</span> <span class="o">with a pair of skips and a single cage</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">V 谓语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">O 介词宾语</span>
-        <span class="struct-text">（情态被动语态 + equip with 搭配）</span>
-      </div>
-      <div class="cn-translation">大竖井可以安装一对箕斗和一个罐笼。</div>
-      <div class="grammar-note">may be equipped with 为情态动词 + 被动语态 + 介词 with 的固定搭配，表示"可以配备……"。a pair of skips and a single cage 为 with 的介词宾语，由 and 连接两个并列名词短语。</div>
-    </div>
-
-    <!-- B-05 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_05.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">B-05</div>
-      <div class="en-sentence">
-        <span class="s">Levels</span> <span class="v">are driven</span> <span class="o">into the orebody</span> to enable it to be worked.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">V 谓语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">O 介词宾语</span>
-        <span class="struct-text">（被动语态 + 不定式作目的状语）</span>
-      </div>
-      <div class="cn-translation">在竖井中按一定间距开凿入口，并向矿体掘进平巷以便开采。</div>
-      <div class="grammar-note">are driven 为被动语态（drive 的过去分词），表示"被掘进"。into the orebody 为介词短语作方向状语。to enable it to be worked 为不定式短语作目的状语，其中 enable sb. to do 为固定搭配，to be worked 为被动不定式。</div>
-    </div>
-
-    <!-- B-06 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_06.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">B-06</div>
-      <div class="en-sentence">
-        <span class="s">Sublevels</span> <span class="v">will be driven</span> <span class="o">at intervals between the main levels</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label s-label">S 主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label v-label">V 谓语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">O 介词短语</span>
-        <span class="struct-text">（将来时被动语态）</span>
-      </div>
-      <div class="cn-translation">在主水平之间按一定间距掘进分段平巷。</div>
-      <div class="grammar-note">will be driven 为将来时被动语态，表示"将被掘进"。at intervals 表示"按一定间距"，between the main levels 表示"在主水平之间"，两个介词短语共同说明掘进的位置和方式。</div>
-    </div>
-
+    <div class="cn-translation">块状矿体这一术语不应与地质学中的块状矿石和浸染状矿石混淆。</div>
+    <div class="grammar-note">句型结构：SVP + Passive + Modal（主系表+被动+情态）。should not be confused with 为被动语态作系表结构，表示"不应与……混淆"。should 为情态动词表建议或义务，be confused with 为固定搭配。表语部分为名词短语 massive and disseminated ores。</div>
   </div>
 
-  <!-- ==================== Section C ==================== -->
-  <div class="section">
-    <div class="section-header">
-      <span class="type-tag c">C</span>
-      <div class="section-title">There + be 结构 <small>Existential Sentence</small></div>
+  <!-- 03 -->
+  <div class="sentence-card" data-idx="3" data-src="../audio/unit2/sentence_a_03.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_03.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">03</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVP</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
     </div>
-
-    <!-- C-01 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_01.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">C-01</div>
-      <div class="en-sentence">
-        <span class="v">There are</span> <span class="s">two types of conveyance</span>, <span class="o">cages and skips</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label v-label">V 引导词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label s-label">S 真正主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">同位语</span>
-        <span class="struct-text">（There are + 名词短语 + 同位语）</span>
-      </div>
-      <div class="cn-translation">竖井提升有两种方式：罐笼提升和箕斗提升。</div>
-      <div class="grammar-note">There are 为基本存在句型，真正的主语是 two types of conveyance。cages and skips 为同位语，对主语进行补充说明，列举两种具体的提升容器。</div>
+    <div class="en-sentence">
+      <span class="s">The area around the shaft at ground level</span> <span class="v">is</span> <span class="v">known as</span> <span class="o">the brace</span> in metal mining.
     </div>
-
-    <!-- C-02 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_02.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">C-02</div>
-      <div class="en-sentence">
-        <span class="v">There must be</span> <span class="s">two openings</span> <span class="o">to allow air to be forced through the mine workings</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label v-label">V 引导词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label s-label">S 真正主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">目的</span>
-        <span class="struct-text">（There must be + 名词 + 不定式）</span>
-      </div>
-      <div class="cn-translation">实际生产过程中，矿山必须具备两个出入口。</div>
-      <div class="grammar-note">There must be 为情态动词存在句，表示"必须有/必须存在"。to allow air to be forced through... 为不定式短语作目的状语，说明设置两个出入口的原因。此句型强调必要性。</div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">系 系动词</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">P 表语</span>
+      <span class="struct-text">（is known as 固定搭配）</span>
     </div>
+    <div class="cn-translation">在金属矿山中，井筒地面部分称为井架。</div>
+    <div class="grammar-note">句型结构：SVP + Passive（主系表+被动）。is known as 为固定搭配，意为"被称为/称为"。主语 The area around the shaft at ground level 带有两个介词短语作后置定语。表语 the brace 为名词，in metal mining 为介词短语作范围状语。</div>
+  </div>
 
-    <!-- C-03 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_03.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">C-03</div>
-      <div class="en-sentence">
-        <span class="v">There is</span> <span class="s">a cone of ore</span> <span class="o">surrounding the shaft</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label v-label">V 引导词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label s-label">S 真正主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">修饰</span>
-        <span class="struct-text">（There is + 名词短语 + 分词短语）</span>
-      </div>
-      <div class="cn-translation">竖井周边有一个下大上小的锥形保安矿柱。</div>
-      <div class="grammar-note">There is 为单数存在句。a cone of ore 为真正主语，of ore 为介词短语作后置定语。surrounding the shaft 为现在分词短语作后置定语，修饰 cone，说明矿柱的空间位置。</div>
+  <!-- 04 -->
+  <div class="sentence-card" data-idx="4" data-src="../audio/unit2/sentence_a_04.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_04.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">04</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVP</span>
+      <span class="tag-func">Decl+</span>
     </div>
-
-    <!-- C-04 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_04.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">C-04</div>
-      <div class="en-sentence">
-        It can be seen that <span class="v">there are</span> <span class="s">at least two means of access</span> <span class="o">to the mine</span>.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label v-label">V 引导词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label s-label">S 真正主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">修饰</span>
-        <span class="struct-text">（It can be seen that + There be + 名词短语）</span>
-      </div>
-      <div class="cn-translation">可以看出，矿山至少有两条通道。</div>
-      <div class="grammar-note">It can be seen that 为形式主语句型，that 引导主语从句。从句中嵌套 there are 存在句，真正主语为 at least two means of access，to the mine 为介词短语作后置定语修饰 means。</div>
+    <div class="en-sentence">
+      <span class="s">The interval between the levels</span> <span class="v">is</span> <span class="o">a function of the mining method</span>.
     </div>
-
-    <!-- C-05 -->
-    <div class="sentence-card">
-      <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_05.mp3" onclick="toggleSentenceAudio(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
-      <div class="card-num">C-05</div>
-      <div class="en-sentence">
-        <span class="v">There is</span> <span class="s">a need</span> <span class="o">for benching downwards</span> in metalliferous orebodies.
-      </div>
-      <div class="structure-analysis">
-        <span class="struct-label v-label">V 引导词</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label s-label">S 真正主语</span>
-        <span class="struct-arrow">&rarr;</span>
-        <span class="struct-label o-label">修饰</span>
-        <span class="struct-text">（There is a need for + 动名词短语）</span>
-      </div>
-      <div class="cn-translation">金属矿体需要向下分段开采。</div>
-      <div class="grammar-note">There is a need for 为存在句的常用搭配，表示"有……的需要"。for benching downwards 为介词短语作后置定语修饰 need，benching downwards 为动名词短语。in metalliferous orebodies 为介词短语作范围状语。</div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">系 系动词</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">P 表语</span>
+      <span class="struct-text">（名词短语作表语）</span>
     </div>
+    <div class="cn-translation">中段间距取决于采矿方法。</div>
+    <div class="grammar-note">句型结构：SVP（主系表）。is a function of 表示"是……的函数/取决于"，是科技英语中常见的系表搭配。a function of the mining method 为名词短语作表语，of 短语说明函数关系的主变量。</div>
+  </div>
 
+  <!-- 05 -->
+  <div class="sentence-card" data-idx="5" data-src="../audio/unit2/sentence_a_05.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_05.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">05</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVP</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Haulage speeds</span> <span class="v">are</span> <span class="o">generally lower</span> in inclined shafts.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">系 系动词</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">P 表语</span>
+      <span class="struct-text">（形容词比较级作表语）</span>
+    </div>
+    <div class="cn-translation">斜井中的提升速度通常较低。</div>
+    <div class="grammar-note">句型结构：SVP（主系表）。lower 为形容词 low 的比较级作表语，generally 为程度副词修饰比较级。in inclined shafts 为介词短语作地点状语，说明比较的范围和语境。</div>
+  </div>
+
+  <!-- 06 -->
+  <div class="sentence-card" data-idx="6" data-src="../audio/unit2/sentence_a_06.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_a_06.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">06</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVP</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Maintenance costs</span> <span class="v">are</span> <span class="o">higher</span> in inclined shafts.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">系 系动词</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">P 表语</span>
+      <span class="struct-text">（形容词比较级作表语）</span>
+    </div>
+    <div class="cn-translation">斜井的维修成本较高。</div>
+    <div class="grammar-note">句型结构：SVP（主系表）。higher 为形容词 high 的比较级作表语。此句与 05 结构完全相同，均为"主语 + are + 比较级形容词 + 介词短语"，是采矿技术文献中常见的对比描述句型。</div>
+  </div>
+
+  <!-- ==================== SVO Sentences ==================== -->
+  <!-- 07 -->
+  <div class="sentence-card" data-idx="7" data-src="../audio/unit2/sentence_b_01.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_01.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">07</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">A shaft</span> <span class="v">is sunk</span> <span class="o">alongside or through the ore-body</span> for access.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">V 谓语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">O 宾语/状语</span>
+      <span class="struct-text">（被动语态 SVO）</span>
+    </div>
+    <div class="cn-translation">要进入矿体开采，首先要在矿体周边掘进竖井或在矿体中掘进竖井作为出入口。</div>
+    <div class="grammar-note">句型结构：SVO + Passive（主谓宾+被动）。is sunk 为被动语态（sink 的过去分词形式），表示"被掘进"。alongside or through the ore-body 为介词短语作地点状语，for access 为目的状语。被动语态在技术文献中极为常见，强调动作承受者而非执行者。</div>
+  </div>
+
+  <!-- 08 -->
+  <div class="sentence-card" data-idx="8" data-src="../audio/unit2/sentence_b_02.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_02.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">08</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-special">Modal</span>
+      <span class="tag-special">Complex</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Two openings</span> <span class="v">must be provided</span> <span class="o">to allow air to be forced through the mine workings</span>.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">V 谓语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">O 目的/补充</span>
+      <span class="struct-text">（情态被动语态 + 不定式）</span>
+    </div>
+    <div class="cn-translation">矿山必须具备两个出入口，以便让空气通过井下工作面。</div>
+    <div class="grammar-note">句型结构：SVO + Passive + Modal + Complex（主谓宾+被动+情态+复合）。must be provided 为情态动词 + 被动语态，表示"必须被提供/设置"。to allow air to be forced through... 为不定式短语作目的状语，其中包含 allow sb. to do 的复合结构和被动不定式 to be forced。</div>
+  </div>
+
+  <!-- 09 -->
+  <div class="sentence-card" data-idx="9" data-src="../audio/unit2/sentence_b_03.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_03.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">09</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Cages</span> <span class="v">are used</span> <span class="o">for man-riding and to wind mine cars</span>.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">V 谓语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">O 用途/目的</span>
+      <span class="struct-text">（被动语态 + 介词短语/不定式）</span>
+    </div>
+    <div class="cn-translation">罐笼用于提升人员和缠绕矿车。</div>
+    <div class="grammar-note">句型结构：SVO + Passive（主谓宾+被动）。are used for 为被动语态 + 介词短语，表示"被用于……"。for man-riding 和 to wind mine cars 为两个并列的用途说明，前者为介词短语，后者为不定式短语。man-riding 为复合名词，表示"人员提升"。</div>
+  </div>
+
+  <!-- 10 -->
+  <div class="sentence-card" data-idx="10" data-src="../audio/unit2/sentence_b_04.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_04.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">10</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-special">Modal</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">A large shaft</span> <span class="v">may be equipped</span> <span class="o">with a pair of skips and a single cage</span>.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">V 谓语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">O 介词宾语</span>
+      <span class="struct-text">（情态被动语态 + equip with 搭配）</span>
+    </div>
+    <div class="cn-translation">大竖井可以安装一对箕斗和一个罐笼。</div>
+    <div class="grammar-note">句型结构：SVO + Passive + Modal（主谓宾+被动+情态）。may be equipped with 为情态动词 + 被动语态 + 介词 with 的固定搭配，表示"可以配备……"。a pair of skips and a single cage 为 with 的介词宾语，由 and 连接两个并列名词短语。</div>
+  </div>
+
+  <!-- 11 -->
+  <div class="sentence-card" data-idx="11" data-src="../audio/unit2/sentence_b_05.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_05.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">11</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-special">Complex</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Levels</span> <span class="v">are driven</span> <span class="o">into the orebody</span> to enable it to be worked.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">V 谓语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">O 介词宾语</span>
+      <span class="struct-text">（被动语态 + 不定式作目的状语）</span>
+    </div>
+    <div class="cn-translation">在竖井中按一定间距开凿入口，并向矿体掘进平巷以便开采。</div>
+    <div class="grammar-note">句型结构：SVO + Passive + Complex（主谓宾+被动+复合）。are driven 为被动语态（drive 的过去分词），表示"被掘进"。into the orebody 为介词短语作方向状语。to enable it to be worked 为不定式短语作目的状语，其中 enable sb. to do 为固定搭配，to be worked 为被动不定式。</div>
+  </div>
+
+  <!-- 12 -->
+  <div class="sentence-card" data-idx="12" data-src="../audio/unit2/sentence_b_06.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_b_06.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">12</div>
+    <div class="tag-row">
+      <span class="tag-struct">SVO</span>
+      <span class="tag-special">Passive</span>
+      <span class="tag-special">Modal</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="s">Sublevels</span> <span class="v">will be driven</span> <span class="o">at intervals between the main levels</span>.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label s-label">S 主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label v-label">V 谓语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">O 介词短语</span>
+      <span class="struct-text">（将来时被动语态）</span>
+    </div>
+    <div class="cn-translation">在主水平之间按一定间距掘进分段平巷。</div>
+    <div class="grammar-note">句型结构：SVO + Passive + Modal（主谓宾+被动+情态）。will be driven 为将来时被动语态，表示"将被掘进"。at intervals 表示"按一定间距"，between the main levels 表示"在主水平之间"，两个介词短语共同说明掘进的位置和方式。</div>
+  </div>
+
+  <!-- ==================== There-be Sentences ==================== -->
+  <!-- 13 -->
+  <div class="sentence-card" data-idx="13" data-src="../audio/unit2/sentence_c_01.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_01.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">13</div>
+    <div class="tag-row">
+      <span class="tag-special">There-be</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="v">There are</span> <span class="s">two types of conveyance</span>, <span class="o">cages and skips</span>.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label v-label">引导词 There</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label s-label">S 真正主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">同位语</span>
+      <span class="struct-text">（There are + 名词短语 + 同位语）</span>
+    </div>
+    <div class="cn-translation">竖井提升有两种方式：罐笼提升和箕斗提升。</div>
+    <div class="grammar-note">句型结构：There-be（存在句）。There are 为基本存在句型，真正的主语是 two types of conveyance。cages and skips 为同位语，对主语进行补充说明，列举两种具体的提升容器。</div>
+  </div>
+
+  <!-- 14 -->
+  <div class="sentence-card" data-idx="14" data-src="../audio/unit2/sentence_c_02.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_02.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">14</div>
+    <div class="tag-row">
+      <span class="tag-special">There-be</span>
+      <span class="tag-special">Modal</span>
+      <span class="tag-special">Complex</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="v">There must be</span> <span class="s">two openings</span> <span class="o">to allow air to be forced through the mine workings</span>.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label v-label">引导词 There</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label s-label">S 真正主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">目的</span>
+      <span class="struct-text">（There must be + 名词 + 不定式）</span>
+    </div>
+    <div class="cn-translation">实际生产过程中，矿山必须具备两个出入口。</div>
+    <div class="grammar-note">句型结构：There-be + Modal + Complex（存在句+情态+复合）。There must be 为情态动词存在句，表示"必须有/必须存在"。to allow air to be forced through... 为不定式短语作目的状语，说明设置两个出入口的原因。此句型强调必要性。</div>
+  </div>
+
+  <!-- 15 -->
+  <div class="sentence-card" data-idx="15" data-src="../audio/unit2/sentence_c_03.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_03.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">15</div>
+    <div class="tag-row">
+      <span class="tag-special">There-be</span>
+      <span class="tag-special">Complex</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="v">There is</span> <span class="s">a cone of ore</span> <span class="o">surrounding the shaft</span>.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label v-label">引导词 There</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label s-label">S 真正主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">修饰</span>
+      <span class="struct-text">（There is + 名词短语 + 分词短语）</span>
+    </div>
+    <div class="cn-translation">竖井周边有一个下大上小的锥形保安矿柱。</div>
+    <div class="grammar-note">句型结构：There-be + Complex（存在句+复合）。There is 为单数存在句。a cone of ore 为真正主语，of ore 为介词短语作后置定语。surrounding the shaft 为现在分词短语作后置定语，修饰 cone，说明矿柱的空间位置。</div>
+  </div>
+
+  <!-- 16 -->
+  <div class="sentence-card" data-idx="16" data-src="../audio/unit2/sentence_c_04.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_04.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">16</div>
+    <div class="tag-row">
+      <span class="tag-special">There-be</span>
+      <span class="tag-special">Complex</span>
+      <span class="tag-special">Modal</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      It can be seen that <span class="v">there are</span> <span class="s">at least two means of access</span> <span class="o">to the mine</span>.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label v-label">引导词 There</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label s-label">S 真正主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">修饰</span>
+      <span class="struct-text">（It can be seen that + There be + 名词短语）</span>
+    </div>
+    <div class="cn-translation">可以看出，矿山至少有两条通道。</div>
+    <div class="grammar-note">句型结构：There-be + Complex + Modal（存在句+复合+情态）。It can be seen that 为形式主语句型，that 引导主语从句。从句中嵌套 there are 存在句，真正主语为 at least two means of access，to the mine 为介词短语作后置定语修饰 means。</div>
+  </div>
+
+  <!-- 17 -->
+  <div class="sentence-card" data-idx="17" data-src="../audio/unit2/sentence_c_05.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit2/sentence_c_05.mp3" onclick="playSentence(this)" title="播放音频"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></button>
+    <div class="card-num">17</div>
+    <div class="tag-row">
+      <span class="tag-special">There-be</span>
+      <span class="tag-special">Complex</span>
+      <span class="tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">
+      <span class="v">There is</span> <span class="s">a need</span> <span class="o">for benching downwards</span> in metalliferous orebodies.
+    </div>
+    <div class="structure-analysis">
+      <span class="struct-label v-label">引导词 There</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label s-label">S 真正主语</span>
+      <span class="struct-arrow">&rarr;</span>
+      <span class="struct-label o-label">修饰</span>
+      <span class="struct-text">（There is a need for + 动名词短语）</span>
+    </div>
+    <div class="cn-translation">金属矿体需要向下分段开采。</div>
+    <div class="grammar-note">句型结构：There-be + Complex（存在句+复合）。There is a need for 为存在句的常用搭配，表示"有……的需要"。for benching downwards 为介词短语作后置定语修饰 need，benching downwards 为动名词短语。in metalliferous orebodies 为介词短语作范围状语。</div>
   </div>
 
   <footer>
-    Unit 2 Mine Access and Shaft System &mdash; 采矿专业英语句型汇总
+    Unit 2 Mine Access and Shaft System &mdash; 采矿专业英语句型汇总（双标签系统）
   </footer>
 
 </div>
@@ -868,61 +1313,257 @@
 
 <script>
 (function() {
-  var currentAudio = null;
-  var currentBtn = null;
+  // ===== Global Speed Control =====
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
 
-  window.toggleSentenceAudio = function(btn) {
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = currentSpeed;
+    }
+  });
+
+  // ===== Audio State =====
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingCard = null;
+
+  // Continuous play state
+  var playState = {
+    playing: false,
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 1,
+    currentRepeat: 1
+  };
+
+  // ===== Get all sentence cards =====
+  function getAllCards() {
+    return document.querySelectorAll('.sentence-card');
+  }
+
+  // ===== Play a single sentence =====
+  window.playSentence = function(btn) {
+    var card = btn.closest('.sentence-card');
     var src = btn.getAttribute('data-src');
 
-    if (currentBtn === btn && currentAudio && !currentAudio.paused) {
-      currentAudio.pause();
-      btn.classList.remove('playing');
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
-      return;
-    }
-
+    // Stop any currently playing audio
     if (currentAudio) {
       currentAudio.pause();
-      currentAudio = null;
-    }
-    if (currentBtn) {
-      currentBtn.classList.remove('playing');
-      currentBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
     }
 
-    var audio = new Audio(src);
-    var speedSlider = document.getElementById('speedSlider2');
-    if (speedSlider) {
-      audio.playbackRate = parseFloat(speedSlider.value);
-    }
+    // Create and play new audio
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
 
     btn.classList.add('playing');
     btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
+    card.classList.add('highlight');
 
-    currentAudio = audio;
-    currentBtn = btn;
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
 
-    audio.play().catch(function() {});
-
-    audio.addEventListener('ended', function() {
+    currentAudio.addEventListener('ended', function() {
       btn.classList.remove('playing');
       btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
       currentAudio = null;
-      currentBtn = null;
+
+      // If continuous play is active, continue to next
+      if (playState.playing) {
+        playNextInSequence();
+      }
     });
   };
 
-  var slider = document.getElementById('speedSlider2');
-  var speedVal = document.getElementById('speedValue2');
-  if (slider && speedVal) {
-    slider.addEventListener('input', function() {
-      var rate = parseFloat(this.value).toFixed(1);
-      speedVal.textContent = rate + 'x';
-      if (currentAudio) {
-        currentAudio.playbackRate = parseFloat(rate);
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
+      return;
+    }
+
+    // Start continuous play from first card
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    // Stop current audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+    }
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+
+    // Reset progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var cards = getAllCards();
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / ' + cards.length;
+    }
+  };
+
+  // ===== Play Next in Sequence =====
+  function playNextInSequence() {
+    var cards = getAllCards();
+    var total = cards.length;
+
+    if (playState.currentIndex >= total) {
+      // One round complete
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        // Done with all
+        stopContinuousPlay();
+        return;
+      }
+    }
+
+    if (playState.currentIndex >= cards.length) {
+      stopContinuousPlay();
+      return;
+    }
+
+    var card = cards[playState.currentIndex];
+    var btn = card.querySelector('.sentence-play-btn');
+    var src = btn.getAttribute('data-src');
+
+    // Update progress
+    updateProgress();
+
+    // Stop any currently playing
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+    }
+
+    // Play
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.classList.add('playing');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    // Scroll into view
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
       }
     });
   }
+
+  // ===== Update Progress =====
+  function updateProgress() {
+    var cards = getAllCards();
+    var currentIdx = playState.currentIndex + 1;
+    var total = cards.length;
+
+    // Update progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
+  }
+
+  // ===== Toggle Loop =====
+  window.toggleLoop = function() {
+    playState.loop = !playState.loop;
+    var btn = document.getElementById('loopBtn');
+    if (playState.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
+  };
+
+  // ===== Update Repeat Count =====
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  // ===== Mark Complete =====
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('sentence', 'unit2');
+    }
+    alert('句型汇总学习已完成！');
+  };
+
 })();
 </script>
 <script src="../studyTracker.js"></script>

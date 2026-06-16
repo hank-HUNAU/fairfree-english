@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的课程 - 飞优英语</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #f8f6f3;
+  --text: #2d2d2d;
+  --accent: #7a9e7e;
+  --accent-dark: #4a6e4a;
+  --card-bg: #ffffff;
+  --border: #e0dcd5;
+  --shadow: rgba(0,0,0,0.08);
+  --shadow-hover: rgba(0,0,0,0.15);
+  --lesson-even: #faf9f7;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Serif SC', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image: 
+    radial-gradient(circle at 30% 70%, rgba(122, 158, 126, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(74, 110, 74, 0.08) 0%, transparent 50%);
+}
+
+/* ===== Header ===== */
+.header {
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.header-back {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  text-decoration: none;
+}
+
+.header-back:hover {
+  opacity: 1;
+}
+
+.header-back-icon {
+  font-size: 18px;
+}
+
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.header-subtitle {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  margin-top: 8px;
+}
+
+/* ===== Navigation ===== */
+.nav-bar {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px var(--shadow);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-item {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.nav-item:hover, .nav-item.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* ===== Main Content ===== */
+.main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* ===== Unit Section ===== */
+.unit-section {
+  margin-bottom: 50px;
+}
+
+.unit-header {
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+  color: #fff;
+  padding: 20px 25px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.unit-number {
+  background: rgba(255,255,255,0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.unit-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.unit-title-en {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+.unit-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 25px;
+}
+
+/* ===== Lesson Block ===== */
+.lesson-block {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--border);
+}
+
+.lesson-block:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.lesson-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.lesson-badge {
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.lesson-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ===== Material Cards ===== */
+.material-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.material-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.material-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--shadow-hover);
+}
+
+.material-card.download-card {
+  background: linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%);
+  border: 1px dashed var(--border);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  font-size: 28px;
+}
+
+.card-info h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.card-info span {
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0.6;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  border: none;
+  font-family: inherit;
+}
+
+.btn-download {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-download:hover:not(:disabled) {
+  background: var(--accent-dark);
+}
+
+.btn-download:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-link {
+  background: var(--border);
+  color: var(--text);
+}
+
+.btn-link:hover {
+  background: #d0ccc5;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.pending-tag {
+  display: inline-block;
+  background: #f0ad4e;
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+/* ===== Review Card ===== */
+.review-card {
+  background: linear-gradient(135deg, rgba(122, 158, 126, 0.1) 0%, rgba(74, 110, 74, 0.05) 100%);
+  border: 1px solid rgba(122, 158, 126, 0.3);
+}
+
+.review-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.review-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  background: #fff;
+  border: 1px solid var(--accent);
+  color: var(--accent-dark);
+  border-radius: 6px;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.review-link:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0.5;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .header-back {
+    position: static;
+    margin-bottom: 15px;
+    transform: none;
+  }
+  
+  .header {
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nav-container {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 5px;
+  }
+  
+  .nav-item {
+    flex-shrink: 0;
+  }
+  
+  .material-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .unit-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lesson-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .card-actions, .review-links {
+    flex-direction: column;
+  }
+  
+  .btn, .review-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a class="header-back" href="main.html">
+    <span class="header-back-icon">←</span>
+    <span>返回主页</span>
+  </a>
+  <h1 class="header-title">我的课程</h1>
+  <p class="header-subtitle">20次课程资料 · Course Materials</p>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-container">
+    <a href="#unit1" class="nav-item">Unit 1</a>
+    <a href="#unit2" class="nav-item">Unit 2</a>
+    <a href="#unit3" class="nav-item">Unit 3</a>
+    <a href="#unit4" class="nav-item">Unit 4</a>
+    <a href="#unit5" class="nav-item">Unit 5</a>
+    <a href="#unit6" class="nav-item">Unit 6</a>
+    <a href="#unit7" class="nav-item">Unit 7</a>
+    <a href="#unit8" class="nav-item">Unit 8</a>
+    <a href="#unit9" class="nav-item">Unit 9</a>
+    <a href="#unit10" class="nav-item">Unit 10</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ==================== Unit 1: Geological Terminology ==================== -->
+  <section class="unit-section" id="unit1">
+    <div class="unit-header">
+      <span class="unit-number">Unit 1</span>
+      <div>
+        <h2 class="unit-title">地质术语</h2>
+        <p class="unit-title-en">Geological Terminology</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 1 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 1</span>
+          <h3 class="lesson-title">地质术语（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 1 课程讲解课件，包含地质术语核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 1 配套练习题，巩固地质术语学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit1/Unit1_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit1/Unit1_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit1/Unit1_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 2 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 2</span>
+          <h3 class="lesson-title">地质术语（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 2 课程讲解课件，深入地质术语学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 2 配套练习题，巩固地质术语学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit1/Unit1_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit1/Unit1_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit1/Unit1_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ==================== Unit 2: Mining Terminology ==================== -->
+  <section class="unit-section" id="unit2">
+    <div class="unit-header">
+      <span class="unit-number">Unit 2</span>
+      <div>
+        <h2 class="unit-title">矿业术语</h2>
+        <p class="unit-title-en">Mining Terminology</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 3 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 3</span>
+          <h3 class="lesson-title">矿业术语（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 3 课程讲解课件，包含矿业术语核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 3 配套练习题，巩固矿业术语学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit2/Unit2_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit2/Unit2_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit2/Unit2_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 4 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 4</span>
+          <h3 class="lesson-title">矿业术语（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 4 课程讲解课件，深入矿业术语学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 4 配套练习题，巩固矿业术语学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit2/Unit2_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit2/Unit2_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit2/Unit2_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ==================== Unit 3: Underground Mine Development ==================== -->
+  <section class="unit-section" id="unit3">
+    <div class="unit-header">
+      <span class="unit-number">Unit 3</span>
+      <div>
+        <h2 class="unit-title">地下矿山开拓</h2>
+        <p class="unit-title-en">Underground Mine Development</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 5 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 5</span>
+          <h3 class="lesson-title">地下矿山开拓（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 5 课程讲解课件，包含地下矿山开拓核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 5 配套练习题，巩固地下矿山开拓学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit3/Unit3_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit3/Unit3_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit3/Unit3_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 6 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 6</span>
+          <h3 class="lesson-title">地下矿山开拓（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 6 课程讲解课件，深入地下矿山开拓学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 6 配套练习题，巩固地下矿山开拓学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit3/Unit3_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit3/Unit3_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit3/Unit3_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ==================== Unit 4: Factors Which Require A Shaft ==================== -->
+  <section class="unit-section" id="unit4">
+    <div class="unit-header">
+      <span class="unit-number">Unit 4</span>
+      <div>
+        <h2 class="unit-title">需要竖井的因素</h2>
+        <p class="unit-title-en">Factors Which Require A Shaft</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 7 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 7</span>
+          <h3 class="lesson-title">需要竖井的因素（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 7 课程讲解课件，包含竖井因素核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 7 配套练习题，巩固竖井因素学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit4/Unit4_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit4/Unit4_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit4/Unit4_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 8 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 8</span>
+          <h3 class="lesson-title">需要竖井的因素（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 8 课程讲解课件，深入竖井因素学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 8 配套练习题，巩固竖井因素学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit4/Unit4_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit4/Unit4_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit4/Unit4_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ==================== Unit 5: Location of Access Relative to Orebodies ==================== -->
+  <section class="unit-section" id="unit5">
+    <div class="unit-header">
+      <span class="unit-number">Unit 5</span>
+      <div>
+        <h2 class="unit-title">通道相对于矿体的位置</h2>
+        <p class="unit-title-en">Location of Access Relative to Orebodies</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 9 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 9</span>
+          <h3 class="lesson-title">通道位置（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 9 课程讲解课件，包含通道位置核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 9 配套练习题，巩固通道位置学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit5/Unit5_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit5/Unit5_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit5/Unit5_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 10 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 10</span>
+          <h3 class="lesson-title">通道位置（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 10 课程讲解课件，深入通道位置学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 10 配套练习题，巩固通道位置学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit5/Unit5_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit5/Unit5_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit5/Unit5_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ==================== Unit 6: Mine Development of Large Metalliferous Orebodies ==================== -->
+  <section class="unit-section" id="unit6">
+    <div class="unit-header">
+      <span class="unit-number">Unit 6</span>
+      <div>
+        <h2 class="unit-title">大型金属矿体的矿山开拓</h2>
+        <p class="unit-title-en">Mine Development of Large Metalliferous Orebodies</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 11 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 11</span>
+          <h3 class="lesson-title">大型金属矿体开拓（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 11 课程讲解课件，包含大型金属矿体开拓核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 11 配套练习题，巩固大型金属矿体开拓学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit6/Unit6_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit6/Unit6_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit6/Unit6_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 12 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 12</span>
+          <h3 class="lesson-title">大型金属矿体开拓（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 12 课程讲解课件，深入大型金属矿体开拓学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 12 配套练习题，巩固大型金属矿体开拓学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit6/Unit6_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit6/Unit6_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit6/Unit6_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ==================== Unit 7: Underground Metalliferous Mining ==================== -->
+  <section class="unit-section" id="unit7">
+    <div class="unit-header">
+      <span class="unit-number">Unit 7</span>
+      <div>
+        <h2 class="unit-title">地下金属采矿</h2>
+        <p class="unit-title-en">Underground Metalliferous Mining</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 13 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 13</span>
+          <h3 class="lesson-title">地下金属采矿（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 13 课程讲解课件，包含地下金属采矿核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 13 配套练习题，巩固地下金属采矿学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit7/Unit7_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit7/Unit7_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit7/Unit7_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 14 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 14</span>
+          <h3 class="lesson-title">地下金属采矿（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 14 课程讲解课件，深入地下金属采矿学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 14 配套练习题，巩固地下金属采矿学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit7/Unit7_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit7/Unit7_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit7/Unit7_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ==================== Unit 8: Room and Pillar Mining ==================== -->
+  <section class="unit-section" id="unit8">
+    <div class="unit-header">
+      <span class="unit-number">Unit 8</span>
+      <div>
+        <h2 class="unit-title">房柱采矿法</h2>
+        <p class="unit-title-en">Room and Pillar Mining</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 15 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 15</span>
+          <h3 class="lesson-title">房柱采矿法（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 15 课程讲解课件，包含房柱采矿法核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 15 配套练习题，巩固房柱采矿法学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit8/Unit8_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit8/Unit8_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit8/Unit8_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 16 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 16</span>
+          <h3 class="lesson-title">房柱采矿法（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 16 课程讲解课件，深入房柱采矿法学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 16 配套练习题，巩固房柱采矿法学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit8/Unit8_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit8/Unit8_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit8/Unit8_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ==================== Unit 9: Sublevel Stopping ==================== -->
+  <section class="unit-section" id="unit9">
+    <div class="unit-header">
+      <span class="unit-number">Unit 9</span>
+      <div>
+        <h2 class="unit-title">分段采矿法</h2>
+        <p class="unit-title-en">Sublevel Stopping</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 17 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 17</span>
+          <h3 class="lesson-title">分段采矿法（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 17 课程讲解课件，包含分段采矿法核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 17 配套练习题，巩固分段采矿法学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit9/Unit9_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit9/Unit9_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit9/Unit9_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 18 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 18</span>
+          <h3 class="lesson-title">分段采矿法（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 18 课程讲解课件，深入分段采矿法学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 18 配套练习题，巩固分段采矿法学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit9/Unit9_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit9/Unit9_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit9/Unit9_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ==================== Unit 10: Block Caving ==================== -->
+  <section class="unit-section" id="unit10">
+    <div class="unit-header">
+      <span class="unit-number">Unit 10</span>
+      <div>
+        <h2 class="unit-title">崩落采矿法</h2>
+        <p class="unit-title-en">Block Caving</p>
+      </div>
+    </div>
+    <div class="unit-content">
+      
+      <!-- Lesson 19 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 19</span>
+          <h3 class="lesson-title">崩落采矿法（上）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 19 课程讲解课件，包含崩落采矿法核心知识点</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 19 配套练习题，巩固崩落采矿法学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit10/Unit10_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit10/Unit10_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit10/Unit10_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lesson 20 -->
+      <div class="lesson-block">
+        <div class="lesson-header">
+          <span class="lesson-badge">Lesson 20</span>
+          <h3 class="lesson-title">崩落采矿法（下）</h3>
+        </div>
+        <div class="material-row">
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <div class="card-info">
+                <h4>课程课件 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 20 课程讲解课件，深入崩落采矿法学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载课件</button>
+            </div>
+          </div>
+          <div class="material-card download-card">
+            <div class="card-header">
+              <span class="card-icon">📝</span>
+              <div class="card-info">
+                <h4>练习册 <span class="pending-tag">待添加</span></h4>
+                <span>PDF</span>
+              </div>
+            </div>
+            <p class="card-desc">Lesson 20 配套练习题，巩固崩落采矿法学习</p>
+            <div class="card-actions">
+              <button class="btn btn-download" disabled>下载练习册</button>
+            </div>
+          </div>
+          <div class="material-card review-card">
+            <div class="card-header">
+              <span class="card-icon">✅</span>
+              <div class="card-info">
+                <h4>课后复习</h4>
+                <span>在线学习</span>
+              </div>
+            </div>
+            <p class="card-desc">词汇表、句型汇总、情境会话音频</p>
+            <div class="review-links">
+              <a href="Unit10/Unit10_词汇表.html" class="review-link">📚 词汇表</a>
+              <a href="Unit10/Unit10_句型汇总.html" class="review-link">📝 句型汇总</a>
+              <a href="Unit10/Unit10_情境会话.html" class="review-link">🎧 情境会话</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© 2024 Fair Free English · 飞优英语学习系统</p>
+</footer>
+
+</body>
+</html>

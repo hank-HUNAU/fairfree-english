@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4 竖井开拓所具备的条件 — 句型汇总</title>
+<style>
+
+  :root {
+    --bg: #f5f5f7;
+    --bg-card: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-light: #2997ff;
+    --accent-dim: rgba(0,113,227,0.15);
+    --border: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --tag-struct: #0071e3;
+    --tag-struct-bg: rgba(0,113,227,0.08);
+    --tag-struct-border: rgba(0,113,227,0.18);
+    --tag-special: #af52de;
+    --tag-special-bg: rgba(175,82,222,0.08);
+    --tag-special-border: rgba(175,82,222,0.18);
+    --tag-func: #ff9500;
+    --tag-func-bg: rgba(255,149,0,0.08);
+    --tag-func-border: rgba(255,149,0,0.18);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; min-height: 100vh; }
+  .container { max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; }
+  header { text-align: center; margin-bottom: 48px; padding: 48px 20px 36px; }
+  .header-unit { font-size: 0.82rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  header h1 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); font-weight: 700; color: var(--fg); margin-bottom: 8px; }
+  header h1 span { color: var(--accent); }
+  .header-sub { font-size: 1rem; color: var(--fg-muted); margin-top: 6px; }
+  .legend { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin: 28px 0 48px; padding: 18px 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--fg-muted); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .legend-dot.s { background: var(--tag-struct); }
+  .legend-dot.v { background: var(--tag-special); }
+  .legend-dot.o { background: var(--tag-func); }
+  .audio-control-bar { position: sticky; top: 0; z-index: 100; background: rgba(245,245,247,0.85); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 16px; }
+  .audio-control-bar label { font-size: 0.85rem; color: var(--fg-muted); display: flex; align-items: center; gap: 8px; font-weight: 500; }
+  .audio-control-bar .speed-value { color: var(--accent); font-weight: 700; min-width: 36px; }
+  .audio-control-bar input[type="range"] { -webkit-appearance: none; width: 140px; height: 4px; background: var(--border); border-radius: 2px; cursor: pointer; }
+  .audio-control-bar input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .sentence-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; padding: 24px 28px; box-shadow: var(--shadow); transition: box-shadow 0.25s ease; position: relative; }
+  .sentence-card:hover { box-shadow: var(--shadow-hover); }
+  .sentence-play-btn { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; box-shadow: 0 1px 6px rgba(0,113,227,0.25); }
+  .sentence-play-btn:hover { background: var(--accent-light); }
+  .sentence-play-btn svg { width: 14px; height: 14px; fill: #ffffff; }
+  .card-num { font-size: 0.72rem; font-weight: 600; color: var(--fg-muted); margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .tag { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.3px; }
+  .tag-struct { background: var(--tag-struct-bg); border: 1px solid var(--tag-struct-border); color: var(--tag-struct); }
+  .tag-special { background: var(--tag-special-bg); border: 1px solid var(--tag-special-border); color: var(--tag-special); }
+  .tag-func { background: var(--tag-func-bg); border: 1px solid var(--tag-func-border); color: var(--tag-func); }
+  .en-sentence { font-size: 1.02rem; line-height: 1.85; margin-bottom: 16px; padding: 16px 20px; background: var(--bg); border-radius: var(--radius-sm); border-left: 3px solid var(--accent); }
+  .cn-translation { font-size: 0.9rem; color: var(--fg); margin-bottom: 12px; padding-left: 14px; border-left: 2px solid var(--border); line-height: 1.7; opacity: 0.85; }
+  .grammar-note { font-size: 0.82rem; color: var(--fg); background: var(--bg); border: 1px solid var(--border); padding: 12px 16px; border-radius: var(--radius-sm); line-height: 1.65; opacity: 0.8; }
+  .grammar-note::before { content: 'Grammar'; display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--accent); margin-right: 8px; background: var(--accent-dim); padding: 2px 8px; border-radius: 4px; }
+  footer { text-align: center; padding: 36px 20px; color: var(--fg-muted); font-size: 0.78rem; border-top: 1px solid var(--border); margin-top: 16px; }
+  @media (max-width: 640px) { .container { padding: 20px 12px 60px; } .sentence-card { padding: 18px 16px; } .en-sentence { padding: 12px 14px; font-size: 0.93rem; } .legend { gap: 14px; padding: 14px 16px; } .sentence-play-btn { width: 28px; height: 28px; top: 14px; right: 14px; } .sentence-play-btn svg { width: 12px; height: 12px; } }
+
+
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --fg: #1d1d1f;
+    --fg-muted: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0,113,227,0.08);
+    --accent-border: rgba(0,113,227,0.15);
+    --border: rgba(0,0,0,0.06);
+    --border-solid: #e8e8ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 24px rgba(0,0,0,0.1);
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --header-height: 60px;
+    --footer-height: 56px;
+  }
+
+  body {
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
+  }
+
+  /* ===== Fixed Top Navigation Bar ===== */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-title span { color: var(--accent); }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-speed-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .nav-speed-label svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-speed-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,113,227,0.3);
+    transition: transform 0.15s ease;
+  }
+
+  .nav-speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .nav-speed-value {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .complete-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* ===== Fixed Bottom Player Bar ===== */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background: rgba(245,245,247,0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .player-section-label {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--accent-light);
+    border-radius: 6px;
+    border: 1px solid var(--accent-border);
+  }
+
+  .player-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.02);
+  }
+
+  .player-btn.active {
+    background: #1d1d1f;
+  }
+
+  .player-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  .player-label {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+
+  .player-repeat-select {
+    padding: 6px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .player-repeat-select:focus {
+    border-color: var(--accent);
+  }
+
+  .player-loop-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .player-loop-toggle.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .player-progress {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .player-progress .current-num {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Progress bar styles */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+
+</style>
+</head>
+<body>
+
+<!-- Fixed Top Navigation Bar -->
+<div class="top-nav">
+  <div class="nav-left">
+    <span class="nav-unit">Unit 4</span>
+    <span class="nav-title">句型汇总</span>
+  </div>
+  <div class="nav-center">
+    <label class="nav-speed-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" class="nav-speed-slider" id="globalSpeed" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="nav-speed-value" id="globalSpeedVal">1.0x</span>
+    </label>
+  </div>
+  <div class="nav-right">
+    <button class="complete-btn" onclick="markComplete()">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      完成学习
+    </button>
+  </div>
+</div>
+
+
+<!-- Fixed Bottom Player Bar -->
+<div class="bottom-player">
+  <span class="player-section-label" id="currentSectionLabel">句型汇总</span>
+  <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
+    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    连续播放
+  </button>
+  <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
+    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    停止
+  </button>
+  <span class="player-label">遍数</span>
+  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3" selected>3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    循环
+  </button>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <span class="progress-text" id="progressBarText">0 / 0</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="audio-control-bar">
+    <label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      语速
+      <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.1" value="1.0">
+      <span class="speed-value" id="speedValue">1.0x</span>
+    </label>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot s"></span> Structure 结构标签</div>
+    <div class="legend-item"><span class="legend-dot v"></span> Special 特殊结构</div>
+    <div class="legend-item"><span class="legend-dot o"></span> Function 功能标签</div>
+  </div>
+  <div class="sentence-card" data-idx="1" data-src="../audio/unit4/sentence_01.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit4/sentence_01.mp3" onclick="playSentence(this)">
+      <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    </button>
+    <div class="card-num">Sentence-01</div>
+    <div class="tag-row">
+      <span class="tag tag-struct">SVO</span>
+      <span class="tag tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">Factors which require a shaft include high output and increased depth.</div>
+    <div class="cn-translation">需要竖井的因素包括高产量和增加的深度。</div>
+    <div class="grammar-note">主语 Factors + 谓语 include + 宾语 high output and increased depth</div>
+  </div>
+  <div class="sentence-card" data-idx="2" data-src="../audio/unit4/sentence_02.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit4/sentence_02.mp3" onclick="playSentence(this)">
+      <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    </button>
+    <div class="card-num">Sentence-02</div>
+    <div class="tag-row">
+      <span class="tag tag-struct">SVO</span>
+      <span class="tag tag-special">Passive</span>
+      <span class="tag tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">The water can be dealt with by chemical injection.</div>
+    <div class="cn-translation">水的问题可以通过化学注浆解决。</div>
+    <div class="grammar-note">被动语态：主语 water + 被动谓语 can be dealt with + 状语 by chemical injection</div>
+  </div>
+  <div class="sentence-card" data-idx="3" data-src="../audio/unit4/sentence_03.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit4/sentence_03.mp3" onclick="playSentence(this)">
+      <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    </button>
+    <div class="card-num">Sentence-03</div>
+    <div class="tag-row">
+      <span class="tag tag-struct">SVO</span>
+      <span class="tag tag-func">Q-Spec</span>
+    </div>
+    <div class="en-sentence">What methods can be used to deal with water?</div>
+    <div class="cn-translation">什么方法可以用来处理水？</div>
+    <div class="grammar-note">特殊疑问句：What + 谓语 can be used + 目的状语 to deal with water</div>
+  </div>
+  <div class="sentence-card" data-idx="4" data-src="../audio/unit4/sentence_04.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit4/sentence_04.mp3" onclick="playSentence(this)">
+      <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    </button>
+    <div class="card-num">Sentence-04</div>
+    <div class="tag-row">
+      <span class="tag tag-struct">SVP</span>
+      <span class="tag tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">A vertical shaft is safest in loose surficial deposits.</div>
+    <div class="cn-translation">在松散表层沉积物中竖井是最安全的。</div>
+    <div class="grammar-note">主系表结构：主语 shaft + 系动词 is + 表语 safest + 状语 in loose deposits</div>
+  </div>
+  <div class="sentence-card" data-idx="5" data-src="../audio/unit4/sentence_05.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit4/sentence_05.mp3" onclick="playSentence(this)">
+      <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    </button>
+    <div class="card-num">Sentence-05</div>
+    <div class="tag-row">
+      <span class="tag tag-struct">SVO</span>
+      <span class="tag tag-func">Imp</span>
+    </div>
+    <div class="en-sentence">Note that the cost is directly proportional to the lineal meter treated.</div>
+    <div class="cn-translation">注意成本与处理的长度成正比。</div>
+    <div class="grammar-note">祈使句：Note that + 从句（从句中 cost is proportional）</div>
+  </div>
+  <div class="sentence-card" data-idx="6" data-src="../audio/unit4/sentence_06.mp3">
+    <button class="sentence-play-btn" data-src="../audio/unit4/sentence_06.mp3" onclick="playSentence(this)">
+      <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+    </button>
+    <div class="card-num">Sentence-06</div>
+    <div class="tag-row">
+      <span class="tag tag-struct">There-be</span>
+      <span class="tag tag-func">Decl+</span>
+    </div>
+    <div class="en-sentence">There are two subdivisions in this treatment.</div>
+    <div class="cn-translation">这种处理有两种细分方法。</div>
+    <div class="grammar-note">存在句：There + be + 主语 two subdivisions</div>
+  </div>
+  <footer>
+    Unit 4 竖井开拓所具备的条件 &mdash; 采矿专业英语句型汇总
+  </footer>
+</div>
+
+<script>
+(function() {
+  // ===== Global Speed Control =====
+  var globalSpeedSlider = document.getElementById('globalSpeed');
+  var globalSpeedVal = document.getElementById('globalSpeedVal');
+  var currentSpeed = 1.0;
+
+  globalSpeedSlider.addEventListener('input', function() {
+    currentSpeed = parseFloat(this.value);
+    globalSpeedVal.textContent = currentSpeed.toFixed(1) + 'x';
+    if (currentAudio) {
+      currentAudio.playbackRate = currentSpeed;
+    }
+  });
+
+  // ===== Audio State =====
+  var currentAudio = null;
+  var currentPlayingBtn = null;
+  var currentPlayingCard = null;
+
+  // Continuous play state
+  var playState = {
+    playing: false,
+    currentIndex: 0,
+    loop: false,
+    repeatCount: 1,
+    currentRepeat: 1
+  };
+
+  // ===== Get all sentence cards =====
+  function getAllCards() {
+    return document.querySelectorAll('.sentence-card');
+  }
+
+  // ===== Play a single sentence =====
+  window.playSentence = function(btn) {
+    var card = btn.closest('.sentence-card');
+    var src = btn.getAttribute('data-src');
+
+    // Stop any currently playing audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+    }
+
+    // Create and play new audio
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.classList.add('playing');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    currentAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+
+      // If continuous play is active, continue to next
+      if (playState.playing) {
+        playNextInSequence();
+      }
+    });
+  };
+
+  // ===== Toggle Continuous Play =====
+  window.toggleContinuousPlay = function() {
+    if (playState.playing) {
+      stopContinuousPlay();
+      return;
+    }
+
+    // Start continuous play from first card
+    playState.playing = true;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').classList.add('active');
+
+    playNextInSequence();
+  };
+
+  // ===== Stop Continuous Play =====
+  window.stopContinuousPlay = function() {
+    playState.playing = false;
+    playState.currentIndex = 0;
+    playState.currentRepeat = 1;
+
+    // Stop current audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+      currentAudio = null;
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+    }
+
+    // Update UI
+    document.getElementById('playAllBtn').style.display = 'inline-flex';
+    document.getElementById('stopBtn').style.display = 'none';
+    document.getElementById('stopBtn').classList.remove('active');
+
+    // Reset progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var cards = getAllCards();
+      progressFill.style.width = '0%';
+      progressText.textContent = '0 / ' + cards.length;
+    }
+  };
+
+  // ===== Play Next in Sequence =====
+  function playNextInSequence() {
+    var cards = getAllCards();
+    var total = cards.length;
+
+    if (playState.currentIndex >= total) {
+      // One round complete
+      if (playState.currentRepeat < playState.repeatCount) {
+        playState.currentRepeat++;
+        playState.currentIndex = 0;
+      } else if (playState.loop) {
+        playState.currentRepeat = 1;
+        playState.currentIndex = 0;
+      } else {
+        // Done with all
+        stopContinuousPlay();
+        return;
+      }
+    }
+
+    if (playState.currentIndex >= cards.length) {
+      stopContinuousPlay();
+      return;
+    }
+
+    var card = cards[playState.currentIndex];
+    var btn = card.querySelector('.sentence-play-btn');
+    var src = btn.getAttribute('data-src');
+
+    // Update progress
+    updateProgress();
+
+    // Stop any currently playing
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      if (currentPlayingBtn) {
+        currentPlayingBtn.classList.remove('playing');
+        currentPlayingBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      }
+      if (currentPlayingCard) {
+        currentPlayingCard.classList.remove('highlight');
+      }
+    }
+
+    // Play
+    currentAudio = new Audio(src);
+    currentAudio.playbackRate = currentSpeed;
+    currentAudio.play().catch(function() {});
+
+    btn.classList.add('playing');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
+    card.classList.add('highlight');
+
+    currentPlayingBtn = btn;
+    currentPlayingCard = card;
+
+    // Scroll into view
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    currentAudio.addEventListener('ended', function() {
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>';
+      card.classList.remove('highlight');
+      currentPlayingBtn = null;
+      currentPlayingCard = null;
+      currentAudio = null;
+
+      playState.currentIndex++;
+
+      if (playState.playing) {
+        playNextInSequence();
+      }
+    });
+  }
+
+  // ===== Update Progress =====
+  function updateProgress() {
+    var cards = getAllCards();
+    var currentIdx = playState.currentIndex + 1;
+    var total = cards.length;
+
+    // Update progress bar
+    var progressFill = document.getElementById('progressBarFill');
+    var progressText = document.getElementById('progressBarText');
+    if (progressFill && progressText) {
+      var percentage = (currentIdx / total) * 100;
+      progressFill.style.width = percentage + '%';
+      progressText.textContent = currentIdx + ' / ' + total;
+    }
+  }
+
+  // ===== Toggle Loop =====
+  window.toggleLoop = function() {
+    playState.loop = !playState.loop;
+    var btn = document.getElementById('loopBtn');
+    if (playState.loop) {
+      btn.classList.add('on');
+    } else {
+      btn.classList.remove('on');
+    }
+  };
+
+  // ===== Update Repeat Count =====
+  window.updateRepeatCount = function() {
+    var select = document.getElementById('repeatCount');
+    playState.repeatCount = parseInt(select.value);
+  };
+
+  // ===== Mark Complete =====
+  window.markComplete = function() {
+    if (typeof studyTracker !== 'undefined' && studyTracker.markComplete) {
+      studyTracker.markComplete('sentence', 'unit4');
+    }
+    alert('句型汇总学习已完成！');
+  };
+
+})();
+</script>
+<script src="../studyTracker.js"></script>
+</body>
+</html>
