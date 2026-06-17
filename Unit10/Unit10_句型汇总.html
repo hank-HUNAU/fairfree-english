@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
 <title>Unit 10 Block Caving — 句型汇总</title>
 <style>
   :root {
@@ -35,7 +35,7 @@
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { font-size: 16px; scroll-behavior: smooth; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; min-height: 100vh; padding-top: var(--header-height); padding-bottom: var(--footer-height); }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; min-height: 100dvh; padding-top: var(--header-height); padding-bottom: var(--footer-height); }
   .container { max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; }
   header { text-align: center; margin-bottom: 48px; padding: 48px 20px 36px; }
   .header-unit { font-size: 0.82rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
@@ -62,7 +62,7 @@
   .complete-btn svg { width: 14px; height: 14px; fill: currentColor; }
 
   /* ===== Fixed Bottom Player Bar ===== */
-  .bottom-player { position: fixed; bottom: 0; left: 0; right: 0; height: var(--footer-height); background: rgba(245,245,247,0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-top: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 0 24px; }
+  .bottom-player { position: fixed; bottom: 0; left: 0; right: 0; height: var(--footer-height); background: rgba(245,245,247,0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-top: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 0 24px;  padding-bottom: max(env(safe-area-inset-bottom, 0), 8px); }}
   .player-section-label { font-size: 0.75rem; color: var(--fg-muted); font-weight: 600; padding: 4px 10px; background: var(--accent-light); border-radius: 6px; border: 1px solid var(--accent-border); }
   .player-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 8px 14px; border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; background: var(--accent); color: #fff; }
   .player-btn:hover { background: var(--accent-hover); transform: scale(1.02); }
@@ -134,6 +134,135 @@
   
   body {
     padding-top: env(safe-area-inset-top, 0);
+  }
+
+  /* ===== 手机App标准适配 ===== */
+  
+  /* 全屏手机适配 - 使用dvh代替vh */
+  html {
+    height: 100dvh;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    overscroll-behavior: none; /* 防止过度滚动 */
+    -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
+  }
+  
+  /* 刘海屏适配 */
+  .top-nav, header, .header, .speed-control-bar {
+    padding-top: max(env(safe-area-inset-top, 0), 12px);
+    padding-top: max(constant(safe-area-inset-top, 0), 12px); /* iOS < 11.2 */
+  }
+  
+  .bottom-player, .player-bar, footer, .footer {
+    padding-bottom: max(env(safe-area-inset-bottom, 0), 12px);
+    padding-bottom: max(constant(safe-area-inset-bottom, 0), 12px); /* iOS < 11.2 */
+  }
+  
+  /* 触摸友好 - 最小触摸区域44px */
+  button, .btn, .play-btn, .trans-btn, .nav-link, a.button {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  
+  /* 防止文本选择 */
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* 滚动容器优化 */
+  .scroll-container {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* 优化响应式断点 */
+  @media (max-width: 768px) {
+    html { font-size: 15px; }
+    body { padding: 0; }
+    
+    /* 隐藏桌面端元素 */
+    .desktop-only { display: none !important; }
+    
+    /* 全宽布局 */
+    .container, .main, .content {
+      width: 100%;
+      max-width: 100%;
+      padding-left: 12px;
+      padding-right: 12px;
+      box-sizing: border-box;
+    }
+    
+    /* 卡片优化 */
+    .card, .para-card, .vocab-card {
+      margin: 8px 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    /* 表格优化 */
+    table, .vocab-table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+    }
+    
+    /* 图片优化 */
+    img { max-width: 100%; height: auto; }
+  }
+  
+  @media (max-width: 480px) {
+    html { font-size: 14px; }
+    
+    /* 紧凑布局 */
+    .container, .main { padding: 8px; }
+    
+    /* 按钮紧凑 */
+    button, .btn {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+    }
+    
+    /* 导航栏紧凑 */
+    .top-nav { height: 56px; }
+    .nav-title { font-size: 0.9rem; }
+    
+    /* 底部播放栏紧凑 */
+    .bottom-player {
+      height: auto;
+      min-height: 56px;
+      gap: 8px;
+      padding: 8px 12px;
+    }
+    
+    /* 字体调整 */
+    h1 { font-size: 1.25rem; }
+    h2 { font-size: 1.1rem; }
+    h3 { font-size: 1rem; }
+    p, .text { font-size: 0.85rem; line-height: 1.5; }
+  }
+  
+  @media (max-width: 360px) {
+    html { font-size: 13px; }
+    
+    /* 极小屏幕优化 */
+    .bottom-player { gap: 6px; padding: 6px 8px; }
+    button, .btn { padding: 8px 12px; font-size: 0.8rem; }
+  }
+  
+  /* 横屏适配 */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .top-nav { height: 44px; }
+    .bottom-player { height: 44px; }
+    .container { padding-top: 48px; padding-bottom: 48px; }
   }
 </style>
 </head>
