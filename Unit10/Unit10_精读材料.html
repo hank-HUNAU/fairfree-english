@@ -112,6 +112,43 @@
 
   @media (max-width: 768px) { .container { padding: 20px 12px 60px; } .para-card { padding: 18px 16px; } .en-text { font-size: 0.95rem; } .btn-row { flex-wrap: wrap; } .top-nav { padding: 0 12px; } .nav-title { font-size: 0.95rem; } .nav-speed-slider { width: 70px; } .complete-btn { padding: 6px 12px; font-size: 0.78rem; } .bottom-player { padding: 0 12px; gap: 8px; } .player-btn { padding: 6px 10px; font-size: 0.75rem; } .player-section-label { font-size: 0.7rem; padding: 3px 8px; } .player-repeat-select { font-size: 0.75rem; padding: 5px 6px; } .player-loop-toggle { font-size: 0.75rem; padding: 5px 8px; } .progress-bar-container { max-width: 120px; } }
   @media (max-width: 480px) { .nav-center { display: none; } .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px; } .progress-bar-container { order: -1; width: 100%; max-width: none; margin-bottom: 4px; } }
+  /* 手机端精读材料修复 */
+  @media (max-width: 480px) {
+    .nav-center { display: none; }
+    .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px; }
+    .progress-bar-container { order: -1; width: 100%; max-width: none; margin-bottom: 4px; }
+    
+    .container { padding: 70px 10px 80px; }
+    .para-card { padding: 14px 12px; }
+    .en-text { font-size: 0.88rem; line-height: 1.6; }
+    
+    .btn-row { flex-wrap: wrap; gap: 8px; }
+    .play-btn, .trans-btn { padding: 8px 12px; font-size: 0.78rem; }
+    
+    .top-nav { padding: 0 10px; }
+    .nav-title { font-size: 0.88rem; }
+    .nav-unit { font-size: 0.78rem; }
+    .complete-btn { padding: 6px 10px; font-size: 0.72rem; }
+    
+    /* 词汇提示调整 */
+    .vocab .tip {
+      font-size: 0.72rem;
+      max-width: 150px;
+      white-space: normal;
+    }
+    
+    /* 模态框调整 */
+    .modal-content { max-width: 95%; max-height: 85vh; }
+    .modal-body { padding: 12px; }
+    .modal-col { padding: 10px; }
+  }
+  
+  @media (max-width: 360px) {
+    .en-text { font-size: 0.82rem; }
+    .btn-row { flex-direction: column; }
+    .play-btn, .trans-btn { width: 100%; justify-content: center; }
+  }
+
 </style>
 </head>
 <body>
