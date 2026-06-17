@@ -56,13 +56,7 @@ body {
   text-decoration: none;
 }
 
-.header-back:hover {
-  opacity: 1;
-}
-
-.header-back-icon {
-  font-size: 18px;
-}
+.header-back:hover { opacity: 1; }
 
 .header-title {
   font-family: 'Playfair Display', serif;
@@ -113,97 +107,110 @@ body {
   padding: 40px 20px;
 }
 
-/* ===== Unit Section ===== */
-.unit-section {
-  margin-bottom: 30px;
+/* ===== Module Section ===== */
+.module-section {
+  margin-bottom: 40px;
 }
 
-.unit-header {
+.module-header {
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--accent);
 }
 
-.unit-badge {
-  background: var(--accent);
+.module-badge {
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
   color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 20px;
   border-radius: 8px;
 }
 
-.unit-title {
-  font-size: 18px;
+.module-title {
+  font-size: 20px;
   font-weight: 600;
   color: var(--text);
+}
+
+.module-subtitle {
+  font-size: 14px;
+  color: var(--accent-dark);
+  opacity: 0.8;
 }
 
 /* ===== Material Grid ===== */
 .material-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 /* ===== Material Card ===== */
 .material-card {
   background: var(--card-bg);
   border-radius: 12px;
-  padding: 20px;
+  padding: 25px;
   box-shadow: 0 2px 8px var(--shadow);
   border: 1px solid var(--border);
   position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.material-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px var(--shadow-hover);
 }
 
 .material-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .material-icon {
-  font-size: 28px;
+  font-size: 32px;
 }
 
-.material-info {
-  flex: 1;
-}
+.material-info { flex: 1; }
 
 .material-name {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text);
 }
 
 .material-type {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--accent);
   opacity: 0.8;
 }
 
 .material-desc {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text);
   opacity: 0.6;
-  margin-bottom: 15px;
-  line-height: 1.4;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
 
 .material-actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .material-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 12px;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
@@ -212,12 +219,13 @@ body {
 }
 
 .btn-download {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
   color: #fff;
 }
 
 .btn-download:hover:not([disabled]) {
-  background: var(--accent-dark);
+  background: linear-gradient(135deg, var(--accent-dark) 0%, #3a5a3a 100%);
+  transform: scale(1.02);
 }
 
 .btn-download[disabled] {
@@ -227,23 +235,34 @@ body {
 }
 
 .btn-review {
-  background: linear-gradient(135deg, var(--accent) 0%, #5a8a5e 100%);
+  background: linear-gradient(135deg, #5a8a5e 0%, var(--accent) 100%);
   color: #fff;
 }
 
 .btn-review:hover {
-  background: linear-gradient(135deg, var(--accent-dark) 0%, #4a7a4e 100%);
+  background: linear-gradient(135deg, #4a7a4e 0%, var(--accent-dark) 100%);
 }
 
 /* ===== Pending Badge ===== */
 .pending-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   background: #f0ad4e;
   color: #fff;
-  font-size: 10px;
-  padding: 3px 8px;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.available-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 10px;
   border-radius: 4px;
 }
 
@@ -257,7 +276,7 @@ body {
 }
 
 /* ===== Responsive ===== */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .header-back {
     position: static;
     margin-bottom: 15px;
@@ -282,6 +301,12 @@ body {
     padding: 4px 8px;
     font-size: 11px;
   }
+  
+  .module-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
 </style>
 </head>
@@ -289,7 +314,7 @@ body {
 
 <header class="header">
   <a class="header-back" href="main.html">
-    <span class="header-back-icon">←</span>
+    <span>←</span>
     <span>返回主页</span>
   </a>
   <h1 class="header-title">我的课程</h1>
@@ -297,47 +322,113 @@ body {
 </header>
 
 <nav class="nav">
-  <a class="nav-link" href="#unit1">Unit 1</a>
-  <a class="nav-link" href="#unit2">Unit 2</a>
-  <a class="nav-link" href="#unit3">Unit 3</a>
-  <a class="nav-link" href="#unit4">Unit 4</a>
-  <a class="nav-link" href="#unit5">Unit 5</a>
-  <a class="nav-link" href="#unit6">Unit 6</a>
-  <a class="nav-link" href="#unit7">Unit 7</a>
-  <a class="nav-link" href="#unit8">Unit 8</a>
-  <a class="nav-link" href="#unit9">Unit 9</a>
-  <a class="nav-link" href="#unit10">Unit 10</a>
-  <a class="nav-link" href="#unit11">Unit 11</a>
-  <a class="nav-link" href="#unit12">Unit 12</a>
-  <a class="nav-link" href="#unit13">Unit 13</a>
-  <a class="nav-link" href="#unit14">Unit 14</a>
-  <a class="nav-link" href="#unit15">Unit 15</a>
-  <a class="nav-link" href="#unit16">Unit 16</a>
-  <a class="nav-link" href="#unit17">Unit 17</a>
-  <a class="nav-link" href="#unit18">Unit 18</a>
-  <a class="nav-link" href="#unit19">Unit 19</a>
-  <a class="nav-link" href="#unit20">Unit 20</a>
+  <a class="nav-link" href="#module1">Module 1</a>
+  <a class="nav-link" href="#module2">Module 2</a>
+  <a class="nav-link" href="#module3">Module 3</a>
+  <a class="nav-link" href="#module4">Module 4</a>
+  <a class="nav-link" href="#module5">Module 5</a>
+  <a class="nav-link" href="#module6">Module 6</a>
+  <a class="nav-link" href="#module7">Module 7</a>
+  <a class="nav-link" href="#module8">Module 8</a>
+  <a class="nav-link" href="#module9">Module 9</a>
+  <a class="nav-link" href="#module10">Module 10</a>
 </nav>
 
 <main class="main">
 
-<!-- Unit 1 -->
-<section class="unit-section" id="unit1">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 1</span>
-    <h2 class="unit-title">Geological Terminology 地质术语</h2>
+<!-- Module 1 -->
+<section class="module-section" id="module1">
+  <div class="module-header">
+    <span class="module-badge">Module 1</span>
+    <div>
+      <h2 class="module-title">Basics - Pronunciation, Sentence Patterns</h2>
+      <p class="module-subtitle">基础 - 发音与句型</p>
+    </div>
+  </div>
+  <div class="material-grid">
+    <!-- 课前预习 -->
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📖</span>
+        <div class="material-info">
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课前预习材料，帮助您提前了解本模块重点内容</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <!-- 课后复习 -->
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📝</span>
+        <div class="material-info">
+          <h3 class="material-name">课后复习</h3>
+          <span class="material-type">复习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课后复习材料，巩固学习内容</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <!-- 课件下载 -->
+    <article class="material-card">
+      <span class="available-badge">可下载</span>
+      <div class="material-header">
+        <span class="material-icon">📊</span>
+        <div class="material-info">
+          <h3 class="material-name">课件下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 1 课程讲解课件，包含发音与句型核心知识点</p>
+      <div class="material-actions">
+        <a class="material-btn btn-download" href="materials/Module1_课件.pdf" download>下载课件</a>
+      </div>
+    </article>
+    <!-- 手册下载 -->
+    <article class="material-card">
+      <span class="available-badge">可下载</span>
+      <div class="material-header">
+        <span class="material-icon">📚</span>
+        <div class="material-info">
+          <h3 class="material-name">手册下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 1 学习手册，详细讲解发音规则与句型结构</p>
+      <div class="material-actions">
+        <a class="material-btn btn-download" href="materials/Module1_手册.pdf" download>下载手册</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Module 2 -->
+<section class="module-section" id="module2">
+  <div class="module-header">
+    <span class="module-badge">Module 2</span>
+    <div>
+      <h2 class="module-title">Geological Terminology</h2>
+      <p class="module-subtitle">地质术语</p>
+    </div>
   </div>
   <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
-        <span class="material-icon">📊</span>
+        <span class="material-icon">📖</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
-          <span class="material-type">PDF</span>
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
         </div>
       </div>
-      <p class="material-desc">Unit 1 课程讲解课件</p>
+      <p class="material-desc">课前预习材料</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -347,50 +438,68 @@ body {
       <div class="material-header">
         <span class="material-icon">📝</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
-          <span class="material-type">PDF</span>
-        </div>
-      </div>
-      <p class="material-desc">Unit 1 配套练习题</p>
-      <div class="material-actions">
-        <button class="material-btn btn-download" disabled>下载</button>
-      </div>
-    </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
           <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
+          <span class="material-type">复习材料</span>
         </div>
       </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
+      <p class="material-desc">课后复习材料</p>
       <div class="material-actions">
         <a class="material-btn btn-review" href="Unit1/Unit1_词汇表.html">词汇</a>
         <a class="material-btn btn-review" href="Unit1/Unit1_句型汇总.html">句型</a>
         <a class="material-btn btn-review" href="Unit1/Unit1_情境会话.html">对话</a>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- Unit 2 -->
-<section class="unit-section" id="unit2">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 2</span>
-    <h2 class="unit-title">Mining Terminology 矿业术语</h2>
-  </div>
-  <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
         <span class="material-icon">📊</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
+          <h3 class="material-name">课件下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 2 课程讲解课件</p>
+      <p class="material-desc">Module 2 课程讲解课件</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📚</span>
+        <div class="material-info">
+          <h3 class="material-name">手册下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 2 学习手册</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Module 3 -->
+<section class="module-section" id="module3">
+  <div class="module-header">
+    <span class="module-badge">Module 3</span>
+    <div>
+      <h2 class="module-title">Mining Terminology</h2>
+      <p class="module-subtitle">矿业术语</p>
+    </div>
+  </div>
+  <div class="material-grid">
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📖</span>
+        <div class="material-info">
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课前预习材料</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -400,50 +509,68 @@ body {
       <div class="material-header">
         <span class="material-icon">📝</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
-          <span class="material-type">PDF</span>
-        </div>
-      </div>
-      <p class="material-desc">Unit 2 配套练习题</p>
-      <div class="material-actions">
-        <button class="material-btn btn-download" disabled>下载</button>
-      </div>
-    </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
           <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
+          <span class="material-type">复习材料</span>
         </div>
       </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
+      <p class="material-desc">课后复习材料</p>
       <div class="material-actions">
         <a class="material-btn btn-review" href="Unit2/Unit2_词汇表.html">词汇</a>
         <a class="material-btn btn-review" href="Unit2/Unit2_句型汇总.html">句型</a>
         <a class="material-btn btn-review" href="Unit2/Unit2_情境会话.html">对话</a>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- Unit 3 -->
-<section class="unit-section" id="unit3">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 3</span>
-    <h2 class="unit-title">Underground Mine Development 地下矿山开拓</h2>
-  </div>
-  <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
         <span class="material-icon">📊</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
+          <h3 class="material-name">课件下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 3 课程讲解课件</p>
+      <p class="material-desc">Module 3 课程讲解课件</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📚</span>
+        <div class="material-info">
+          <h3 class="material-name">手册下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 3 学习手册</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Module 4 -->
+<section class="module-section" id="module4">
+  <div class="module-header">
+    <span class="module-badge">Module 4</span>
+    <div>
+      <h2 class="module-title">Underground Mine Development</h2>
+      <p class="module-subtitle">地下矿山开拓</p>
+    </div>
+  </div>
+  <div class="material-grid">
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📖</span>
+        <div class="material-info">
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课前预习材料</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -453,50 +580,68 @@ body {
       <div class="material-header">
         <span class="material-icon">📝</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
-          <span class="material-type">PDF</span>
-        </div>
-      </div>
-      <p class="material-desc">Unit 3 配套练习题</p>
-      <div class="material-actions">
-        <button class="material-btn btn-download" disabled>下载</button>
-      </div>
-    </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
           <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
+          <span class="material-type">复习材料</span>
         </div>
       </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
+      <p class="material-desc">课后复习材料</p>
       <div class="material-actions">
         <a class="material-btn btn-review" href="Unit3/Unit3_词汇表.html">词汇</a>
         <a class="material-btn btn-review" href="Unit3/Unit3_句型汇总.html">句型</a>
         <a class="material-btn btn-review" href="Unit3/Unit3_情境会话.html">对话</a>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- Unit 4 -->
-<section class="unit-section" id="unit4">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 4</span>
-    <h2 class="unit-title">Factors Which Require A Shaft 需要竖井的因素</h2>
-  </div>
-  <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
         <span class="material-icon">📊</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
+          <h3 class="material-name">课件下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 4 课程讲解课件</p>
+      <p class="material-desc">Module 4 课程讲解课件</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📚</span>
+        <div class="material-info">
+          <h3 class="material-name">手册下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 4 学习手册</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Module 5 -->
+<section class="module-section" id="module5">
+  <div class="module-header">
+    <span class="module-badge">Module 5</span>
+    <div>
+      <h2 class="module-title">Factors Which Require A Shaft</h2>
+      <p class="module-subtitle">需要竖井的因素</p>
+    </div>
+  </div>
+  <div class="material-grid">
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📖</span>
+        <div class="material-info">
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课前预习材料</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -506,50 +651,68 @@ body {
       <div class="material-header">
         <span class="material-icon">📝</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
-          <span class="material-type">PDF</span>
-        </div>
-      </div>
-      <p class="material-desc">Unit 4 配套练习题</p>
-      <div class="material-actions">
-        <button class="material-btn btn-download" disabled>下载</button>
-      </div>
-    </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
           <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
+          <span class="material-type">复习材料</span>
         </div>
       </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
+      <p class="material-desc">课后复习材料</p>
       <div class="material-actions">
         <a class="material-btn btn-review" href="Unit4/Unit4_词汇表.html">词汇</a>
         <a class="material-btn btn-review" href="Unit4/Unit4_句型汇总.html">句型</a>
         <a class="material-btn btn-review" href="Unit4/Unit4_情境会话.html">对话</a>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- Unit 5 -->
-<section class="unit-section" id="unit5">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 5</span>
-    <h2 class="unit-title">Location of Access Relative to Orebodies</h2>
-  </div>
-  <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
         <span class="material-icon">📊</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
+          <h3 class="material-name">课件下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 5 课程讲解课件</p>
+      <p class="material-desc">Module 5 课程讲解课件</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📚</span>
+        <div class="material-info">
+          <h3 class="material-name">手册下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 5 学习手册</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Module 6 -->
+<section class="module-section" id="module6">
+  <div class="module-header">
+    <span class="module-badge">Module 6</span>
+    <div>
+      <h2 class="module-title">Location of Access Relative to Orebodies</h2>
+      <p class="module-subtitle">通道相对于矿体的位置</p>
+    </div>
+  </div>
+  <div class="material-grid">
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📖</span>
+        <div class="material-info">
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课前预习材料</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -559,50 +722,68 @@ body {
       <div class="material-header">
         <span class="material-icon">📝</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
-          <span class="material-type">PDF</span>
-        </div>
-      </div>
-      <p class="material-desc">Unit 5 配套练习题</p>
-      <div class="material-actions">
-        <button class="material-btn btn-download" disabled>下载</button>
-      </div>
-    </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
           <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
+          <span class="material-type">复习材料</span>
         </div>
       </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
+      <p class="material-desc">课后复习材料</p>
       <div class="material-actions">
         <a class="material-btn btn-review" href="Unit5/Unit5_词汇表.html">词汇</a>
         <a class="material-btn btn-review" href="Unit5/Unit5_句型汇总.html">句型</a>
         <a class="material-btn btn-review" href="Unit5/Unit5_情境会话.html">对话</a>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- Unit 6 -->
-<section class="unit-section" id="unit6">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 6</span>
-    <h2 class="unit-title">Mine Development of Large Metalliferous Orebodies</h2>
-  </div>
-  <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
         <span class="material-icon">📊</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
+          <h3 class="material-name">课件下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 6 课程讲解课件</p>
+      <p class="material-desc">Module 6 课程讲解课件</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📚</span>
+        <div class="material-info">
+          <h3 class="material-name">手册下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 6 学习手册</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Module 7 -->
+<section class="module-section" id="module7">
+  <div class="module-header">
+    <span class="module-badge">Module 7</span>
+    <div>
+      <h2 class="module-title">Mine Development of Large Metalliferous Orebodies</h2>
+      <p class="module-subtitle">大型金属矿体的矿山开拓</p>
+    </div>
+  </div>
+  <div class="material-grid">
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📖</span>
+        <div class="material-info">
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课前预习材料</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -612,50 +793,68 @@ body {
       <div class="material-header">
         <span class="material-icon">📝</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
-          <span class="material-type">PDF</span>
-        </div>
-      </div>
-      <p class="material-desc">Unit 6 配套练习题</p>
-      <div class="material-actions">
-        <button class="material-btn btn-download" disabled>下载</button>
-      </div>
-    </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
           <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
+          <span class="material-type">复习材料</span>
         </div>
       </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
+      <p class="material-desc">课后复习材料</p>
       <div class="material-actions">
         <a class="material-btn btn-review" href="Unit6/Unit6_词汇表.html">词汇</a>
         <a class="material-btn btn-review" href="Unit6/Unit6_句型汇总.html">句型</a>
         <a class="material-btn btn-review" href="Unit6/Unit6_情境会话.html">对话</a>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- Unit 7 -->
-<section class="unit-section" id="unit7">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 7</span>
-    <h2 class="unit-title">Underground Metalliferous Mining 地下金属采矿</h2>
-  </div>
-  <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
         <span class="material-icon">📊</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
+          <h3 class="material-name">课件下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 7 课程讲解课件</p>
+      <p class="material-desc">Module 7 课程讲解课件</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📚</span>
+        <div class="material-info">
+          <h3 class="material-name">手册下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 7 学习手册</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Module 8 -->
+<section class="module-section" id="module8">
+  <div class="module-header">
+    <span class="module-badge">Module 8</span>
+    <div>
+      <h2 class="module-title">Underground Metalliferous Mining</h2>
+      <p class="module-subtitle">地下金属采矿</p>
+    </div>
+  </div>
+  <div class="material-grid">
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📖</span>
+        <div class="material-info">
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课前预习材料</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -665,50 +864,68 @@ body {
       <div class="material-header">
         <span class="material-icon">📝</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
-          <span class="material-type">PDF</span>
-        </div>
-      </div>
-      <p class="material-desc">Unit 7 配套练习题</p>
-      <div class="material-actions">
-        <button class="material-btn btn-download" disabled>下载</button>
-      </div>
-    </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
           <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
+          <span class="material-type">复习材料</span>
         </div>
       </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
+      <p class="material-desc">课后复习材料</p>
       <div class="material-actions">
         <a class="material-btn btn-review" href="Unit7/Unit7_词汇表.html">词汇</a>
         <a class="material-btn btn-review" href="Unit7/Unit7_句型汇总.html">句型</a>
         <a class="material-btn btn-review" href="Unit7/Unit7_情境会话.html">对话</a>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- Unit 8 -->
-<section class="unit-section" id="unit8">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 8</span>
-    <h2 class="unit-title">Room and Pillar Mining 房柱采矿法</h2>
-  </div>
-  <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
         <span class="material-icon">📊</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
+          <h3 class="material-name">课件下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 8 课程讲解课件</p>
+      <p class="material-desc">Module 8 课程讲解课件</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📚</span>
+        <div class="material-info">
+          <h3 class="material-name">手册下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 8 学习手册</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Module 9 -->
+<section class="module-section" id="module9">
+  <div class="module-header">
+    <span class="module-badge">Module 9</span>
+    <div>
+      <h2 class="module-title">Room and Pillar Mining</h2>
+      <p class="module-subtitle">房柱采矿法</p>
+    </div>
+  </div>
+  <div class="material-grid">
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📖</span>
+        <div class="material-info">
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课前预习材料</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -718,50 +935,68 @@ body {
       <div class="material-header">
         <span class="material-icon">📝</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
-          <span class="material-type">PDF</span>
-        </div>
-      </div>
-      <p class="material-desc">Unit 8 配套练习题</p>
-      <div class="material-actions">
-        <button class="material-btn btn-download" disabled>下载</button>
-      </div>
-    </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
           <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
+          <span class="material-type">复习材料</span>
         </div>
       </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
+      <p class="material-desc">课后复习材料</p>
       <div class="material-actions">
         <a class="material-btn btn-review" href="Unit8/Unit8_词汇表.html">词汇</a>
         <a class="material-btn btn-review" href="Unit8/Unit8_句型汇总.html">句型</a>
         <a class="material-btn btn-review" href="Unit8/Unit8_情境会话.html">对话</a>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- Unit 9 -->
-<section class="unit-section" id="unit9">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 9</span>
-    <h2 class="unit-title">Sublevel Stopping 分段采矿法</h2>
-  </div>
-  <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
         <span class="material-icon">📊</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
+          <h3 class="material-name">课件下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 9 课程讲解课件</p>
+      <p class="material-desc">Module 9 课程讲解课件</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📚</span>
+        <div class="material-info">
+          <h3 class="material-name">手册下载</h3>
+          <span class="material-type">PDF</span>
+        </div>
+      </div>
+      <p class="material-desc">Module 9 学习手册</p>
+      <div class="material-actions">
+        <button class="material-btn btn-download" disabled>下载</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Module 10 -->
+<section class="module-section" id="module10">
+  <div class="module-header">
+    <span class="module-badge">Module 10</span>
+    <div>
+      <h2 class="module-title">Sublevel Stopping & Block Caving</h2>
+      <p class="module-subtitle">分段采矿法与崩落采矿法</p>
+    </div>
+  </div>
+  <div class="material-grid">
+    <article class="material-card">
+      <span class="pending-badge">待添加</span>
+      <div class="material-header">
+        <span class="material-icon">📖</span>
+        <div class="material-info">
+          <h3 class="material-name">课前预习</h3>
+          <span class="material-type">预习材料</span>
+        </div>
+      </div>
+      <p class="material-desc">课前预习材料</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -771,50 +1006,27 @@ body {
       <div class="material-header">
         <span class="material-icon">📝</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
-          <span class="material-type">PDF</span>
-        </div>
-      </div>
-      <p class="material-desc">Unit 9 配套练习题</p>
-      <div class="material-actions">
-        <button class="material-btn btn-download" disabled>下载</button>
-      </div>
-    </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
           <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
+          <span class="material-type">复习材料</span>
         </div>
       </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
+      <p class="material-desc">课后复习材料</p>
       <div class="material-actions">
         <a class="material-btn btn-review" href="Unit9/Unit9_词汇表.html">词汇</a>
         <a class="material-btn btn-review" href="Unit9/Unit9_句型汇总.html">句型</a>
         <a class="material-btn btn-review" href="Unit9/Unit9_情境会话.html">对话</a>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- Unit 10 -->
-<section class="unit-section" id="unit10">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 10</span>
-    <h2 class="unit-title">Block Caving 崩落采矿法</h2>
-  </div>
-  <div class="material-grid">
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
         <span class="material-icon">📊</span>
         <div class="material-info">
-          <h3 class="material-name">课程课件</h3>
+          <h3 class="material-name">课件下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 10 课程讲解课件</p>
+      <p class="material-desc">Module 10 课程讲解课件</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
@@ -822,153 +1034,17 @@ body {
     <article class="material-card">
       <span class="pending-badge">待添加</span>
       <div class="material-header">
-        <span class="material-icon">📝</span>
+        <span class="material-icon">📚</span>
         <div class="material-info">
-          <h3 class="material-name">练习册</h3>
+          <h3 class="material-name">手册下载</h3>
           <span class="material-type">PDF</span>
         </div>
       </div>
-      <p class="material-desc">Unit 10 配套练习题</p>
+      <p class="material-desc">Module 10 学习手册</p>
       <div class="material-actions">
         <button class="material-btn btn-download" disabled>下载</button>
       </div>
     </article>
-    <article class="material-card">
-      <div class="material-header">
-        <span class="material-icon">🎧</span>
-        <div class="material-info">
-          <h3 class="material-name">课后复习</h3>
-          <span class="material-type">音频练习</span>
-        </div>
-      </div>
-      <p class="material-desc">词汇、句子、对话音频</p>
-      <div class="material-actions">
-        <a class="material-btn btn-review" href="Unit10/Unit10_词汇表.html">词汇</a>
-        <a class="material-btn btn-review" href="Unit10/Unit10_句型汇总.html">句型</a>
-        <a class="material-btn btn-review" href="Unit10/Unit10_情境会话.html">对话</a>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- Unit 11-20 Placeholder -->
-<section class="unit-section" id="unit11">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 11</span>
-    <h2 class="unit-title">Shrinkage Stopping 留矿采矿法</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 11 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 11 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
-  </div>
-</section>
-
-<section class="unit-section" id="unit12">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 12</span>
-    <h2 class="unit-title">Supported Methods 支护采矿法</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 12 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 12 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
-  </div>
-</section>
-
-<section class="unit-section" id="unit13">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 13</span>
-    <h2 class="unit-title">Caving Methods 崩落采矿法</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 13 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 13 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
-  </div>
-</section>
-
-<section class="unit-section" id="unit14">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 14</span>
-    <h2 class="unit-title">Mine Ventilation 矿井通风</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 14 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 14 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
-  </div>
-</section>
-
-<section class="unit-section" id="unit15">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 15</span>
-    <h2 class="unit-title">History of Surface Mining 露天开采历史</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 15 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 15 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
-  </div>
-</section>
-
-<section class="unit-section" id="unit16">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 16</span>
-    <h2 class="unit-title">Planning and Design of Surface Mines 露天矿规划与设计</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 16 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 16 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
-  </div>
-</section>
-
-<section class="unit-section" id="unit17">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 17</span>
-    <h2 class="unit-title">Ultimate Pit Definition 最终境界确定</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 17 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 17 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
-  </div>
-</section>
-
-<section class="unit-section" id="unit18">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 18</span>
-    <h2 class="unit-title">Open Pit Optimization 露天矿优化</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 18 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 18 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
-  </div>
-</section>
-
-<section class="unit-section" id="unit19">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 19</span>
-    <h2 class="unit-title">Materials Handling and Waste Disposal 物料运输与废料处理</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 19 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 19 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
-  </div>
-</section>
-
-<section class="unit-section" id="unit20">
-  <div class="unit-header">
-    <span class="unit-badge">Unit 20</span>
-    <h2 class="unit-title">Drilling and Blasting 钻探与爆破</h2>
-  </div>
-  <div class="material-grid">
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📊</span><div class="material-info"><h3 class="material-name">课程课件</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 20 课程讲解课件</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><span class="pending-badge">待添加</span><div class="material-header"><span class="material-icon">📝</span><div class="material-info"><h3 class="material-name">练习册</h3><span class="material-type">PDF</span></div></div><p class="material-desc">Unit 20 配套练习题</p><div class="material-actions"><button class="material-btn btn-download" disabled>下载</button></div></article>
-    <article class="material-card"><div class="material-header"><span class="material-icon">🎧</span><div class="material-info"><h3 class="material-name">课后复习</h3><span class="material-type">音频练习</span></div></div><p class="material-desc">词汇、句子音频</p><div class="material-actions"><button class="material-btn btn-download" disabled>待添加</button></div></article>
   </div>
 </section>
 
