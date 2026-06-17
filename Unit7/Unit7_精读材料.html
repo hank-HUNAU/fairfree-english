@@ -315,6 +315,83 @@
     color: #fff;
     border-color: var(--accent);
   }
+  /* 遍数数字按钮 */
+  .repeat-group {
+    display: flex;
+    gap: 6px;
+  }
+
+  .repeat-num-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--fg);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .repeat-num-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .repeat-num-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* 循环按钮 - 只有图标 */
+  .loop-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent-border);
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .loop-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--fg-muted);
+    fill: none;
+  }
+
+  .loop-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .loop-btn.on {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .loop-btn.on svg {
+    stroke: #fff;
+  }
+
+  /* 刘海屏适配 */
+  .top-nav {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
+  .bottom-player {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
 
   /* Progress bar styles */
   .progress-bar-container {
@@ -619,33 +696,28 @@
 
 <!-- ===== Fixed Bottom Player Bar ===== -->
 <div class="bottom-player">
-  <span class="player-section-label" id="currentSectionLabel">段落区</span>
   <button class="player-btn" id="playAllBtn" onclick="toggleContinuousPlay()">
-    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
-    连续播放
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    播放
   </button>
   <button class="player-btn" id="stopBtn" onclick="stopContinuousPlay()" style="display:none;">
-    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
     停止
   </button>
-  <span class="player-label">遍数</span>
-  <select class="player-repeat-select" id="repeatCount" onchange="updateRepeatCount()">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3" selected>3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-  </select>
-  <button class="player-loop-toggle" id="loopBtn" onclick="toggleLoop()">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-    循环
-  </button>
-  <div class="progress-bar-container">
-    <div class="progress-bar">
-      <div class="progress-bar-fill" id="progressBarFill"></div>
-    </div>
-    <span class="progress-text" id="progressBarText">0 / 6</span>
+  <div class="repeat-group">
+    <button class="repeat-num-btn active" data-count="1" onclick="setRepeat(1)">1</button>
+    <button class="repeat-num-btn" data-count="2" onclick="setRepeat(2)">2</button>
+    <button class="repeat-num-btn" data-count="3" onclick="setRepeat(3)">3</button>
+    <button class="repeat-num-btn" data-count="5" onclick="setRepeat(5)">5</button>
   </div>
+  <button class="loop-btn" id="loopBtn" onclick="toggleLoop()">
+    <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="17 1 21 5 17 9"></polyline>
+      <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+      <polyline points="7 23 3 19 7 15"></polyline>
+      <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+    </svg>
+  </button>
 </div>
 
 <!-- ===== Main Content ===== -->

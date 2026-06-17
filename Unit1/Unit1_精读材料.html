@@ -272,6 +272,83 @@
     color: #fff;
     border-color: var(--accent);
   }
+  /* 遍数数字按钮 */
+  .repeat-group {
+    display: flex;
+    gap: 6px;
+  }
+
+  .repeat-num-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--accent-border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--fg);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .repeat-num-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .repeat-num-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* 循环按钮 - 只有图标 */
+  .loop-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent-border);
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .loop-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--fg-muted);
+    fill: none;
+  }
+
+  .loop-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .loop-btn.on {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .loop-btn.on svg {
+    stroke: #fff;
+  }
+
+  /* 刘海屏适配 */
+  .top-nav {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
+  .bottom-player {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
 
   .player-progress {
     font-size: 0.78rem;

@@ -433,6 +433,19 @@
     .speed-control-bar { padding: 10px 12px; gap: 10px; }
     .speed-control-bar input[type="range"] { width: 100px; }
   }
+
+  /* 刘海屏适配 */
+  .top-nav, header, .speed-control-bar {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  
+  .bottom-player, .player-bar, footer {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  body {
+    padding-top: env(safe-area-inset-top, 0);
+  }
 </style>
 </head>
 <body>

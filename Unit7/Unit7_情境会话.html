@@ -79,6 +79,19 @@
   .vocab-play-btn svg { width: 10px; height: 10px; fill: #fff; }
   footer { text-align: center; padding: 36px 20px; color: var(--fg-muted); font-size: 0.78rem; border-top: 1px solid var(--border-solid); margin-top: 24px; }
   @media (max-width: 768px) { .container { padding: 20px 12px 60px; } .dialog-bubble { max-width: 85%; padding: 12px 14px; } .dialog-en { font-size: 0.88rem; } .dialog-cn { font-size: 0.8rem; } .speaker-avatar { width: 36px; height: 36px; font-size: 0.7rem; } .speed-control-bar { padding: 10px 12px; gap: 10px; } .speed-control-bar input[type="range"] { width: 100px; } }
+
+  /* 刘海屏适配 */
+  .top-nav, header, .speed-control-bar {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  
+  .bottom-player, .player-bar, footer {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  body {
+    padding-top: env(safe-area-inset-top, 0);
+  }
 </style>
 </head>
 <body>

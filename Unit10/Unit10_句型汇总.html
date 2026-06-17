@@ -122,6 +122,19 @@
 
   @media (max-width: 768px) { .container { padding: 20px 12px 60px; } .sentence-card { padding: 16px 14px; } .sentence-en { font-size: 0.92rem; } .sentence-cn { font-size: 0.85rem; } .tag { padding: 3px 8px; font-size: 0.7rem; } .top-nav { padding: 0 12px; } .nav-title { font-size: 0.95rem; } .nav-speed-slider { width: 70px; } .complete-btn { padding: 6px 12px; font-size: 0.78rem; } .bottom-player { padding: 0 12px; gap: 8px; } .player-btn { padding: 6px 10px; font-size: 0.75rem; } .player-section-label { font-size: 0.7rem; padding: 3px 8px; } .player-repeat-select { font-size: 0.75rem; padding: 5px 6px; } .player-loop-toggle { font-size: 0.75rem; padding: 5px 8px; } .progress-bar-container { max-width: 120px; } }
   @media (max-width: 480px) { .nav-center { display: none; } .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px; } .progress-bar-container { order: -1; width: 100%; max-width: none; margin-bottom: 4px; } }
+
+  /* 刘海屏适配 */
+  .top-nav, header, .speed-control-bar {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  
+  .bottom-player, .player-bar, footer {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  body {
+    padding-top: env(safe-area-inset-top, 0);
+  }
 </style>
 </head>
 <body>

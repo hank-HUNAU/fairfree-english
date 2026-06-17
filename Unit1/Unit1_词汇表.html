@@ -634,6 +634,19 @@
     .phonetic-cell { font-size: 0.72rem; }
   }
 
+
+  /* 刘海屏适配 */
+  .top-nav, header, .speed-control-bar {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  
+  .bottom-player, .player-bar, footer {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  body {
+    padding-top: env(safe-area-inset-top, 0);
+  }
 </style>
 </head>
 <body>

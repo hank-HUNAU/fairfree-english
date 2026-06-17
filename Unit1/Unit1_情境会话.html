@@ -857,6 +857,19 @@
     .bottom-player { flex-wrap: wrap; height: auto; padding: 8px 12px; }
     .progress-bar-container { max-width: 150px; }
   }
+
+  /* 刘海屏适配 */
+  .top-nav, header, .speed-control-bar {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  
+  .bottom-player, .player-bar, footer {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  body {
+    padding-top: env(safe-area-inset-top, 0);
+  }
 </style>
 </head>
 <body>
