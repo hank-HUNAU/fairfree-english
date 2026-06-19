@@ -26,11 +26,7 @@
   --radius: 12px;
 }
 
-html {
-  height: 100dvh;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-}
+html { height: 100dvh; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
 
 body {
   font-family: 'Noto Sans SC', 'Inter', sans-serif;
@@ -41,112 +37,54 @@ body {
   overscroll-behavior: none;
 }
 
-/* ===== 顶部导航 ===== */
 .top-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 56px;
-  background: var(--card-bg);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  padding-top: env(safe-area-inset-top, 0);
-  z-index: 100;
-  box-shadow: var(--shadow);
+  position: fixed; top: 0; left: 0; right: 0; height: 56px;
+  background: var(--card-bg); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px; padding-top: env(safe-area-inset-top, 0);
+  z-index: 100; box-shadow: var(--shadow);
 }
 
 .nav-back {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--primary);
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+  color: var(--primary); font-size: 14px; font-weight: 500; text-decoration: none;
 }
 
-.nav-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text);
-}
+.nav-title { font-size: 16px; font-weight: 600; color: var(--text); }
+.nav-progress { font-size: 13px; color: var(--text-muted); }
 
-.nav-progress {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-/* ===== 进度条 ===== */
 .progress-bar {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--border);
-  z-index: 99;
+  position: fixed; top: 56px; left: 0; right: 0; height: 4px;
+  background: var(--border); z-index: 99;
 }
 
-.progress-fill {
-  height: 100%;
-  background: var(--primary);
-  transition: width 0.3s ease;
-}
+.progress-fill { height: 100%; background: var(--primary); transition: width 0.3s ease; }
 
-/* ===== 主内容区 ===== */
 .container {
   padding: calc(56px + 4px + env(safe-area-inset-top, 10px)) 16px 80px;
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 600px; margin: 0 auto;
 }
 
-/* ===== 阶段指示 ===== */
-.phase-indicator {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 24px;
-}
+.phase-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
 
 .phase-dot {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--border);
-  color: var(--text-muted);
-  font-size: 14px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--border); color: var(--text-muted);
+  font-size: 14px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
   transition: all 0.3s;
 }
 
-.phase-dot.active {
-  background: var(--primary);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(66,87,178,0.3);
-}
-
-.phase-dot.completed {
-  background: var(--success);
-  color: #fff;
-}
+.phase-dot.active { background: var(--primary); color: #fff; box-shadow: 0 2px 8px rgba(66,87,178,0.3); }
+.phase-dot.completed { background: var(--success); color: #fff; }
 
 /* ===== Quizlet风格卡片 ===== */
-.card-container {
-  perspective: 1000px;
-  margin-bottom: 24px;
-}
+.card-container { perspective: 1000px; margin-bottom: 24px; }
 
 .vocab-card {
   position: relative;
   width: 100%;
-  min-height: 280px;
+  min-height: 300px;
   background: var(--card-bg);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -155,18 +93,13 @@ body {
   transform-style: preserve-3d;
 }
 
-.vocab-card.flipped {
-  transform: rotateY(180deg);
-}
+.vocab-card.flipped { transform: rotateY(180deg); }
 
 .card-front, .card-back {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   padding: 32px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
   backface-visibility: hidden;
   border-radius: var(--radius);
 }
@@ -177,391 +110,157 @@ body {
   color: #fff;
 }
 
-/* 卡片正面内容 */
 .card-word {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 16px;
-  text-align: center;
+  font-size: 32px; font-weight: 700; color: var(--text);
+  margin-bottom: 16px; text-align: center;
 }
 
-.card-syllables {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 20px;
-}
+.card-syllables { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
 
 .syllable {
-  padding: 8px 12px;
-  background: var(--bg);
-  border-radius: 6px;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--primary);
-  cursor: pointer;
-  transition: all 0.2s;
+  padding: 8px 12px; background: var(--bg);
+  border-radius: 6px; font-size: 18px; font-weight: 500;
+  color: var(--primary); cursor: pointer; transition: all 0.2s;
 }
 
-.syllable:hover {
-  background: var(--primary);
-  color: #fff;
-}
-
-.syllable.highlight {
-  background: var(--warning);
-  color: #fff;
-  animation: pulse 0.5s ease;
-}
+.syllable:hover { background: var(--primary); color: #fff; }
+.syllable.highlight { background: var(--warning); color: #fff; animation: pulse 0.5s ease; }
 
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.1); }
 }
 
-.card-phonetic {
-  font-size: 16px;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-}
+.card-phonetic { font-size: 16px; color: var(--text-muted); margin-bottom: 16px; }
 
 .card-play-btn {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  margin-top: 16px;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--primary); color: #fff; border: none;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; margin-top: 16px;
 }
 
-.card-play-btn:hover {
-  background: var(--primary-dark);
-  transform: scale(1.05);
-}
+.card-play-btn:hover { background: var(--primary-dark); transform: scale(1.05); }
+.card-play-btn svg { width: 24px; height: 24px; fill: currentColor; }
 
-.card-play-btn svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
-}
-
-/* 卡片背面内容 */
-.card-meaning {
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.card-example {
-  font-size: 14px;
-  opacity: 0.9;
-  text-align: center;
-  line-height: 1.6;
-}
+.card-meaning { font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 16px; }
+.card-example { font-size: 14px; opacity: 0.9; text-align: center; line-height: 1.6; }
 
 .flip-hint {
-  position: absolute;
-  bottom: 16px;
-  font-size: 12px;
-  color: var(--text-muted);
-  opacity: 0.6;
+  position: absolute; bottom: 16px; font-size: 12px;
+  color: var(--text-muted); opacity: 0.6;
 }
 
-/* ===== 第一轮：认识筛选 ===== */
-.round1-buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 24px;
-}
+.round1-buttons { display: flex; gap: 16px; justify-content: center; margin-top: 24px; }
 
 .know-btn, .unknown-btn {
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-  min-width: 120px;
+  padding: 16px 32px; border-radius: 12px; font-size: 16px;
+  font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; min-width: 120px;
 }
 
-.know-btn {
-  background: var(--success);
-  color: #fff;
-}
+.know-btn { background: var(--success); color: #fff; }
+.know-btn:hover { background: #27ae60; transform: translateY(-2px); }
 
-.know-btn:hover {
-  background: #27ae60;
-  transform: translateY(-2px);
-}
+.unknown-btn { background: var(--danger); color: #fff; }
+.unknown-btn:hover { background: #c0392b; transform: translateY(-2px); }
 
-.unknown-btn {
-  background: var(--danger);
-  color: #fff;
-}
-
-.unknown-btn:hover {
-  background: #c0392b;
-  transform: translateY(-2px);
-}
-
-/* ===== 第二轮：深度学习 ===== */
 .round2-info {
-  text-align: center;
-  margin-bottom: 24px;
-  padding: 16px;
-  background: var(--bg);
-  border-radius: 8px;
+  text-align: center; margin-bottom: 24px; padding: 16px;
+  background: var(--bg); border-radius: 8px;
 }
 
-.round2-info h3 {
-  font-size: 14px;
-  color: var(--primary);
-  margin-bottom: 8px;
-}
-
-.round2-info p {
-  font-size: 13px;
-  color: var(--text-muted);
-}
+.round2-info h3 { font-size: 14px; color: var(--primary); margin-bottom: 8px; }
+.round2-info p { font-size: 13px; color: var(--text-muted); }
 
 .syllable-play-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-top: 20px;
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; margin-top: 20px;
 }
 
 .syllable-play-btn {
-  padding: 12px 20px;
-  background: var(--bg);
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text);
-  cursor: pointer;
-  transition: all 0.2s;
+  padding: 12px 20px; background: var(--bg);
+  border: 2px solid var(--border); border-radius: 8px;
+  font-size: 14px; font-weight: 500; color: var(--text);
+  cursor: pointer; transition: all 0.2s;
 }
 
-.syllable-play-btn:hover {
-  border-color: var(--primary);
-  background: var(--primary);
-  color: #fff;
-}
+.syllable-play-btn:hover { border-color: var(--primary); background: var(--primary); color: #fff; }
+.syllable-play-btn.playing { background: var(--warning); border-color: var(--warning); color: #fff; }
 
-.syllable-play-btn.playing {
-  background: var(--warning);
-  border-color: var(--warning);
-  color: #fff;
-}
-
-/* ===== 第三轮：测试 ===== */
 .test-section {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 24px;
-  box-shadow: var(--shadow);
+  background: var(--card-bg); border-radius: var(--radius);
+  padding: 24px; box-shadow: var(--shadow);
 }
 
-.test-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
+.test-header { text-align: center; margin-bottom: 24px; }
+.test-header h2 { font-size: 18px; color: var(--primary); margin-bottom: 8px; }
+.test-header p { font-size: 14px; color: var(--text-muted); }
 
-.test-header h2 {
-  font-size: 18px;
-  color: var(--primary);
-  margin-bottom: 8px;
-}
-
-.test-header p {
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-.test-question {
-  margin-bottom: 24px;
-}
-
-.test-question-text {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 16px;
-}
+.test-question { margin-bottom: 24px; }
+.test-question-text { font-size: 16px; font-weight: 500; margin-bottom: 16px; }
 
 .test-input {
-  width: 100%;
-  padding: 16px;
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.2s;
+  width: 100%; padding: 16px; border: 2px solid var(--border);
+  border-radius: 8px; font-size: 16px; transition: border-color 0.2s;
 }
 
-.test-input:focus {
-  outline: none;
-  border-color: var(--primary);
-}
+.test-input:focus { outline: none; border-color: var(--primary); }
+.test-input.correct { border-color: var(--success); background: rgba(46,204,113,0.1); }
+.test-input.wrong { border-color: var(--danger); background: rgba(231,76,60,0.1); }
 
-.test-input.correct {
-  border-color: var(--success);
-  background: rgba(46,204,113,0.1);
-}
-
-.test-input.wrong {
-  border-color: var(--danger);
-  background: rgba(231,76,60,0.1);
-}
-
-/* 匹配测试 */
-.match-container {
-  display: flex;
-  gap: 24px;
-  justify-content: space-between;
-}
-
-.match-column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.match-container { display: flex; gap: 24px; justify-content: space-between; }
+.match-column { flex: 1; display: flex; flex-direction: column; gap: 12px; }
 
 .match-item {
-  padding: 16px;
-  background: var(--bg);
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: center;
+  padding: 16px; background: var(--bg); border: 2px solid var(--border);
+  border-radius: 8px; font-size: 14px; cursor: pointer;
+  transition: all 0.2s; text-align: center;
 }
 
-.match-item:hover {
-  border-color: var(--primary);
-}
+.match-item:hover { border-color: var(--primary); }
+.match-item.selected { border-color: var(--primary); background: rgba(66,87,178,0.1); }
+.match-item.matched { border-color: var(--success); background: rgba(46,204,113,0.1); cursor: default; }
 
-.match-item.selected {
-  border-color: var(--primary);
-  background: rgba(66,87,178,0.1);
-}
+.result-section { text-align: center; padding: 48px 24px; }
+.result-score { font-size: 48px; font-weight: 700; color: var(--primary); margin-bottom: 16px; }
+.result-message { font-size: 18px; color: var(--text); margin-bottom: 32px; }
 
-.match-item.matched {
-  border-color: var(--success);
-  background: rgba(46,204,113,0.1);
-  cursor: default;
-}
-
-/* ===== 结果页面 ===== */
-.result-section {
-  text-align: center;
-  padding: 48px 24px;
-}
-
-.result-score {
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 16px;
-}
-
-.result-message {
-  font-size: 18px;
-  color: var(--text);
-  margin-bottom: 32px;
-}
-
-.result-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-}
+.result-actions { display: flex; gap: 16px; justify-content: center; }
 
 .result-btn {
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
+  padding: 16px 32px; border-radius: 12px; font-size: 16px;
+  font-weight: 600; cursor: pointer; border: none; transition: all 0.2s;
 }
 
-.result-btn.primary {
-  background: var(--primary);
-  color: #fff;
-}
+.result-btn.primary { background: var(--primary); color: #fff; }
+.result-btn.secondary { background: var(--bg); color: var(--text); border: 2px solid var(--border); }
 
-.result-btn.secondary {
-  background: var(--bg);
-  color: var(--text);
-  border: 2px solid var(--border);
-}
-
-/* ===== 底部操作栏 ===== */
 .bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
-  background: var(--card-bg);
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 0 16px;
+  position: fixed; bottom: 0; left: 0; right: 0; height: 64px;
+  background: var(--card-bg); border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; padding: 0 16px;
   padding-bottom: env(safe-area-inset-bottom, 0);
   z-index: 100;
 }
 
 .bottom-btn {
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
+  padding: 12px 24px; border-radius: 8px; font-size: 14px;
+  font-weight: 600; cursor: pointer; border: none; transition: all 0.2s;
 }
 
-.bottom-btn.primary {
-  background: var(--primary);
-  color: #fff;
-}
+.bottom-btn.primary { background: var(--primary); color: #fff; }
+.bottom-btn.secondary { background: var(--bg); color: var(--text); }
 
-.bottom-btn.secondary {
-  background: var(--bg);
-  color: var(--text);
-}
-
-/* ===== 隐藏状态 ===== */
 .hidden { display: none !important; }
 
-/* ===== 手机适配 ===== */
 @media (max-width: 480px) {
   .container { padding: calc(56px + 4px + 10px) 12px 80px; }
-  
   .card-word { font-size: 28px; }
   .syllable { padding: 6px 10px; font-size: 16px; }
   .card-meaning { font-size: 20px; }
-  
   .know-btn, .unknown-btn { padding: 14px 24px; font-size: 14px; min-width: 100px; }
-  
   .match-container { flex-direction: column; gap: 16px; }
-  
   .bottom-bar { height: 56px; gap: 12px; }
   .bottom-btn { padding: 10px 20px; font-size: 13px; }
 }
@@ -575,7 +274,6 @@ body {
 </head>
 <body>
 
-<!-- 顶部导航 -->
 <nav class="top-nav">
   <a class="nav-back" href="mycourse.html">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
@@ -585,15 +283,12 @@ body {
   <span class="nav-progress" id="navProgress">0/69</span>
 </nav>
 
-<!-- 进度条 -->
 <div class="progress-bar">
   <div class="progress-fill" id="progressFill" style="width: 0%"></div>
 </div>
 
-<!-- 主内容 -->
 <main class="container">
 
-  <!-- 阶段指示 -->
   <div class="phase-indicator">
     <div class="phase-dot active" data-phase="1">1</div>
     <div class="phase-dot" data-phase="2">2</div>
@@ -677,12 +372,8 @@ body {
       <!-- 匹配测试 -->
       <div id="matchTest" class="hidden">
         <div class="match-container">
-          <div class="match-column" id="matchEnglish">
-            <!-- 英文选项 -->
-          </div>
-          <div class="match-column" id="matchChinese">
-            <!-- 中文选项 -->
-          </div>
+          <div class="match-column" id="matchEnglish"></div>
+          <div class="match-column" id="matchChinese"></div>
         </div>
       </div>
     </div>
@@ -702,7 +393,6 @@ body {
 
 </main>
 
-<!-- 底部操作栏 -->
 <div class="bottom-bar">
   <button class="bottom-btn secondary" onclick="skipWord()">跳过</button>
   <button class="bottom-btn primary" id="nextBtn" onclick="nextWord()">下一个</button>
@@ -725,12 +415,60 @@ const vocabData = [
 
 // ===== 状态管理 =====
 let currentIndex = 0;
-let currentPhase = 1; // 1: 筛选, 2: 深度学习, 3: 测试
+let currentPhase = 1;
 let knownWords = [];
 let unknownWords = [];
 let testResults = { correct: 0, wrong: 0 };
+let matchSelectedCount = 0;
 
-// ===== 第一轮：认识筛选 =====
+// ===== 音频播放 =====
+function playAudio(text, callback) {
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.8;
+    utterance.pitch = 1;
+    if (callback) utterance.onend = callback;
+    window.speechSynthesis.speak(utterance);
+  }
+}
+
+function playWord(e) {
+  e.stopPropagation();
+  const word = vocabData[currentIndex].word;
+  playAudio(word);
+  
+  // 高亮音节
+  document.querySelectorAll('.syllable').forEach(s => s.classList.add('highlight'));
+  setTimeout(() => {
+    document.querySelectorAll('.syllable').forEach(s => s.classList.remove('highlight'));
+  }, 2000);
+}
+
+function playSyllable(syllable, e) {
+  e.stopPropagation();
+  playAudio(syllable);
+}
+
+function playWord2(e) {
+  e.stopPropagation();
+  const word = unknownWords[currentIndex].word;
+  playAudio(word);
+}
+
+function playSyllable2(syllable, btn) {
+  btn.classList.add('playing');
+  playAudio(syllable, () => {
+    setTimeout(() => btn.classList.remove('playing'), 200);
+  });
+}
+
+function playTestWord() {
+  const word = unknownWords[currentIndex].word;
+  playAudio(word);
+}
+
+// ===== 第一轮 =====
 function showRound1Word(index) {
   if (index >= vocabData.length) {
     startRound2();
@@ -742,15 +480,12 @@ function showRound1Word(index) {
   document.getElementById('cardPhonetic').textContent = vocab.phonetic;
   document.getElementById('cardMeaning').textContent = vocab.meaning;
   
-  // 生成音节
   const syllablesHtml = vocab.syllables.map(s => 
     `<span class="syllable" onclick="playSyllable('${s}', event)">${s}</span>`
   ).join('');
   document.getElementById('cardSyllables').innerHTML = syllablesHtml;
   
-  // 重置卡片状态
   document.getElementById('vocabCard').classList.remove('flipped');
-  
   updateProgress(index);
 }
 
@@ -770,7 +505,7 @@ function flipCard() {
   document.getElementById('vocabCard').classList.toggle('flipped');
 }
 
-// ===== 第二轮：深度学习 =====
+// ===== 第二轮 =====
 function startRound2() {
   currentPhase = 2;
   updatePhaseIndicator(2);
@@ -798,7 +533,6 @@ function showRound2Word(index) {
   document.getElementById('cardPhonetic2').textContent = vocab.phonetic;
   document.getElementById('cardMeaning2').textContent = vocab.meaning;
   
-  // 生成音节播放按钮
   const controlsHtml = vocab.syllables.map(s => 
     `<button class="syllable-play-btn" onclick="playSyllable2('${s}', this)">${s}</button>`
   ).join('');
@@ -812,7 +546,7 @@ function flipCard2() {
   document.getElementById('vocabCard2').classList.toggle('flipped');
 }
 
-// ===== 第三轮：测试 =====
+// ===== 第三轮 =====
 function startRound3() {
   currentPhase = 3;
   updatePhaseIndicator(3);
@@ -821,6 +555,7 @@ function startRound3() {
   document.getElementById('round3').classList.remove('hidden');
   
   currentIndex = 0;
+  matchSelectedCount = 0;
   showSpellingTest(currentIndex);
 }
 
@@ -842,7 +577,7 @@ function checkSpelling() {
   const word = input.dataset.word;
   const value = input.value.toLowerCase().trim();
   
-  if (value === word.toLowerCase()) {
+  if (value === word.toLowerCase() && value.length >= word.length * 0.5) {
     input.className = 'test-input correct';
     testResults.correct++;
     setTimeout(() => {
@@ -858,7 +593,6 @@ function showMatchTest() {
   document.getElementById('testTitle').textContent = '匹配测试';
   document.getElementById('testSubtitle').textContent = '将英文与中文匹配';
   
-  // 生成匹配选项
   const words = unknownWords.slice(0, 5);
   const shuffledWords = [...words].sort(() => Math.random() - 0.5);
   const shuffledMeanings = [...words].sort(() => Math.random() - 0.5);
@@ -891,7 +625,6 @@ function selectMatch(el, type) {
     el.classList.add('selected');
   }
   
-  // 检查匹配
   if (selectedEn && selectedCn) {
     const enWord = selectedEn.dataset.word;
     const cnWord = selectedCn.dataset.word;
@@ -902,6 +635,7 @@ function selectMatch(el, type) {
       selectedEn.classList.remove('selected');
       selectedCn.classList.remove('selected');
       testResults.correct++;
+      matchSelectedCount++;
     } else {
       testResults.wrong++;
       selectedEn.classList.remove('selected');
@@ -911,9 +645,7 @@ function selectMatch(el, type) {
     selectedEn = null;
     selectedCn = null;
     
-    // 检查是否完成
-    const matchedCount = document.querySelectorAll('.match-item.matched').length;
-    if (matchedCount >= 10) {
+    if (matchSelectedCount >= 5) {
       showResult();
     }
   }
@@ -926,7 +658,7 @@ function showResult() {
   document.querySelector('.bottom-bar').classList.add('hidden');
   
   const total = testResults.correct + testResults.wrong;
-  const score = Math.round((testResults.correct / total) * 100);
+  const score = total > 0 ? Math.round((testResults.correct / total) * 100) : 0;
   
   document.getElementById('resultScore').textContent = score + '%';
   
@@ -942,7 +674,7 @@ function showResult() {
 // ===== 辅助函数 =====
 function updateProgress(index) {
   const total = currentPhase === 1 ? vocabData.length : unknownWords.length;
-  const percent = Math.round((index / total) * 100);
+  const percent = total > 0 ? Math.round((index / total) * 100) : 0;
   
   document.getElementById('progressFill').style.width = percent + '%';
   document.getElementById('navProgress').textContent = `${index}/${total}`;
@@ -971,41 +703,8 @@ function skipWord() {
   nextWord();
 }
 
-// ===== 音频播放（模拟） =====
-function playWord(e) {
-  e.stopPropagation();
-  // 实际项目中使用音频文件
-  console.log('播放单词:', vocabData[currentIndex].word);
-  // 模拟高亮效果
-  document.querySelectorAll('.syllable').forEach(s => s.classList.add('highlight'));
-  setTimeout(() => {
-    document.querySelectorAll('.syllable').forEach(s => s.classList.remove('highlight'));
-  }, 2000);
-}
-
-function playSyllable(syllable, e) {
-  e.stopPropagation();
-  console.log('播放音节:', syllable);
-}
-
-function playWord2(e) {
-  e.stopPropagation();
-  console.log('播放单词:', unknownWords[currentIndex].word);
-}
-
-function playSyllable2(syllable, btn) {
-  btn.classList.add('playing');
-  console.log('播放音节:', syllable);
-  setTimeout(() => btn.classList.remove('playing'), 1000);
-}
-
-function playTestWord() {
-  console.log('播放测试单词');
-}
-
 // ===== 进度保存 =====
 function saveProgress() {
-  // 保存到localStorage
   const progress = {
     module: 'Module2',
     date: new Date().toISOString(),
@@ -1016,7 +715,6 @@ function saveProgress() {
   
   localStorage.setItem('previewProgress', JSON.stringify(progress));
   
-  // 同步到学习打卡系统
   if (window.studyTracker) {
     window.studyTracker.markComplete('preview', 'Module2');
   }
@@ -1031,6 +729,7 @@ function restartPreview() {
   knownWords = [];
   unknownWords = [];
   testResults = { correct: 0, wrong: 0 };
+  matchSelectedCount = 0;
   
   document.getElementById('round1').classList.remove('hidden');
   document.getElementById('round2').classList.add('hidden');
